@@ -1,3 +1,14 @@
+import HeaderField from '@/components/header/headerField'
+import RaidGuideField from '@/components/raidGuideField/raidGuideField'
+import Section from '@/components/utils/section'
+
 export default function RaidGuide() {
-  return <div>레이드 가이드 페이지</div>
+  return (
+    <Section>
+      <main className='flex min-h-screen w-full flex-col items-center'>
+        <HeaderField />
+        <RaidGuideField />
+      </main>
+    </Section>
+  )
 }
