@@ -1,8 +1,17 @@
+import HeaderField from '@/components/header/headerField'
+import Section from '@/components/utils/section'
+
 interface IdParams {
   params: { id: string }
 }
 
 export default function Raidguide({ params: { id } }: IdParams) {
   console.log(id)
-  return <div>Radigudie {id} 상세보기</div>
+  return (
+    <Section>
+      <main className='flex min-h-screen w-full flex-col items-center'>
+        <HeaderField />
+      </main>
+    </Section>
+  )
 }
