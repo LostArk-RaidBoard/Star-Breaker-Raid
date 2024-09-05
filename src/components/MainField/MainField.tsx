@@ -1,4 +1,4 @@
-import Embeded from '@/components/MainField/Embeded'
+import SiteLink from '@/components/MainField/SiteLink'
 import MainPost from '@/components/MainField/MainPost'
 import MainRaidGuide from '@/components/MainField/MainRaidGuide'
 
@@ -9,7 +9,7 @@ export default function MainField() {
         <MainPost />
       </div>
       <div className='mt-8 h-24 w-full'>
-        <Embeded />
+        <SiteLink />
       </div>
       <div className='mt-8 w-full'>
         <MainRaidGuide />
