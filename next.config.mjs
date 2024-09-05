@@ -7,7 +7,14 @@ const nextConfig = {
     })
     return config
   },
-
+  async rewrites() {
+    return [
+      {
+        source: '/lostark/:path*',
+        destination: 'https://developer-lostark.game.onstove.com/:path*',
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {
