@@ -1,4 +1,4 @@
-import Gun from '@image/icon/배틀마스터.svg'
+import Gun from '@image/classIcon/홀리나이트.svg'
 export default function RaidCreatePost() {
   return (
     <div className='h-96 w-full'>
