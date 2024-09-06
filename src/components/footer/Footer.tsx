@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className='flex w-full flex-col items-center justify-center p-4 text-black'>
+    <footer className='flex w-full flex-col items-center justify-center p-4 text-sm text-black'>
       <span>[로아 이미지 저작자] Smilegate RPG</span>
       <span>
         문의 | 버그 : <span className='underline'>wjd15sheep@gmail.com</span>
