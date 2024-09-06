@@ -24,13 +24,7 @@ export default function MainCharacter() {
         />
 
         <div className='mt-4 flex items-center gap-2'>
-          <Image
-            src={'/장비.png'}
-            alt='장비'
-            width={30}
-            height={30}
-            className='hidden p-1 sm:block'
-          />
+          <Image src={'/장비.png'} alt='장비' width={30} height={30} className='p-1' />
           <span>장비 레벨 : {equipment}</span>
         </div>
         <div className='mt-1 flex hidden flex-col gap-3 text-base md:block'>
