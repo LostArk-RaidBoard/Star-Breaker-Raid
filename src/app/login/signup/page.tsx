@@ -1,3 +1,10 @@
+import SignupField from '@/components/login/signupField'
+import Section from '@/components/utils/section'
+
 export default function Signup() {
-  return <div>Signup</div>
+  return (
+    <Section>
+      <SignupField />
+    </Section>
+  )
 }
