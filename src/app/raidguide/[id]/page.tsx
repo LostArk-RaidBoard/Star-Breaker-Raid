@@ -5,7 +5,7 @@ interface IdParams {
   params: { id: string }
 }
 
-export default function Raidguide({ params: { id } }: IdParams) {
+export default async function Raidguide({ params: { id } }: IdParams) {
   console.log(id)
   return (
     <Section>
