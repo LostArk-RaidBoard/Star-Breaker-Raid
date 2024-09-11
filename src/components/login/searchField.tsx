@@ -49,13 +49,24 @@ export default function SearchField() {
   }
 
   const handlerPost = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     // 이메일 형식 검증
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailPattern.test(userId)) {
       alert('유효한 이메일 주소를 입력하세요.')
       return
     }
-    e.preventDefault()
+
+    if (userPassword.length < 8) {
+      alert('비밀번호는 최소 8 글자입니다.')
+      return
+    }
+
+    if (userPassword.length > 32) {
+      alert('비밀번호는 최대 32 글자입니다.')
+      return
+    }
+
     try {
       const response = await fetch('/api/search', {
         method: 'POST',

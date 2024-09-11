@@ -20,6 +20,16 @@ export default function SignupField() {
       return
     }
 
+    if (userPassword.length < 8) {
+      alert('비밀번호는 최소 8 글자입니다.')
+      return
+    }
+
+    if (userPassword.length > 32) {
+      alert('비밀번호는 최대 32 글자입니다.')
+      return
+    }
+
     // 이메일 형식 검증
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailPattern.test(userEmail)) {
@@ -97,7 +107,7 @@ export default function SignupField() {
       <input
         type='password'
         name='userPassword'
-        placeholder='비밀번호'
+        placeholder='비밀번호 최소 8 ~ 최대 32'
         className='h-12 w-[400px] rounded-md border border-gray-400 px-1'
         value={userPassword}
         autoComplete='off'
