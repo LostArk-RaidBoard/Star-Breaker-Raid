@@ -16,6 +16,12 @@ export default function SearchField() {
 
   const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (userName.length === 0 || birthday.length === 0) {
+      setFetchState(5)
+
+      return
+    }
+
     try {
       const response = await fetch(
         `/api/search?userName=${encodeURIComponent(userName)}&birthday=${encodeURIComponent(birthday)}`,
@@ -50,20 +56,28 @@ export default function SearchField() {
 
   const handlerPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // 이메일 형식 검증
+
+    if (userId.length === 0 || userPassword.length === 0) {
+      setFetchState(6)
+      return
+    }
+
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailPattern.test(userId)) {
-      alert('유효한 이메일 주소를 입력하세요.')
+      setMessage('유효한 이메일 주소를 입력하세요.')
+      setFetchState(4)
       return
     }
 
     if (userPassword.length < 8) {
-      alert('비밀번호는 최소 8 글자입니다.')
+      setMessage('비밀번호는 최소 8 글자입니다.')
+      setFetchState(4)
       return
     }
 
     if (userPassword.length > 32) {
-      alert('비밀번호는 최대 32 글자입니다.')
+      setMessage('비밀번호는 최대 32 글자입니다.')
+      setFetchState(4)
       return
     }
 
@@ -110,16 +124,19 @@ export default function SearchField() {
         />
         <span className='mt-4 flex w-[400px] justify-start text-lg'>생년월일 입력</span>
         <InputLayout
-          setType={'text'}
-          setName={'text'}
+          setType={'number'}
+          setName={'birthday'}
           setPlaceholder={'19000101'}
           setCSS={'w-[400px] h-12 rounded-md'}
           setValue={setBirthday}
           value={birthday}
         />
-        <div className={`flex w-[400px] flex-col justify-start p-2`}>
+        <div className={`mt-1 flex w-[400px] flex-col justify-start p-2`}>
           <span className={`${fetchState == 1 ? '' : 'hidden'}`}>아이디 : {dbUser}</span>
           <span className={`${fetchState == 2 ? '' : 'hidden'}`}>가입한 이력이 없습니다.</span>
+          <span className={`${fetchState == 5 ? '' : 'hidden'} text-red-500`}>
+            이름과 생년월일을 꼭 입력해주세요
+          </span>
         </div>
         <button type='submit' className='mt-4 h-12 w-[400px] rounded-md bg-gray-900 text-white'>
           아이디 찾기
@@ -145,8 +162,13 @@ export default function SearchField() {
           value={userPassword}
         />
         <div className={`flex w-[400px] flex-col justify-start p-2`}>
-          <span className={`${fetchState == 3 ? '' : 'hidden'}`}>비밀번호 재설정 성공{dbUser}</span>
-          <span className={`${fetchState == 4 ? '' : 'hidden'} text-red-500`}>{message}</span>
+          <span className={`${fetchState == 3 ? '' : 'hidden'}`}>비밀번호 재설정 성공</span>
+          <span className={`${fetchState == 4 ? '' : 'hidden'} text-red-500`}>
+            실패 : {message}
+          </span>
+          <span className={`${fetchState == 6 ? '' : 'hidden'} text-red-500`}>
+            아이디, 비밀번호를 꼭 입력해주세요
+          </span>
         </div>
         <button className='mt-4 h-12 w-[400px] rounded-md bg-gray-900 text-white'>
           비밀번호 재설정

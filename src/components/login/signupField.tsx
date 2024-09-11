@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import { sql } from '@vercel/postgres'
 import { hashPassword } from '@/components/utils/bcrypt'
 import { useState } from 'react'
 
@@ -11,35 +10,47 @@ export default function SignupField() {
   const [userPassword, setUserPassword] = useState('')
   const [userPassword2, setUserPassword2] = useState('')
   const [signupResult, setSignupResult] = useState(0)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault() // 폼 제출 시 페이지 리로드 방지
+    console.log(userName.length)
+    if (userName.length === 0) {
+      setErrorMessage('이름을 입력해주세요')
+      setSignupResult(2)
+      return
+    }
 
     if (userPassword !== userPassword2) {
-      alert('비밀번호와 확인 비밀번호가 다릅니다.')
+      setErrorMessage('비밀번호와 확인 비밀번호가 다릅니다.')
+      setSignupResult(2)
       return
     }
 
     if (userPassword.length < 8) {
-      alert('비밀번호는 최소 8 글자입니다.')
+      setErrorMessage('비밀번호는 최소 8 글자입니다.')
+      setSignupResult(2)
       return
     }
 
     if (userPassword.length > 32) {
-      alert('비밀번호는 최대 32 글자입니다.')
+      setErrorMessage('비밀번호는 최대 32 글자입니다.')
+      setSignupResult(2)
       return
     }
 
     // 이메일 형식 검증
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailPattern.test(userEmail)) {
-      alert('유효한 이메일 주소를 입력하세요.')
+      setErrorMessage('유효한 이메일 주소를 입력하세요.')
+      setSignupResult(2)
       return
     }
 
     // 생년월일 형식 검증
     if (birthday.length !== 8 || isNaN(parseInt(birthday, 10))) {
-      alert('생년월일은 YYYYMMDD 형식으로 입력해야 합니다.')
+      setErrorMessage('생년월일은 YYYYMMDD 형식으로 입력해야 합니다.')
+      setSignupResult(2)
       return
     }
 
@@ -58,7 +69,7 @@ export default function SignupField() {
       if (res.ok) {
         setSignupResult(1) // 회원가입 성공
       } else {
-        alert(data.message)
+        setErrorMessage(data.message)
         setSignupResult(2) // 회원가입 실패
       }
     } catch (error) {
@@ -85,7 +96,7 @@ export default function SignupField() {
       />
       <span className='mt-4 flex w-[400px] justify-start text-lg'>생년월일 입력</span>
       <input
-        type='text'
+        type='number'
         name='birthday'
         placeholder='19000101'
         className='h-12 w-[400px] rounded-md border border-gray-400 px-1'
@@ -123,11 +134,15 @@ export default function SignupField() {
         autoComplete='off'
         onChange={(e) => setUserPassword2(e.target.value)}
       />
-      <div className='flex h-12 w-full items-center justify-center'>
+      <div
+        className={`${signupResult === 0 ? 'hidden' : ''} mt-4 flex w-full items-center justify-center`}
+      >
         <span className={`${signupResult == 1 ? '' : 'hidden'}`}>회원가입 성공</span>
-        <span className={`${signupResult == 2 ? '' : 'hidden'} text-red-500`}>회원가입 실패</span>
+        <span className={`${signupResult == 2 ? '' : 'hidden'} text-red-500`}>
+          회원가입 실패 : {errorMessage}
+        </span>
       </div>
-      <button type='submit' className='mt-2 h-12 w-[400px] rounded-md bg-gray-900 text-white'>
+      <button type='submit' className='mt-8 h-12 w-[400px] rounded-md bg-gray-900 text-white'>
         회원가입
       </button>
       <Link

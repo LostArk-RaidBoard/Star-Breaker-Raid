@@ -2,7 +2,14 @@ import { sql } from '@vercel/postgres'
 
 export async function getUserFromDb(email: string) {
   try {
-    const res = await sql`SELECT * FROM users WHERE user_id = ${email}`
+    const res = await sql`SELECT 
+    users.user_id,
+    users.password,
+    users.user_name,
+    users.birthday,
+    roles.role
+FROM users
+LEFT OUTER JOIN roles ON users.role_id = roles.role_id WHERE user_id=${email}`
 
     if (res.rowCount === 0) {
       return null // 사용자 없음

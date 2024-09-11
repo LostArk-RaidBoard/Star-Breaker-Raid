@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
 
           // 유저 반환
-          return { id: user.user_id, role: user.role_id }
+          return { id: user.user_id, role: user.role }
         } catch (error) {
           if (error instanceof ZodError) {
             return null
@@ -53,7 +53,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log(2)
       if (user) {
         token.id = user.id
         token.role = user.role // 역할 추가
@@ -69,17 +68,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session
     },
     async signIn({ user, account, profile }) {
-      console.log(1)
-      // account가 null이 아니고 profile이 정의되어 있을 때만 처리
       if (account && account.provider === 'google' && profile && profile.email) {
-        // Google 로그인 시 사용자 정보를 처리
         const existingUser = await getUserFromDb(profile.email)
         if (!existingUser) {
           const userName = profile.given_name || '이름 없음' // 이름이 없는 경우 기본값 설정
-          // Google People API를 통해 생일 정보를 가져옴
           const birthday = account.access_token ? await getUserBirthday(account.access_token) : null
-          console.log(userName)
-          console.log(birthday)
           const userRegistrationResponse = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
             {
@@ -99,8 +92,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const errorData = await userRegistrationResponse.json()
             throw new Error(errorData.message) // 에러 처리
           }
+
+          user.id = profile.email
+          user.role = 'user'
+        } else {
+          user.id = existingUser.user_id
+          user.role = existingUser.role
         }
       }
+      console.log(user)
       return true // 로그인 성공
     },
   },
