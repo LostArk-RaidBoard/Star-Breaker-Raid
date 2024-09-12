@@ -33,7 +33,9 @@ export default function LoginField() {
     if (result?.error) {
       setError('로그인에 실패했습니다. 이메일과 비밀번호를 확인하세요.')
     } else {
-      router.push('/')
+      const redirectPath = new URLSearchParams(window.location.search).get('redirect') || '/'
+      console.log(redirectPath)
+      router.push(redirectPath)
     }
   }
 
