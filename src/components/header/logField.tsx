@@ -12,7 +12,7 @@ export default function LogField() {
     <div className='flex h-12 w-24 items-center justify-center text-base text-gray-800 sm:text-lg'>
       {session && session.user ? (
         <button className={`flex items-center justify-center gap-1`} onClick={() => signOut()}>
-          <span>로그아웃</span> <Logout className='h-7 w-7' />
+          <span>로그아웃</span> <Logout className='h-6 w-6' />
         </button>
       ) : (
         <button className={``}>
