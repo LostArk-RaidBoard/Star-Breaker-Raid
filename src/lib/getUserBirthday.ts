@@ -1,5 +1,4 @@
 export default async function getUserBirthday(accessToken: any) {
-  console.log('birthday 가져오기')
   const response = await fetch(
     `https://people.googleapis.com/v1/people/me?personFields=birthdays`,
     {
@@ -15,7 +14,6 @@ export default async function getUserBirthday(accessToken: any) {
   }
 
   const data = await response.json()
-  console.log(data)
 
   // 생일 데이터를 변환하는 로직
   if (data.birthdays && data.birthdays.length > 0) {
@@ -26,7 +24,7 @@ export default async function getUserBirthday(accessToken: any) {
 
     // yyyyMMdd 형식으로 변환
     const formattedBirthday = `${year}${month}${day}`
-    console.log(formattedBirthday)
+
     return formattedBirthday
   }
 

@@ -14,7 +14,7 @@ export default function SignupField() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault() // 폼 제출 시 페이지 리로드 방지
-    console.log(userName.length)
+
     if (userName.length === 0) {
       setErrorMessage('이름을 입력해주세요')
       setSignupResult(2)

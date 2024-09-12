@@ -100,7 +100,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           user.role = existingUser.role
         }
       }
-      console.log(user)
+
       return true // 로그인 성공
     },
   },
