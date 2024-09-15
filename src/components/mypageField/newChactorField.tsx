@@ -48,7 +48,6 @@ export default function NewCharacterField({
   }
 
   const saveItemHandler = async () => {
-    console.log(newCharacterList)
     for (const item of newCharacterList) {
       await SaveCharacterFetch(item, userId) // 함수로 호출
     }
