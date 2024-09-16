@@ -1,5 +1,5 @@
 'use client'
-import LogField from '@/components/header/logField'
+import LogField from '@/components/header/HeadlogField'
 import NaviBar from '@/components/header/NaviBar'
 import Menu from '@image/icon/menu.svg'
 import { useState } from 'react'

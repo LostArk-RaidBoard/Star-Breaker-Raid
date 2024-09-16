@@ -1,4 +1,4 @@
-import LogField from '@/components/header/logField'
+import LogField from '@/components/header/HeadlogField'
 import Logo from '@/components/header/Logo'
 import MHeaderField from '@/components/header/mHeaderField'
 import NaviBar from '@/components/header/NaviBar'

@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import User from '@image/icon/user.svg'
-import Hand from '@image/icon/hand.svg'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
