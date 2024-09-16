@@ -1,6 +1,7 @@
 'use server'
 import { sql } from '@vercel/postgres'
 import { hashPassword } from '@/components/utils/bcrypt'
+export const dynamic = 'force-dynamic'
 
 export async function GET(req: Request) {
   const url = new URL(req.url)
