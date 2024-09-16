@@ -2,7 +2,7 @@
 import SaveCharacterFetch from '@/components/mypageField/saveFetch'
 import Xmark from '@image/icon/xmark.svg'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface CharacterList {
   CharacterClassName: string
@@ -29,11 +29,12 @@ export default function NewCharacterField({
   setNewCharacterList,
   userId,
 }: Props) {
-  const [saveState, SetsaveState] = useState(0)
+  const [saveState, setSaveState] = useState(0)
 
   const newCharacterResetHandler = () => {
     setNewCharacterList([])
     setNewHidden(false)
+    setSaveState(0)
   }
 
   const deleteItemHandler = (index: number, itemCharacterName: string) => {
@@ -48,10 +49,22 @@ export default function NewCharacterField({
   }
 
   const saveItemHandler = async () => {
+    setSaveState(0)
+    const resultList = []
     for (const item of newCharacterList) {
-      await SaveCharacterFetch(item, userId) // 함수로 호출
+      resultList.push(await SaveCharacterFetch(item, userId)) // 함수로 호출
+    }
+
+    if (resultList.includes(false)) {
+      setSaveState(2)
+    } else {
+      setSaveState(1)
     }
   }
+
+  useEffect(() => {
+    setSaveState(0)
+  }, [newCharacterList])
 
   return (
     <div className={`mt-4 ${newHidden ? '' : 'hidden'}`}>

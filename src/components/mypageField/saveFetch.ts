@@ -1,3 +1,5 @@
+import { sql } from '@vercel/postgres'
+
 interface CharacterList {
   CharacterClassName: string
   CharacterLevel: number
@@ -13,7 +15,7 @@ interface SaveCharacterInfo {
   character_name: string
   user_id: string
   character_level: string
-  class: string
+  character_class: string
   server_name: string
   class_image: string
   class_icon_url: string
@@ -56,7 +58,7 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
     character_name: item.CharacterName,
     user_id: userId,
     character_level: item.ItemAvgLevel,
-    class: item.CharacterClassName,
+    character_class: item.CharacterClassName,
     server_name: item.ServerName,
     class_image: item.CharacterImage,
     class_icon_url: item.CharacterClassIcon,
@@ -66,6 +68,8 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
     enlightenment: 0,
     evolution: 0,
   }
+
+  let fetchResult = false
 
   /**
    * lostark arkpassive 정보 가져오기
@@ -94,10 +98,11 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
     }
   } catch (e) {
     console.error(e)
+    fetchResult = false
   }
 
   /**
-   * LostArk 초월 정보 가져오기
+   * LostArk 장비 정보 가져오기
    */
   try {
     const response = await fetch(`/lostark/armories/characters/${item.CharacterName}/equipment`, {
@@ -113,23 +118,61 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
       const characterlevelfloat = parseFloat(saveCharacterInfo.character_level.replace(/,/g, '')) // 쉼표 제거 후 숫자로 변환
       if (characterlevelfloat >= 1600) {
         // 엘릭서 가져오기
-        for (let i = 1; i <= 5; i++) {
-          const tooltip = JSON.parse(data[i].Tooltip)
-          parseTooltipForElixer(tooltip, saveCharacterInfo)
+        if (response.ok && Array.isArray(data)) {
+          if (data.length >= 5) {
+            for (let i = 1; i <= 5; i++) {
+              try {
+                const tooltip = JSON.parse(data[i].Tooltip)
+                parseTooltipForElixer(tooltip, saveCharacterInfo)
+              } catch (e) {
+                console.error('Failed to parse Tooltip for data index', i, e)
+              }
+            }
+          } else {
+            console.error('Unexpected data length:', data.length)
+          }
         }
       }
 
       if (characterlevelfloat >= 1610) {
         // 초월 정보  가져오기
-        const tooltip = JSON.parse(data[1].Tooltip)
-        parseTooltipForTranscendence(tooltip, saveCharacterInfo)
+        try {
+          const tooltip = JSON.parse(data[1].Tooltip)
+          parseTooltipForTranscendence(tooltip, saveCharacterInfo)
+        } catch (e) {
+          console.error('Failed to parse Tooltip for data ', e)
+        }
       }
     }
   } catch (e) {
     console.error(e)
+    fetchResult = false
   }
 
-  console.log(saveCharacterInfo)
+  // 이 캐릭터 네임으로 DB에 존재하는지 체크
+  try {
+    const response = await fetch('/api/userSave', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(saveCharacterInfo),
+    })
+
+    if (response.ok) {
+      if (response.status === 201 || response.status === 202) {
+        fetchResult = true
+      }
+      if (response.status === 500) {
+        fetchResult = false
+      }
+    }
+  } catch (e) {
+    console.error(e)
+    fetchResult = false
+  }
+
+  return fetchResult
 }
 
 /**
