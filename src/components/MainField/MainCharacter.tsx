@@ -14,6 +14,8 @@ export default function MainCharacter() {
   const [jump, setJump] = useState(0)
   const [enlightenment, setEnlightenment] = useState(0)
   const [evolution, setEvolution] = useState(0)
+
+  console.log('Database connection string:', process.env.POSTGRES_URL)
   return (
     <div className='flex h-44 w-full flex-col justify-between rounded-md bg-gray-900 p-4 shadow-lg md:h-full md:w-[300px]'>
       {session ? (
