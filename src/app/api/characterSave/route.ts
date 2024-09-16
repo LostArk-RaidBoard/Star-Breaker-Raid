@@ -31,7 +31,6 @@ export async function POST(req: Request) {
     evolution,
   } = saveCharacterInfo
 
-  console.log(saveCharacterInfo)
   try {
     const res = await sql`SELECT * FROM characters WHERE character_name=${character_name}`
 

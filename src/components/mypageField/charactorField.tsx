@@ -1,10 +1,11 @@
 'use client'
 import InputLayout from '@/components/ui/inputLayout'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import NewCharacterField from '@/components/mypageField/newChactorField'
 import DBCharacterField from '@/components/mypageField/dbChacracterField'
 import CharacterImage from '@/components/utils/characterImage'
+import CharacterSorted from '@/components/utils/characterSorted'
 
 interface CharacterList {
   CharacterClassName: string
@@ -232,7 +233,7 @@ export default function CharactorField() {
           />
 
           {/* 데이터베이스에서 보이는 장소 */}
-          <DBCharacterField />
+          <DBCharacterField userId={session.user.id} />
         </div>
       ) : (
         <div className='flex h-20 w-full items-center justify-center text-xl'>로그인 해주세요</div>

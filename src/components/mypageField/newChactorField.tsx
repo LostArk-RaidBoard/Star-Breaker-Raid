@@ -3,6 +3,8 @@ import SaveCharacterFetch from '@/components/mypageField/saveFetch'
 import Xmark from '@image/icon/xmark.svg'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import Loading from '@image/icon/loading.svg'
+import { useTrigger } from '@/store/triggerStore'
 
 interface CharacterList {
   CharacterClassName: string
@@ -22,6 +24,12 @@ interface Props {
   setNewCharacterList: (characterList: CharacterList[]) => void
   userId: string
 }
+
+/**
+ * 새로운 캐릭터 받는 장소
+ * @param param0
+ * @returns
+ */
 export default function NewCharacterField({
   newCharacterList,
   newHidden,
@@ -29,7 +37,9 @@ export default function NewCharacterField({
   setNewCharacterList,
   userId,
 }: Props) {
+  const { setTrigger, trigger } = useTrigger()
   const [saveState, setSaveState] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const newCharacterResetHandler = () => {
     setNewCharacterList([])
@@ -50,6 +60,7 @@ export default function NewCharacterField({
 
   const saveItemHandler = async () => {
     setSaveState(0)
+    setLoading(true)
     const resultList = []
     for (const item of newCharacterList) {
       resultList.push(await SaveCharacterFetch(item, userId)) // 함수로 호출
@@ -57,8 +68,12 @@ export default function NewCharacterField({
 
     if (resultList.includes(false)) {
       setSaveState(2)
+      setLoading(false)
+      setTrigger(!trigger)
     } else {
       setSaveState(1)
+      setTrigger(!trigger)
+      setLoading(false)
     }
   }
 
@@ -95,7 +110,7 @@ export default function NewCharacterField({
       </div>
 
       {/* 새로운 캐릭터 그리드로 넣기 */}
-      <div className='mt-2 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='relative mt-2 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {newCharacterList.map((item, index) => (
           <div
             key={index}
@@ -113,15 +128,14 @@ export default function NewCharacterField({
 
             <div className='grow flex-col overflow-hidden'>
               <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
-                <div className='h-6 w-6 overflow-hidden rounded-full'>
-                  <Image
-                    src={item.CharacterClassIcon}
-                    alt={item.CharacterClassName}
-                    width={70}
-                    height={70}
-                    className='h-full w-full object-cover'
-                  />
-                </div>
+                <Image
+                  src={item.CharacterClassIcon}
+                  alt={item.CharacterClassName}
+                  width={30}
+                  height={30}
+                  className='p-1'
+                />
+
                 <span className='overflow-hidden truncate whitespace-nowrap'>
                   {item.CharacterName}
                 </span>
@@ -129,7 +143,13 @@ export default function NewCharacterField({
                   {item.ServerName}
                 </span>
               </div>
-              <span> {item.ItemAvgLevel}</span>
+              <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
+                <Image src={'/장비.png'} alt='장비' width={30} height={30} className='p-1' />
+
+                <span className='overflow-hidden truncate whitespace-nowrap'>
+                  {item.ItemAvgLevel}
+                </span>
+              </div>
             </div>
 
             <Xmark
@@ -140,6 +160,13 @@ export default function NewCharacterField({
             />
           </div>
         ))}
+
+        {/* 로딩 오버레이 */}
+        {loading && (
+          <div className='absolute inset-0 flex items-center justify-center bg-gray-200 bg-opacity-80'>
+            <Loading className='h-12 w-12 animate-spin text-white' />
+          </div>
+        )}
       </div>
     </div>
   )
