@@ -1,20 +1,17 @@
 'use server'
 import { sql } from '@vercel/postgres'
 import { hashPassword } from '@/components/utils/bcrypt'
-export const dynamic = 'force-dynamic'
 
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const userName = url.searchParams.get('userName')
   const birthday = url.searchParams.get('birthday')
-  console.log('진행되고 있음')
-  console.log(process.env.POSTGRES_URL)
-  console.log('POSTGRES_URL:', process.env.POSTGRES_URL)
 
   try {
+    console.log(0)
     const res =
       await sql`SELECT user_id FROM users WHERE user_name = ${userName} and birthday = ${birthday}`
-
+    console.log(1)
     if (res.rowCount === 0)
       return new Response(JSON.stringify({ message: '가입한 이력이 없습니다.' }), { status: 400 })
 
