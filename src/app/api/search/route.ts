@@ -8,6 +8,7 @@ export async function GET(req: Request) {
   const birthday = url.searchParams.get('birthday')
   console.log('진행되고 있음')
   console.log(process.env.POSTGRES_URL)
+  console.log('POSTGRES_URL:', process.env.POSTGRES_URL)
 
   try {
     const res =
