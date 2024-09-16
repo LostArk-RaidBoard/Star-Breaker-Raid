@@ -6,6 +6,8 @@ export async function GET(req: Request) {
   const url = new URL(req.url)
   const userName = url.searchParams.get('userName')
   const birthday = url.searchParams.get('birthday')
+  console.log('진행되고 있음')
+  console.log(process.env.POSTGRES_URL)
 
   try {
     const res =
