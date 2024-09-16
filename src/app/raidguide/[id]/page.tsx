@@ -5,8 +5,7 @@ interface IdParams {
   params: { id: string }
 }
 
-export default function Raidguide({ params: { id } }: IdParams) {
-  console.log(id)
+export default async function Raidguide({ params: { id } }: IdParams) {
   return (
     <Section>
       <main className='flex min-h-screen w-full flex-col items-center'>

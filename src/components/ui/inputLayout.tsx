@@ -24,6 +24,7 @@ export default function InputLayout({
       className={`h-12 border border-gray-400 px-1 ${setCSS}`}
       type={setType}
       name={setName}
+      autoComplete='off'
       value={value}
       placeholder={setPlaceholder}
       onChange={handleChange}

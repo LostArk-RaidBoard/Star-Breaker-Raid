@@ -78,7 +78,15 @@ export default function CharacterSelect({
       setJump(character.jump),
       setEnlightenment(character.enlightenment),
       setEvolution(character.evolution)
-  }, [character])
+  }, [
+    character,
+    setElixir,
+    setEnlightenment,
+    setEquipment,
+    setEvolution,
+    setJump,
+    setTranscendence,
+  ])
 
   return (
     <div className='relative'>
