@@ -164,7 +164,10 @@ export default function NewCharacterField({
         {/* 로딩 오버레이 */}
         {loading && (
           <div className='absolute inset-0 flex items-center justify-center bg-gray-200 bg-opacity-80'>
-            <Loading className='h-12 w-12 animate-spin text-white' />
+            <Loading
+              className='h-12 w-12 animate-spin text-white'
+              style={{ transformOrigin: 'center' }}
+            />
           </div>
         )}
       </div>

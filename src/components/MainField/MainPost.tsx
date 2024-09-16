@@ -1,7 +1,6 @@
 import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
-import Link from 'next/link'
 
 export default function MainPost() {
   return (

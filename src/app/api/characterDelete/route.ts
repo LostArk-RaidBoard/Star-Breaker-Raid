@@ -3,7 +3,6 @@ import { sql } from '@vercel/postgres'
 export async function DELETE(req: Request) {
   const url = new URL(req.url)
   const characterName = url.searchParams.get('characterName')
-  console.log(characterName)
 
   try {
     const res = await sql`DELETE FROM characters WHERE character_name=${characterName}`

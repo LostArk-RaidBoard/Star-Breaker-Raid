@@ -47,7 +47,6 @@ export default function DBCharacterField({ userId }: Props) {
       const data = await response.json()
       if (response.ok && data.result) {
         const getCharacterList = data.result
-        console.log('Fetched Data:', getCharacterList) // 데이터가 성공적으로 가져와졌는지 확인
         const characterSorted = CharacterSorted(getCharacterList)
         setCharacterList(characterSorted)
       }
@@ -77,12 +76,14 @@ export default function DBCharacterField({ userId }: Props) {
 
   useEffect(() => {
     dataFetch()
-  }, [dataFetch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     dataFetch()
     setLoading(false)
-  }, [trigger, dataFetch])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trigger])
 
   return (
     <div className='mt-4 flex flex-col'>

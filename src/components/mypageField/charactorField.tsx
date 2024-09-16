@@ -1,7 +1,7 @@
 'use client'
 import InputLayout from '@/components/ui/inputLayout'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import NewCharacterField from '@/components/mypageField/newChactorField'
 import DBCharacterField from '@/components/mypageField/dbChacracterField'
 import CharacterImage from '@/components/utils/characterImage'

@@ -1,5 +1,3 @@
-import { sql } from '@vercel/postgres'
-
 interface CharacterList {
   CharacterClassName: string
   CharacterLevel: number
@@ -201,7 +199,6 @@ function parseTooltipForTranscendence(tooltip: any, saveCharacterInfo: SaveChara
                   const matched = cleanText.match(/\d+/) // 숫자 추출
                   if (matched) {
                     saveCharacterInfo.transcendence = parseInt(matched[0], 10)
-                    console.log('Found number:', parseInt(matched[0], 10)) // 숫자 값 출력
 
                     // 값을 찾으면 모든 루프를 빠져나옴
                     break

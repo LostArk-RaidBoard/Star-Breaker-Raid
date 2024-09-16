@@ -13,7 +13,6 @@ export default function UserDelete() {
   const [message, setMessage] = useState('')
   const handlerDelete = async () => {
     if (inputDelete != '탈퇴하기') {
-      console.log(1)
       setMessage('잘못 입력하셨습니다.')
       return
     }
@@ -44,7 +43,7 @@ export default function UserDelete() {
           <span className='text-lg'>회원 탈퇴</span>
           <div className='flex w-full flex-col'>
             <span className='overflow-hidden truncate whitespace-nowrap'>
-              '탈퇴하기' 입력 후 탈퇴 버튼을 클릭해 주세요
+              탈퇴하기 입력 후 탈퇴 버튼을 클릭해 주세요
             </span>
             <InputLayout
               setType={'text'}

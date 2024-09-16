@@ -4,7 +4,6 @@ import { sql } from '@vercel/postgres'
 export async function DELETE(req: Request) {
   const url = new URL(req.url)
   const userId = url.searchParams.get('userId')
-  console.log('userID server::' + userId)
 
   try {
     const res = await sql`DELETE FROM users WHERE user_id=${userId}`
