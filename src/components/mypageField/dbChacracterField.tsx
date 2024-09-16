@@ -77,12 +77,12 @@ export default function DBCharacterField({ userId }: Props) {
 
   useEffect(() => {
     dataFetch()
-  }, [])
+  }, [dataFetch])
 
   useEffect(() => {
     dataFetch()
     setLoading(false)
-  }, [trigger])
+  }, [trigger, dataFetch])
 
   return (
     <div className='mt-4 flex flex-col'>
