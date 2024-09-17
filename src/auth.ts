@@ -69,11 +69,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session
     },
     async signIn({ user, account, profile }) {
+      console.log(1)
       if (account && account.provider === 'google' && profile && profile.email) {
         const existingUser = await getUserFromDb(profile.email)
+        console.log(2)
         if (!existingUser) {
+          console.log(3)
           const userName = profile.given_name || '이름 없음' // 이름이 없는 경우 기본값 설정
           const birthday = account.access_token ? await getUserBirthday(account.access_token) : null
+          console.log(4)
           const userRegistrationResponse = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
             {
@@ -89,6 +93,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               }),
             },
           )
+          console.log(5)
           if (!userRegistrationResponse.ok) {
             const errorData = await userRegistrationResponse.json()
             throw new Error(errorData.message) // 에러 처리
@@ -97,6 +102,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           user.id = profile.email
           user.role = 'user'
         } else {
+          console.log(6)
           user.id = existingUser.user_id
           user.role = existingUser.role
         }
