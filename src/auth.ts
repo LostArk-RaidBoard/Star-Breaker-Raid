@@ -73,21 +73,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!existingUser) {
           const userName = profile.given_name || '이름 없음' // 이름이 없는 경우 기본값 설정
           const birthday = account.access_token ? await getUserBirthday(account.access_token) : null
-          const userRegistrationResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                userName,
-                userEmail: profile.email,
-                userPassword: '12345678', // 임시 비밀번호 설정
-                birthday: birthday,
-              }),
+          const userRegistrationResponse = await fetch(`${process.env.API_URL}/api/signup`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
             },
-          )
+            body: JSON.stringify({
+              userName,
+              userEmail: profile.email,
+              userPassword: '12345678', // 임시 비밀번호 설정
+              birthday: birthday,
+            }),
+          })
           if (!userRegistrationResponse.ok) {
             const errorData = await userRegistrationResponse.json()
             throw new Error(errorData.message) // 에러 처리
