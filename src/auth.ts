@@ -47,6 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         params: {
           scope: 'openid email profile https://www.googleapis.com/auth/user.birthday.read',
           prompt: 'consent',
+
         },
       },
     }),
@@ -77,18 +78,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.log(3)
           const userName = profile.given_name || '이름 없음' // 이름이 없는 경우 기본값 설정
           const birthday = account.access_token ? await getUserBirthday(account.access_token) : null
-          const userRegistrationResponse = await fetch(`${process.env.API_URL}/api/signup`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
+
+          console.log(4)
+          const userRegistrationResponse = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                userName,
+                userEmail: profile.email,
+                userPassword: '12345678', // 임시 비밀번호 설정
+                birthday: birthday,
+              }),
             },
-            body: JSON.stringify({
-              userName,
-              userEmail: profile.email,
-              userPassword: '12345678', // 임시 비밀번호 설정
-              birthday: birthday,
-            }),
-          })
+          )
+          console.log(5)
+
           if (!userRegistrationResponse.ok) {
             const errorData = await userRegistrationResponse.json()
             throw new Error(errorData.message) // 에러 처리

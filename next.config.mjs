@@ -25,8 +25,9 @@ const nextConfig = {
       },
     ],
   },
+
+
   env: {
-    //데이터베이스 연결 env
     POSTGRES_URL: process.env.POSTGRES_URL,
     POSTGRES_USER: process.env.POSTGRES_USER,
     POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
