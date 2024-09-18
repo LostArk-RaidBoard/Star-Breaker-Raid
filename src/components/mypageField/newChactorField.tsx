@@ -47,6 +47,11 @@ export default function NewCharacterField({
     setSaveState(0)
   }
 
+  /**
+   * 캐릭터를 삭제하는 함수
+   * @param index 인텍스
+   * @param itemCharacterName 캐릭터 이름
+   */
   const deleteItemHandler = (index: number, itemCharacterName: string) => {
     console.log(index, itemCharacterName)
     let filltered = newCharacterList.filter(
@@ -58,6 +63,9 @@ export default function NewCharacterField({
     }
   }
 
+  /**
+   * 전체 캐릭터 저장
+   */
   const saveItemHandler = async () => {
     setSaveState(0)
     setLoading(true)
@@ -81,36 +89,24 @@ export default function NewCharacterField({
     setSaveState(0)
   }, [newCharacterList])
 
+  useEffect(() => {
+    if (saveState === 1) {
+      setNewCharacterList([])
+      setNewHidden(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saveState])
+
   return (
-    <div className={`mt-4 ${newHidden ? '' : 'hidden'}`}>
-      <div className='flex flex-col items-center justify-between sm:flex-row'>
+    <div className={`mt-4 ${newHidden ? '' : 'hidden'} flex flex-col gap-4`}>
+      <div className='flex flex-col items-center justify-start sm:flex-row'>
         <span className='flex w-full items-center justify-start text-xl sm:w-auto'>
           추가 캐릭터 선택창
         </span>
-        <div className='flex w-full items-center justify-end gap-4 sm:w-auto sm:justify-center'>
-          <span className={`${saveState === 1 ? '' : 'hidden'} text-blue-500`}>저장 성공</span>
-          <span className={`${saveState === 2 ? '' : 'hidden'} text-red-500`}>저장 실패</span>
-          <button
-            className='h-8 w-20 rounded-md bg-gray-900 p-1 px-1 text-white'
-            onClick={() => {
-              saveItemHandler()
-            }}
-          >
-            추가
-          </button>
-          <button
-            className='h-8 w-20 rounded-md bg-gray-900 p-1 px-1 text-white'
-            onClick={() => {
-              newCharacterResetHandler()
-            }}
-          >
-            취소
-          </button>
-        </div>
       </div>
 
       {/* 새로운 캐릭터 그리드로 넣기 */}
-      <div className='relative mt-2 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='relative grid w-full grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {newCharacterList.map((item, index) => (
           <div
             key={index}
@@ -170,6 +166,28 @@ export default function NewCharacterField({
             />
           </div>
         )}
+      </div>
+      <div className='flex w-full flex-col items-center justify-end gap-4 sm:w-auto sm:justify-center'>
+        <span className={`${saveState === 1 ? '' : 'hidden'} text-blue-500`}>저장 성공</span>
+        <span className={`${saveState === 2 ? '' : 'hidden'} text-red-500`}>저장 실패</span>
+        <div className='flex gap-4'>
+          <button
+            className='h-8 w-20 rounded-md bg-gray-900 p-1 px-1 text-white'
+            onClick={() => {
+              saveItemHandler()
+            }}
+          >
+            추가
+          </button>
+          <button
+            className='h-8 w-20 rounded-md bg-gray-900 p-1 px-1 text-white'
+            onClick={() => {
+              newCharacterResetHandler()
+            }}
+          >
+            취소
+          </button>
+        </div>
       </div>
     </div>
   )

@@ -26,6 +26,7 @@ const nextConfig = {
     ],
   },
 
+
   env: {
     POSTGRES_URL: process.env.POSTGRES_URL,
     POSTGRES_USER: process.env.POSTGRES_USER,
@@ -35,6 +36,14 @@ const nextConfig = {
     POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
     POSTGRES_URL_NO_SSL: process.env.POSTGRES_URL_NO_SSL,
     POSTGRES_USER: process.env.POSTGRES_USER,
+
+    //next-auth env
+    AUTH_SECRET: process.env.AUTH_SECRET,
+    AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
+    AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+    GOOGLE_API: process.env.GOOGLE_API,
+    API_URL: process.env.API_URL,
+    LostArk_Token: process.env.LostArk_Token,
   },
 }
 

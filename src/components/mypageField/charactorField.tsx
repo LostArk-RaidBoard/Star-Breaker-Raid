@@ -66,12 +66,13 @@ export default function CharactorField() {
       return
     }
     setMainMessage('')
+    console.log(process.env.LostArk_Token)
     try {
       const response = await fetch(`/lostark/characters/${mainCharacter}/siblings`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          authorization: `bearer ${process.env.NEXT_PUBLIC_LostArk_Token}`,
+          authorization: `bearer ${process.env.LostArk_Token}`,
         },
       })
 
@@ -124,7 +125,7 @@ export default function CharactorField() {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          authorization: `bearer ${process.env.NEXT_PUBLIC_LostArk_Token}`,
+          authorization: `bearer ${process.env.LostArk_Token}`,
         },
       })
 

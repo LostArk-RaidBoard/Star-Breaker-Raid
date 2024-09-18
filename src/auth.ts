@@ -45,13 +45,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
       authorization: {
         params: {
-          scope: 'openid email profile consent https://www.googleapis.com/auth/user.birthday.read',
+          scope: 'openid email profile https://www.googleapis.com/auth/user.birthday.read',
+          prompt: 'consent',
+
         },
       },
     }),
   ],
   secret: process.env.AUTH_SECRET,
-
   callbacks: {
     async jwt({ token, user, account }) {
       if (user) {
@@ -77,6 +78,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.log(3)
           const userName = profile.given_name || '이름 없음' // 이름이 없는 경우 기본값 설정
           const birthday = account.access_token ? await getUserBirthday(account.access_token) : null
+
           console.log(4)
           const userRegistrationResponse = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
@@ -94,6 +96,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
           )
           console.log(5)
+
           if (!userRegistrationResponse.ok) {
             const errorData = await userRegistrationResponse.json()
             throw new Error(errorData.message) // 에러 처리

@@ -37,6 +37,7 @@ export default function DBCharacterField({ userId }: Props) {
 
   const dataFetch = async () => {
     try {
+      console.log('실행중')
       const response = await fetch(`/api/characterGet?userId=${userId}`, {
         method: 'GET',
         headers: {
@@ -45,6 +46,7 @@ export default function DBCharacterField({ userId }: Props) {
       })
 
       const data = await response.json()
+
       if (response.ok && data.result) {
         const getCharacterList = data.result
         const characterSorted = CharacterSorted(getCharacterList)
@@ -81,6 +83,9 @@ export default function DBCharacterField({ userId }: Props) {
 
   useEffect(() => {
     dataFetch()
+    // setTimeout(function () {
+    //   setLoading(false)
+    // }, 2000)
     setLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger])
