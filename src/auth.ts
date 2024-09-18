@@ -80,21 +80,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const birthday = account.access_token ? await getUserBirthday(account.access_token) : null
 
           console.log(4)
-          const userRegistrationResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                userName,
-                userEmail: profile.email,
-                userPassword: '12345678', // 임시 비밀번호 설정
-                birthday: birthday,
-              }),
+          const userRegistrationResponse = await fetch(`${process.env.API_URL}/api/signup`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
             },
-          )
+            body: JSON.stringify({
+              userName,
+              userEmail: profile.email,
+              userPassword: '12345678', // 임시 비밀번호 설정
+              birthday: birthday,
+            }),
+          })
           console.log(5)
 
           if (!userRegistrationResponse.ok) {

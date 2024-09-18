@@ -8,10 +8,11 @@ export default function GoogleSignIn() {
         'use server'
         await signIn('google', { redirectTo: '/' })
       }}
+      className='flex w-full items-center justify-center'
     >
       <button
         type='submit'
-        className='mt-4 flex h-12 w-[400px] items-center justify-center rounded-md border border-black bg-gray-100'
+        className='mt-4 flex h-12 w-[90%] items-center justify-center rounded-md border border-black bg-gray-100 sm:w-[400px]'
       >
         <Image src='/google.png' alt='google' height={20} width={200} />
       </button>

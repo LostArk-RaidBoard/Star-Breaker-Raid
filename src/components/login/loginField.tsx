@@ -40,7 +40,7 @@ export default function LoginField() {
   }
 
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center sm:mt-44'>
+    <div className='flex h-full w-full flex-col items-center justify-center sm:mt-[20vh]'>
       <span className='text-2xl'>Login</span>
       <form
         className='flex h-full w-full flex-col items-center justify-center'
@@ -50,7 +50,7 @@ export default function LoginField() {
           setType={'email'}
           setName={'set_email'}
           setPlaceholder={'email'}
-          setCSS={'w-[400px] rounded-md mt-8'}
+          setCSS={'w-[90%] sm:w-[400px] rounded-md mt-8'}
           setValue={setEmail}
           value={email}
         />
@@ -58,12 +58,15 @@ export default function LoginField() {
           setType={'password'}
           setName={'set_password'}
           setPlaceholder={'password'}
-          setCSS={'w-[400px] rounded-md mt-4'}
+          setCSS={'w-[90%] sm:w-[400px] rounded-md mt-4'}
           setValue={setPassword}
           value={password}
         />
         {error && <span className='mt-4 text-red-500'>{error}</span>}
-        <button className='mt-8 h-12 w-[400px] rounded-md bg-gray-900 text-white' type='submit'>
+        <button
+          className='mt-8 h-12 w-[90%] rounded-md bg-gray-900 text-white sm:w-[400px]'
+          type='submit'
+        >
           로그인
         </button>
       </form>
