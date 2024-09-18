@@ -110,58 +110,64 @@ export default function SearchField() {
   }
 
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center sm:mt-20'>
-      <span className='text-2xl'>아이디 & 비밀번호 변경</span>
-      <form className='flex flex-col items-center justify-center' onSubmit={handlerSubmit}>
-        <span className='mt-8 flex w-[400px] justify-start text-lg'>이름 입력</span>
+    <div className='flex h-full w-full flex-col items-center justify-center sm:mt-[10vh]'>
+      <span className='text-pretty text-2xl'>아이디 & 비밀번호 변경</span>
+      <form className='flex w-full flex-col items-center justify-center' onSubmit={handlerSubmit}>
+        <span className='mt-8 flex w-[90%] justify-start text-lg sm:w-[400px]'>이름 입력</span>
         <InputLayout
           setType={'text'}
           setName={'set_text'}
           setPlaceholder={'이름'}
-          setCSS={'w-[400px] h-12 rounded-md'}
+          setCSS={'w-[90%] sm:w-[400px] h-12 rounded-md'}
           setValue={setUserName}
           value={userName}
         />
-        <span className='mt-4 flex w-[400px] justify-start text-lg'>생년월일 입력</span>
+        <span className='mt-4 flex w-[90%] justify-start text-lg sm:w-[400px]'>생년월일 입력</span>
         <InputLayout
           setType={'number'}
           setName={'birthday'}
           setPlaceholder={'19000101'}
-          setCSS={'w-[400px] h-12 rounded-md'}
+          setCSS={'w-[90%] sm:w-[400px] h-12 rounded-md'}
           setValue={setBirthday}
           value={birthday}
         />
-        <div className={`mt-1 flex w-[400px] flex-col justify-start p-2`}>
+        <div className={`mt-1 flex w-[90%] flex-col justify-start p-2 sm:w-[400px]`}>
           <span className={`${fetchState == 1 ? '' : 'hidden'}`}>아이디 : {dbUser}</span>
           <span className={`${fetchState == 2 ? '' : 'hidden'}`}>가입한 이력이 없습니다.</span>
           <span className={`${fetchState == 5 ? '' : 'hidden'} text-red-500`}>
             이름과 생년월일을 꼭 입력해주세요
           </span>
         </div>
-        <button type='submit' className='mt-4 h-12 w-[400px] rounded-md bg-gray-900 text-white'>
+        <button
+          type='submit'
+          className='mt-4 h-12 w-[90%] rounded-md bg-gray-900 text-white sm:w-[400px]'
+        >
           아이디 찾기
         </button>
       </form>
-      <form className='mt-4 flex flex-col items-center justify-center' onSubmit={handlerPost}>
-        <span className='mt-4 flex w-[400px] justify-start text-lg'>아이디 입력</span>
+      <form
+        className='mt-4 flex w-full flex-col items-center justify-center'
+        onSubmit={handlerPost}
+      >
+        <span className='mt-4 flex w-[90%] justify-start text-lg sm:w-[400px]'>아이디 입력</span>
         <InputLayout
           setType={'text'}
           setName={'text'}
           setPlaceholder={'Email'}
-          setCSS={'w-[400px] h-12 rounded-md'}
+          setCSS={'w-[90%] sm:w-[400px] h-12 rounded-md'}
           setValue={setUserId}
           value={userId}
         />
-        <span className='mt-4 flex w-[400px] justify-start text-lg'>비밀번호 입력</span>
+        <span className='mt-4 flex w-[90%] justify-start text-lg sm:w-[400px]'>비밀번호 입력</span>
         <InputLayout
           setType={'password'}
           setName={'password'}
           setPlaceholder={'password'}
-          setCSS={'w-[400px] h-12 rounded-md'}
+          setCSS={'w-[90%] sm:w-[400px] h-12 rounded-md'}
           setValue={setUserPassword}
           value={userPassword}
         />
-        <div className={`flex w-[400px] flex-col justify-start p-2`}>
+        <div className={`flex w-[90%] flex-col justify-start p-2 sm:w-[400px]`}>
           <span className={`${fetchState == 3 ? '' : 'hidden'}`}>비밀번호 재설정 성공</span>
           <span className={`${fetchState == 4 ? '' : 'hidden'} text-red-500`}>
             실패 : {message}
@@ -170,14 +176,14 @@ export default function SearchField() {
             아이디, 비밀번호를 꼭 입력해주세요
           </span>
         </div>
-        <button className='mt-4 h-12 w-[400px] rounded-md bg-gray-900 text-white'>
+        <button className='mt-4 h-12 w-[90%] rounded-md bg-gray-900 text-white sm:w-[400px]'>
           비밀번호 재설정
         </button>
       </form>
 
       <Link
         href='/login'
-        className='mt-4 flex h-12 w-[400px] items-center justify-center rounded-md bg-gray-900 text-white'
+        className='mt-4 flex h-12 w-[90%] items-center justify-center rounded-md bg-gray-900 text-white sm:w-[400px]'
       >
         로그인 돌아가기
       </Link>

@@ -80,56 +80,58 @@ export default function SignupField() {
 
   return (
     <form
-      className='flex h-full w-full flex-col items-center justify-center sm:mt-20'
+      className='flex h-full w-full flex-col items-center justify-center sm:mt-[10vh]'
       onSubmit={handleSubmit}
     >
       <span className='text-2xl'>회원가입</span>
-      <span className='mt-8 flex w-[400px] justify-start text-lg'>이름 입력</span>
+      <span className='mt-8 flex w-[90%] justify-start text-lg sm:w-[400px]'>이름 입력</span>
       <input
         type='text'
         name='userName'
         placeholder='이름'
-        className='h-12 w-[400px] rounded-md border border-gray-400 px-1'
+        className='h-12 w-[90%] rounded-md border border-gray-400 px-1 sm:w-[400px]'
         value={userName}
         autoComplete='off'
         onChange={(e) => setUserName(e.target.value)}
       />
-      <span className='mt-4 flex w-[400px] justify-start text-lg'>생년월일 입력</span>
+      <span className='mt-4 flex w-[90%] justify-start text-lg sm:w-[400px]'>생년월일 입력</span>
       <input
         type='number'
         name='birthday'
         placeholder='19000101'
-        className='h-12 w-[400px] rounded-md border border-gray-400 px-1'
+        className='h-12 w-[90%] rounded-md border border-gray-400 px-1 sm:w-[400px]'
         value={birthday}
         autoComplete='off'
         onChange={(e) => setBirthday(e.target.value)}
       />
-      <span className='mt-4 flex w-[400px] justify-start text-lg'>Email 입력</span>
+      <span className='mt-4 flex w-[90%] justify-start text-lg sm:w-[400px]'>Email 입력</span>
       <input
         type='email'
         name='userEmail'
         placeholder='email'
-        className='h-12 w-[400px] rounded-md border border-gray-400 px-1'
+        className='h-12 w-[90%] rounded-md border border-gray-400 px-1 sm:w-[400px]'
         value={userEmail}
         autoComplete='off'
         onChange={(e) => setUserEmail(e.target.value)}
       />
-      <span className='mt-4 flex w-[400px] justify-start text-lg'>Password 입력</span>
+      <span className='mt-4 flex w-[90%] justify-start text-lg sm:w-[400px]'>Password 입력</span>
       <input
         type='password'
         name='userPassword'
         placeholder='비밀번호 최소 8 ~ 최대 32'
-        className='h-12 w-[400px] rounded-md border border-gray-400 px-1'
+        className='h-12 w-[90%] rounded-md border border-gray-400 px-1 sm:w-[400px]'
         value={userPassword}
         autoComplete='off'
         onChange={(e) => setUserPassword(e.target.value)}
       />
-      <span className='mt-4 flex w-[400px] justify-start text-lg'>Password 2차 인증</span>
+      <span className='mt-4 flex w-[90%] justify-start text-lg sm:w-[400px]'>
+        Password 2차 인증
+      </span>
       <input
         type='password'
         name='userPassword2'
         placeholder='비밀번호 확인'
-        className='h-12 w-[400px] rounded-md border border-gray-400 px-1'
+        className='h-12 w-[90%] rounded-md border border-gray-400 px-1 sm:w-[400px]'
         value={userPassword2}
         autoComplete='off'
         onChange={(e) => setUserPassword2(e.target.value)}
@@ -142,12 +144,15 @@ export default function SignupField() {
           회원가입 실패 : {errorMessage}
         </span>
       </div>
-      <button type='submit' className='mt-8 h-12 w-[400px] rounded-md bg-gray-900 text-white'>
+      <button
+        type='submit'
+        className='mt-8 h-12 w-[90%] rounded-md bg-gray-900 text-white sm:w-[400px]'
+      >
         회원가입
       </button>
       <Link
         href='/login'
-        className='mt-4 flex h-12 w-[400px] items-center justify-center rounded-md bg-gray-900 text-white'
+        className='mt-4 flex h-12 w-[90%] items-center justify-center rounded-md bg-gray-900 text-white sm:w-[400px]'
       >
         로그인 돌아가기
       </Link>
