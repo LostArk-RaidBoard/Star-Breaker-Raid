@@ -83,6 +83,9 @@ export default function DBCharacterField({ userId }: Props) {
 
   useEffect(() => {
     dataFetch()
+    // setTimeout(function () {
+    //   setLoading(false)
+    // }, 2000)
     setLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trigger])
