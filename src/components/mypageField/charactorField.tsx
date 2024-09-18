@@ -66,7 +66,7 @@ export default function CharactorField() {
       return
     }
     setMainMessage('')
-    console.log(process.env.LostArk_Token)
+
     try {
       const response = await fetch(`/lostark/characters/${mainCharacter}/siblings`, {
         method: 'GET',
@@ -180,46 +180,52 @@ export default function CharactorField() {
               <span className='text-lg'>• 모든 캐릭터 가져오기</span>
               <div className='ml-2 flex flex-col'>
                 <span className='mt-2'>대표 캐릭터 입력하기</span>
-                <InputLayout
-                  setType={'text'}
-                  setName={'text_character'}
-                  setPlaceholder={'대표 캐릭터 입력'}
-                  setCSS={'rounded-md h-12 max-w-[400px] '}
-                  setValue={setMainCharacter}
-                  value={mainCharacter}
-                />
+                <div className='flex flex-col items-center justify-between space-x-2 sm:flex-row'>
+                  <InputLayout
+                    setType={'text'}
+                    setName={'text_character'}
+                    setPlaceholder={'대표 캐릭터 입력'}
+                    setCSS={'rounded-md h-12 max-w-[400px] sm:w-[400px]'}
+                    setValue={setMainCharacter}
+                    value={mainCharacter}
+                  />
+
+                  <button
+                    className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
+                    onClick={handlerAllCharacter}
+                  >
+                    확인
+                  </button>
+                </div>
                 <span className={`${mainMessage.length === 0 ? 'hidden' : ''} text-red-500`}>
                   {mainMessage}
                 </span>
-                <button
-                  className='mt-2 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
-                  onClick={handlerAllCharacter}
-                >
-                  확인
-                </button>
               </div>
             </div>
             <div className='sm: flex w-full flex-col sm:w-[50%]'>
               <span className='text-lg'>• 한 캐릭터 가져오기</span>
               <div className='ml-2 flex flex-col'>
                 <span className='mt-2'>캐릭터명 입력하기</span>
-                <InputLayout
-                  setType={'text'}
-                  setName={'text_character'}
-                  setPlaceholder={'캐릭터명 입력'}
-                  setCSS={'rounded-md h-12 max-w-[400px] '}
-                  setValue={setCharacter}
-                  value={character}
-                />
+                <div className='flex flex-col items-center justify-between space-x-2 sm:flex-row'>
+                  <InputLayout
+                    setType={'text'}
+                    setName={'text_character'}
+                    setPlaceholder={'캐릭터명 입력'}
+                    setCSS={'rounded-md h-12 max-w-[400px] sm:w-[400px]'}
+                    setValue={setCharacter}
+                    value={character}
+                  />
+
+                  <button
+                    className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
+                    onClick={handlerOneCharacter}
+                  >
+                    확인
+                  </button>
+                </div>
                 <span className={`${oneMessage.length === 0 ? 'hidden' : ''} text-red-500`}>
                   {oneMessage}
                 </span>
-                <button
-                  className='mt-2 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
-                  onClick={handlerOneCharacter}
-                >
-                  확인
-                </button>
               </div>
             </div>
           </div>
