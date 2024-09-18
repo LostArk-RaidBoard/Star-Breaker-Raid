@@ -46,11 +46,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorization: {
         params: {
           scope: 'openid email profile https://www.googleapis.com/auth/user.birthday.read',
+          prompt: 'consent',
         },
       },
     }),
   ],
-
+  secret: process.env.AUTH_SECRET,
   callbacks: {
     async jwt({ token, user, account }) {
       if (user) {

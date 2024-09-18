@@ -9,7 +9,9 @@ export default function PasswordChange() {
   const [userPassword, setUserPassword] = useState('')
   const [message, setMessage] = useState('')
 
-  const handlerChange = async () => {
+  const handlerChange = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() // 폼 제출 기본 동작 방지
+
     if (userPassword.length < 8) {
       setMessage('비밀번호는 최소 8 글자입니다.')
       return
@@ -46,13 +48,14 @@ export default function PasswordChange() {
       console.error(e)
     }
   }
+
   return (
     <div className='h-full w-full rounded-md border p-4 shadow-lg sm:w-[50%]'>
       {session && userId ? (
         <>
           <span className='text-lg'>비밀번호 변경</span>
 
-          <div className='mt-2 flex w-full flex-col'>
+          <form className='mt-2 flex w-full flex-col' onSubmit={handlerChange}>
             <span className='overflow-hidden truncate whitespace-nowrap'>
               변경할 비밀번호를 입력해 주세요 (구글 로그인이면 변경 시 자체 로그인이 가능해집니다)
             </span>
@@ -71,13 +74,13 @@ export default function PasswordChange() {
             </span>
             <div className='flex w-full justify-center'>
               <button
+                type='submit' // 버튼을 폼 제출로 설정
                 className='mt-2 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
-                onClick={handlerChange}
               >
                 변경
               </button>
             </div>
-          </div>
+          </form>
         </>
       ) : (
         <></>
