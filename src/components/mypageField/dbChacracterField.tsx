@@ -37,7 +37,6 @@ export default function DBCharacterField({ userId }: Props) {
 
   const dataFetch = async () => {
     try {
-      console.log('실행중')
       const response = await fetch(`/api/characterGet?userId=${userId}`, {
         method: 'GET',
         headers: {
@@ -144,7 +143,7 @@ export default function DBCharacterField({ userId }: Props) {
                         alt='엘릭서'
                         width={30}
                         height={30}
-                        className='hidden p-1 sm:block'
+                        className='p-1'
                       />
                       <span>{character.elixir}</span>
                     </div>
@@ -154,7 +153,7 @@ export default function DBCharacterField({ userId }: Props) {
                         alt='초파고'
                         width={30}
                         height={30}
-                        className='hidden p-1 sm:block'
+                        className='p-1'
                       />
                       <span>{character.transcendence}</span>
                     </div>

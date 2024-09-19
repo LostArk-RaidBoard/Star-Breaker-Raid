@@ -73,7 +73,6 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
    * lostark arkpassive 정보 가져오기
    */
   try {
-    console.log(process.env.LostArk_Token)
     const response = await fetch(`/lostark/armories/characters/${item.CharacterName}/arkpassive`, {
       method: 'GET',
       headers: {
