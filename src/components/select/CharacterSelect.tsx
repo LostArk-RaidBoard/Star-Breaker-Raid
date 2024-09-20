@@ -26,12 +26,12 @@ interface Props {
 }
 
 export default function CharacterSelect({ userId }: Props) {
-  const [characterList, setCharacterList] = useState<CharacterInfo[]>([])
-  const { setCharacterInfo, characterInfo } = useCharacterInfoList()
+  const { setCharacterInfo, characterInfo, setCharacterAllList, characterAllList } =
+    useCharacterInfoList()
   const [hidden, setHidden] = useState(true)
 
   const handler = (name: string) => {
-    const selectedCharacter = characterList.find((char) => char.character_name === name)
+    const selectedCharacter = characterAllList.find((char) => char.character_name === name)
     if (selectedCharacter) {
       setCharacterInfo([selectedCharacter])
       setHidden(!hidden)
@@ -55,11 +55,13 @@ export default function CharacterSelect({ userId }: Props) {
       if (response.ok && data.result) {
         const getCharacterList = data.result
         const characterSorted = CharacterSorted(getCharacterList)
-        setCharacterList(characterSorted)
+
+        setCharacterAllList(characterSorted)
       }
     } catch (error) {
       console.error(error)
-      setCharacterList([])
+
+      setCharacterAllList([])
     }
   }
 
@@ -69,13 +71,13 @@ export default function CharacterSelect({ userId }: Props) {
   }, [])
 
   useEffect(() => {
-    if (characterList.length > 0) {
-      setCharacterInfo([characterList[0]])
+    if (characterAllList.length > 0) {
+      setCharacterInfo([characterAllList[0]])
     }
-    if (characterList.length === 0) {
+    if (characterAllList.length === 0) {
       setCharacterInfo([])
     }
-  }, [characterList])
+  }, [characterAllList])
 
   return (
     <div className='relative'>
@@ -102,7 +104,7 @@ export default function CharacterSelect({ userId }: Props) {
           <div
             className={`absolute left-0 top-full z-10 mt-1 w-full rounded-md bg-white shadow-md ${hidden ? 'hidden' : ''}`}
           >
-            {characterList.map((char) => (
+            {characterAllList.map((char) => (
               <div
                 key={char.character_name}
                 className='flex cursor-pointer items-center gap-4 p-2 hover:bg-gray-200'
