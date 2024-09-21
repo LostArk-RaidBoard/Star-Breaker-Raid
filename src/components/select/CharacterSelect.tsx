@@ -6,21 +6,6 @@ import Under from '@image/icon/under.svg'
 import CharacterSorted from '@/components/utils/characterSorted'
 import { useCharacterInfoList } from '@/store/characterStore'
 
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  class_icon_url: string
-  transcendence: number
-  elixir: number
-  leap: number
-  enlightenment: number
-  evolution: number
-}
-
 interface Props {
   userId: string
 }
@@ -77,6 +62,7 @@ export default function CharacterSelect({ userId }: Props) {
     if (characterAllList.length === 0) {
       setCharacterInfo([])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [characterAllList])
 
   return (

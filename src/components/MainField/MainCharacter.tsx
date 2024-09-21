@@ -24,7 +24,7 @@ export default function MainCharacter() {
 
   return (
     <>
-      <div className='relative flex h-44 w-full flex-col justify-between rounded-md bg-gray-900 p-4 shadow-lg md:h-full md:max-w-[25vh]'>
+      <div className='relative flex h-48 w-full flex-col justify-between rounded-md bg-gray-900 p-4 shadow-lg md:h-full md:max-w-[25vh]'>
         {loading && ( // 로딩 상태에 따라 전체 div에 로딩 화면 표시
           <div className='absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-gray-100 bg-opacity-90'>
             <Loading className='h-12 w-12 animate-spin text-white' />
@@ -81,7 +81,7 @@ export default function MainCharacter() {
                     </div>
                   </div>
                 </div>
-                <button className='mb-4 flex hidden w-full justify-center md:block'>
+                <button className='flex w-full items-center justify-center'>
                   <Link href={'/raidpost/create'} className='rounded-md bg-gray-200 p-2 shadow-lg'>
                     레이드 개설
                   </Link>

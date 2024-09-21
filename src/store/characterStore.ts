@@ -13,6 +13,7 @@ type CharacterState = {
   leap: number
   enlightenment: number
   evolution: number
+  disable: boolean
 }
 
 type CharacterListState = {
