@@ -83,7 +83,7 @@ export default function MainCharacter() {
                 </div>
                 <button className='flex w-full items-center justify-center'>
                   <Link href={'/raidpost/create'} className='rounded-md bg-gray-200 p-2 shadow-lg'>
-                    레이드 개설
+                    모집 글 등록
                   </Link>
                 </button>
               </>

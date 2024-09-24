@@ -63,7 +63,7 @@ export default function PasswordChange() {
               setType={'password'}
               setName={'password'}
               setPlaceholder={'비밀번호 최소 8 ~ 최대 32'}
-              setCSS={'w-full mt-2 h-12 rounded-md'}
+              setCSS={' mt-2 h-12 rounded-md'}
               setValue={setUserPassword}
               value={userPassword}
             />

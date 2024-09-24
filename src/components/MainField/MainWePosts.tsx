@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
+import { usePathname } from 'next/navigation'
 
 interface RaidPost {
   post_id: number
@@ -47,7 +48,7 @@ export default function MainWePosts() {
   const postsFetch = async () => {
     try {
       const response = await fetch(`/api/raidPostGet?posts_position=user`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -81,8 +82,11 @@ export default function MainWePosts() {
     setApplicationsCount(counts)
   }
 
+  const pathname = usePathname()
   useEffect(() => {
-    postsFetch()
+    if (pathname === '/') {
+      postsFetch()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
 
@@ -157,7 +161,7 @@ export default function MainWePosts() {
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
-                {applicationsCount[item.post_id] || 0}/{item.raid_limitperson}
+                {applicationsCount[item.post_id] || 1}/{item.raid_limitperson}
               </span>
             </div>
           </Link>

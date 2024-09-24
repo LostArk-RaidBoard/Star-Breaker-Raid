@@ -110,7 +110,7 @@ export default function RaidPostCreateButton() {
         className='mt-2 w-32 rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
         onClick={raidCreateHandler}
       >
-        레이드 개설
+        모집 글 등록
       </button>
     </div>
   )

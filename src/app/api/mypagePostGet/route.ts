@@ -3,11 +3,11 @@ import { sql } from '@vercel/postgres'
 
 export async function GET(req: Request) {
   const url = new URL(req.url)
-  const position = url.searchParams.get('posts_position')
+  const userID = url.searchParams.get('user_id')
 
   try {
-    const res = await sql`SELECT * FROM raid_posts WHERE post_position = ${position}`
-    console.log(res.rows)
+    const res = await sql`SELECT * FROM raid_posts 
+    WHERE post_id IN (SELECT post_id FROM applicants_list WHERE user_id = ${userID})`
 
     return new Response(JSON.stringify({ postRows: res.rows }), {
       status: 201,
