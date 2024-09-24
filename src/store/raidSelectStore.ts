@@ -19,6 +19,7 @@ type raidSelectAction = {
   setRaidFixed: (inputRaidFixed: boolean) => void
   setRaidType: (inputRaidType: string) => void
   setRaidLimitLevel: (inputRaidLimitLevel: number) => void
+  setReset: () => void
 }
 
 const initalRaidSelectState: raidSelectState = {
@@ -43,4 +44,5 @@ export const useRaidSelect = create<raidSelectState & raidSelectAction>((set) =>
   setRaidType: (inputRaidType) => set((state) => ({ raidType: inputRaidType })),
   setRaidLimitLevel: (inputRaidLimitLevel) =>
     set((state) => ({ raidLimitLevel: inputRaidLimitLevel })),
+  setReset: () => set(initalRaidSelectState),
 }))

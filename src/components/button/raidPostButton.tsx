@@ -4,7 +4,7 @@ import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function RaidPostCreateButton() {
   const router = useRouter()
@@ -19,6 +19,7 @@ export default function RaidPostCreateButton() {
     raidSelect,
     raidDate,
     raidFixed,
+    setReset,
   } = useRaidSelect()
 
   const { characterInfo } = useCharacterInfoList()
@@ -94,6 +95,11 @@ export default function RaidPostCreateButton() {
       setPostSave(2)
     }
   }
+
+  useEffect(() => {
+    setReset()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <div className='flex w-full flex-col items-center justify-center'>
       <span className={`${postSave === 1 ? '' : 'hidden'} text-blue-500`}>레이드 개설 성공</span>
