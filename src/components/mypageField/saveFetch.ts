@@ -65,6 +65,7 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
     leap: 0,
     enlightenment: 0,
     evolution: 0,
+    disable: false,
   }
 
   let fetchResult = false

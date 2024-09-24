@@ -13,21 +13,27 @@ type CharacterState = {
   leap: number
   enlightenment: number
   evolution: number
+  disable: boolean
 }
 
 type CharacterListState = {
   characterInfo: CharacterState[]
+  characterAllList: CharacterState[]
 }
 
 type CharacterListAction = {
   setCharacterInfo: (inputCharacterInfo: CharacterState[]) => void
+  setCharacterAllList: (inputCharacterList: CharacterState[]) => void
 }
 
 const initalCharacterInfoList: CharacterListState = {
   characterInfo: [],
+  characterAllList: [],
 }
 
 export const useCharacterInfoList = create<CharacterListState & CharacterListAction>((set) => ({
   ...initalCharacterInfoList,
   setCharacterInfo: (inputCharacterInfo) => set((state) => ({ characterInfo: inputCharacterInfo })),
+  setCharacterAllList: (inputCharacterList) =>
+    set((state) => ({ characterAllList: inputCharacterList })),
 }))

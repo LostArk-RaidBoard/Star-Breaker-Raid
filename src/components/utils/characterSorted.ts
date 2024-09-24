@@ -11,6 +11,7 @@ interface SaveCharacterInfo {
   leap: number
   enlightenment: number
   evolution: number
+  disable: boolean
 }
 
 export default function CharacterSorted(list: SaveCharacterInfo[]) {

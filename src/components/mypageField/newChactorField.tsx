@@ -53,7 +53,6 @@ export default function NewCharacterField({
    * @param itemCharacterName 캐릭터 이름
    */
   const deleteItemHandler = (index: number, itemCharacterName: string) => {
-    console.log(index, itemCharacterName)
     let filltered = newCharacterList.filter(
       (element) => element.CharacterName !== itemCharacterName,
     )

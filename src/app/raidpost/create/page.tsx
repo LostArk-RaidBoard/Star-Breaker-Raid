@@ -5,7 +5,7 @@ import Section from '@/components/utils/section'
 export default function RaidPostCreate() {
   return (
     <Section>
-      <main className='flex min-h-screen w-full flex-col items-center'>
+      <main className='flex w-full flex-col items-center'>
         <HeaderField />
         <RaidCreateField />
       </main>
