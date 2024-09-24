@@ -104,6 +104,9 @@ export default function DBCharacterField({ userId }: Props) {
 
       if (response.ok) {
         setTrigger(!trigger)
+        setTimeout(function () {
+          setLoading(false)
+        }, 500)
       }
     } catch (error) {
       console.error(error)
@@ -114,8 +117,6 @@ export default function DBCharacterField({ userId }: Props) {
     setLoading(true)
     const resultList = []
     for (const item of characterList) {
-      console.log(item)
-
       try {
         const response = await fetch(
           `/lostark/armories/characters/${item.character_name}/profiles`,

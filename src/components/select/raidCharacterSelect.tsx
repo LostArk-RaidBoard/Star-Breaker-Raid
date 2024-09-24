@@ -7,21 +7,6 @@ import Under from '@image/icon/under.svg'
 import { useRaidSelect } from '@/store/raidSelectStore'
 import RaidLevel from '@/components/utils/raidLevel'
 
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  class_icon_url: string
-  transcendence: number
-  elixir: number
-  leap: number
-  enlightenment: number
-  evolution: number
-}
-
 const undetermined = {
   character_name: '캐릭터 미정',
   server_name: '캐릭터 미정',
@@ -56,7 +41,7 @@ const noCharacters = {
 
 export default function RaidCharacterSelect() {
   const { characterAllList, setCharacterInfo, characterInfo } = useCharacterInfoList()
-  const { raidSelect } = useRaidSelect()
+  const { raidSelect, setRaidLimitLevel } = useRaidSelect()
   const [hidden, setHidden] = useState(true)
   const handlerHidden = () => {
     setHidden(!hidden)
@@ -78,6 +63,7 @@ export default function RaidCharacterSelect() {
 
   useEffect(() => {
     const raidLevel = RaidLevel(raidSelect)
+    setRaidLimitLevel(raidLevel)
     var maxCharacterLevel = 0
 
     characterAllList.map((char) => {
@@ -129,6 +115,9 @@ export default function RaidCharacterSelect() {
                 className='p-1'
               />
               <span className='text-lg text-white'>{characterInfo[0].character_name}</span>
+              <span className='hidden text-lg text-black text-white sm:block'>
+                {characterInfo[0].character_level}
+              </span>
             </div>
             <Under className='h-4 w-4 text-white' />
           </button>
@@ -181,12 +170,13 @@ export default function RaidCharacterSelect() {
                   className='p-1'
                 />
                 <span className='text-black'>{char.character_name}</span>
+                <span className='hidden text-black sm:block'>{char.character_level}</span>
               </div>
             ))}
           </div>
         </div>
       ) : (
-        <div className='flex h-12 w-full items-center rounded-md bg-gray-900 px-1 text-white'>
+        <div className='flex h-14 w-full items-center rounded-md bg-gray-900 px-1 text-white'>
           캐릭터 없음
         </div>
       )}
