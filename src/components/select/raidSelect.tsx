@@ -18,6 +18,13 @@ export default function RaidSelect() {
         value={raidSelect}
         onChange={selectHandler}
       >
+        <option className='text-base' value='카제로스 아브렐슈드 하드'>
+          카제로스 아브렐슈드 하드
+        </option>
+        <option className='text-base' value='카제로스 아브렐슈드 노말'>
+          카제로스 아브렐슈드 노말
+        </option>
+
         <option className='text-base' value='에기르 하드'>
           에기르 하드
         </option>

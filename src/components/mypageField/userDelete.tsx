@@ -37,7 +37,7 @@ export default function UserDelete() {
     }
   }
   return (
-    <div className='flex h-full w-full flex-col rounded-md border p-4 shadow-lg sm:w-[50%]'>
+    <div className='flex h-full w-full flex-col rounded-md border p-4 shadow-lg sm:basis-1/2'>
       {session && session.user.id ? (
         <>
           <span className='text-lg'>회원 탈퇴</span>

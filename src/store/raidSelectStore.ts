@@ -19,12 +19,13 @@ type raidSelectAction = {
   setRaidFixed: (inputRaidFixed: boolean) => void
   setRaidType: (inputRaidType: string) => void
   setRaidLimitLevel: (inputRaidLimitLevel: number) => void
+  setReset: () => void
 }
 
 const initalRaidSelectState: raidSelectState = {
-  raidSelect: '에기르 하드',
+  raidSelect: '카제로스 아브렐슈드 하드',
   raidLimitPerson: 8,
-  raidMaxTime: '1hour',
+  raidMaxTime: '1시간',
   raidNoti: '',
   raidDate: new Date(),
   raidFixed: false,
@@ -43,4 +44,5 @@ export const useRaidSelect = create<raidSelectState & raidSelectAction>((set) =>
   setRaidType: (inputRaidType) => set((state) => ({ raidType: inputRaidType })),
   setRaidLimitLevel: (inputRaidLimitLevel) =>
     set((state) => ({ raidLimitLevel: inputRaidLimitLevel })),
+  setReset: () => set(initalRaidSelectState),
 }))
