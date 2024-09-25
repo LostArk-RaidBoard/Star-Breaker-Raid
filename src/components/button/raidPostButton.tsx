@@ -68,6 +68,7 @@ export default function RaidPostCreateButton() {
         raid_limitperson: raidLimitPerson,
         raid_type: raidType,
         raid_maxtime: raidMaxTime,
+        character_image: characterInfo[0].class_image,
       }
       const response = await fetch('/api/raidPostSave', {
         method: 'POST',

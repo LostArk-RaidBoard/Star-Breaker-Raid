@@ -15,6 +15,7 @@ interface RaidPost {
   raid_limitperson: number
   raid_type: string
   raid_maxtime: string
+  character_image: string
 }
 
 export async function POST(req: Request) {
@@ -46,7 +47,8 @@ export async function POST(req: Request) {
         raid_limitperson,
         raid_type,
         raid_maxtime,
-        character_classicon
+        character_classicon,
+        character_image
       ) VALUES (
         ${raidPost.raid_name},
         ${raidTime},
@@ -60,7 +62,8 @@ export async function POST(req: Request) {
         ${raidPost.raid_limitperson},
         ${raidPost.raid_type},
         ${raidPost.raid_maxtime},
-        ${raidPost.character_classicon}
+        ${raidPost.character_classicon},
+        ${raidPost.character_image}
       )`
 
     return new Response(JSON.stringify({ message: '레이드 생성 성공' }), { status: 200 })
