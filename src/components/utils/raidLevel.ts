@@ -1,4 +1,12 @@
 export default function RaidLevel(raidName: string) {
+  if (raidName === '카제로스 아브렐슈드 하드') {
+    return 1690
+  }
+
+  if (raidName === '카제로스 아브렐슈드 노말') {
+    return 1670
+  }
+
   if (raidName === '에기르 하드') {
     return 1680
   }

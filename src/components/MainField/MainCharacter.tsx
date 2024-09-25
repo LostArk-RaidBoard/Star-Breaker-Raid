@@ -13,10 +13,10 @@ export default function MainCharacter() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // 3초 후에 로딩 상태를 false로 변경
+    // 1초 후에 로딩 상태를 false로 변경
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 1000)
 
     // 컴포넌트가 언마운트될 때 타이머 정리
     return () => clearTimeout(timer)

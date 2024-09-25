@@ -23,9 +23,9 @@ type raidSelectAction = {
 }
 
 const initalRaidSelectState: raidSelectState = {
-  raidSelect: '에기르 하드',
+  raidSelect: '카제로스 아브렐슈드 하드',
   raidLimitPerson: 8,
-  raidMaxTime: '1hour',
+  raidMaxTime: '1시간',
   raidNoti: '',
   raidDate: new Date(),
   raidFixed: false,
