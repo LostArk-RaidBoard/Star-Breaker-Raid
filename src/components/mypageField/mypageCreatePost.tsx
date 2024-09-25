@@ -2,6 +2,7 @@
 import FormatDate from '@/components/utils/\bformatDate'
 import Link from 'next/link'
 import Image from 'next/image'
+import User from '@image/icon/user.svg'
 import Hand from '@image/icon/hand.svg'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
@@ -35,6 +36,9 @@ type Props = {
 export default function MypageCreatePost({ userId }: Props) {
   const [createPost, setCreatePost] = useState<RaidPost[]>([])
   const [trigger, seTrigger] = useState(true)
+  const [myPostApplicationsCount, setMyPostApplicationsCount] = useState<{ [key: number]: number }>(
+    {},
+  )
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageinationSub()
 
@@ -91,10 +95,37 @@ export default function MypageCreatePost({ userId }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, trigger])
 
+  const fetchApplicationsCount = async () => {
+    const counts: { [key: number]: number } = {}
+    const promises = createPost.map(async (item) => {
+      const response = await fetch(`/api/applicationCount?post_id=${item.post_id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (response.ok) {
+        const data = await response.json()
+        counts[item.post_id] = data.count + 1 || 0
+      } else {
+        counts[item.post_id] = 1
+      }
+    })
+    await Promise.all(promises)
+    setMyPostApplicationsCount(counts)
+  }
+
+  useEffect(() => {
+    if (createPost.length > 0) {
+      fetchApplicationsCount()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createPost])
+
   return (
     <div className='flex basis-1/2 flex-col gap-4 overflow-x-auto p-4'>
       <span className='text-lg'>등록한 모집글</span>
-      <div className='grid grid-cols-8 rounded-md border px-1'>
+      <div className='grid grid-cols-10 rounded-md border px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Fire className='hidden h-4 w-4 md:block' />
           레이드
@@ -108,14 +139,18 @@ export default function MypageCreatePost({ userId }: Props) {
           시간
         </div>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+          <User className='h-4 w-4' />
+          인원
+        </div>
+        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Hand className='hidden h-4 w-4 md:block' />
           모집글 닫기
         </div>
       </div>
       <div className='flex w-full flex-col gap-3 scroll-auto'>
         {currentItems.map((item) => (
-          <div key={item.post_id} className='grid h-9 grid-cols-8 rounded-md border bg-gray-100'>
-            <Link href={`/raidpost/${item.post_id}`} className='col-span-6 grid grid-cols-6'>
+          <div key={item.post_id} className='grid h-9 grid-cols-10 rounded-md border bg-gray-100'>
+            <Link href={`/raidpost/${item.post_id}`} className='col-span-8 grid grid-cols-8'>
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
               </div>
@@ -134,6 +169,11 @@ export default function MypageCreatePost({ userId }: Props) {
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>
                   {FormatDate(item.raid_time)}
+                </span>
+              </div>
+              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
+                <span className='overflow-hidden truncate whitespace-nowrap'>
+                  {myPostApplicationsCount[item.post_id] || 1}/{item.raid_limitperson}
                 </span>
               </div>
             </Link>
