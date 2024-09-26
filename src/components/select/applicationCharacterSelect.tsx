@@ -130,14 +130,14 @@ export default function ApplicationCharacterSelect({ raidLimitLevel }: Props) {
                 className='p-1'
               />
               <span className='text-lg text-white'>{characterInfo[0].character_name}</span>
-              <span className='hidden text-lg text-black text-white sm:block'>
+              <span className='hidden text-lg text-black text-white sm:flex'>
                 {characterInfo[0].character_level}
               </span>
-              <div className='flex hidden items-center text-white sm:block'>
+              <div className='flex hidden items-center text-white sm:flex'>
                 <Image src={'/엘릭서.png'} alt={'엘릭서'} width={30} height={30} className='p-1' />
                 <span>{characterInfo[0].elixir}</span>
               </div>
-              <div className='flex hidden items-center text-white sm:block'>
+              <div className='flex hidden items-center text-white sm:flex'>
                 <Image src={'/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
                 <span>{characterInfo[0].transcendence}</span>
               </div>
