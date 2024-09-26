@@ -1,3 +1,4 @@
+// auth.ts
 import NextAuth from 'next-auth'
 import { ZodError } from 'zod'
 import Credentials from 'next-auth/providers/credentials'
@@ -8,7 +9,7 @@ import { getUserFromDb } from '@/lib/getUserFromDB'
 import { signInSchema } from '@/lib/zod'
 import getUserBirthday from '@/lib/getUserBirthday'
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authOptions = {
   providers: [
     Credentials({
       credentials: {
@@ -42,8 +43,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
     GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      clientId: process.env.AUTH_GOOGLE_ID as string,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET as string,
       authorization: {
         params: {
           scope: 'openid email profile https://www.googleapis.com/auth/user.birthday.read',
@@ -54,7 +55,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   secret: process.env.AUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account }: any) {
       if (user) {
         token.id = user.id
         token.role = user.role // 역할 추가
@@ -64,12 +65,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return token
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       session.user.id = token.id as string
       session.user.role = token.role as string // 세션에 역할 추가
       return session
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account, profile }: any) {
       if (account && account.provider === 'google' && profile && profile.email) {
         const existingUser = await getUserFromDb(profile.email)
         if (!existingUser) {
@@ -110,4 +111,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: '/login',
   },
-})
+}
+
+// 핸들러 내보내기
+const handler = NextAuth(authOptions)
+export { handler as GET, handler as POST }

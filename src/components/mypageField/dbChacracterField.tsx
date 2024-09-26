@@ -2,10 +2,11 @@
 import Image from 'next/image'
 import Xmark from '@image/icon/xmark.svg'
 import { useEffect, useState } from 'react'
-import CharacterSorted from '@/components/utils/characterSorted'
+
 import Loading from '@image/icon/loading.svg'
 import { useTrigger } from '@/store/triggerStore'
 import SaveCharacterFetch from '@/components/mypageField/saveFetch'
+import { revaildTage } from '@/app/action'
 
 interface SaveCharacterInfo {
   character_name: string
@@ -22,8 +23,25 @@ interface SaveCharacterInfo {
   evolution: number
 }
 
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
+}
+
 interface Props {
   userId: string
+  dbCharacter: CharacterInfo[]
 }
 
 type Stats = {
@@ -64,33 +82,19 @@ interface CharacterProfiles {
  * @param param0
  * @returns
  */
-export default function DBCharacterField({ userId }: Props) {
+export default function DBCharacterField({ userId, dbCharacter }: Props) {
   const { trigger, setTrigger } = useTrigger()
   const [characterList, setCharacterList] = useState<SaveCharacterInfo[]>([])
   const [loading, setLoading] = useState(false)
   const [saveState, setSaveState] = useState(0)
 
-  const dataFetch = async () => {
-    try {
-      const response = await fetch(`/api/characterGet?userId=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const data = await response.json()
-
-      if (response.ok && data.result) {
-        const getCharacterList = data.result
-        const characterSorted = CharacterSorted(getCharacterList)
-        setCharacterList(characterSorted)
-      }
-    } catch (error) {
-      console.error(error)
+  useEffect(() => {
+    if (dbCharacter.length > 0) {
+      setCharacterList(dbCharacter)
+    } else {
       setCharacterList([])
     }
-  }
+  }, [dbCharacter])
 
   const characterDeleteHandler = async (character_name: string) => {
     setLoading(true)
@@ -103,7 +107,7 @@ export default function DBCharacterField({ userId }: Props) {
       })
 
       if (response.ok) {
-        setTrigger(!trigger)
+        revaildTage()
         setTimeout(function () {
           setLoading(false)
         }, 500)
@@ -149,23 +153,13 @@ export default function DBCharacterField({ userId }: Props) {
     if (resultList.includes(false)) {
       setSaveState(2)
       setLoading(false)
-      setTrigger(!trigger)
+      revaildTage()
     } else {
       setSaveState(1)
-      setTrigger(!trigger)
+      revaildTage()
       setLoading(false)
     }
   }
-
-  useEffect(() => {
-    dataFetch()
-
-    // setTimeout(function () {
-    //   setLoading(false)
-    // }, 2000)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [, trigger])
 
   return (
     <div className='mt-4 flex flex-col'>

@@ -5,15 +5,12 @@ import { useEffect, useState } from 'react'
 import MypageApplicationPost from '@/components/mypageField/mypageApplicationPost'
 import MypageCreatePost from '@/components/mypageField/mypageCreatePost'
 
-export default function MyPost() {
-  const { data: session } = useSession()
-  const [userId, setUserId] = useState('')
+interface Props {
+  userId: string
+}
 
-  useEffect(() => {
-    if (session && session.user.id) {
-      setUserId(session?.user.id)
-    }
-  }, [session])
+export default function MyPost({ userId }: Props) {
+  const { data: session } = useSession()
 
   return (
     <>

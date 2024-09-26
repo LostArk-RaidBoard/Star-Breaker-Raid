@@ -4,7 +4,7 @@ import Xmark from '@image/icon/xmark.svg'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
-import { useTrigger } from '@/store/triggerStore'
+import { revaildTage } from '@/app/action'
 
 interface CharacterList {
   CharacterClassName: string
@@ -37,7 +37,6 @@ export default function NewCharacterField({
   setNewCharacterList,
   userId,
 }: Props) {
-  const { setTrigger, trigger } = useTrigger()
   const [saveState, setSaveState] = useState(0)
   const [loading, setLoading] = useState(false)
 
@@ -76,10 +75,10 @@ export default function NewCharacterField({
     if (resultList.includes(false)) {
       setSaveState(2)
       setLoading(false)
-      setTrigger(!trigger)
+      revaildTage()
     } else {
       setSaveState(1)
-      setTrigger(!trigger)
+      revaildTage()
       setLoading(false)
     }
   }

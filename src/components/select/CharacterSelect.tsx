@@ -3,14 +3,9 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Under from '@image/icon/under.svg'
-import CharacterSorted from '@/components/utils/characterSorted'
 import { useCharacterInfoList } from '@/store/characterStore'
 
-interface Props {
-  userId: string
-}
-
-export default function CharacterSelect({ userId }: Props) {
+export default function CharacterSelect() {
   const { setCharacterInfo, characterInfo, setCharacterAllList, characterAllList } =
     useCharacterInfoList()
   const [hidden, setHidden] = useState(true)
@@ -25,35 +20,6 @@ export default function CharacterSelect({ userId }: Props) {
   const handlerHidden = () => {
     setHidden(!hidden)
   }
-
-  const dataFetch = async () => {
-    try {
-      const response = await fetch(`/api/characterGet?userId=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const data = await response.json()
-
-      if (response.ok && data.result) {
-        const getCharacterList = data.result
-        const characterSorted = CharacterSorted(getCharacterList)
-
-        setCharacterAllList(characterSorted)
-      }
-    } catch (error) {
-      console.error(error)
-
-      setCharacterAllList([])
-    }
-  }
-
-  useEffect(() => {
-    dataFetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (characterAllList.length > 0) {

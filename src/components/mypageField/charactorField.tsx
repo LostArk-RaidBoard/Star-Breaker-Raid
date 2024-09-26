@@ -6,6 +6,21 @@ import NewCharacterField from '@/components/mypageField/newChactorField'
 import DBCharacterField from '@/components/mypageField/dbChacracterField'
 import CharacterImage from '@/components/utils/characterImage'
 
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
+}
 interface CharacterList {
   CharacterClassName: string
   CharacterLevel: number
@@ -49,7 +64,12 @@ interface CharacterProfiles {
   ItemMaxLevel: string
 }
 
-export default function CharactorField() {
+interface Props {
+  userId: string
+  dbCharacter: CharacterInfo[]
+}
+
+export default function CharactorField({ userId, dbCharacter }: Props) {
   const { data: session } = useSession()
   const [mainCharacter, setMainCharacter] = useState('')
   const [mainMessage, setMainMessage] = useState('')
@@ -239,7 +259,7 @@ export default function CharactorField() {
           />
 
           {/* 데이터베이스에서 보이는 장소 */}
-          <DBCharacterField userId={session.user.id} />
+          <DBCharacterField userId={session.user.id} dbCharacter={dbCharacter} />
         </div>
       ) : (
         <div className='flex h-20 w-full items-center justify-center text-xl'>로그인 해주세요</div>

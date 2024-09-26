@@ -1,6 +1,9 @@
 import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/auth'
+import CharacterSorted from '@/components/utils/characterSorted'
 
 interface RaidPost {
   post_id: number
@@ -17,6 +20,21 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
+}
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
 }
 
 async function fetchTeacherPosts(): Promise<RaidPost[]> {
@@ -68,6 +86,7 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
           headers: {
             'Content-Type': 'application/json',
           },
+          cache: 'no-store',
         },
       )
       if (response.ok) {
@@ -86,15 +105,48 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
   return counts // 모든 카운트가 포함된 객체 반환
 }
 
+async function dataFetch(userId: string) {
+  console.log('dndndnndndnd')
+  try {
+    const response = await fetch(`${process.env.API_URL}/api/characterGet?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { tags: ['posts'] },
+    })
+
+    const data = await response.json()
+
+    if (response.ok && data.result) {
+      const getCharacterList = data.result
+      const charcter = CharacterSorted(getCharacterList)
+      return charcter
+    }
+  } catch (error) {
+    console.error(error)
+
+    return []
+  }
+}
+
 export default async function MainPost() {
   const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
   const postsWeRows = await fetchWePostsFetch()
   const applicationsCount = await fetchApplicationsCount(postsTeacherRows) // 카운트 데이터 가져오기
   const weApplicationsCount = await fetchApplicationsCount(postsWeRows)
 
+  const session = await getServerSession(authOptions)
+  let userId = ''
+  let serverCharacter: CharacterInfo[] = []
+  if (session && session.user.id) {
+    serverCharacter = (await dataFetch(session.user.id)) ?? []
+    userId = session.user.id
+  }
+
   return (
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
-      <MainCharacter />
+      <MainCharacter mainCharacter={serverCharacter} userId={userId} />
       <MainTeacherPosts teacherPostsRows={postsTeacherRows} applicationsCount={applicationsCount} />
       <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} />
     </div>
