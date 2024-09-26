@@ -103,13 +103,16 @@ const createPostGetHandler = async (userId: string) => {
 const fetchCreateCount = async (postsRows: RaidPost[]) => {
   const counts: { [key: number]: number } = {}
   const promises = postsRows.map(async (item) => {
-    const response = await fetch(`/api/applicationCount?post_id=${item.post_id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/applicationCount?post_id=${item.post_id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store',
       },
-      cache: 'no-store',
-    })
+    )
     if (response.ok) {
       const data = await response.json()
       counts[item.post_id] = data.count + 1 || 1
