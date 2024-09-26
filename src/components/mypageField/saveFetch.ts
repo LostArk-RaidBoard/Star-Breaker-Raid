@@ -266,5 +266,4 @@ function parseTooltipForElixer(tooltip: any, saveCharacterInfo: SaveCharacterInf
 
   // saveCharacterInfo에 elixir 합산 저장
   saveCharacterInfo.elixir += elixirLevelSum
-  console.log('Total Elixir Level:', saveCharacterInfo.elixir)
 }

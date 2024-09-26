@@ -50,7 +50,6 @@ export default function RaidApplication({
         character_transcendence: characterInfo[0].transcendence,
         character_level: characterInfo[0].character_level,
       }
-      console.log(applicationList)
       try {
         const response = await fetch('/api/applicationSave', {
           method: 'POST',

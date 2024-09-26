@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
 import FormatDate from '@/components/utils/\bformatDate'
+import { teacherTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -49,6 +50,10 @@ export default function MainTeacherPosts({
     setCurrentPage(1)
     setItemsPerPage(7)
   }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
+
+  useEffect(() => {
+    teacherTage()
+  }, [])
 
   return (
     <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>

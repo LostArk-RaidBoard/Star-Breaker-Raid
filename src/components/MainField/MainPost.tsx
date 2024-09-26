@@ -44,6 +44,7 @@ async function fetchTeacherPosts(): Promise<RaidPost[]> {
       headers: {
         'Content-Type': 'application/json',
       },
+      next: { tags: ['teacherPost'] },
     })
     const data = await response.json()
     if (response.ok) {
@@ -63,6 +64,7 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
       headers: {
         'Content-Type': 'application/json',
       },
+      next: { tags: ['wePost'] },
     })
     const data = await response.json()
     if (response.ok && response.status === 201) {
@@ -91,7 +93,7 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
       )
       if (response.ok) {
         const data = await response.json()
-        counts[item.post_id] = data.count + 1 || 0
+        counts[item.post_id] = data.count + 1 || 1
       } else {
         counts[item.post_id] = 1
       }
@@ -106,7 +108,6 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
 }
 
 async function dataFetch(userId: string) {
-  console.log('dndndnndndnd')
   try {
     const response = await fetch(`${process.env.API_URL}/api/characterGet?userId=${userId}`, {
       method: 'GET',

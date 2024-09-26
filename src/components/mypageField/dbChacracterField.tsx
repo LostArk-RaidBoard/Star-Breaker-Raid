@@ -4,9 +4,9 @@ import Xmark from '@image/icon/xmark.svg'
 import { useEffect, useState } from 'react'
 
 import Loading from '@image/icon/loading.svg'
-import { useTrigger } from '@/store/triggerStore'
 import SaveCharacterFetch from '@/components/mypageField/saveFetch'
 import { revaildTage } from '@/app/action'
+import { useSession } from 'next-auth/react'
 
 interface SaveCharacterInfo {
   character_name: string
@@ -83,10 +83,10 @@ interface CharacterProfiles {
  * @returns
  */
 export default function DBCharacterField({ userId, dbCharacter }: Props) {
-  const { trigger, setTrigger } = useTrigger()
   const [characterList, setCharacterList] = useState<SaveCharacterInfo[]>([])
   const [loading, setLoading] = useState(false)
   const [saveState, setSaveState] = useState(0)
+  const { data: session } = useSession()
 
   useEffect(() => {
     if (dbCharacter.length > 0) {
@@ -95,6 +95,17 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
       setCharacterList([])
     }
   }, [dbCharacter])
+
+  useEffect(() => {
+    if (userId === '' && session?.user.id) {
+      revaildTage()
+    }
+
+    if (userId.length > 0) {
+      dbCharacter.length === 0
+      revaildTage()
+    }
+  }, [session, userId])
 
   const characterDeleteHandler = async (character_name: string) => {
     setLoading(true)

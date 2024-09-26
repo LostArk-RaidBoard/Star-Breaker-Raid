@@ -11,6 +11,7 @@ import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
 import { usePathname } from 'next/navigation'
 import FormatDate from '@/components/utils/\bformatDate'
+import { wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -47,6 +48,10 @@ export default function MainWePosts({ wePostsRows, applicationsCount }: MainWePo
     setCurrentPage(1)
     setItemsPerPage(7)
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
+
+  useEffect(() => {
+    wePostTage()
+  }, [])
 
   return (
     <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>

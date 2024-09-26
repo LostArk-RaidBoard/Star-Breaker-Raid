@@ -9,6 +9,7 @@ import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import { useEffect, useState } from 'react'
 import { usePageination } from '@/store/pageinationStore'
+import { applicationTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -29,41 +30,22 @@ interface RaidPost {
 
 type Props = {
   userId: string
+  applicationPostGet: RaidPost[]
 }
 
-export default function MypageApplicationPost({ userId }: Props) {
-  const [applicationPost, setApplicationPost] = useState<RaidPost[]>([])
-  const [trigger, seTrigger] = useState(true)
+export default function MypageApplicationPost({ userId, applicationPostGet }: Props) {
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageination()
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = applicationPost.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = applicationPostGet.slice(indexOfFirstItem, indexOfLastItem)
 
   useEffect(() => {
-    setDataLength(applicationPost.length)
+    setDataLength(applicationPostGet.length)
     setCurrentPage(1)
     setItemsPerPage(5)
-  }, [applicationPost, setDataLength, setCurrentPage, setItemsPerPage])
-
-  const applicationPostGetHandler = async () => {
-    try {
-      const response = await fetch(`/api/mypagePostGet?user_id=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      const data = await response.json()
-      if (response.ok && response.status === 201) {
-        setApplicationPost(data.postRows)
-        console.log(data)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  }, [applicationPostGet, setDataLength, setCurrentPage, setItemsPerPage])
 
   const deleteApplicationHandler = async (post_id: number) => {
     try {
@@ -75,19 +57,13 @@ export default function MypageApplicationPost({ userId }: Props) {
       })
       const data = await response.json()
       if (response.ok && response.status === 201) {
-        seTrigger(!trigger)
+        applicationTage()
       }
     } catch (error) {
       console.error(error)
     }
   }
 
-  useEffect(() => {
-    if (userId) {
-      applicationPostGetHandler()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, trigger])
   return (
     <div className='flex basis-1/2 flex-col gap-4 p-4'>
       <span className='text-lg'>참여 신청한 모집글</span>

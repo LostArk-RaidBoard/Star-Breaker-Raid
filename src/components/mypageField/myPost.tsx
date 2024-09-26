@@ -1,15 +1,33 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
 import MypageApplicationPost from '@/components/mypageField/mypageApplicationPost'
 import MypageCreatePost from '@/components/mypageField/mypageCreatePost'
 
-interface Props {
-  userId: string
+interface RaidPost {
+  post_id: number
+  raid_name: string
+  raid_time: string
+  limit_level: number
+  user_id: string
+  post_position: string
+  noti: string
+  fixed: boolean
+  character_level: string
+  character_name: string
+  raid_limitperson: number
+  raid_type: string
+  raid_maxtime: string
+  character_classicon: string
 }
 
-export default function MyPost({ userId }: Props) {
+interface Props {
+  userId: string
+  applicationPostGet: RaidPost[]
+  createPostGet: RaidPost[]
+}
+
+export default function MyPost({ userId, applicationPostGet, createPostGet }: Props) {
   const { data: session } = useSession()
 
   return (
@@ -18,8 +36,8 @@ export default function MyPost({ userId }: Props) {
         <div className='flex w-full flex-col p-4'>
           <span className='text-lg'>내 파티 관리</span>
           <div className='flex flex-col gap-4 sm:flex-row'>
-            <MypageApplicationPost userId={userId} />
-            <MypageCreatePost userId={userId} />
+            <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
+            <MypageCreatePost userId={userId} createPostGet={createPostGet} />
           </div>
         </div>
       ) : (
