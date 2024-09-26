@@ -65,6 +65,7 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
     leap: 0,
     enlightenment: 0,
     evolution: 0,
+    disable: false,
   }
 
   let fetchResult = false
@@ -73,7 +74,6 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
    * lostark arkpassive 정보 가져오기
    */
   try {
-    console.log(process.env.LostArk_Token)
     const response = await fetch(`/lostark/armories/characters/${item.CharacterName}/arkpassive`, {
       method: 'GET',
       headers: {
@@ -266,5 +266,4 @@ function parseTooltipForElixer(tooltip: any, saveCharacterInfo: SaveCharacterInf
 
   // saveCharacterInfo에 elixir 합산 저장
   saveCharacterInfo.elixir += elixirLevelSum
-  console.log('Total Elixir Level:', saveCharacterInfo.elixir)
 }

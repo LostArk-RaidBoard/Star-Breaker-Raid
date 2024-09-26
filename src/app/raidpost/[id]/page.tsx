@@ -11,7 +11,7 @@ export default function Raidpost({ params: { id } }: raidPost) {
     <Section>
       <main className='flex min-h-screen w-full flex-col items-center'>
         <HeaderField />
-        <RaidListField />
+        <RaidListField postId={id} />
       </main>
     </Section>
   )

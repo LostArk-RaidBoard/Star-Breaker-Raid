@@ -4,11 +4,13 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
-export default function UserDelete() {
-  const { data: session } = useSession()
-  const userId = session?.user.id
+interface Props {
+  userId: string
+}
 
+export default function UserDelete({ userId }: Props) {
   const router = useRouter()
+  const { data: session } = useSession()
   const [inputDelete, setInputDelete] = useState('')
   const [message, setMessage] = useState('')
   const handlerDelete = async () => {
@@ -37,7 +39,7 @@ export default function UserDelete() {
     }
   }
   return (
-    <div className='flex h-full w-full flex-col rounded-md border p-4 shadow-lg sm:w-[50%]'>
+    <div className='flex h-full w-full flex-col rounded-md border p-4 shadow-lg sm:basis-1/2'>
       {session && session.user.id ? (
         <>
           <span className='text-lg'>회원 탈퇴</span>

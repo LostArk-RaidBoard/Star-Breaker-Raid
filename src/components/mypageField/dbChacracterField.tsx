@@ -2,9 +2,11 @@
 import Image from 'next/image'
 import Xmark from '@image/icon/xmark.svg'
 import { useEffect, useState } from 'react'
-import CharacterSorted from '@/components/utils/characterSorted'
+
 import Loading from '@image/icon/loading.svg'
-import { useTrigger } from '@/store/triggerStore'
+import SaveCharacterFetch from '@/components/mypageField/saveFetch'
+import { revaildTage } from '@/app/action'
+import { useSession } from 'next-auth/react'
 
 interface SaveCharacterInfo {
   character_name: string
@@ -21,8 +23,58 @@ interface SaveCharacterInfo {
   evolution: number
 }
 
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
+}
+
 interface Props {
   userId: string
+  dbCharacter: CharacterInfo[]
+}
+
+type Stats = {
+  Type: string
+  Value: string
+  Tooltip: [string]
+}
+
+type Tendencies = {
+  Type: string
+  Point: number
+  MaxPoint: number
+}
+
+interface CharacterProfiles {
+  CharacterImage: string
+  ExpeditionLevel: number
+  PvpGradeName: string
+  TownLevel: string
+  TownName: string
+  Title: string
+  GuildMemberGrade: string
+  GuildName: string
+  UsingSkillPoint: number
+  TotalSkillPoint: number
+  Stats: Stats[]
+  Tendencies: Tendencies[]
+  ServerName: string
+  CharacterName: string
+  CharacterLevel: number
+  CharacterClassName: string
+  ItemAvgLevel: string
+  ItemMaxLevel: string
 }
 
 /**
@@ -30,33 +82,30 @@ interface Props {
  * @param param0
  * @returns
  */
-export default function DBCharacterField({ userId }: Props) {
-  const { trigger, setTrigger } = useTrigger()
+export default function DBCharacterField({ userId, dbCharacter }: Props) {
   const [characterList, setCharacterList] = useState<SaveCharacterInfo[]>([])
   const [loading, setLoading] = useState(false)
+  const [saveState, setSaveState] = useState(0)
+  const { data: session } = useSession()
 
-  const dataFetch = async () => {
-    try {
-      console.log('실행중')
-      const response = await fetch(`/api/characterGet?userId=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const data = await response.json()
-
-      if (response.ok && data.result) {
-        const getCharacterList = data.result
-        const characterSorted = CharacterSorted(getCharacterList)
-        setCharacterList(characterSorted)
-      }
-    } catch (error) {
-      console.error(error)
+  useEffect(() => {
+    if (dbCharacter.length > 0) {
+      setCharacterList(dbCharacter)
+    } else {
       setCharacterList([])
     }
-  }
+  }, [dbCharacter])
+
+  useEffect(() => {
+    if (userId === '' && session?.user.id) {
+      revaildTage()
+    }
+
+    if (userId.length > 0) {
+      dbCharacter.length === 0
+      revaildTage()
+    }
+  }, [session, userId])
 
   const characterDeleteHandler = async (character_name: string) => {
     setLoading(true)
@@ -69,30 +118,63 @@ export default function DBCharacterField({ userId }: Props) {
       })
 
       if (response.ok) {
-        setTrigger(!trigger)
+        revaildTage()
+        setTimeout(function () {
+          setLoading(false)
+        }, 500)
       }
     } catch (error) {
       console.error(error)
     }
   }
 
-  useEffect(() => {
-    dataFetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    dataFetch()
-    // setTimeout(function () {
-    //   setLoading(false)
-    // }, 2000)
-    setLoading(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trigger])
+  const updateItemHandler = async () => {
+    setLoading(true)
+    const resultList = []
+    for (const item of characterList) {
+      try {
+        const response = await fetch(
+          `/lostark/armories/characters/${item.character_name}/profiles`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: `bearer ${process.env.LostArk_Token}`,
+            },
+          },
+        )
+        const data: CharacterProfiles = await response.json()
+        if (response.ok) {
+          const characterList = {
+            CharacterClassName: data.CharacterClassName,
+            CharacterLevel: data.CharacterLevel,
+            CharacterName: data.CharacterName,
+            ItemAvgLevel: data.ItemAvgLevel,
+            ItemMaxLevel: data.ItemMaxLevel,
+            ServerName: data.ServerName,
+            CharacterClassIcon: item.class_icon_url,
+            CharacterImage: item.class_image,
+          }
+          resultList.push(await SaveCharacterFetch(characterList, userId)) // 함수로 호출
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    if (resultList.includes(false)) {
+      setSaveState(2)
+      setLoading(false)
+      revaildTage()
+    } else {
+      setSaveState(1)
+      revaildTage()
+      setLoading(false)
+    }
+  }
 
   return (
     <div className='mt-4 flex flex-col'>
-      <span className='text-xl'>캐릭터</span>
+      <span className='w-full text-xl'>캐릭터</span>
 
       {/* DB에 저장된 캐릭터 */}
       <div className='relative mt-2 grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
@@ -144,7 +226,7 @@ export default function DBCharacterField({ userId }: Props) {
                         alt='엘릭서'
                         width={30}
                         height={30}
-                        className='hidden p-1 sm:block'
+                        className='p-1'
                       />
                       <span>{character.elixir}</span>
                     </div>
@@ -154,7 +236,7 @@ export default function DBCharacterField({ userId }: Props) {
                         alt='초파고'
                         width={30}
                         height={30}
-                        className='hidden p-1 sm:block'
+                        className='p-1'
                       />
                       <span>{character.transcendence}</span>
                     </div>
@@ -196,6 +278,16 @@ export default function DBCharacterField({ userId }: Props) {
             <Loading className='h-12 w-12 animate-spin text-white' />
           </div>
         )}
+      </div>
+      <div className='mt-2 flex flex-col items-center justify-center'>
+        <span className={`${saveState === 1 ? '' : 'hidden'} text-blue-500`}>업데이트 성공</span>
+        <span className={`${saveState === 2 ? '' : 'hidden'} text-red-500`}>업데이트 실패</span>
+        <button
+          className='mt-2 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
+          onClick={updateItemHandler}
+        >
+          업데이트
+        </button>
       </div>
     </div>
   )

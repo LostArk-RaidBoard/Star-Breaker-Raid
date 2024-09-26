@@ -1,3 +1,4 @@
+// auth.ts
 import NextAuth from 'next-auth'
 import { ZodError } from 'zod'
 import Credentials from 'next-auth/providers/credentials'
@@ -8,7 +9,7 @@ import { getUserFromDb } from '@/lib/getUserFromDB'
 import { signInSchema } from '@/lib/zod'
 import getUserBirthday from '@/lib/getUserBirthday'
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const authOptions = {
   providers: [
     Credentials({
       credentials: {
@@ -30,6 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             throw new Error('Invalid password.')
           }
 
+          console.log('로그인 : ' + user.user_id)
           // 유저 반환
           return { id: user.user_id, role: user.role }
         } catch (error) {
@@ -41,20 +43,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
     GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      clientId: process.env.AUTH_GOOGLE_ID as string,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET as string,
       authorization: {
         params: {
           scope: 'openid email profile https://www.googleapis.com/auth/user.birthday.read',
           prompt: 'consent',
-
         },
       },
     }),
   ],
   secret: process.env.AUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account }: any) {
       if (user) {
         token.id = user.id
         token.role = user.role // 역할 추가
@@ -64,22 +65,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return token
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       session.user.id = token.id as string
       session.user.role = token.role as string // 세션에 역할 추가
       return session
     },
-    async signIn({ user, account, profile }) {
-      console.log(1)
+    async signIn({ user, account, profile }: any) {
       if (account && account.provider === 'google' && profile && profile.email) {
         const existingUser = await getUserFromDb(profile.email)
-        console.log(2)
         if (!existingUser) {
-          console.log(3)
           const userName = profile.given_name || '이름 없음' // 이름이 없는 경우 기본값 설정
           const birthday = account.access_token ? await getUserBirthday(account.access_token) : null
 
-          console.log(4)
           const userRegistrationResponse = await fetch(`${process.env.API_URL}/api/signup`, {
             method: 'POST',
             headers: {
@@ -92,7 +89,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               birthday: birthday,
             }),
           })
-          console.log(5)
 
           if (!userRegistrationResponse.ok) {
             const errorData = await userRegistrationResponse.json()
@@ -101,10 +97,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           user.id = profile.email
           user.role = 'user'
+          console.log('로그인 : ' + profile.email)
         } else {
-          console.log(6)
           user.id = existingUser.user_id
           user.role = existingUser.role
+          console.log('로그인 : ' + existingUser.user_id)
         }
       }
 
@@ -114,4 +111,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: '/login',
   },
-})
+}
+
+// 핸들러 내보내기
+const handler = NextAuth(authOptions)
+export { handler as GET, handler as POST }
