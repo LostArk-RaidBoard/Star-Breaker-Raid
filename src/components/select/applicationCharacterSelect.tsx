@@ -40,7 +40,6 @@ export default function ApplicationCharacterSelect({ raidLimitLevel }: Props) {
 
   const handler = (name: string) => {
     const selectedCharacter = characterAllList.find((char) => char.character_name === name)
-    console.log(selectedCharacter)
     if (selectedCharacter) {
       setCharacterInfo([selectedCharacter])
       setHidden(!hidden)

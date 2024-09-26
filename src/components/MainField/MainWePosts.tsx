@@ -10,6 +10,8 @@ import { useSession } from 'next-auth/react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
 import { usePathname } from 'next/navigation'
+import FormatDate from '@/components/utils/\bformatDate'
+import { wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -28,89 +30,28 @@ interface RaidPost {
   character_classicon: string
 }
 
-export default function MainWePosts() {
-  const { data: session } = useSession()
-  const [postsRows, setPostRows] = useState<RaidPost[]>([])
-  const [applicationsCount, setApplicationsCount] = useState<{ [key: number]: number }>({})
+interface MainWePostsProps {
+  wePostsRows: RaidPost[]
+  applicationsCount: { [key: number]: number } // 추가된 props
+}
+
+export default function MainWePosts({ wePostsRows, applicationsCount }: MainWePostsProps) {
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageination()
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = postsRows.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = wePostsRows.slice(indexOfFirstItem, indexOfLastItem)
 
   useEffect(() => {
-    setDataLength(postsRows.length)
+    setDataLength(wePostsRows.length)
     setCurrentPage(1)
     setItemsPerPage(7)
-  }, [postsRows, setDataLength, setCurrentPage, setItemsPerPage])
-
-  const postsFetch = async () => {
-    try {
-      const response = await fetch(`/api/raidPostGet?posts_position=user`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      const data = await response.json()
-      if (response.ok && response.status === 201) {
-        setPostRows(data.postRows)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const fetchApplicationsCount = async () => {
-    const counts: { [key: number]: number } = {}
-    const promises = postsRows.map(async (item) => {
-      const response = await fetch(`/api/applicationCount?post_id=${item.post_id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      if (response.ok) {
-        const data = await response.json()
-        counts[item.post_id] = data.count + 1 || 0
-      } else {
-        counts[item.post_id] = 1
-      }
-    })
-    await Promise.all(promises)
-    setApplicationsCount(counts)
-  }
-
-  const pathname = usePathname()
-  useEffect(() => {
-    if (pathname === '/') {
-      postsFetch()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
+  }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   useEffect(() => {
-    if (postsRows.length > 0) {
-      fetchApplicationsCount()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postsRows])
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    const optionsDate: Intl.DateTimeFormatOptions = {
-      weekday: 'short',
-    }
-    const optionsTime: Intl.DateTimeFormatOptions = {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    }
-    const day = date.toLocaleDateString('ko-KR', optionsDate)
-    const time = date.toLocaleTimeString('ko-KR', optionsTime)
-    return `${day}, ${time}`
-  }
+    wePostTage()
+  }, [])
 
   return (
     <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>
@@ -156,7 +97,7 @@ export default function MainWePosts() {
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
-                {formatDate(item.raid_time)}
+                {FormatDate(item.raid_time)}
               </span>
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>

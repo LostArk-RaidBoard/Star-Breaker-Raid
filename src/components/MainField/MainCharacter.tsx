@@ -1,22 +1,56 @@
 'use client'
 import CharacterSelect from '@/components/select/CharacterSelect'
 import { useCharacterInfoList } from '@/store/characterStore'
-import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Loading from '@image/icon/loading.svg'
+import { useSession } from 'next-auth/react'
+import submit from '@/app/action'
 
-export default function MainCharacter() {
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
+}
+
+interface MainCharacter {
+  mainCharacter: CharacterInfo[]
+  userId: string
+}
+
+export default function MainCharacter({ mainCharacter, userId }: MainCharacter) {
   const { data: session } = useSession()
-  const { characterInfo } = useCharacterInfoList()
-  const [loading, setLoading] = useState(true)
+  const { characterInfo, setCharacterAllList, characterAllList } = useCharacterInfoList()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    // 1초 후에 로딩 상태를 false로 변경
+    const fetchData = async () => {
+      if (userId === '' && session?.user.id) {
+        await submit()
+      }
+      setCharacterAllList(mainCharacter)
+    }
+
+    fetchData()
+  }, [session, mainCharacter, userId]) // 의존성 배열에 userId 추가
+
+  useEffect(() => {
+    setLoading(true)
+    // 2초 후에 로딩 상태를 false로 변경
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 1000)
+    }, 2000)
 
     // 컴포넌트가 언마운트될 때 타이머 정리
     return () => clearTimeout(timer)
@@ -32,7 +66,7 @@ export default function MainCharacter() {
         )}
         {session && session.user.id ? (
           <>
-            <CharacterSelect userId={session.user.id} />
+            <CharacterSelect />
             {characterInfo[0] ? (
               <>
                 <div className='flex w-full flex-col text-white'>

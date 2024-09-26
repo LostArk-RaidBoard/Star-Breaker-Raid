@@ -53,7 +53,6 @@ export default function RaidCharacterSelect() {
       setHidden(!hidden)
     } else {
       const selectedCharacter = characterAllList.find((char) => char.character_name === name)
-      console.log(selectedCharacter)
       if (selectedCharacter) {
         setCharacterInfo([selectedCharacter])
         setHidden(!hidden)

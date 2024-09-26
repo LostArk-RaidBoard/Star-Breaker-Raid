@@ -3,9 +3,12 @@ import InputLayout from '@/components/ui/inputLayout'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
-export default function PasswordChange() {
+interface Props {
+  userId: string
+}
+
+export default function PasswordChange({ userId }: Props) {
   const { data: session } = useSession()
-  const userId = session?.user.id
   const [userPassword, setUserPassword] = useState('')
   const [message, setMessage] = useState('')
 
@@ -51,7 +54,7 @@ export default function PasswordChange() {
 
   return (
     <div className='h-full w-full rounded-md border p-4 shadow-lg sm:w-[50%]'>
-      {session && userId ? (
+      {session && session.user.id ? (
         <>
           <span className='text-lg'>비밀번호 변경</span>
 

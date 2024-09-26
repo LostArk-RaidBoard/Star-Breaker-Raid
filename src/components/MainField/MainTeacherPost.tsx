@@ -5,11 +5,12 @@ import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
-import { usePathname } from 'next/navigation'
+import FormatDate from '@/components/utils/\bformatDate'
+import { teacherTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -28,93 +29,31 @@ interface RaidPost {
   character_classicon: string
 }
 
-export default function MainTeacherPosts() {
-  const { data: session } = useSession()
-  const [postsRows, setPostRows] = useState<RaidPost[]>([])
-  const [applicationsCount, setApplicationsCount] = useState<{ [key: number]: number }>({})
+interface MainTeacherPostsProps {
+  teacherPostsRows: RaidPost[]
+  applicationsCount: { [key: number]: number } // 추가된 props
+}
+
+export default function MainTeacherPosts({
+  teacherPostsRows,
+  applicationsCount,
+}: MainTeacherPostsProps) {
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageinationSub()
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = postsRows.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = teacherPostsRows.slice(indexOfFirstItem, indexOfLastItem)
 
   useEffect(() => {
-    setDataLength(postsRows.length)
+    setDataLength(teacherPostsRows.length)
     setCurrentPage(1)
     setItemsPerPage(7)
-  }, [postsRows, setDataLength, setCurrentPage, setItemsPerPage])
-
-  const postsFetch = async () => {
-    try {
-      const response = await fetch(`/api/raidPostGet?posts_position=teacher`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      const data = await response.json()
-      if (response.ok) {
-        if (response.status === 201) {
-          setPostRows(data.postRows)
-        }
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const fetchApplicationsCount = async () => {
-    const counts: { [key: number]: number } = {}
-    const promises = postsRows.map(async (item) => {
-      const response = await fetch(`/api/applicationCount?post_id=${item.post_id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      if (response.ok) {
-        const data = await response.json()
-        counts[item.post_id] = data.count + 1 || 0
-      } else {
-        counts[item.post_id] = 1
-      }
-    })
-    await Promise.all(promises)
-    setApplicationsCount(counts)
-  }
-
-  const pathname = usePathname()
+  }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   useEffect(() => {
-    if (pathname === '/') {
-      postsFetch()
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
-
-  useEffect(() => {
-    if (postsRows.length > 0) {
-      fetchApplicationsCount()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postsRows])
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    const optionsDate: Intl.DateTimeFormatOptions = {
-      weekday: 'short',
-    }
-    const optionsTime: Intl.DateTimeFormatOptions = {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    }
-    const day = date.toLocaleDateString('ko-KR', optionsDate)
-    const time = date.toLocaleTimeString('ko-KR', optionsTime)
-    return `${day}, ${time}`
-  }
+    teacherTage()
+  }, [])
 
   return (
     <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>
@@ -158,7 +97,9 @@ export default function MainTeacherPosts() {
               </span>
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>금, 21:00</span>
+              <span className='overflow-hidden truncate whitespace-nowrap'>
+                {FormatDate(item.raid_time)}
+              </span>
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>

@@ -4,11 +4,13 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
-export default function UserDelete() {
-  const { data: session } = useSession()
-  const userId = session?.user.id
+interface Props {
+  userId: string
+}
 
+export default function UserDelete({ userId }: Props) {
   const router = useRouter()
+  const { data: session } = useSession()
   const [inputDelete, setInputDelete] = useState('')
   const [message, setMessage] = useState('')
   const handlerDelete = async () => {

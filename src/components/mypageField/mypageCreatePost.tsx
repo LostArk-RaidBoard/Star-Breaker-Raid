@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
+import { createPostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -31,11 +32,10 @@ interface RaidPost {
 
 type Props = {
   userId: string
+  createPostGet: RaidPost[]
 }
 
-export default function MypageCreatePost({ userId }: Props) {
-  const [createPost, setCreatePost] = useState<RaidPost[]>([])
-  const [trigger, seTrigger] = useState(true)
+export default function MypageCreatePost({ userId, createPostGet }: Props) {
   const [myPostApplicationsCount, setMyPostApplicationsCount] = useState<{ [key: number]: number }>(
     {},
   )
@@ -44,32 +44,13 @@ export default function MypageCreatePost({ userId }: Props) {
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = createPost.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = createPostGet.slice(indexOfFirstItem, indexOfLastItem)
 
   useEffect(() => {
-    setDataLength(createPost.length)
+    setDataLength(createPostGet.length)
     setCurrentPage(1)
     setItemsPerPage(5)
-  }, [createPost, setDataLength, setCurrentPage, setItemsPerPage])
-
-  const createPostGetHandler = async () => {
-    console.log('실행')
-    try {
-      const response = await fetch(`/api/mypageCreatePost?user_id=${userId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      const data = await response.json()
-      if (response.ok && response.status === 201) {
-        setCreatePost(data.postRows)
-        console.log(data)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  }, [createPostGet, setDataLength, setCurrentPage, setItemsPerPage])
 
   const deleteCreatePostHandler = async (post_id: number) => {
     try {
@@ -81,23 +62,16 @@ export default function MypageCreatePost({ userId }: Props) {
       })
       const data = await response.json()
       if (response.ok && response.status === 201) {
-        seTrigger(!trigger)
+        createPostTage()
       }
     } catch (error) {
       console.error(error)
     }
   }
 
-  useEffect(() => {
-    if (userId) {
-      createPostGetHandler()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, trigger])
-
   const fetchApplicationsCount = async () => {
     const counts: { [key: number]: number } = {}
-    const promises = createPost.map(async (item) => {
+    const promises = createPostGet.map(async (item) => {
       const response = await fetch(`/api/applicationCount?post_id=${item.post_id}`, {
         method: 'GET',
         headers: {
@@ -116,11 +90,11 @@ export default function MypageCreatePost({ userId }: Props) {
   }
 
   useEffect(() => {
-    if (createPost.length > 0) {
+    if (createPostGet.length > 0) {
       fetchApplicationsCount()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createPost])
+  }, [createPostGet])
 
   return (
     <div className='flex basis-1/2 flex-col gap-4 overflow-x-auto p-4'>

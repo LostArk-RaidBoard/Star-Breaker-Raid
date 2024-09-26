@@ -26,7 +26,6 @@ const nextConfig = {
     ],
   },
 
-
   env: {
     POSTGRES_URL: process.env.POSTGRES_URL,
     POSTGRES_USER: process.env.POSTGRES_USER,
@@ -44,6 +43,7 @@ const nextConfig = {
     GOOGLE_API: process.env.GOOGLE_API,
     API_URL: process.env.API_URL,
     LostArk_Token: process.env.LostArk_Token,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   },
 }
 
