@@ -3,7 +3,7 @@ import Login from '@image/icon/login.svg'
 import Logout from '@image/icon/logout.svg'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 export default function HeadLogField() {
   const { data: session } = useSession()

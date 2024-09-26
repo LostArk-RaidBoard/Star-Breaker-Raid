@@ -86,14 +86,23 @@ export default function CharactorField({ userId, dbCharacter }: Props) {
     }
     setMainMessage('')
 
+    const encodedMainCharacter = encodeURIComponent(mainCharacter.trim())
+
+    const controller = new AbortController() // AbortController 생성
+    const timeoutId = setTimeout(() => {
+      controller.abort() // 5초 후 요청 중단
+    }, 5000) // 5000ms = 5초
+
     try {
-      const response = await fetch(`/lostark/characters/${mainCharacter}/siblings`, {
+      const response = await fetch(`/lostark/characters/${encodedMainCharacter}/siblings`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           authorization: `bearer ${process.env.LostArk_Token}`,
         },
+        signal: controller.signal,
       })
+      clearTimeout(timeoutId) // 응답을 받으면 타임아웃 제거
 
       const data = await response.json()
       if (response.ok) {
@@ -125,9 +134,13 @@ export default function CharactorField({ userId, dbCharacter }: Props) {
 
         setNewHidden(true)
       }
-    } catch (e) {
-      setMainMessage('로아 API 패치를 실패했습니다.')
-      console.error(e)
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        setMainMessage('요청이 시간 초과되었습니다.') // 타임아웃 에러 처리
+      } else {
+        console.error(error)
+        setMainMessage('로아 API 패치를 실패했습니다.')
+      }
     }
   }
 
@@ -139,14 +152,30 @@ export default function CharactorField({ userId, dbCharacter }: Props) {
     }
     setOneMessage('')
 
+    const controller = new AbortController() // AbortController 생성
+    const timeoutId = setTimeout(() => {
+      controller.abort() // 5초 후 요청 중단
+    }, 5000) // 5000ms = 5초
+
+    const encodedCharacter = encodeURIComponent(character.trim())
     try {
-      const response = await fetch(`/lostark/armories/characters/${character}/profiles`, {
+      const response = await fetch(`/lostark/armories/characters/${encodedCharacter}/profiles`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           authorization: `bearer ${process.env.LostArk_Token}`,
         },
+        signal: controller.signal,
       })
+
+      clearTimeout(timeoutId) // 응답을 받으면 타임아웃 제거
+      if (!response.ok) {
+        // 응답 상태가 OK가 아닐 경우
+        const errorMessage = await response.text() // 오류 메시지 확인
+        console.error('Error response:', errorMessage)
+        setOneMessage('API 요청 실패')
+        return
+      }
 
       const data: CharacterProfiles = await response.json()
       if (response.ok) {
@@ -183,9 +212,13 @@ export default function CharactorField({ userId, dbCharacter }: Props) {
         })
         setNewHidden(true)
       }
-    } catch (e) {
-      console.error(e)
-      setOneMessage('로아 API 패치를 실패했습니다.')
+    } catch (error: any) {
+      if (error.name === 'AbortError') {
+        setOneMessage('요청이 시간 초과되었습니다.') // 타임아웃 에러 처리
+      } else {
+        console.error(error)
+        setOneMessage('로아 API 패치를 실패했습니다.')
+      }
     }
   }
 
