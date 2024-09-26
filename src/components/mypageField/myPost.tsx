@@ -34,7 +34,7 @@ export default function MyPost({ userId, applicationPostGet, createPostGet }: Pr
     <>
       {session && session?.user.id ? (
         <div className='flex w-full flex-col p-4'>
-          <span className='text-lg'>내 파티 관리</span>
+          <span className='text-lg'>내 모집글 관리</span>
           <div className='flex flex-col gap-4 sm:flex-row'>
             <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
             <MypageCreatePost userId={userId} createPostGet={createPostGet} />
