@@ -88,7 +88,6 @@ export default function RaidPostCreateButton() {
       if (response.ok) {
         if (response.status === 200) {
           setPostSave(1)
-
           router.push('/')
           setLoading(0)
         }
@@ -117,7 +116,7 @@ export default function RaidPostCreateButton() {
       </span>
       <button
         className='mt-2 flex w-32 items-center justify-center rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
-        disabled={loading === 1}
+        disabled={loading === 1 || postSave === 1}
         onClick={raidCreateHandler}
       >
         <span className={`${loading === 0 ? '' : 'hidden'}`}>모집 글 등록</span>
