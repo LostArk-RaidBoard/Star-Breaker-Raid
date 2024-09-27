@@ -51,9 +51,9 @@ export default function MainTeacherPosts({
     setItemsPerPage(7)
   }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
-  useEffect(() => {
-    teacherTage()
-  }, [])
+  // useEffect(() => {
+  //   teacherTage()
+  // }, [])
 
   return (
     <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>
