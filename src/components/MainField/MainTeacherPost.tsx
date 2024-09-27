@@ -45,11 +45,11 @@ export default function MainTeacherPosts({
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = teacherPostsRows.slice(indexOfFirstItem, indexOfLastItem)
 
-  useEffect(() => {
-    setDataLength(teacherPostsRows.length)
-    setCurrentPage(1)
-    setItemsPerPage(7)
-  }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
+  // useEffect(() => {
+  //   setDataLength(teacherPostsRows.length)
+  //   setCurrentPage(1)
+  //   setItemsPerPage(7)
+  // }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   // useEffect(() => {
   //   teacherTage()
@@ -103,7 +103,7 @@ export default function MainTeacherPosts({
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
-                {applicationsCount[item.post_id] || 1}/{item.raid_limitperson}
+                {/* {applicationsCount[item.post_id] || 1}/{item.raid_limitperson} */}
               </span>
             </div>
           </Link>

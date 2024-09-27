@@ -124,7 +124,7 @@ export default async function MainPost() {
   return (
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
       <MainCharacter mainCharacter={serverCharacter} userId={userId} />
-      <MainTeacherPosts teacherPostsRows={postsTeacherRows} applicationsCount={applicationsCount} />
+      <MainTeacherPosts teacherPostsRows={postsTeacherRows} />
       {/* <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} /> */}
     </div>
   )
