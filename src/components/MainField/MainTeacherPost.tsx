@@ -94,9 +94,9 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
               </span>
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-              {/* <span className='overflow-hidden truncate whitespace-nowrap'>
-                {FormatDate(item.raid_time)}
-              </span> */}
+              <span className='overflow-hidden truncate whitespace-nowrap'>
+                {/* {FormatDate(item.raid_time)} */}
+              </span>
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
