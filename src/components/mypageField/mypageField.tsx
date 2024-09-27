@@ -5,6 +5,7 @@ import UserDelete from '@/components/mypageField/userDelete'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import CharacterSorted from '@/components/utils/characterSorted'
+import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface CharacterInfo {
   character_name: string
@@ -37,30 +38,6 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
-}
-
-async function dataFetch(userId: string) {
-  try {
-    const response = await fetch(`${process.env.API_URL}/api/characterGet?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next: { tags: ['mypageCharacter'] },
-    })
-
-    const data = await response.json()
-
-    if (response.ok && data.result) {
-      const getCharacterList = data.result
-      const charcter = CharacterSorted(getCharacterList)
-      return charcter
-    }
-  } catch (error) {
-    console.error(error)
-
-    return []
-  }
 }
 
 const applicationPostGetHandler = async (userId: string) => {
@@ -130,7 +107,7 @@ export default async function MypageField() {
   let createPostGet: RaidPost[] = []
 
   if (session && session.user.id) {
-    serverCharacter = (await dataFetch(session.user.id)) ?? []
+    serverCharacter = await UtileCharacterDataFetch(session.user.id)
     applicationPostGet = (await applicationPostGetHandler(session.user.id)) ?? []
     createPostGet = (await createPostGetHandler(session.user.id)) ?? []
     fetchCreateCount(createPostGet)

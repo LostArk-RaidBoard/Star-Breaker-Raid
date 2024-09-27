@@ -39,8 +39,28 @@ const noCharacters = {
   disable: false,
 }
 
-export default function RaidCharacterSelect() {
-  const { characterAllList, setCharacterInfo, characterInfo } = useCharacterInfoList()
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
+}
+interface Props {
+  createPostCharacter: CharacterInfo[]
+}
+
+export default function RaidCharacterSelect({ createPostCharacter }: Props) {
+  const { characterAllList, setCharacterInfo, characterInfo, setCharacterAllList } =
+    useCharacterInfoList()
   const { raidSelect, setRaidLimitLevel } = useRaidSelect()
   const [hidden, setHidden] = useState(true)
   const handlerHidden = () => {
@@ -61,6 +81,10 @@ export default function RaidCharacterSelect() {
   }
 
   useEffect(() => {
+    if (characterAllList.length === 0) {
+      setCharacterAllList(createPostCharacter)
+      setCharacterInfo([characterAllList[0]])
+    }
     const raidLevel = RaidLevel(raidSelect)
     setRaidLimitLevel(raidLevel)
     var maxCharacterLevel = 0

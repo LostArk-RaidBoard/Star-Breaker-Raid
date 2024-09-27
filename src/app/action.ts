@@ -6,10 +6,6 @@ export default async function submit() {
   revalidateTag('posts') // 'posts' 태그 재검증
 }
 
-export async function revaildTage() {
-  revalidateTag('mypageCharacter')
-}
-
 export async function applicationTage() {
   revalidateTag('applicationTage')
 }
@@ -23,4 +19,8 @@ export async function teacherTage() {
 }
 export async function wePostTage() {
   revalidateTag('wePost')
+}
+
+export async function applicationListTage() {
+  revalidateTag('applicationList')
 }

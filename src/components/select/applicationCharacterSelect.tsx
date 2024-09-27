@@ -6,10 +6,26 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Under from '@image/icon/under.svg'
 import { useSession } from 'next-auth/react'
-import CharacterSorted from '@/components/utils/characterSorted'
+import submit from '@/app/action'
 
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
+}
 interface Props {
   raidLimitLevel: number
+  applicationCharacter: CharacterInfo[]
 }
 
 const noCharacters = {
@@ -28,7 +44,10 @@ const noCharacters = {
   disable: false,
 }
 
-export default function ApplicationCharacterSelect({ raidLimitLevel }: Props) {
+export default function ApplicationCharacterSelect({
+  raidLimitLevel,
+  applicationCharacter,
+}: Props) {
   const { data: session } = useSession()
   const { characterAllList, setCharacterAllList, setCharacterInfo, characterInfo } =
     useCharacterInfoList()
@@ -46,36 +65,11 @@ export default function ApplicationCharacterSelect({ raidLimitLevel }: Props) {
     }
   }
 
-  const characterFetch = async () => {
-    if (session && session.user.id) {
-      const userId = session.user.id
-      try {
-        const response = await fetch(`/api/characterGet?userId=${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-
-        const data = await response.json()
-
-        if (response.ok && data.result) {
-          const getCharacterList = data.result
-          const characterSorted = CharacterSorted(getCharacterList)
-
-          setCharacterAllList(characterSorted)
-        }
-      } catch (error) {
-        console.error(error)
-
-        setCharacterAllList([])
-      }
-    }
-  }
-
   useEffect(() => {
-    if (characterAllList.length === 0) {
-      characterFetch()
+    if (applicationCharacter.length === 0) {
+      submit()
+    } else {
+      setCharacterAllList(applicationCharacter)
     }
 
     const raidLevel = raidLimitLevel
