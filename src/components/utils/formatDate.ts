@@ -1,4 +1,7 @@
 export default function FormatDate(dateString: string) {
+  // 유효한 날짜인지 확인
+  if (!dateString) return 'Invalid Date'
+
   const date = new Date(dateString)
   if (isNaN(date.getTime())) {
     return 'Invalid Date'
