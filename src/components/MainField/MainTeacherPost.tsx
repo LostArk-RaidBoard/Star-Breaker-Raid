@@ -72,13 +72,13 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
         </div>
       </div>
       <div className='mt-2 flex w-full flex-col gap-3 p-1'>
-        {/* {teacherPostsRows.map((item, key) => (
+        {teacherPostsRows.map((item, key) => (
           <Link
             key={key}
             href={`/raidpost/${item.post_id}`}
             className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
           >
-            <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+            {/* <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
             </div>
             <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
@@ -100,11 +100,11 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
-                {/* {applicationsCount[item.post_id] || 1}/{item.raid_limitperson} */}
-        {/* </span> */}
-        {/* </div> */}
-        {/* </Link> */}
-        {/* ))} */}
+                {applicationsCount[item.post_id] || 1}/{item.raid_limitperson}
+              </span>
+            </div> */}
+          </Link>
+        ))}
         <PaginationSub />
       </div>
     </div>
