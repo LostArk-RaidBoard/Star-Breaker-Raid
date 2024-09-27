@@ -1,22 +1,38 @@
 'use client'
 
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
-import InputLayout from '@/components/ui/inputLayout'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useTrigger } from '@/store/triggerStore'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
+}
 interface RaidApplicationProps {
   raidLimitLevel: number
   postId: number
   post_user: string
+  applicationCharacter: CharacterInfo[]
 }
 
 export default function RaidApplication({
   raidLimitLevel,
   postId,
   post_user,
+  applicationCharacter,
 }: RaidApplicationProps) {
   const [hope, setHope] = useState('')
   const [state, setState] = useState(1)
@@ -24,11 +40,14 @@ export default function RaidApplication({
   const { data: session } = useSession()
   const { characterInfo } = useCharacterInfoList()
   const { applicationTrigger, setApplicationTrigger } = useTrigger()
+  const [loading, setLoading] = useState(0)
 
   const applicationSave = async () => {
+    setLoading(1)
     if (characterInfo[0].character_name === '캐릭터 없음') {
       setMessage('지원가능 캐릭터가 없습니다.')
       setState(2)
+      setLoading(0)
       return
     }
 
@@ -36,6 +55,7 @@ export default function RaidApplication({
       if (post_user === session.user.id) {
         setMessage('본인이 개설한 모집글입니다.')
         setState(2)
+        setLoading(0)
         return
       }
 
@@ -63,16 +83,23 @@ export default function RaidApplication({
         if (response && response.status === 200) {
           setState(1)
           setApplicationTrigger(!applicationTrigger)
+          setLoading(0)
         } else {
           setMessage(data.message)
           setState(2)
+          setLoading(0)
         }
       } catch (error) {
         console.error(error)
         setMessage('서버의 연결 실패')
         setState(2)
+        setLoading(0)
       }
     }
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setHope(event.target.value)
   }
 
   useEffect(() => {
@@ -82,27 +109,34 @@ export default function RaidApplication({
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border p-4 shadow-lg'>
-      <div className='flex flex-col items-center justify-center gap-4 sm:flex-col lg:flex-row'>
-        <ApplicationCharacterSelect raidLimitLevel={raidLimitLevel} />
+      <div className='flex w-full flex-col items-center justify-center gap-4 sm:flex-col lg:flex-row'>
+        <ApplicationCharacterSelect
+          raidLimitLevel={raidLimitLevel}
+          applicationCharacter={applicationCharacter}
+        />
 
         <div className='w-full lg:basis-1/4'>
-          <InputLayout
-            setType={'text'}
-            setName={'text'}
-            setPlaceholder={'희망사항'}
-            setCSS={'rounded-md w-full lg:min-w-[300px] border h-12'}
-            setValue={setHope}
+          <input
+            className={`h-12 w-full rounded-md border border-gray-400 px-1 lg:min-w-[300px]`}
+            type={'text'}
+            name={'text'}
+            autoComplete='off'
             value={hope}
-          />
+            maxLength={30}
+            placeholder={'희망사항'}
+            onChange={handleChange}
+          ></input>
         </div>
 
         <button
-          className='ml-4 text-nowrap rounded-md border bg-gray-900 p-2 px-4 text-white'
+          className='flex w-24 items-center justify-center text-nowrap rounded-md border bg-gray-900 p-2 px-4 text-white sm:ml-4'
+          disabled={loading === 1}
           onClick={() => {
             applicationSave()
           }}
         >
-          지원 신청
+          <span className={`${loading === 0 ? '' : 'hidden'}`}>지원 신청</span>
+          <span className={`${loading === 1 ? '' : 'hidden'}`}>로딩중...</span>
         </button>
       </div>
       <div className='flex w-full items-center justify-center'>

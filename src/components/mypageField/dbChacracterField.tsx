@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import Loading from '@image/icon/loading.svg'
 import SaveCharacterFetch from '@/components/mypageField/saveFetch'
-import { revaildTage } from '@/app/action'
+import submit from '@/app/action'
 import { useSession } from 'next-auth/react'
 
 interface SaveCharacterInfo {
@@ -98,12 +98,12 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
 
   useEffect(() => {
     if (userId === '' && session?.user.id) {
-      revaildTage()
+      submit()
     }
 
     if (userId.length > 0) {
       dbCharacter.length === 0
-      revaildTage()
+      submit()
     }
   }, [session, userId])
 
@@ -118,7 +118,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
       })
 
       if (response.ok) {
-        revaildTage()
+        submit()
         setTimeout(function () {
           setLoading(false)
         }, 500)
@@ -164,10 +164,10 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
     if (resultList.includes(false)) {
       setSaveState(2)
       setLoading(false)
-      revaildTage()
+      submit()
     } else {
       setSaveState(1)
-      revaildTage()
+      submit()
       setLoading(false)
     }
   }

@@ -6,16 +6,27 @@ export async function POST(req: Request) {
   const postId = url.searchParams.get('postId')
   const userId = url.searchParams.get('userId')
   const characterName = url.searchParams.get('characterName')
+  const characterCheck = url.searchParams.get('characterCheck')
 
   // 입력 값 검증
-  if (!postId || !userId || !characterName) {
+  if (!postId || !userId || !characterName || !characterCheck) {
+    console.log('필수 파라미터가 누락되었습니다.')
     return new Response(JSON.stringify({ message: '필수 파라미터가 누락되었습니다.' }), {
       status: 400,
     })
   }
+  console.log(characterCheck)
+  let check = ''
+
+  if (characterCheck === 'true') {
+    check = 'false'
+  } else {
+    check = 'true'
+  }
+
   try {
     const res =
-      await sql`UPDATE applicants_list SET character_check=true WHERE post_id=${postId} AND user_id=${userId} AND character_name=${characterName}`
+      await sql`UPDATE applicants_list SET character_check=${check} WHERE post_id=${postId} AND user_id=${userId} AND character_name=${characterName}`
     return new Response(JSON.stringify({ message: '성공' }), { status: 201 })
   } catch (error) {
     console.error(error)
