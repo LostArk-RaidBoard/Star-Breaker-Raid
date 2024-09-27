@@ -5,11 +5,13 @@ import { useRaidSelect } from '@/store/raidSelectStore'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import Loading from '@image/icon/loading.svg'
 
 export default function RaidPostCreateButton() {
   const router = useRouter()
   const [postSave, setPostSave] = useState(0)
   const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(0)
   const {
     raidType,
     raidLimitLevel,
@@ -33,15 +35,18 @@ export default function RaidPostCreateButton() {
   }
 
   const raidCreateHandler = async () => {
+    setLoading(1)
     if (raidLimitLevel == 0) {
       setMessage('레이드 선택을 해주세요')
       setPostSave(2)
+      setLoading(0)
       return
     }
 
     if (characterInfo[0].character_name === '캐릭터 없음') {
       setMessage('레이드에 알맞는 공대장 캐릭터를 선정해 주세요')
       setPostSave(2)
+      setLoading(0)
       return
     }
 
@@ -50,6 +55,7 @@ export default function RaidPostCreateButton() {
       if (isWithinFiveMinutes(new Date(), raidDate)) {
         setMessage('레이드 날짜를 선택해주세요')
         setPostSave(2)
+        setLoading(0)
         return
       }
     }
@@ -82,18 +88,20 @@ export default function RaidPostCreateButton() {
       if (response.ok) {
         if (response.status === 200) {
           setPostSave(1)
-          const timer = setTimeout(() => {
-            router.push('/')
-          }, 2000)
-        } // 회원가입 성공
+
+          router.push('/')
+          setLoading(0)
+        }
       } else {
         setMessage(data.message)
         setPostSave(2) // 회원가입 실패
+        setLoading(0)
       }
     } catch (error) {
       console.error(error)
       setMessage('api 연결 실패')
       setPostSave(2)
+      setLoading(0)
     }
   }
 
@@ -108,10 +116,14 @@ export default function RaidPostCreateButton() {
         레이드 개설 실패 : {message}
       </span>
       <button
-        className='mt-2 w-32 rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
+        className='mt-2 flex w-32 items-center justify-center rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
+        disabled={loading === 1}
         onClick={raidCreateHandler}
       >
-        모집 글 등록
+        <span className={`${loading === 0 ? '' : 'hidden'}`}>모집 글 등록</span>
+        <span className={`${loading === 1 ? '' : 'hidden'}`}>
+          <Loading className='h-8 w-8' />
+        </span>
       </button>
     </div>
   )

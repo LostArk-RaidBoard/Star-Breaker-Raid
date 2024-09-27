@@ -4,7 +4,7 @@ import Xmark from '@image/icon/xmark.svg'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
-import { revaildTage } from '@/app/action'
+import submit from '@/app/action'
 
 interface CharacterList {
   CharacterClassName: string
@@ -75,10 +75,10 @@ export default function NewCharacterField({
     if (resultList.includes(false)) {
       setSaveState(2)
       setLoading(false)
-      revaildTage()
+      submit()
     } else {
       setSaveState(1)
-      revaildTage()
+      submit()
       setLoading(false)
     }
   }

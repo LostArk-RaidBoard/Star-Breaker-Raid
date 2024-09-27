@@ -3,7 +3,7 @@ import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
-import CharacterSorted from '@/components/utils/characterSorted'
+import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface RaidPost {
   post_id: number
@@ -107,30 +107,6 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
   return counts // 모든 카운트가 포함된 객체 반환
 }
 
-async function dataFetch(userId: string) {
-  try {
-    const response = await fetch(`${process.env.API_URL}/api/characterGet?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next: { tags: ['posts'] },
-    })
-
-    const data = await response.json()
-
-    if (response.ok && data.result) {
-      const getCharacterList = data.result
-      const charcter = CharacterSorted(getCharacterList)
-      return charcter
-    }
-  } catch (error) {
-    console.error(error)
-
-    return []
-  }
-}
-
 export default async function MainPost() {
   const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
   const postsWeRows = await fetchWePostsFetch()
@@ -141,7 +117,7 @@ export default async function MainPost() {
   let userId = ''
   let serverCharacter: CharacterInfo[] = []
   if (session && session.user.id) {
-    serverCharacter = (await dataFetch(session.user.id)) ?? []
+    serverCharacter = await UtileCharacterDataFetch(session.user.id)
     userId = session.user.id
   }
 

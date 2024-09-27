@@ -1,5 +1,6 @@
 'use client'
 
+import { applicationListTage } from '@/app/action'
 import { useTrigger } from '@/store/triggerStore'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -8,6 +9,7 @@ import { useEffect, useState } from 'react'
 interface Props {
   postId: number
   post_user: string
+  applicationList: ApplicationList[]
 }
 
 interface ApplicationList {
@@ -24,10 +26,8 @@ interface ApplicationList {
   character_level: string
 }
 
-export default function RaidApplicationList({ postId, post_user }: Props) {
+export default function RaidApplicationList({ postId, applicationList, post_user }: Props) {
   const { data: session } = useSession()
-  const { applicationTrigger, setApplicationTrigger } = useTrigger()
-  const [applicationList, setApplicationList] = useState<ApplicationList[]>([])
 
   const applicationDelteHandler = async (userId: string) => {
     try {
@@ -39,17 +39,22 @@ export default function RaidApplicationList({ postId, post_user }: Props) {
       })
       const data = await response.json()
       if (response.ok && response.status === 201) {
-        setApplicationTrigger(!applicationTrigger)
+        applicationListTage()
       }
     } catch (error) {
       console.error(error)
     }
   }
 
-  const checkUpdateHandler = async (userId: string, characterName: string) => {
+  const checkUpdateHandler = async (
+    userId: string,
+    characterName: string,
+    characterCheck: boolean,
+  ) => {
+    console.log('눌림')
     try {
       const res = await fetch(
-        `/api/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}`,
+        `/api/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}`,
         {
           method: 'POST',
           headers: {
@@ -58,35 +63,16 @@ export default function RaidApplicationList({ postId, post_user }: Props) {
         },
       )
       if (res && res.status === 201) {
-        setApplicationTrigger(!applicationTrigger)
+        console.log('성공')
+        applicationListTage()
+      }
+      if (!res.ok) {
+        console.log('실패')
       }
     } catch (error) {
       console.error(error)
     }
   }
-
-  const applicationGet = async () => {
-    try {
-      const res = await fetch(`/api/applicationGet?postId=${postId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      const data = await res.json()
-      if (res.ok && res.status === 201) {
-        setApplicationList(data.result)
-      }
-    } catch (error) {
-      console.error(error)
-      return []
-    }
-  }
-
-  useEffect(() => {
-    applicationGet()
-  }, [, applicationTrigger])
 
   return (
     <div className='flex h-auto w-full flex-col items-center justify-center gap-4'>
@@ -133,15 +119,18 @@ export default function RaidApplicationList({ postId, post_user }: Props) {
               {session && session.user.id ? (
                 <>
                   <button
-                    className={`rounded-md bg-gray-900 p-1 px-2 text-white ${post_user === session.user.id ? '' : 'hidden'}`}
+                    className={`flex w-24 items-center justify-center rounded-md bg-gray-900 p-1 p-2 px-2 px-4 text-base text-white ${post_user === session.user.id ? '' : 'hidden'}`}
                     onClick={() => {
-                      checkUpdateHandler(char.user_id, char.character_name)
+                      checkUpdateHandler(char.user_id, char.character_name, char.character_check)
                     }}
                   >
-                    승인
+                    <span className={`${char.character_check === true ? 'hidden' : ''}`}>승인</span>
+                    <span className={`${char.character_check === true ? '' : 'hidden'}`}>
+                      승인 취소
+                    </span>
                   </button>
                   <button
-                    className={`rounded-md bg-gray-900 p-1 px-2 text-white ${char.user_id === session.user.id ? '' : 'hidden'}`}
+                    className={`flex w-24 items-center justify-center rounded-md bg-gray-900 p-1 px-2 text-white ${char.user_id === session.user.id ? '' : 'hidden'}`}
                     onClick={() => {
                       applicationDelteHandler(char.user_id)
                     }}

@@ -47,13 +47,18 @@ export default function MainCharacter({ mainCharacter, userId }: MainCharacter) 
 
   useEffect(() => {
     setLoading(true)
-    // 2초 후에 로딩 상태를 false로 변경
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 2000)
 
-    // 컴포넌트가 언마운트될 때 타이머 정리
-    return () => clearTimeout(timer)
+    if (mainCharacter.length > 0) {
+      setLoading(false)
+    } else {
+      // 2초 후에 로딩 상태를 false로 변경
+      const timer = setTimeout(() => {
+        setLoading(false)
+      }, 2000)
+
+      // 컴포넌트가 언마운트될 때 타이머 정리
+      return () => clearTimeout(timer)
+    }
   }, [])
 
   return (
