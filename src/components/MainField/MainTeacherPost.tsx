@@ -93,7 +93,7 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
                 {item.character_name}
               </span>
             </div>
-            <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+            {/* <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
                 {FormatDate(item.raid_time)}
               </span>
@@ -102,7 +102,7 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
               <span className='overflow-hidden truncate whitespace-nowrap'>
                 {applicationsCount[item.post_id] || 1}/{item.raid_limitperson}
               </span>
-            </div>
+            </div> */}
           </Link>
         ))}
         <PaginationSub />
