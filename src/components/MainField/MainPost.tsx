@@ -37,6 +37,16 @@ interface CharacterInfo {
   disable: boolean
 }
 
+const convertToKoreanTime = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleString('ko-KR', {
+    timeZone: 'Asia/Seoul',
+    weekday: 'short', // 요일 표시
+    hour: '2-digit', // 시 표시
+    minute: '2-digit', // 분 표시
+    hour12: false, // 24시간 형식
+  })
+}
 const fetchTeacherPosts = async () => {
   try {
     const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=teacher`, {
@@ -48,7 +58,10 @@ const fetchTeacherPosts = async () => {
     })
     const data = await response.json()
     if (response.ok) {
-      return data.postRows // 데이터를 반환
+      return data.postRows.map((post: RaidPost) => ({
+        ...post,
+        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+      }))
     }
   } catch (error) {
     console.error(error)
@@ -68,7 +81,10 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
     })
     const data = await response.json()
     if (response.ok && response.status === 201) {
-      return data.postRows
+      return data.postRows.map((post: RaidPost) => ({
+        ...post,
+        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+      }))
     }
   } catch (error) {
     console.error(error)
@@ -125,7 +141,7 @@ export default async function MainPost() {
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
       <MainCharacter mainCharacter={serverCharacter} userId={userId} />
       <MainTeacherPosts teacherPostsRows={postsTeacherRows} applicationsCount={applicationsCount} />
-      {/* <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} /> */}
+      <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} />
     </div>
   )
 }

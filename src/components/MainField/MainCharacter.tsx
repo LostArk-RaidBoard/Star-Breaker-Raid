@@ -43,7 +43,7 @@ export default function MainCharacter({ mainCharacter, userId }: MainCharacter) 
     }
 
     fetchData()
-  }, [session, mainCharacter, userId]) // 의존성 배열에 userId 추가
+  }, [session, mainCharacter, userId, setCharacterAllList]) // 의존성 배열에 userId 추가
 
   useEffect(() => {
     setLoading(true)
@@ -59,6 +59,7 @@ export default function MainCharacter({ mainCharacter, userId }: MainCharacter) 
       // 컴포넌트가 언마운트될 때 타이머 정리
       return () => clearTimeout(timer)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
