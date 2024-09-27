@@ -29,7 +29,7 @@ interface RaidPost {
   character_classicon: string
 }
 
-interface MainTeacherPostsProps {
+interface Props {
   teacherPostsRows: RaidPost[]
   // applicationsCount: { [key: number]: number } // 추가된 props
 }
@@ -37,7 +37,7 @@ interface MainTeacherPostsProps {
 export default function MainTeacherPosts({
   teacherPostsRows,
   // applicationsCount,
-}: MainTeacherPostsProps) {
+}: Props) {
   // const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
   //   usePageinationSub()
 
@@ -108,7 +108,7 @@ export default function MainTeacherPosts({
             </div>
           </Link>
         ))}
-        {/* <PaginationSub /> */}
+        <PaginationSub />
       </div>
     </div>
   )
