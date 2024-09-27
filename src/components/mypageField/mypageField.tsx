@@ -52,9 +52,12 @@ const applicationPostGetHandler = async (userId: string) => {
     const data = await response.json()
     if (response.ok && response.status === 201) {
       return data.postRows
+    } else {
+      return []
     }
   } catch (error) {
     console.error(error)
+    return []
   }
 }
 
@@ -70,6 +73,8 @@ const createPostGetHandler = async (userId: string) => {
     const data = await response.json()
     if (response.ok && response.status === 201) {
       return data.postRows
+    } else {
+      return []
     }
   } catch (error) {
     console.error(error)
@@ -108,8 +113,8 @@ export default async function MypageField() {
 
   if (session && session.user.id) {
     serverCharacter = await UtileCharacterDataFetch(session.user.id)
-    applicationPostGet = (await applicationPostGetHandler(session.user.id)) ?? []
-    createPostGet = (await createPostGetHandler(session.user.id)) ?? []
+    applicationPostGet = await applicationPostGetHandler(session.user.id)
+    createPostGet = await createPostGetHandler(session.user.id)
     fetchCreateCount(createPostGet)
     userId = session.user.id
   }

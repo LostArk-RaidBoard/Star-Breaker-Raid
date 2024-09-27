@@ -37,7 +37,7 @@ interface CharacterInfo {
   disable: boolean
 }
 
-async function fetchTeacherPosts(): Promise<RaidPost[]> {
+const fetchTeacherPosts = async () => {
   try {
     const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=teacher`, {
       method: 'GET',
