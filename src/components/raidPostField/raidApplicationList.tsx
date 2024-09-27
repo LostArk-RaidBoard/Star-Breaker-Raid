@@ -126,6 +126,7 @@ export default function RaidApplicationList({ postId, applicationList, post_user
                 <>
                   <button
                     className={`flex w-24 items-center justify-center rounded-md bg-gray-900 p-1 p-2 px-2 px-4 text-base text-white ${post_user === session.user.id ? '' : 'hidden'}`}
+                    disabled={loading}
                     onClick={() => {
                       checkUpdateHandler(char.user_id, char.character_name, char.character_check)
                     }}
