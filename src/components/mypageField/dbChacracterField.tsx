@@ -105,7 +105,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
       dbCharacter.length === 0
       submit()
     }
-  }, [session, userId])
+  }, [dbCharacter.length, session, userId])
 
   const characterDeleteHandler = async (character_name: string) => {
     setLoading(true)
