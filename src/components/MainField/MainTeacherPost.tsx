@@ -56,7 +56,7 @@ export default function MainTeacherPosts({
   // }, [])
 
   return (
-    <></>
+    <>{teacherPostsRows[0].character_classicon}</>
     // <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>
     //   <div className='grid grid-cols-8 text-nowrap rounded-t-md bg-gray-200 px-1'>
     //     <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
