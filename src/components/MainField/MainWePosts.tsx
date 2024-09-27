@@ -5,12 +5,9 @@ import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
-import { usePathname } from 'next/navigation'
-import FormatDate from '@/components/utils/\bformatDate'
 import { wePostTage } from '@/app/action'
 
 interface RaidPost {

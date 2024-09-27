@@ -6,10 +6,8 @@ import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import Link from 'next/link'
 import { useEffect } from 'react'
-import { useSession } from 'next-auth/react'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
-import FormatDate from '@/components/utils/\bformatDate'
 import { teacherTage } from '@/app/action'
 
 interface RaidPost {

@@ -1,7 +1,6 @@
 'use client'
 
 import { applicationListTage } from '@/app/action'
-import { useTrigger } from '@/store/triggerStore'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -83,7 +82,7 @@ export default function RaidApplicationList({ postId, applicationList, post_user
   return (
     <div className='flex h-auto w-full flex-col items-center justify-center gap-4'>
       {applicationList.length > 0 ? (
-        <div className='w-full'>
+        <div className='flex w-full flex-col gap-4'>
           {applicationList.map((char, key) => (
             <div
               className='flex w-full flex-col items-center justify-center gap-2 rounded-md border p-2 text-lg shadow-lg md:flex-row md:gap-8'

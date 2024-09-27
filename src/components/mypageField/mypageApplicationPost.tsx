@@ -1,5 +1,5 @@
 'use client'
-import FormatDate from '@/components/utils/\bformatDate'
+
 import Pagination from '@/components/utils/pagination'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -7,7 +7,7 @@ import Hand from '@image/icon/hand.svg'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { usePageination } from '@/store/pageinationStore'
 import { applicationTage } from '@/app/action'
 
@@ -105,9 +105,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
                 </span>
               </div>
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {FormatDate(item.raid_time)}
-                </span>
+                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
               </div>
             </Link>
             <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>

@@ -4,8 +4,9 @@ import PasswordChange from '@/components/mypageField/passwordChange'
 import UserDelete from '@/components/mypageField/userDelete'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
-import CharacterSorted from '@/components/utils/characterSorted'
+
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
+import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 
 interface CharacterInfo {
   character_name: string
@@ -51,7 +52,10 @@ const applicationPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 201) {
-      return data.postRows
+      return data.postRows.map((post: RaidPost) => ({
+        ...post,
+        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+      }))
     } else {
       return []
     }
@@ -72,7 +76,10 @@ const createPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 201) {
-      return data.postRows
+      return data.postRows.map((post: RaidPost) => ({
+        ...post,
+        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+      }))
     } else {
       return []
     }

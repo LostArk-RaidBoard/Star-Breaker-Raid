@@ -37,7 +37,7 @@ export default function MyPost({ userId, applicationPostGet, createPostGet }: Pr
           <span className='text-lg'>내 모집글 관리</span>
           <div className='flex flex-col gap-4 sm:flex-row'>
             <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
-            <MypageCreatePost userId={userId} createPostGet={createPostGet} />
+            <MypageCreatePost createPostGet={createPostGet} />
           </div>
         </div>
       ) : (

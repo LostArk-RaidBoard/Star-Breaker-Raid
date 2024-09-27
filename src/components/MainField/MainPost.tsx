@@ -4,6 +4,7 @@ import MainWePosts from '@/components/MainField/MainWePosts'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
+import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 
 interface RaidPost {
   post_id: number
@@ -37,16 +38,6 @@ interface CharacterInfo {
   disable: boolean
 }
 
-const convertToKoreanTime = (dateString: string) => {
-  const date = new Date(dateString)
-  return date.toLocaleString('ko-KR', {
-    timeZone: 'Asia/Seoul',
-    weekday: 'short', // 요일 표시
-    hour: '2-digit', // 시 표시
-    minute: '2-digit', // 분 표시
-    hour12: false, // 24시간 형식
-  })
-}
 const fetchTeacherPosts = async () => {
   try {
     const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=teacher`, {

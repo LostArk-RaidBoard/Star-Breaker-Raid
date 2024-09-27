@@ -1,5 +1,5 @@
 'use client'
-import FormatDate from '@/components/utils/\bformatDate'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import User from '@image/icon/user.svg'
@@ -31,11 +31,10 @@ interface RaidPost {
 }
 
 type Props = {
-  userId: string
   createPostGet: RaidPost[]
 }
 
-export default function MypageCreatePost({ userId, createPostGet }: Props) {
+export default function MypageCreatePost({ createPostGet }: Props) {
   const [myPostApplicationsCount, setMyPostApplicationsCount] = useState<{ [key: number]: number }>(
     {},
   )
@@ -141,9 +140,7 @@ export default function MypageCreatePost({ userId, createPostGet }: Props) {
                 </span>
               </div>
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {FormatDate(item.raid_time)}
-                </span>
+                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
               </div>
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>

@@ -48,10 +48,9 @@ export default function ApplicationCharacterSelect({
   raidLimitLevel,
   applicationCharacter,
 }: Props) {
-  const { data: session } = useSession()
   const { characterAllList, setCharacterAllList, setCharacterInfo, characterInfo } =
     useCharacterInfoList()
-  const { raidSelect, setRaidLimitLevel } = useRaidSelect()
+  const { setRaidLimitLevel } = useRaidSelect()
   const [hidden, setHidden] = useState(true)
   const handlerHidden = () => {
     setHidden(!hidden)
@@ -66,6 +65,7 @@ export default function ApplicationCharacterSelect({
   }
 
   useEffect(() => {
+    // applicationCharacter가 없으면 submit 호출
     if (applicationCharacter.length === 0) {
       submit()
     } else {
@@ -74,29 +74,40 @@ export default function ApplicationCharacterSelect({
 
     const raidLevel = raidLimitLevel
     setRaidLimitLevel(raidLevel)
-    var maxCharacterLevel = 0
 
-    characterAllList.map((char) => {
+    // 최대 캐릭터 레벨 초기화
+    let maxCharacterLevel = 0
+
+    // 캐릭터 리스트를 순회하며 disable 상태 설정
+    const updatedCharacterList = applicationCharacter.map((char) => {
       const characterLevel = parseFloat(char.character_level.replace(/,/g, ''))
 
       if (characterLevel > maxCharacterLevel) {
         maxCharacterLevel = characterLevel
       }
 
-      if (raidLevel > characterLevel) {
-        char.disable = true
-      } else {
-        char.disable = false
-      }
+      // disable 상태 설정
+      char.disable = raidLevel > characterLevel
+
+      return char // 업데이트된 캐릭터 객체 반환
     })
 
+    // 상태 업데이트
+    setCharacterAllList(updatedCharacterList)
+
+    // 최대 레벨보다 낮은 캐릭터가 없을 경우 noCharacters 설정
     if (raidLevel > maxCharacterLevel) {
       setCharacterInfo([noCharacters])
     } else {
-      setCharacterInfo([characterAllList[0]])
+      setCharacterInfo([updatedCharacterList[0]])
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [, session])
+  }, [
+    applicationCharacter,
+    raidLimitLevel,
+    setCharacterAllList,
+    setCharacterInfo,
+    setRaidLimitLevel,
+  ])
 
   return (
     <div className='w-full md:min-w-[450px] md:max-w-[500px]'>

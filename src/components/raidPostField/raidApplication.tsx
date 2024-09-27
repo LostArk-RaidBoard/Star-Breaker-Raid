@@ -1,8 +1,8 @@
 'use client'
 
+import { applicationListTage } from '@/app/action'
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
 import { useCharacterInfoList } from '@/store/characterStore'
-import { useTrigger } from '@/store/triggerStore'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
@@ -39,9 +39,12 @@ export default function RaidApplication({
   const [message, setMessage] = useState('')
   const { data: session } = useSession()
   const { characterInfo } = useCharacterInfoList()
-  const { applicationTrigger, setApplicationTrigger } = useTrigger()
   const [loading, setLoading] = useState(0)
 
+  /**
+   * 지원자 DB에 저장
+   * @returns 에러
+   */
   const applicationSave = async () => {
     setLoading(1)
     if (characterInfo[0].character_name === '캐릭터 없음') {
@@ -82,7 +85,7 @@ export default function RaidApplication({
         const data = await response.json()
         if (response && response.status === 200) {
           setState(1)
-          setApplicationTrigger(!applicationTrigger)
+          applicationListTage()
           setLoading(0)
         } else {
           setMessage(data.message)
