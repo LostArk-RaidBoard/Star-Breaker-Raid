@@ -28,6 +28,7 @@ interface ApplicationList {
 
 export default function RaidApplicationList({ postId, applicationList, post_user }: Props) {
   const { data: session } = useSession()
+  const [loading, setLoading] = useState(false)
 
   const applicationDelteHandler = async (userId: string) => {
     try {
@@ -51,7 +52,7 @@ export default function RaidApplicationList({ postId, applicationList, post_user
     characterName: string,
     characterCheck: boolean,
   ) => {
-    console.log('눌림')
+    setLoading(true)
     try {
       const res = await fetch(
         `/api/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}`,
@@ -68,11 +69,16 @@ export default function RaidApplicationList({ postId, applicationList, post_user
       }
       if (!res.ok) {
         console.log('실패')
+        setLoading(false)
       }
     } catch (error) {
       console.error(error)
+      setLoading(false)
     }
   }
+  useEffect(() => {
+    setLoading(false)
+  }, [applicationList])
 
   return (
     <div className='flex h-auto w-full flex-col items-center justify-center gap-4'>
@@ -124,9 +130,13 @@ export default function RaidApplicationList({ postId, applicationList, post_user
                       checkUpdateHandler(char.user_id, char.character_name, char.character_check)
                     }}
                   >
-                    <span className={`${char.character_check === true ? 'hidden' : ''}`}>승인</span>
+                    <span className={`${char.character_check === true ? 'hidden' : ''}`}>
+                      <span className={`${loading ? 'hidden' : ''}`}>승인</span>
+                      <span className={`${loading ? '' : 'hidden'}`}>로딩...</span>
+                    </span>
                     <span className={`${char.character_check === true ? '' : 'hidden'}`}>
-                      승인 취소
+                      <span className={`${loading ? 'hidden' : ''}`}>승인 취소</span>
+                      <span className={`${loading ? '' : 'hidden'}`}>로딩...</span>
                     </span>
                   </button>
                   <button
