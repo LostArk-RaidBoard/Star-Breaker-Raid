@@ -31,13 +31,10 @@ interface RaidPost {
 
 interface Props {
   teacherPostsRows: RaidPost[]
-  // applicationsCount: { [key: number]: number } // 추가된 props
+  applicationsCount: { [key: number]: number } // 추가된 props
 }
 
-export default function MainTeacherPosts({
-  teacherPostsRows,
-  // applicationsCount,
-}: Props) {
+export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }: Props) {
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageinationSub()
 
