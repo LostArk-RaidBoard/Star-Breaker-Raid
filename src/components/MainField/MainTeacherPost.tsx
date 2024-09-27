@@ -81,13 +81,13 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
             <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
             </div>
-            {/* <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+            <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
               <Image
                 src={item.character_classicon}
                 alt='아이콘'
                 width={100}
                 height={100}
-                className='h-6 w-6 fill-yellow-600'
+                className='h-6 w-6'
               />
               <span className='overflow-hidden truncate whitespace-nowrap'>
                 {item.character_name}
@@ -102,7 +102,7 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
               <span className='overflow-hidden truncate whitespace-nowrap'>
                 {applicationsCount[item.post_id] || 1}/{item.raid_limitperson}
               </span>
-            </div> */}
+            </div>
           </Link>
         ))}
         <PaginationSub />
