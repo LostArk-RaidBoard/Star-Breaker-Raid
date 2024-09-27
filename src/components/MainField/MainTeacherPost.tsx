@@ -38,12 +38,12 @@ export default function MainTeacherPosts({
   teacherPostsRows,
   // applicationsCount,
 }: MainTeacherPostsProps) {
-  const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
-    usePageinationSub()
+  // const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
+  //   usePageinationSub()
 
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = teacherPostsRows.slice(indexOfFirstItem, indexOfLastItem)
+  // const indexOfLastItem = currentPage * itemsPerPage
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  // const currentItems = teacherPostsRows.slice(indexOfFirstItem, indexOfLastItem)
 
   // useEffect(() => {
   //   setDataLength(teacherPostsRows.length)
@@ -75,7 +75,7 @@ export default function MainTeacherPosts({
         </div>
       </div>
       <div className='mt-2 flex w-full flex-col gap-3 p-1'>
-        {currentItems.map((item, key) => (
+        {teacherPostsRows.map((item, key) => (
           <Link
             key={key}
             href={`/raidpost/${item.post_id}`}
@@ -108,7 +108,7 @@ export default function MainTeacherPosts({
             </div>
           </Link>
         ))}
-        <PaginationSub />
+        {/* <PaginationSub /> */}
       </div>
     </div>
   )
