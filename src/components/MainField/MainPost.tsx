@@ -88,7 +88,7 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
           headers: {
             'Content-Type': 'application/json',
           },
-          cache: 'no-store',
+          // cache: 'no-store',
         },
       )
       if (response.ok) {
@@ -125,7 +125,7 @@ export default async function MainPost() {
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
       <MainCharacter mainCharacter={serverCharacter} userId={userId} />
       <MainTeacherPosts teacherPostsRows={postsTeacherRows} applicationsCount={applicationsCount} />
-      {/* <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} /> */}
+      <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} />
     </div>
   )
 }
