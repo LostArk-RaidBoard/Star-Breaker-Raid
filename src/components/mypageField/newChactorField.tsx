@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import submit from '@/app/action'
+import { useTrigger } from '@/store/triggerStore'
 
 interface CharacterList {
   CharacterClassName: string
@@ -39,6 +40,7 @@ export default function NewCharacterField({
 }: Props) {
   const [saveState, setSaveState] = useState(0)
   const [loading, setLoading] = useState(false)
+  const { trigger, setTrigger } = useTrigger()
 
   const newCharacterResetHandler = () => {
     setNewCharacterList([])
@@ -80,6 +82,7 @@ export default function NewCharacterField({
       setSaveState(1)
       submit()
       setLoading(false)
+      setTrigger(!trigger)
     }
   }
 
