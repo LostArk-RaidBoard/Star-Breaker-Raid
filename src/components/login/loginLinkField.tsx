@@ -11,7 +11,7 @@ export default function LoginLinkField() {
         아이디 & 비밀번호 변경
       </Link>
       <span> | </span>
-      <Link href={'/login/signup'} className='truncate hover:text-blue-500'>
+      <Link href={'/law'} className='truncate hover:text-blue-500'>
         회원가입
       </Link>
     </div>
