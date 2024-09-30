@@ -47,28 +47,30 @@ export default function Lay() {
   }, [allCheck, privayCheck, policyCheck])
   return (
     <div className='relative flex w-full flex-col items-center justify-center sm:mt-[20vh]'>
-      <div className='flex w-[60vh] flex-col'>
+      <div className='flex w-full flex-col sm:w-[60%]'>
         <span className='flex gap-2'>
           <Check
             className={`h-8 w-8 ${allCheck ? 'text-gray-900' : 'text-gray-400'}`}
             onClick={AllCheckHandler}
           />
 
-          <h1 className='text-xl'>전체 동의하기</h1>
+          <h1 className='text-lg'>전체 동의하기</h1>
         </span>
         <p className='ml-10'> 실명 인증된 아이디로 가입, 이용약관 동의를 포함합니다.</p>
 
-        <span className='mt-4 flex gap-2'>
-          <Check
-            className={`h-8 w-8 ${policyCheck ? 'text-gray-900' : 'text-gray-400'}`}
-            onClick={() => {
-              setPolicyCheck(!policyCheck)
-            }}
-          />
+        <span className='mt-4 flex flex-col gap-2 sm:flex-row'>
+          <div className='flex'>
+            <Check
+              className={`h-8 w-8 ${policyCheck ? 'text-gray-900' : 'text-gray-400'}`}
+              onClick={() => {
+                setPolicyCheck(!policyCheck)
+              }}
+            />
 
-          <h1 className='text-xl'>
-            <span className='text-blue-500'>[필수] </span>이용약관
-          </h1>
+            <h1 className='text-lg'>
+              <span className='text-blue-500'>[필수] </span>이용약관
+            </h1>
+          </div>
           <Link href={'/policy'} className='ml-4 text-base text-gray-400'>
             전체 보기
           </Link>
@@ -191,17 +193,19 @@ export default function Lay() {
             </div>
           </div>
         </div>
-        <span className='mt-4 flex gap-2'>
-          <Check
-            className={`h-8 w-8 ${privayCheck ? 'text-gray-900' : 'text-gray-400'}`}
-            onClick={() => {
-              setPrivayCheck(!privayCheck)
-            }}
-          />
+        <span className='mt-4 flex flex-col gap-2 sm:flex-row'>
+          <div className='flex'>
+            <Check
+              className={`h-8 w-8 ${privayCheck ? 'text-gray-900' : 'text-gray-400'}`}
+              onClick={() => {
+                setPrivayCheck(!privayCheck)
+              }}
+            />
 
-          <h1 className='text-xl'>
-            <span className='text-blue-500'>[필수]</span> 개인정보 수집 및 이용
-          </h1>
+            <h1 className='text-lg'>
+              <span className='text-blue-500'>[필수]</span> 개인정보 수집 및 이용
+            </h1>
+          </div>
           <Link href={'/privacy'} className='ml-4 text-base text-gray-400'>
             전체 보기
           </Link>
