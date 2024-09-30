@@ -7,6 +7,7 @@ import Loading from '@image/icon/loading.svg'
 import SaveCharacterFetch from '@/components/mypageField/saveFetch'
 import submit from '@/app/action'
 import { useSession } from 'next-auth/react'
+import { useTrigger } from '@/store/triggerStore'
 
 interface SaveCharacterInfo {
   character_name: string
@@ -86,7 +87,19 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
   const [characterList, setCharacterList] = useState<SaveCharacterInfo[]>([])
   const [loading, setLoading] = useState(false)
   const [saveState, setSaveState] = useState(0)
+  const { trigger, setTrigger } = useTrigger()
   const { data: session } = useSession()
+
+  useEffect(() => {
+    setLoading(true)
+
+    setTimeout(function () {
+      if (loading === true) {
+        setLoading(false)
+      }
+    }, 3000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trigger])
 
   useEffect(() => {
     if (dbCharacter.length > 0) {
@@ -97,6 +110,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
   }, [dbCharacter])
 
   useEffect(() => {
+    setLoading(false)
     if (userId === '' && session?.user.id) {
       submit()
     }
@@ -119,9 +133,6 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
 
       if (response.ok) {
         submit()
-        setTimeout(function () {
-          setLoading(false)
-        }, 500)
       }
     } catch (error) {
       console.error(error)
@@ -163,14 +174,23 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
     }
     if (resultList.includes(false)) {
       setSaveState(2)
-      setLoading(false)
+
       submit()
+      setTimeout(function () {
+        setLoading(false)
+      }, 1000)
     } else {
       setSaveState(1)
       submit()
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    setTimeout(function () {
+      setSaveState(0)
+    }, 3000)
+  }, [saveState])
 
   return (
     <div className='mt-4 flex flex-col'>

@@ -243,7 +243,7 @@ export default function CharactorField({ userId, dbCharacter }: Props) {
                   />
 
                   <button
-                    className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
+                    className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500 sm:m-0'
                     onClick={handlerAllCharacter}
                   >
                     확인
@@ -269,7 +269,7 @@ export default function CharactorField({ userId, dbCharacter }: Props) {
                   />
 
                   <button
-                    className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
+                    className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500 sm:m-0'
                     onClick={handlerOneCharacter}
                   >
                     확인
