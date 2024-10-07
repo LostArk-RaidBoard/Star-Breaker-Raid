@@ -17,12 +17,12 @@ export default function HeadLogField() {
           className={`flex items-center justify-center gap-1`}
           onClick={() => signOut({ callbackUrl: '/' })}
         >
-          <span>로그아웃</span> <Logout className='h-6 w-6' />
+          <span>로그아웃</span> <Logout className='h-6' />
         </button>
       ) : (
         <button className={``}>
           <Link href={`/login`} className='flex items-center justify-center gap-1'>
-            <span>로그인</span> <Login className='h-6 w-6' />
+            <span>로그인</span> <Login className='h-6' />
           </Link>
         </button>
       )}
