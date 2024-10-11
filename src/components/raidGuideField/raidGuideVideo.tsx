@@ -4,9 +4,9 @@ import { useState } from 'react'
 
 const list = [
   'https://www.youtube-nocookie.com/embed/7_uhI7PcjQU?si=vRakcnT3PddQLWIe',
-  'https://www.youtube.com/embed/TvA5pz2AgdY?si=4KlBYBRXbxzBZ4q1',
-  'https://www.youtube.com/embed/WyDvPfR7yJk?si=Mu6AIKaCPa5sh8M8',
-  'https://www.youtube.com/embed/UBInplp2a10?si=VKmv7p1Am1eX6K9L',
+  'https://www.youtube-nocookie.com/embed/TvA5pz2AgdY?si=4KlBYBRXbxzBZ4q1',
+  'https://www.youtube-nocookie.com/embed/WyDvPfR7yJk?si=Mu6AIKaCPa5sh8M8',
+  'https://www.youtube-nocookie.com/embed/UBInplp2a10?si=VKmv7p1Am1eX6K9L',
 ]
 
 export default function RaidGudiePlayer() {
@@ -21,6 +21,7 @@ export default function RaidGudiePlayer() {
           frameBorder='0'
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
           referrerPolicy='strict-origin-when-cross-origin'
+          sandbox='allow-same-origin allow-scripts allow-presentation'
           allowFullScreen
         ></iframe>
       </div>
@@ -41,6 +42,7 @@ export default function RaidGudiePlayer() {
               frameBorder='0'
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
               referrerPolicy='strict-origin-when-cross-origin'
+              sandbox='allow-same-origin allow-scripts allow-presentation'
             ></iframe>
           </div>
         ))}

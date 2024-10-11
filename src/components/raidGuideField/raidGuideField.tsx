@@ -41,7 +41,7 @@ export default async function RaidGuideField() {
   const role = session.user.role
   console.log(role)
   let roleCheck = false
-  if (role === 'admin') {
+  if (role === 'teacher') {
     roleCheck = true
   }
 

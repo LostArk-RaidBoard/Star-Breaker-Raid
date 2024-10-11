@@ -1,11 +1,12 @@
 import RaidGudiePlayer from '@/components/raidGuideField/raidGuideVideo'
 import Image from 'next/image'
 
+const image_list = [
+  'https://upload3.inven.co.kr/upload/2024/03/19/bbs/i15452189697.jpg?MW=800',
+  'https://upload3.inven.co.kr/upload/2024/03/19/bbs/i15414152492.jpg?MW=800',
+]
+
 export default function RaidGuidedIdField() {
-  const test = `1. dnfkdkdkd
-  2. dkdkkd
-  3. dkjjfkjdk
-  `
   return (
     <div className='flex h-full w-full flex-col rounded-md border p-4 shadow-lg'>
       <h1 className='text-2xl'> 레이드 가이드</h1>
@@ -15,20 +16,20 @@ export default function RaidGuidedIdField() {
 
       <h3 className='mt-4 text-xl'>* 컨닝페이퍼</h3>
 
-      <div className='relative h-[300px] w-full sm:h-[900px]'>
-        <Image
-          src='https://postfiles.pstatic.net/MjAyMjA5MTBfMjkw/MDAxNjYyNzg2MjMxMjkz.q2eNoRp79tPAe3lxDW6u5Vt6LKZdSnjTod6gh9mqAH4g.P-UmPrqKFpLj9JxpKRkMcJlyLfjxb-Vi02cK6f73K_sg.JPEG.have1n/%EB%B0%9C%ED%83%84.jpg?type=w966'
-          alt={'발탄 1관문 페이지'}
-          fill
-          className='object-contain'
-          priority // 우선 로드 속성 추가
-        />
+      <div className='mt-2 grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2'>
+        {image_list.map((items, key) => (
+          <div className='relative h-[400px] w-full sm:h-[700px]' key={key}>
+            <Image
+              src={items}
+              alt={'발탄 1관문 페이지'}
+              fill
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+              className='object-fill'
+              priority // 우선 로드 속성 추가
+            />
+          </div>
+        ))}
       </div>
-
-      <h3 className='mt-4 text-xl'>* 레이드 디테일</h3>
-      <p className='w-full' style={{ whiteSpace: 'pre-wrap' }}>
-        {test}
-      </p>
     </div>
   )
 }
