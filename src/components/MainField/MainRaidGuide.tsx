@@ -12,6 +12,7 @@ export default function MainRaidGuide() {
               alt='발탄'
               width={200}
               height={200}
+              priority
               className='h-full w-full rounded-md object-cover'
             />
           </Link>

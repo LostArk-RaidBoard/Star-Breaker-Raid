@@ -11,11 +11,11 @@ export default function RaidGuideInput() {
         setType={'text'}
         setName={'set_raidName'}
         setPlaceholder={'레이드 명칭'}
-        setCSS={'rounded-md shadow-lg w-[400px]'}
+        setCSS={'rounded-md shadow-lg w-[500px]'}
         setValue={setRaidName}
         value={raidName}
       />
-      <button className='h-12 w-16 rounded-md border p-2'>검색</button>
+      <button className='h-12 w-24 rounded-md border bg-gray-900 p-2 px-1 text-white'>검색</button>
     </div>
   )
 }

@@ -24,3 +24,7 @@ export async function wePostTage() {
 export async function applicationListTage() {
   revalidateTag('applicationList')
 }
+
+export async function raidGuideTage() {
+  revalidateTag('raidGuideTage')
+}
