@@ -33,7 +33,6 @@ const raidGuideFetch = async () => {
 
 export default async function MainRaidGuide() {
   const raideGuide: RaidGuide[] = await raidGuideFetch()
-  console.log(raideGuide)
   return (
     <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
       {raideGuide.map((item: RaidGuide, key: number) => (
@@ -55,23 +54,6 @@ export default async function MainRaidGuide() {
           </span>
         </div>
       ))}
-      <div className='h-72 rounded-md'>
-        <div className='h-[90%] w-full rounded-md'>
-          <Link href={`/raidguide/발탄`}>
-            <Image
-              src='/guideImage/쿠크세이튼.png'
-              alt='레이드 대표 이미지'
-              width={200}
-              height={200}
-              priority
-              className='h-full w-full rounded-md object-cover'
-            />
-          </Link>
-        </div>
-        <span className='flex w-full justify-center text-lg font-medium text-[#222222]'>
-          ✨ 발탄 공략 ✨
-        </span>
-      </div>
     </div>
   )
 }
