@@ -25,13 +25,13 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'postfiles.pstatic.net', // 여기서 원하는 호스트명 삽입
+        hostname: 'upload3.inven.co.kr', // 여기서 원하는 호스트명 삽입
         port: '',
         pathname: '/**', // 모든 경로를 포함
       },
       {
         protocol: 'https',
-        hostname: 'upload3.inven.co.kr', // 여기서 원하는 호스트명 삽입
+        hostname: 'www.inven.co.kr', // 여기서 원하는 호스트명 삽입
         port: '',
         pathname: '/**', // 모든 경로를 포함
       },

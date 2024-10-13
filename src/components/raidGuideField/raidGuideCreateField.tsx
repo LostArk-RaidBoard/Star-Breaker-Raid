@@ -2,10 +2,12 @@
 import InputLayout from '@/components/ui/inputLayout'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export default function RaidGuideCreateField() {
   const router = useRouter()
   const [raidGuideName, setRaidGuideName] = useState('') // 레이드 명칭
+  const [raideGuideMainImage, setRaideGuideMainImage] = useState('')
   const [youtubeUrls, setYoutubeUrls] = useState(['']) // youtube URL을 저장하는 배열
   const [raidGuideImages, setRaidGuideImages] = useState([''])
   const [saveStatues, setSaveStatues] = useState(0)
@@ -43,16 +45,37 @@ export default function RaidGuideCreateField() {
 
   // 각각의 InputLayout 값 업데이트
   const handleImageUrlChange = (index: number, value: string) => {
-    const updatedImageUrls = [...youtubeUrls]
+    const updatedImageUrls = [...raidGuideImages]
     updatedImageUrls[index] = value // 해당 index의 URL 값을 업데이트
     setRaidGuideImages(updatedImageUrls)
   }
 
   const handleSave = async () => {
+    if (raidGuideName.length === 0) {
+      alert('레이드 명칭이 없습니다.')
+      return
+    }
+
+    if (raideGuideMainImage.length === 0) {
+      alert('main 이미지가 없습니다.')
+      return
+    }
+
+    if (youtubeUrls.length === 0) {
+      alert('youtubeURL이 없습니다.')
+      return
+    }
+
+    if (raidGuideImages.length === 0) {
+      alert('이미지가 없습니다.')
+      return
+    }
+
     const list = {
       guide_name: raidGuideName,
-      youtube_url: youtubeUrls,
-      image_url: raidGuideImages,
+      youtube_url: { ...youtubeUrls },
+      image_url: { ...raidGuideImages },
+      raid_main_image: raideGuideMainImage,
     }
 
     try {
@@ -94,6 +117,29 @@ export default function RaidGuideCreateField() {
         value={raidGuideName}
       ></InputLayout>
 
+      {/* 대표 이미지 입력 */}
+      <label className='mt-4 text-lg'>* 대표 이미지 URL</label>
+      <InputLayout
+        setType={'text'}
+        setName={'raidGuideName'}
+        setPlaceholder={'대표 이미지 URL'}
+        setCSS={'rounded-md'}
+        setValue={setRaideGuideMainImage}
+        value={raideGuideMainImage}
+      ></InputLayout>
+      {raideGuideMainImage && (
+        <div className='relative h-[200px] w-[300px]'>
+          <Image
+            src={raideGuideMainImage}
+            alt={'레이드 메인 이미지'}
+            fill
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            className='object-fill'
+            priority // 우선 로드 속성 추가
+          />
+        </div>
+      )}
+
       {/* Youtube URL 추가/삭제 */}
       <div className='mt-4 flex flex-col items-center justify-between sm:flex-row'>
         <label className='mt-4 text-lg'>* 레이드에 도움이 되는 YouTube</label>
@@ -114,15 +160,30 @@ export default function RaidGuideCreateField() {
 
       {/* Youtube URL 입력란 렌더링 */}
       {youtubeUrls.map((url, index) => (
-        <InputLayout
-          key={index}
-          setType={'text'}
-          setName={`raidGuideYoutube${index}`}
-          setPlaceholder={'YouTube URL'}
-          setCSS={'rounded-md mt-2'}
-          setValue={(value) => handleUrlChange(index, value)} // 해당 index의 URL 업데이트
-          value={url} // 현재 URL 값을 설정
-        ></InputLayout>
+        <div className='flex flex-col' key={index}>
+          <InputLayout
+            setType={'text'}
+            setName={`raidGuideYoutube${index}`}
+            setPlaceholder={'YouTube URL'}
+            setCSS={'rounded-md mt-2'}
+            setValue={(value) => handleUrlChange(index, value)} // 해당 index의 URL 업데이트
+            value={url} // 현재 URL 값을 설정
+          ></InputLayout>
+          {url && (
+            <div className='h-[200px] w-[300px]'>
+              <iframe
+                className='h-full w-full'
+                src={url}
+                title='YouTube video player'
+                frameBorder='0'
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                referrerPolicy='strict-origin-when-cross-origin'
+                sandbox='allow-same-origin allow-scripts allow-presentation'
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
+        </div>
       ))}
 
       {/* Image URL 추가/삭제 */}
@@ -142,17 +203,30 @@ export default function RaidGuideCreateField() {
         로아 인벤에서 공유되고있는 Image의 주소를 가져오시면 됩니다. 꼭 로아 인벤입니다.
       </p>
 
-      {/* Youtube URL 입력란 렌더링 */}
+      {/* Image URL 입력란 렌더링 */}
       {raidGuideImages.map((url, index) => (
-        <InputLayout
-          key={index}
-          setType={'text'}
-          setName={`raidGuideImages${index}`}
-          setPlaceholder={'레이드 컨닝페이퍼 URL'}
-          setCSS={'rounded-md mt-2'}
-          setValue={(value) => handleImageUrlChange(index, value)} // 해당 index의 URL 업데이트
-          value={url} // 현재 URL 값을 설정
-        ></InputLayout>
+        <div key={index} className='flex flex-col'>
+          <InputLayout
+            key={index}
+            setType={'text'}
+            setName={`raidGuideImages${index}`}
+            setPlaceholder={'레이드 컨닝페이퍼 URL'}
+            setCSS={'rounded-md mt-2'}
+            setValue={(value) => handleImageUrlChange(index, value)} // 해당 index의 URL 업데이트
+            value={url} // 현재 URL 값을 설정
+          ></InputLayout>
+          {url && (
+            <div className='relative h-[200px] w-[300px]'>
+              <Image
+                src={url}
+                alt={'레이드 이미지'}
+                fill
+                className='object-fill'
+                priority // 우선 로드 속성 추가
+              />
+            </div>
+          )}
+        </div>
       ))}
       <div className='mt-4 flex flex-col items-center justify-center'>
         <button className='w-24 rounded-sm bg-gray-900 p-1 px-2 text-white' onClick={handleSave}>
