@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Megaphone from '@image/icon/megaphone.svg'
+import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 
 interface Post {
   post_id: number
@@ -30,6 +31,10 @@ export default async function RaidPost({ postData }: RaidPostProps) {
         <div className='flex basis-1/2 flex-col gap-4 p-4'>
           <span className='flex justify-center rounded-md border border-gray-500 p-2 text-xl'>
             💥 &nbsp; <span className='font-bold'>{postData.raid_name}</span> &nbsp; 💥
+          </span>
+          <span className='text-lg'>
+            • 레이드 시간 :{' '}
+            <span className='font-bold'>{convertToKoreanTime(postData.raid_time)}</span>
           </span>
           <span className='text-lg'>
             • 레이드 타입 : <span className='font-bold'>{postData.raid_type}</span>

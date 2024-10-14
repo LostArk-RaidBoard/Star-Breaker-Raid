@@ -8,7 +8,6 @@ interface RaidPost {
   user_id: string
   post_position: string
   noti: string
-  fixed: boolean
   character_level: string
   character_name: string
   character_classicon: string
@@ -20,7 +19,7 @@ interface RaidPost {
 
 export async function POST(req: Request) {
   const raidPost: RaidPost = await req.json()
-
+  console.log('raidpost 처음 시간 :' + raidPost.raid_time)
   try {
     let raidTime: string | null = null
 
@@ -33,6 +32,7 @@ export async function POST(req: Request) {
       raidTime = raidPost.raid_time
     }
 
+    console.log('post에 들어가는 시간' + raidTime)
     const res = await sql`
       INSERT INTO raid_posts (
         raid_name,
@@ -41,7 +41,6 @@ export async function POST(req: Request) {
         user_id,
         post_position,
         noti,
-        fixed,
         character_level,
         character_name,
         raid_limitperson,
@@ -56,7 +55,6 @@ export async function POST(req: Request) {
         ${raidPost.user_id},
         ${raidPost.post_position},
         ${raidPost.noti},
-        ${raidPost.fixed},
         ${raidPost.character_level},
         ${raidPost.character_name},
         ${raidPost.raid_limitperson},

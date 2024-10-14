@@ -1,5 +1,4 @@
 import RaidPostCreateButton from '@/components/button/raidPostButton'
-import RaidFiexed from '@/components/raidPostField/\braidFiexed'
 import CalendarPick from '@/components/raidPostField/calendar'
 import RaidDetail from '@/components/raidPostField/raidDetail'
 import RaidMaxTime from '@/components/raidPostField/raidMaxTime'
@@ -47,7 +46,6 @@ export default async function RaidCreateField() {
         <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
           <RaidCharacterSelect createPostCharacter={createPostCharacter} />
           <RaidMaxTime />
-          <RaidFiexed />
           <RaidNoti />
         </div>
       </div>

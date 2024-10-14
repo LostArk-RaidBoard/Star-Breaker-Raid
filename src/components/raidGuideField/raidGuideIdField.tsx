@@ -30,10 +30,10 @@ export default function RaidGuidedIdField({ raideGuide }: Props) {
 
       <div className='mt-2 grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2'>
         {raideImageArray.map((imageUrl, key: number) => (
-          <div className='relative h-[400px] w-full sm:h-[700px]' key={key}>
+          <div className='relative h-[500px] w-full p-4 sm:h-[950px]' key={key}>
             <Image
               src={imageUrl as string}
-              alt={'발탄 1관문 페이지'}
+              alt={'컨닝페이퍼'}
               fill
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               className='object-fill'

@@ -20,7 +20,6 @@ export default function RaidPostCreateButton() {
     raidNoti,
     raidSelect,
     raidDate,
-    raidFixed,
     setReset,
   } = useRaidSelect()
 
@@ -67,7 +66,6 @@ export default function RaidPostCreateButton() {
         user_id: session?.user.id,
         post_position: session?.user.role,
         noti: raidNoti,
-        fixed: raidFixed,
         character_level: characterInfo[0].character_level,
         character_name: characterInfo[0].character_name,
         character_classicon: characterInfo[0].class_icon_url,
