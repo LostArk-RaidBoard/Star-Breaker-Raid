@@ -11,6 +11,7 @@ export default function RaidGuideCreateField() {
   const [youtubeUrls, setYoutubeUrls] = useState(['']) // youtube URL을 저장하는 배열
   const [raidGuideImages, setRaidGuideImages] = useState([''])
   const [saveStatues, setSaveStatues] = useState(0)
+  const [imageError, setImageError] = useState(false)
 
   // URL 추가
   const addYoutubeUrl = () => {
@@ -102,6 +103,30 @@ export default function RaidGuideCreateField() {
     }
   }
 
+  const renderImage = (src: string, alt: string) => {
+    try {
+      if (!src.startsWith('/') && !src.startsWith('http')) {
+        throw new Error('Invalid image URL') // URL 형식이 유효하지 않으면 예외 발생
+      }
+      return (
+        <div className='relative h-[200px] w-[300px]'>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            className='object-fill'
+            priority // 우선 로드 속성 추가
+          />
+        </div>
+      )
+    } catch (error: any) {
+      console.error('Image rendering error:', error.message)
+      setImageError(true) // 이미지 오류 상태 설정
+      return <p className='text-red-500'>이미지 로드 실패</p>
+    }
+  }
+
   return (
     <div className='flex h-full w-full flex-col rounded-md p-4 shadow-lg'>
       <h1 className='text-xl'>* 레이드 공략 생성란</h1>
@@ -119,6 +144,8 @@ export default function RaidGuideCreateField() {
 
       {/* 대표 이미지 입력 */}
       <label className='mt-4 text-lg'>* 대표 이미지 URL</label>
+      <p className='text-sm'>주소 예시 : /guideImage/레이드 명칭.png</p>
+
       <InputLayout
         setType={'text'}
         setName={'raidGuideName'}
@@ -127,18 +154,7 @@ export default function RaidGuideCreateField() {
         setValue={setRaideGuideMainImage}
         value={raideGuideMainImage}
       ></InputLayout>
-      {raideGuideMainImage && (
-        <div className='relative h-[200px] w-[300px]'>
-          <Image
-            src={raideGuideMainImage}
-            alt={'레이드 메인 이미지'}
-            fill
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            className='object-fill'
-            priority // 우선 로드 속성 추가
-          />
-        </div>
-      )}
+      {!imageError && raideGuideMainImage && renderImage(raideGuideMainImage, '레이드 메인 이미지')}
 
       {/* Youtube URL 추가/삭제 */}
       <div className='mt-4 flex flex-col items-center justify-between sm:flex-row'>
