@@ -48,7 +48,7 @@ export default function MainCharacter({ mainCharacter, userId }: MainCharacter) 
   useEffect(() => {
     setLoading(true)
 
-    if (mainCharacter.length > 0) {
+    if (mainCharacter.length > 0 && session?.user.id) {
       setLoading(false)
     } else {
       // 2초 후에 로딩 상태를 false로 변경
