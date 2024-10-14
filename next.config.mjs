@@ -23,6 +23,18 @@ const nextConfig = {
         port: '',
         pathname: '/**', // 모든 경로를 포함
       },
+      {
+        protocol: 'https',
+        hostname: 'upload3.inven.co.kr', // 여기서 원하는 호스트명 삽입
+        port: '',
+        pathname: '/**', // 모든 경로를 포함
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.inven.co.kr', // 여기서 원하는 호스트명 삽입
+        port: '',
+        pathname: '/**', // 모든 경로를 포함
+      },
     ],
   },
 
