@@ -63,11 +63,9 @@ export default function RaidApplicationList({ postId, applicationList, post_user
         },
       )
       if (res && res.status === 201) {
-        console.log('성공')
         applicationListTage()
       }
       if (!res.ok) {
-        console.log('실패')
         setLoading(false)
       }
     } catch (error) {
