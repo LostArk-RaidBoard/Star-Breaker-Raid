@@ -65,7 +65,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
   }
 
   return (
-    <div className='flex basis-1/2 flex-col gap-4 p-4'>
+    <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
       <span className='text-lg'>참여 신청한 모집글</span>
       <div className='grid grid-cols-8 rounded-md border px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
@@ -85,7 +85,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
           신청 취소
         </div>
       </div>
-      <div className='flex w-full flex-col gap-3'>
+      <div className='flex h-full w-full flex-col gap-3'>
         {currentItems.map((item) => (
           <div key={item.post_id} className='grid h-9 grid-cols-8 rounded-md border bg-gray-100'>
             <Link href={`/raidpost/${item.post_id}`} className='col-span-6 grid grid-cols-6'>

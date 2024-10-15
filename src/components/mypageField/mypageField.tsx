@@ -99,7 +99,7 @@ const fetchCreateCount = async (postsRows: RaidPost[]) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        cache: 'no-store',
+        next: { revalidate: 3600 },
       },
     )
     if (response.ok) {

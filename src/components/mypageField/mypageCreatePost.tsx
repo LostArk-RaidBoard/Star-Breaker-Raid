@@ -96,7 +96,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
   }, [createPostGet])
 
   return (
-    <div className='flex basis-1/2 flex-col gap-4 overflow-x-auto p-4'>
+    <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
       <span className='text-lg'>등록한 모집글</span>
       <div className='grid grid-cols-10 rounded-md border px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
@@ -120,7 +120,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
           모집글 닫기
         </div>
       </div>
-      <div className='flex w-full flex-col gap-3 scroll-auto'>
+      <div className='flex h-full w-full flex-col gap-3 scroll-auto'>
         {currentItems.map((item) => (
           <div key={item.post_id} className='grid h-9 grid-cols-10 rounded-md border bg-gray-100'>
             <Link href={`/raidpost/${item.post_id}`} className='col-span-8 grid grid-cols-8'>
