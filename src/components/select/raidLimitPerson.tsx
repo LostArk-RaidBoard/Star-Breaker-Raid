@@ -33,7 +33,7 @@ export default function RaidLimitPersonSelect() {
       setEight(false)
       setSixteen(true)
     }
-  }, [raidSelect])
+  }, [raidSelect, setRaidLimitPerson])
 
   return (
     <div className='w-full'>
