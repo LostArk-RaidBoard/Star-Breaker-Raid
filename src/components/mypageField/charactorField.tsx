@@ -69,7 +69,7 @@ interface Props {
   dbCharacter: CharacterInfo[]
 }
 
-export default function CharactorField({ userId, dbCharacter }: Props) {
+export default function CharactorField({ dbCharacter }: Props) {
   const { data: session } = useSession()
   const [mainCharacter, setMainCharacter] = useState('')
   const [mainMessage, setMainMessage] = useState('')

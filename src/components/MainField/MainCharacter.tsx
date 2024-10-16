@@ -84,7 +84,7 @@ export default function MainCharacter({ mainCharacter, userId }: MainCharacter) 
                     <div className='flex items-center gap-2'>
                       <Image
                         src={'/엘릭서.png'}
-                        alt='엘릭서'
+                        alt='엘릭서 이미지'
                         width={30}
                         height={30}
                         className='hidden p-1 sm:block'
@@ -94,7 +94,7 @@ export default function MainCharacter({ mainCharacter, userId }: MainCharacter) 
                     <div className='flex items-center gap-2'>
                       <Image
                         src={'/초월.png'}
-                        alt='초파고'
+                        alt='초월 이미지'
                         width={30}
                         height={30}
                         className='hidden p-1 sm:block'

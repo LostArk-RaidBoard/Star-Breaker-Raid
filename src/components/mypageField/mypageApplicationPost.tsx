@@ -9,7 +9,7 @@ import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import { useEffect } from 'react'
 import { usePageination } from '@/store/pageinationStore'
-import { applicationTage } from '@/app/action'
+import { applicationTage, teacherTage, wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -55,9 +55,11 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
           'Content-Type': 'application/json',
         },
       })
-      const data = await response.json()
+
       if (response.ok && response.status === 201) {
         applicationTage()
+        teacherTage()
+        wePostTage()
       }
     } catch (error) {
       console.error(error)

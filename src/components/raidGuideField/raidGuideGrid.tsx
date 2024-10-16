@@ -76,7 +76,8 @@ export default function RaidGuideGrid() {
                 alt='레이드 대표 이미지'
                 width={200}
                 height={200}
-                priority
+                loading='lazy'
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 className='h-full w-full rounded-md object-cover'
               />
             </Link>

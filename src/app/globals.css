@@ -10,9 +10,3 @@ body {
   color: rgb(var(--foreground-rgb));
   background-color: rgb(249, 250, 251);
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}

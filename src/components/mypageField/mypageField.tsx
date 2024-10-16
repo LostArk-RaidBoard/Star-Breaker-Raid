@@ -128,10 +128,10 @@ export default async function MypageField() {
 
   return (
     <div className='mt-8 flex h-full w-full flex-col items-center justify-center gap-4'>
-      <div className='w-full rounded-md border shadow-lg'>
+      <div className='w-full rounded-md border border-gray-200 shadow-lg'>
         <CharactorField userId={userId} dbCharacter={serverCharacter} />
       </div>
-      <div className='w-full rounded-md border shadow-lg'>
+      <div className='w-full rounded-md border border-gray-200 shadow-lg'>
         <MyPost
           userId={userId}
           applicationPostGet={applicationPostGet}

@@ -16,9 +16,10 @@ export default function SiteLink() {
       >
         <Image
           src={'/초월.png'}
-          alt='초파고'
+          alt='초파고 로고'
           width={48}
           height={48}
+          loading='lazy'
           className='hidden p-1 sm:block'
         />
         초파고
@@ -30,9 +31,10 @@ export default function SiteLink() {
         <div className='hidden h-12 w-12 sm:block'>
           <Image
             src={'/loatTool.png'}
-            alt='로아도구'
+            alt='로아도구 로고'
             width={70}
             height={70}
+            loading='lazy'
             className='h-full w-full object-cover'
           />
         </div>
