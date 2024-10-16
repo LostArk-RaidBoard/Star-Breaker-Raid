@@ -6,8 +6,7 @@ import Under from '@image/icon/under.svg'
 import { useCharacterInfoList } from '@/store/characterStore'
 
 export default function CharacterSelect() {
-  const { setCharacterInfo, characterInfo, setCharacterAllList, characterAllList } =
-    useCharacterInfoList()
+  const { setCharacterInfo, characterInfo, characterAllList } = useCharacterInfoList()
   const [hidden, setHidden] = useState(true)
 
   const handler = (name: string) => {
@@ -43,7 +42,7 @@ export default function CharacterSelect() {
               <div className='h-12 w-12 overflow-hidden rounded-full'>
                 <Image
                   src={characterInfo[0].class_image}
-                  alt={characterInfo[0].character_name}
+                  alt='클래스 캐릭터 이미지'
                   width={70}
                   height={70}
                   className='h-full w-full object-cover'
@@ -59,13 +58,13 @@ export default function CharacterSelect() {
             {characterAllList.map((char) => (
               <div
                 key={char.character_name}
-                className='flex cursor-pointer items-center gap-4 p-2 hover:bg-gray-200'
+                className='flex cursor-pointer items-center gap-4 p-2 hover:rounded-md hover:bg-gray-200'
                 onClick={() => handler(char.character_name)}
               >
                 <div className='h-12 w-12 overflow-hidden rounded-full'>
                   <Image
                     src={char.class_image}
-                    alt={char.character_name}
+                    alt='클래스 캐릭터 이미지'
                     width={70}
                     height={70}
                     className='h-full w-full object-cover'

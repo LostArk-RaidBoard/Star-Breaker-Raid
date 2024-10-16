@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
+import { teacherTage, wePostTage } from '@/app/action'
 
 export default function RaidPostCreateButton() {
   const router = useRouter()
@@ -86,6 +87,8 @@ export default function RaidPostCreateButton() {
       if (response.ok) {
         if (response.status === 200) {
           setPostSave(1)
+          wePostTage()
+          teacherTage()
           router.push('/')
           setLoading(0)
         }

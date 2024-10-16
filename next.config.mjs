@@ -36,6 +36,12 @@ const nextConfig = {
         port: '',
         pathname: '/**', // 모든 경로를 포함
       },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com', // 유튜브 셈네일
+        port: '',
+        pathname: '/**', // 모든 경로를 포함
+      },
     ],
   },
 
