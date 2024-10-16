@@ -39,7 +39,7 @@ export default function UserDelete({ userId }: Props) {
     }
   }
   return (
-    <div className='flex h-full w-full flex-col rounded-md border p-4 shadow-lg sm:basis-1/2'>
+    <div className='flex h-full w-full flex-col rounded-md border border-gray-200 p-4 shadow-lg sm:basis-1/2'>
       {session && session.user.id ? (
         <>
           <span className='text-lg'>회원 탈퇴</span>

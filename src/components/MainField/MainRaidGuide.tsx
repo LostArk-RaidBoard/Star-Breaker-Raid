@@ -44,7 +44,8 @@ export default async function MainRaidGuide() {
                 alt='레이드 대표 이미지'
                 width={200}
                 height={200}
-                priority
+                sizes='(max-width: 768px) 100vw, (min-width: 769px) 50vw'
+                loading='lazy'
                 className='h-full w-full rounded-md object-cover'
               />
             </Link>

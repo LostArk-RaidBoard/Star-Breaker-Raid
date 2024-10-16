@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
-import { teacherTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -45,10 +44,6 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
     setCurrentPage(1)
     setItemsPerPage(7)
   }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
-
-  useEffect(() => {
-    teacherTage()
-  }, [])
 
   return (
     <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>

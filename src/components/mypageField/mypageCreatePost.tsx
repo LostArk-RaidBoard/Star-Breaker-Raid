@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
-import { createPostTage } from '@/app/action'
+import { createPostTage, teacherTage, wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -59,9 +59,11 @@ export default function MypageCreatePost({ createPostGet }: Props) {
           'Content-Type': 'application/json',
         },
       })
-      const data = await response.json()
+
       if (response.ok && response.status === 201) {
         createPostTage()
+        teacherTage()
+        wePostTage()
       }
     } catch (error) {
       console.error(error)

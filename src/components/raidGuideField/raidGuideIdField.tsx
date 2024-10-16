@@ -30,14 +30,19 @@ export default function RaidGuidedIdField({ raideGuide }: Props) {
 
       <div className='mt-2 grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2'>
         {raideImageArray.map((imageUrl, key: number) => (
-          <div className='relative h-[500px] w-full p-4 sm:h-[950px]' key={key}>
+          <div className='relative w-full p-4' key={key}>
             <Image
               src={imageUrl as string}
               alt={'컨닝페이퍼'}
-              fill
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-              className='object-fill'
-              priority // 우선 로드 속성 추가
+              width={800} // fill 대신 width와 height 설정
+              height={1189}
+              style={{
+                maxWidth: '100%', // max-width 적용
+                height: 'auto', // height auto 적용
+                border: 0, // border 제거
+              }}
+              className='object-cover'
+              loading='lazy'
             />
           </div>
         ))}
