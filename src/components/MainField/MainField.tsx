@@ -11,9 +11,9 @@ export default function MainField() {
       <div className='mt-8 h-24 w-full overflow-hidden'>
         <SiteLink />
       </div>
-      {/* <div className='mt-8 w-full'>
+      <div className='mt-8 w-full'>
         <MainRaidGuide />
-      </div> */}
+      </div>
     </div>
   )
 }
