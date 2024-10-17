@@ -120,13 +120,13 @@ export default async function MainPost() {
   // const applicationsCount = await fetchApplicationsCount(postsTeacherRows) // 카운트 데이터 가져오기
   // const weApplicationsCount = await fetchApplicationsCount(postsWeRows)
 
-  const session = await getServerSession(authOptions)
-  let userId = ''
-  let serverCharacter: CharacterInfo[] = []
-  if (session && session.user.id) {
-    serverCharacter = await UtileCharacterDataFetch(session.user.id)
-    userId = session.user.id
-  }
+  // const session = await getServerSession(authOptions)
+  // let userId = ''
+  // let serverCharacter: CharacterInfo[] = []
+  // if (session && session.user.id) {
+  //   serverCharacter = await UtileCharacterDataFetch(session.user.id)
+  //   userId = session.user.id
+  // }
 
   return (
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
