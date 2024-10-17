@@ -2,6 +2,7 @@
 
 import { applicationListTage } from '@/app/action'
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
+import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
@@ -21,18 +22,20 @@ interface CharacterInfo {
   class_icon_url: string
   disable: boolean
 }
+
+interface GetCharacterList {
+  getCharacterList: CharacterInfo[]
+}
 interface RaidApplicationProps {
   raidLimitLevel: number
   postId: number
   post_user: string
-  applicationCharacter: CharacterInfo[]
 }
 
 export default function RaidApplication({
   raidLimitLevel,
   postId,
   post_user,
-  applicationCharacter,
 }: RaidApplicationProps) {
   const [hope, setHope] = useState('')
   const [state, setState] = useState(1)
@@ -40,6 +43,7 @@ export default function RaidApplication({
   const { data: session } = useSession()
   const { characterInfo } = useCharacterInfoList()
   const [loading, setLoading] = useState(0)
+  const [getCharacterList, setGetCharacterList] = useState<CharacterInfo[]>([])
 
   /**
    * 지원자 DB에 저장
@@ -106,16 +110,24 @@ export default function RaidApplication({
   }
 
   useEffect(() => {
+    const applicationFetch = async () => {
+      if (session && session.user.id) {
+        const applicationCharacter = await UtileCharacterDataFetch(session.user.id)
+        setGetCharacterList(applicationCharacter)
+      }
+    }
+
+    applicationFetch()
     setMessage('')
     setState(0)
-  }, [])
+  }, [, session])
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border p-4 shadow-lg'>
       <div className='flex w-full flex-col items-center justify-center gap-4 sm:flex-col lg:flex-row'>
         <ApplicationCharacterSelect
           raidLimitLevel={raidLimitLevel}
-          applicationCharacter={applicationCharacter}
+          applicationCharacter={getCharacterList}
         />
 
         <div className='w-full lg:basis-1/4'>
