@@ -167,6 +167,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
             CharacterImage: item.class_image,
           }
           resultList.push(await SaveCharacterFetch(characterList, userId)) // 함수로 호출
+          submit()
         }
       } catch (error) {
         console.error(error)
