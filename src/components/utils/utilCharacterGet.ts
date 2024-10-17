@@ -6,6 +6,7 @@ export default async function UtileCharacterDataFetch(userId: string) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=3600', // 1시간 캐시
       },
       next: { tags: ['posts'] },
     })
