@@ -1,6 +1,6 @@
 import CharacterSorted from '@/components/utils/characterSorted'
 
-export default async function UtileCharacterDataFetch(userId: string, etag?: string) {
+export default async function UtileCharacterDataFetch(userId: string) {
   try {
     const response = await fetch(`${process.env.API_URL}/api/characterGet?userId=${userId}`, {
       method: 'GET',
