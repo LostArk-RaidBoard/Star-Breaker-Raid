@@ -3,7 +3,7 @@
 import { revalidateTag } from 'next/cache'
 
 export default async function submit() {
-  revalidateTag('posts') // 'posts' 태그 재검증
+  revalidateTag('posts')
 }
 
 export async function applicationTage() {

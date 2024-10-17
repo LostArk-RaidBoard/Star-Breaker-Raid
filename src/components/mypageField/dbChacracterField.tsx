@@ -181,7 +181,6 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
       }, 1000)
     } else {
       setSaveState(1)
-      submit()
       setLoading(false)
     }
   }

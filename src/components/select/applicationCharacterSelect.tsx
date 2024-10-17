@@ -5,7 +5,6 @@ import { useRaidSelect } from '@/store/raidSelectStore'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Under from '@image/icon/under.svg'
-import { useSession } from 'next-auth/react'
 import submit from '@/app/action'
 
 interface CharacterInfo {

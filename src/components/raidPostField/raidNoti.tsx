@@ -12,6 +12,7 @@ export default function RaidNoti() {
       <textarea
         id='raidNoti'
         name='raidNoti'
+        aria-label='공지 사항 글'
         rows={5}
         placeholder='여기에 입력하세요...'
         value={raidNoti} // 상태로 관리되는 값
