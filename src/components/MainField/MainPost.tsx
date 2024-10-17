@@ -121,11 +121,11 @@ export default async function MainPost() {
   // const weApplicationsCount = await fetchApplicationsCount(postsWeRows)
 
   const session = await getServerSession(authOptions)
-  let userId = ''
+  // let userId = ''
   // let serverCharacter: CharacterInfo[] = []
   if (session && session.user.id) {
     //   serverCharacter = await UtileCharacterDataFetch(session.user.id)
-    userId = session.user.id
+    const userId = session.user.id
   }
 
   return (
