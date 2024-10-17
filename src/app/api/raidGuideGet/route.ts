@@ -15,9 +15,10 @@ export async function GET(req: Request) {
     }
     // 캐시 설정 추가
     const headers = new Headers()
-    headers.set('Cache-Control', 's-maxage=3600, max-age=3600 stale-while-revalidate')
+    headers.set('Cache-Control', 'public, s-maxage=3600, max-age=3600, stale-while-revalidate')
+
     return new Response(JSON.stringify({ guideRows: res.rows }), {
-      status: 201,
+      status: 200,
       headers,
     })
   } catch (error) {
