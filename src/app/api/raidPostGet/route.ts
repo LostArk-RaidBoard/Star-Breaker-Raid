@@ -10,9 +10,6 @@ export async function GET(req: Request) {
 
     return new Response(JSON.stringify({ postRows: res.rows }), {
       status: 201,
-      headers: {
-        'Cache-Control': 'public, max-age=300',
-      },
     })
   } catch (error) {
     console.error(error)
