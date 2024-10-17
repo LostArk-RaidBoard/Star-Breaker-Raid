@@ -12,7 +12,7 @@ export default async function UtileCharacterDataFetch(userId: string) {
 
     const data = await response.json()
 
-    if (response.ok && data.result) {
+    if (response.ok && response.status === 200) {
       const getCharacterList = data.result
       const charcter = CharacterSorted(getCharacterList)
       return charcter

@@ -7,12 +7,9 @@ export async function GET(req: Request) {
 
   try {
     const res = await sql`SELECT * FROM characters WHERE user_id=${userId}`
-    if (res.rowCount === 0) {
-      return new Response(JSON.stringify({ result: [] }), { status: 201 })
-    }
-    return new Response(JSON.stringify({ result: res.rows }), { status: 201 })
+    return new Response(JSON.stringify({ result: res.rows }), { status: 200 })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ result: [] }), { status: 401 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
   }
 }

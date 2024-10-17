@@ -124,7 +124,7 @@ export default async function MainPost() {
   let userId = ''
   let serverCharacter: CharacterInfo[] = []
   if (session && session.user.id) {
-    serverCharacter = await UtileCharacterDataFetch(session.user.id)
+    // serverCharacter = await UtileCharacterDataFetch(session.user.id)
     userId = session.user.id
   }
 
