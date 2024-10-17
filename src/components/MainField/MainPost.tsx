@@ -20,6 +20,10 @@ interface RaidPost {
   character_classicon: string
 }
 
+/**
+ * teacher Post get
+ * @returns
+ */
 const fetchTeacherPosts = async () => {
   try {
     const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=teacher`, {
@@ -43,6 +47,10 @@ const fetchTeacherPosts = async () => {
   return [] // 오류 발생 시 빈 배열 반환
 }
 
+/**
+ * wePost get
+ * @returns wePost 항목들 반환
+ */
 const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
   try {
     const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=user`, {
@@ -77,7 +85,7 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
           headers: {
             'Content-Type': 'application/json',
           },
-          next: { revalidate: 3600 },
+          next: { tags: ['fetchCount'] },
         },
       )
       if (response.ok) {
