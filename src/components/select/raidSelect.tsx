@@ -14,6 +14,7 @@ export default function RaidSelect() {
       <label className='text-lg'>레이드 선택</label>
       <select
         name='raidSelect'
+        aria-label='레이드 선택 창'
         className='mt-1 h-12 w-full rounded-md border px-1 text-lg'
         value={raidSelect}
         onChange={selectHandler}

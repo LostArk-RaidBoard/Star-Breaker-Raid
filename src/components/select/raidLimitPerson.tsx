@@ -40,6 +40,7 @@ export default function RaidLimitPersonSelect() {
       <label className='text-lg'>최대인원 선택</label>
       <select
         name='raidSelect'
+        aria-label='레이드 인원 선택'
         className='mt-1 h-12 w-full rounded-md border px-1 text-lg'
         value={raidLimitPerson}
         onChange={raidLimitPersonHandler}

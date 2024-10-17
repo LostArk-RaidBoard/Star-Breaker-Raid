@@ -11,10 +11,14 @@ export default function CalendarPick() {
 
   return (
     <div className='flex w-full flex-col'>
-      <label className='text-lg'>날짜 선정</label>
+      <label htmlFor='raidDate' className='text-lg'>
+        날짜 선정
+      </label>{' '}
+      {/* 레이블 추가 */}
       <div className='mt-1 h-full w-full'>
         {/* 날짜 선택기의 최대 너비 설정 */}
         <DatePicker
+          id='raidDate' // label과 연결하기 위한 id 추가
           selected={raidDate}
           onChange={(date) => {
             if (date) {

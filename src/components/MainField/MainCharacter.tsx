@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Loading from '@image/icon/loading.svg'
 import { useSession } from 'next-auth/react'
-import submit from '@/app/action'
+import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface CharacterInfo {
   character_name: string
@@ -26,41 +26,27 @@ interface CharacterInfo {
 
 interface MainCharacter {
   mainCharacter: CharacterInfo[]
-  userId: string
 }
 
-export default function MainCharacter({ mainCharacter, userId }: MainCharacter) {
+export default function MainCharacter() {
   const { data: session } = useSession()
   const { characterInfo, setCharacterAllList, characterAllList } = useCharacterInfoList()
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (userId === '' && session?.user.id) {
-        await submit()
-      }
-      setCharacterAllList(mainCharacter)
-    }
-
-    fetchData()
-  }, [session, mainCharacter, userId, setCharacterAllList]) // 의존성 배열에 userId 추가
-
-  useEffect(() => {
     setLoading(true)
-
-    if (mainCharacter.length > 0 && session?.user.id) {
+    const fetchCharacterData = async () => {
+      if (session && session.user.id) {
+        const userId = session.user.id
+        const getCharacterList = await UtileCharacterDataFetch(userId) // await 추가
+        setCharacterAllList(getCharacterList)
+      } else {
+      }
       setLoading(false)
-    } else {
-      // 2초 후에 로딩 상태를 false로 변경
-      const timer = setTimeout(() => {
-        setLoading(false)
-      }, 2000)
-
-      // 컴포넌트가 언마운트될 때 타이머 정리
-      return () => clearTimeout(timer)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+
+    fetchCharacterData() // 비동기 함수 호출
+  }, [session, setCharacterAllList])
 
   return (
     <>

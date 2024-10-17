@@ -1,9 +1,6 @@
 import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
-import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 
 interface RaidPost {
@@ -21,21 +18,6 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
-}
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  transcendence: number
-  leap: number
-  evolution: number
-  enlightenment: number
-  elixir: number
-  class_icon_url: string
-  disable: boolean
 }
 
 const fetchTeacherPosts = async () => {
@@ -120,17 +102,9 @@ export default async function MainPost() {
   const applicationsCount = await fetchApplicationsCount(postsTeacherRows) // 카운트 데이터 가져오기
   const weApplicationsCount = await fetchApplicationsCount(postsWeRows)
 
-  // const session = await getServerSession(authOptions)
-  // let userId = ''
-  // let serverCharacter: CharacterInfo[] = []
-  // if (session && session.user.id) {
-  //   serverCharacter = await UtileCharacterDataFetch(session.user.id)
-  //  userId = session.user.id
-  // }
-
   return (
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
-      {/* <MainCharacter mainCharacter={serverCharacter} userId={userId} /> */}
+      <MainCharacter />
       <MainTeacherPosts teacherPostsRows={postsTeacherRows} applicationsCount={applicationsCount} />
       <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} />
     </div>

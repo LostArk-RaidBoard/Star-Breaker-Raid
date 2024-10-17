@@ -65,7 +65,7 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
         </div>
       </div>
       <div className='mt-2 flex w-full flex-col gap-3 p-1'>
-        {teacherPostsRows.map((item, key) => (
+        {currentItems.map((item, key) => (
           <Link
             key={key}
             href={`/raidpost/${item.post_id}`}

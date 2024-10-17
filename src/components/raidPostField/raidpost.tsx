@@ -74,6 +74,7 @@ export default async function RaidPost({ postData }: RaidPostProps) {
             • 레이드 공지
             <textarea
               rows={4}
+              aria-label='공지 사항 글'
               className='resize-none border p-1'
               disabled
               defaultValue={postData.noti}
