@@ -1,6 +1,6 @@
 'use client'
 
-import { applicationCount, applicationListTage, teacherTage, wePostTage } from '@/app/action'
+import { applicationListTage, teacherTage, wePostTage } from '@/app/action'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -40,8 +40,6 @@ export default function RaidApplicationList({ postId, applicationList, post_user
       const data = await response.json()
       if (response.ok && response.status === 201) {
         applicationListTage()
-        applicationCount()
-        wePostTage()
       }
     } catch (error) {
       console.error(error)
@@ -66,9 +64,6 @@ export default function RaidApplicationList({ postId, applicationList, post_user
       )
       if (res && res.status === 201) {
         applicationListTage()
-        applicationCount()
-        teacherTage()
-        wePostTage()
       }
       if (!res.ok) {
         setLoading(false)

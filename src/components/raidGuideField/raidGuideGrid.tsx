@@ -28,6 +28,7 @@ const raidGuideFetch = async (raidName: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'default',
     })
     const data = await response.json()
     if (response.ok) {

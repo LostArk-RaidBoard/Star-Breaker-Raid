@@ -2,6 +2,7 @@ import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import { cache } from 'react'
 
 interface RaidPost {
   post_id: number
@@ -58,6 +59,7 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'default',
       next: { tags: ['wePost'] },
     })
     const data = await response.json()
@@ -85,7 +87,7 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
           headers: {
             'Content-Type': 'application/json',
           },
-          next: { tags: ['fetchCount'] },
+          cache: 'no-store',
         },
       )
       if (response.ok) {
