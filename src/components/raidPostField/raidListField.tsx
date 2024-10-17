@@ -1,9 +1,6 @@
 import RaidApplication from '@/components/raidPostField/raidApplication'
 import RaidApplicationList from '@/components/raidPostField/raidApplicationList'
 import RaidPost from '@/components/raidPostField/raidpost'
-import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
 interface Props {
   postId: number
 }
@@ -38,22 +35,6 @@ interface ApplicationList {
   character_transcendence: number
   character_check: boolean
   character_level: string
-}
-
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  transcendence: number
-  leap: number
-  evolution: number
-  enlightenment: number
-  elixir: number
-  class_icon_url: string
-  disable: boolean
 }
 
 const fetchPostData = async (postId: number) => {
@@ -96,15 +77,9 @@ const applicationGet = async (postId: number) => {
 }
 
 export default async function RaidListField({ postId }: Props) {
-  const session = await getServerSession(authOptions)
   const postData: Post = await fetchPostData(postId)
   const applicationList: ApplicationList[] = await applicationGet(postId)
   const raidLimitLevel = postData.limit_level
-
-  let applicationCharacter: CharacterInfo[] = []
-  if (session && session.user.id) {
-    applicationCharacter = await UtileCharacterDataFetch(session.user.id)
-  }
 
   const post_user = postData.user_id
   return (
@@ -114,12 +89,7 @@ export default async function RaidListField({ postId }: Props) {
       </div>
       <label className='mt-4 flex w-full justify-start'>* 지원 신청 작성</label>
       <div className='w-full'>
-        <RaidApplication
-          raidLimitLevel={raidLimitLevel}
-          postId={postId}
-          post_user={post_user}
-          applicationCharacter={applicationCharacter}
-        />
+        <RaidApplication raidLimitLevel={raidLimitLevel} postId={postId} post_user={post_user} />
       </div>
       <label className='mt-4 flex w-full justify-start'>* 신청자</label>
       <div className='h-auto w-full'>
