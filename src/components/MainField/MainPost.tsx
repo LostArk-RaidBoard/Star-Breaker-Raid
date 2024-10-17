@@ -124,13 +124,13 @@ export default async function MainPost() {
   let userId = ''
   let serverCharacter: CharacterInfo[] = []
   if (session && session.user.id) {
-    // serverCharacter = await UtileCharacterDataFetch(session.user.id)
+    serverCharacter = await UtileCharacterDataFetch(session.user.id)
     userId = session.user.id
   }
 
   return (
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
-      <MainCharacter mainCharacter={serverCharacter} userId={userId} />
+      {/* <MainCharacter mainCharacter={serverCharacter} userId={userId} /> */}
       {/* <MainTeacherPosts teacherPostsRows={postsTeacherRows} applicationsCount={applicationsCount} />
       <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} /> */}
     </div>
