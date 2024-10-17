@@ -8,12 +8,12 @@ export default function MainField() {
       <div className='flex h-[1000px] w-full flex-col gap-4 md:h-[400px] md:flex-row'>
         <MainPost />
       </div>
-      <div className='mt-8 h-24 w-full overflow-hidden'>
+      {/* <div className='mt-8 h-24 w-full overflow-hidden'>
         <SiteLink />
       </div>
       <div className='mt-8 w-full'>
         <MainRaidGuide />
-      </div>
+      </div> */}
     </div>
   )
 }

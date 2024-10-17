@@ -8,7 +8,7 @@ export default function Home() {
     <Section>
       <main className='flex min-h-screen w-full flex-col items-center'>
         <HeaderField />
-        {/* <MainField /> */}
+        <MainField />
       </main>
     </Section>
   )
