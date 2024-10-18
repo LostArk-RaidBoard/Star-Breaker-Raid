@@ -18,8 +18,8 @@ const raidGuideFetch = async () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=3600, must-revaildate',
       },
-      next: { tags: ['raidGuideTage'] },
     })
     const data = await response.json()
     if (response.ok) {
