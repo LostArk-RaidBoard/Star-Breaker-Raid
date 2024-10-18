@@ -90,7 +90,7 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
           headers: {
             'Content-Type': 'application/json',
           },
-          cache: 'no-store',
+          next: { tags: ['countTage'] },
         },
       )
       if (response.ok) {

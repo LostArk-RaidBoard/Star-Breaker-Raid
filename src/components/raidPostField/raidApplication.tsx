@@ -1,6 +1,6 @@
 'use client'
 
-import { applicationListTage } from '@/app/action'
+import { applicationListTage, countTage } from '@/app/action'
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
@@ -90,6 +90,7 @@ export default function RaidApplication({
         if (response && response.status === 200) {
           setState(1)
           applicationListTage()
+          countTage()
           setLoading(0)
         } else {
           setMessage(data.message)
