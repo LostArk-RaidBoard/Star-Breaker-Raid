@@ -2,7 +2,6 @@ import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
-import { cache } from 'react'
 
 interface RaidPost {
   post_id: number
@@ -40,6 +39,8 @@ const fetchTeacherPosts = async () => {
         ...post,
         raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
       }))
+    } else {
+      return []
     }
   } catch (error) {
     console.error(error)
@@ -68,6 +69,8 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
         ...post,
         raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
       }))
+    } else {
+      return []
     }
   } catch (error) {
     console.error(error)
