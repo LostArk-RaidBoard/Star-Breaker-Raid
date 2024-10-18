@@ -24,6 +24,8 @@ const raidGuideFetch = async () => {
     const data = await response.json()
     if (response.ok) {
       return data.guideRows
+    } else {
+      return []
     }
   } catch (error) {
     console.error(error)
