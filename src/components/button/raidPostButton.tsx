@@ -89,8 +89,8 @@ export default function RaidPostCreateButton() {
           setPostSave(1)
           wePostTage()
           teacherTage()
-          router.push('/')
           setLoading(0)
+          router.push('/')
         }
       } else {
         setMessage(data.message)
