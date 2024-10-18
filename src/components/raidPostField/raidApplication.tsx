@@ -23,9 +23,6 @@ interface CharacterInfo {
   disable: boolean
 }
 
-interface GetCharacterList {
-  getCharacterList: CharacterInfo[]
-}
 interface RaidApplicationProps {
   raidLimitLevel: number
   postId: number

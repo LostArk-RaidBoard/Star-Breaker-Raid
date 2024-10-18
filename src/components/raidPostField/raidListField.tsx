@@ -46,11 +46,12 @@ const fetchPostData = async (postId: number) => {
       },
     })
     const data = await response.json()
-    if (response.ok && response.status === 201) {
+    if (response.ok && response.status === 200) {
       return data.postRows[0]
     }
   } catch (error) {
     console.error(error)
+    return null
   }
 }
 
@@ -66,22 +67,26 @@ const applicationGet = async (postId: number) => {
 
     const data = await res.json()
     if (res.ok && res.status === 201) {
-      return data.result
+      return data.result || [] // 데이터가 없을 경우 빈 배열 반환
     } else {
       return []
     }
   } catch (error) {
     console.error(error)
-    return []
   }
+  return []
 }
 
 export default async function RaidListField({ postId }: Props) {
   const postData: Post = await fetchPostData(postId)
   const applicationList: ApplicationList[] = await applicationGet(postId)
-  const raidLimitLevel = postData.limit_level
+  let raidLimitLevel = 0
+  let post_user = ''
+  if (postData) {
+    raidLimitLevel = postData.limit_level
+    post_user = postData.user_id
+  }
 
-  const post_user = postData.user_id
   return (
     <div className='mt-8 flex h-full w-full flex-col items-center justify-center'>
       <div className='w-full rounded-md border shadow-lg'>
