@@ -87,10 +87,11 @@ export default function RaidPostCreateButton() {
       if (response.ok) {
         if (response.status === 200) {
           setPostSave(1)
+          setLoading(0)
+
           wePostTage()
           teacherTage()
-          setLoading(0)
-          router.push('/')
+          setTimeout(() => router.push('/'), 1000)
         }
       } else {
         setMessage(data.message)
@@ -111,7 +112,9 @@ export default function RaidPostCreateButton() {
   }, [])
   return (
     <div className='flex w-full flex-col items-center justify-center'>
-      <span className={`${postSave === 1 ? '' : 'hidden'} text-blue-500`}>레이드 개설 성공</span>
+      <span className={`${postSave === 1 ? '' : 'hidden'} text-blue-500`}>
+        레이드 개설 성공 잠시후 메인 페이지로 이동합니다.
+      </span>
       <span className={`${postSave === 2 ? '' : 'hidden'} text-red-500`}>
         레이드 개설 실패 : {message}
       </span>

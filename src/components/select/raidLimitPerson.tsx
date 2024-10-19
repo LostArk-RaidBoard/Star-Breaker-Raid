@@ -14,7 +14,7 @@ export default function RaidLimitPersonSelect() {
   }
 
   useEffect(() => {
-    if (raidSelect === '바르칸') {
+    if (raidSelect === '베히모스') {
       setRaidLimitPerson(16)
       setSixteen(false)
       setEight(false)
