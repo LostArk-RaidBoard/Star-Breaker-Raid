@@ -30,6 +30,7 @@ const fetchTeacherPosts = async () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=60, must-revalidate',
       },
       next: { tags: ['teacherPost'] },
     })
@@ -44,7 +45,6 @@ const fetchTeacherPosts = async () => {
     }
   } catch (error) {
     console.error(error)
-    return []
   }
   return [] // 오류 발생 시 빈 배열 반환
 }
@@ -59,12 +59,13 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=60, must-revalidate',
       },
       cache: 'default',
       next: { tags: ['wePost'] },
     })
     const data = await response.json()
-    if (response.ok && response.status === 201) {
+    if (response.ok) {
       return data.postRows.map((post: RaidPost) => ({
         ...post,
         raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
@@ -74,7 +75,6 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
     }
   } catch (error) {
     console.error(error)
-    return []
   }
   return []
 }
@@ -112,9 +112,14 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
 export default async function MainPost() {
   const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
   const postsWeRows = await fetchWePostsFetch()
-  const applicationsCount = await fetchApplicationsCount(postsTeacherRows) // 카운트 데이터 가져오기
-  const weApplicationsCount = await fetchApplicationsCount(postsWeRows)
-
+  let applicationsCount = {}
+  let weApplicationsCount = {}
+  if (postsTeacherRows.length > 0) {
+    applicationsCount = await fetchApplicationsCount(postsTeacherRows) // 카운트 데이터 가져오기
+  }
+  if (postsWeRows.length > 0) {
+    weApplicationsCount = await fetchApplicationsCount(postsWeRows)
+  }
   return (
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
       <MainCharacter />

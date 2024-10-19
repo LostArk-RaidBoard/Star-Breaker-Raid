@@ -9,7 +9,7 @@ export async function GET(req: Request) {
     const res = await sql`SELECT * FROM raid_posts WHERE post_position = ${position}`
 
     return new Response(JSON.stringify({ postRows: res.rows }), {
-      status: 201,
+      status: 200,
     })
   } catch (error) {
     console.error(error)
