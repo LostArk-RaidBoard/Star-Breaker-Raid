@@ -50,7 +50,7 @@ const fetchPostData = async (postId: number) => {
       return data.postRows[0]
     }
   } catch (error) {
-    console.error(error)
+    console.error('postPagePostGet: ' + error)
     return null
   }
 }
@@ -72,7 +72,7 @@ const applicationGet = async (postId: number) => {
       return []
     }
   } catch (error) {
-    console.error(error)
+    console.error('application get Error: ' + error)
   }
   return []
 }
