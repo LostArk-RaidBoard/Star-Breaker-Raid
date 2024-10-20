@@ -19,7 +19,7 @@ export async function GET(req: Request) {
       return new Response(JSON.stringify({ message: '가입한 이력이 없습니다.' }), { status: 400 })
 
     return new Response(JSON.stringify({ message: '아이디 찾기 성공', userIdRow: res.rows }), {
-      status: 201,
+      status: 200,
     })
   } catch (error) {
     console.error(error)
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
     const response = await sql`UPDATE users SET password = ${hashedPassword}`
 
     return new Response(JSON.stringify({ message: '비밀번호 재설정 성공' }), {
-      status: 201,
+      status: 200,
     })
   } catch (error) {
     console.error(error)

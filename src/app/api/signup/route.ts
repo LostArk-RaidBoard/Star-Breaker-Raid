@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     }
 
     await sql`INSERT INTO users (user_id, password, role_id, user_name, birthday) VALUES (${userEmail}, ${hashedPassword}, 3, ${userName}, ${birthday})`
-    return new Response(JSON.stringify({ message: '회원가입 성공' }), { status: 201 })
+    return new Response(JSON.stringify({ message: '회원가입 성공' }), { status: 200 })
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ message: '회원가입 실패' }), { status: 500 })

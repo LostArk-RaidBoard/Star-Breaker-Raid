@@ -15,7 +15,7 @@ export async function DELETE(req: Request) {
       await sql`DELETE FROM applicants_list WHERE user_id = ${userId} AND post_id = ${post_id}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
-      status: 201,
+      status: 200,
     })
   } catch (error) {
     console.error(error)

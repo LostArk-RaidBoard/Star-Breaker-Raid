@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   try {
     const res =
       await sql`UPDATE applicants_list SET character_check=${check} WHERE post_id=${postId} AND user_id=${userId} AND character_name=${characterName}`
-    return new Response(JSON.stringify({ message: '성공' }), { status: 201 })
+    return new Response(JSON.stringify({ message: '성공' }), { status: 200 })
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ message: '서버와 연결 실패' }), { status: 500 })

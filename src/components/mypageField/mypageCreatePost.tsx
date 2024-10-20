@@ -60,7 +60,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
         },
       })
 
-      if (response.ok && response.status === 201) {
+      if (response.ok && response.status === 200) {
         createPostTage()
         teacherTage()
         wePostTage()

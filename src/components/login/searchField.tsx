@@ -34,7 +34,7 @@ export default function SearchField() {
       )
       const data = await response.json()
       if (response.ok) {
-        if (response.status === 201) {
+        if (response.status === 200) {
           setFetchState(1)
           setDbUser(data.userIdRow[0].user_id) // 수정된 부분
           return

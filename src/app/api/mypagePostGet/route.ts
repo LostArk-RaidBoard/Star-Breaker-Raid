@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     WHERE post_id IN (SELECT post_id FROM applicants_list WHERE user_id = ${userID})`
 
     return new Response(JSON.stringify({ postRows: res.rows }), {
-      status: 201,
+      status: 200,
     })
   } catch (error) {
     console.error(error)
