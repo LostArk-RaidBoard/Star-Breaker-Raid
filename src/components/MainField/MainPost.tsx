@@ -30,7 +30,6 @@ const fetchTeacherPosts = async () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=50, must-revalidate',
       },
       next: { tags: ['teacherPost'] },
     })
@@ -44,7 +43,7 @@ const fetchTeacherPosts = async () => {
       return []
     }
   } catch (error) {
-    console.error(error)
+    console.error('fetchTeacherPost Error' + error)
   }
   return [] // 오류 발생 시 빈 배열 반환
 }
@@ -59,7 +58,6 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=50, must-revalidate',
       },
       next: { tags: ['wePost'] },
     })
@@ -73,7 +71,7 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
       return []
     }
   } catch (error) {
-    console.error(error)
+    console.error('fetchWePost Error' + error)
   }
   return []
 }
@@ -99,7 +97,7 @@ async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: nu
         counts[item.post_id] = 1
       }
     } catch (error) {
-      console.error(error)
+      console.error('applicationCount Error : ' + error)
       counts[item.post_id] = 1 // 오류 발생 시 기본값 설정
     }
   })
