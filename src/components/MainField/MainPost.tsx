@@ -30,7 +30,7 @@ const fetchTeacherPosts = async () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=0, must-revalidate',
+        'Cache-Control': 'max-age=50, must-revalidate',
       },
       next: { tags: ['teacherPost'] },
     })
@@ -59,6 +59,7 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=50, must-revalidate',
       },
       next: { tags: ['wePost'] },
     })
