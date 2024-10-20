@@ -21,10 +21,28 @@ interface RaidPost {
   character_classicon: string
 }
 
+interface RaidCreatePost {
+  post_id: number
+  raid_name: string
+  raid_time: string
+  limit_level: number
+  user_id: string
+  post_position: string
+  noti: string
+  fixed: boolean
+  character_level: string
+  character_name: string
+  raid_limitperson: number
+  raid_type: string
+  raid_maxtime: string
+  character_classicon: string
+  applicant_count: number
+}
+
 interface Props {
   userId: string
   applicationPostGet: RaidPost[]
-  createPostGet: RaidPost[]
+  createPostGet: RaidCreatePost[]
 }
 
 export default function MyPost({ userId, applicationPostGet, createPostGet }: Props) {
