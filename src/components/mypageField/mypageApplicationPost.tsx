@@ -9,13 +9,7 @@ import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import { useEffect } from 'react'
 import { usePageination } from '@/store/pageinationStore'
-import {
-  applicationListTage,
-  applicationTage,
-  countTage,
-  teacherTage,
-  wePostTage,
-} from '@/app/action'
+import { applicationListTage, applicationTage, teacherTage, wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -66,7 +60,6 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
         applicationTage()
         teacherTage()
         wePostTage()
-        countTage()
       }
     } catch (error) {
       console.error(error)

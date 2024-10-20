@@ -1,6 +1,6 @@
 'use client'
 
-import { applicationListTage, countTage } from '@/app/action'
+import { applicationListTage, teacherTage, wePostTage } from '@/app/action'
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
@@ -86,8 +86,9 @@ export default function RaidApplication({
         const data = await response.json()
         if (response && response.status === 200) {
           setState(1)
-          applicationListTage()
-          countTage()
+          await applicationListTage()
+          await wePostTage()
+          await teacherTage()
           setLoading(0)
         } else {
           setMessage(data.message)
