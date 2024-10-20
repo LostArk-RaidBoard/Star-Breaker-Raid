@@ -66,9 +66,10 @@ const applicationGet = async (postId: number) => {
     })
 
     const data = await res.json()
-    if (res.ok && res.status === 201) {
+    if (res.ok && res.status === 200) {
       return data.result || [] // 데이터가 없을 경우 빈 배열 반환
     } else {
+      console.error(res.status + data.message)
       return []
     }
   } catch (error) {
