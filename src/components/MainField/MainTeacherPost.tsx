@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
+import { teacherTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -45,6 +46,18 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
     setItemsPerPage(7)
   }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
+  // 1분마다 wePostTage() 실행하여 데이터 업데이트
+  useEffect(() => {
+    const fetchPosts = async () => {
+      await teacherTage()
+    }
+
+    fetchPosts() // 초기 데이터 fetch
+
+    const interval = setInterval(fetchPosts, 60000)
+
+    return () => clearInterval(interval) // 컴포넌트 언마운트 시 타이머 정리
+  }, [])
   return (
     <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>
       <div className='grid grid-cols-8 text-nowrap rounded-t-md bg-gray-200 px-1'>

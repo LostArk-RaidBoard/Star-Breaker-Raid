@@ -5,9 +5,10 @@ import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
+import { wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -44,6 +45,19 @@ export default function MainWePosts({ wePostsRows, applicationsCount }: MainWePo
     setCurrentPage(1)
     setItemsPerPage(7)
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
+
+  // 1분마다 wePostTage() 실행하여 데이터 업데이트
+  useEffect(() => {
+    const fetchPosts = async () => {
+      await wePostTage()
+    }
+
+    fetchPosts() // 초기 데이터 fetch
+
+    const interval = setInterval(fetchPosts, 60000)
+
+    return () => clearInterval(interval) // 컴포넌트 언마운트 시 타이머 정리
+  }, [])
 
   return (
     <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>

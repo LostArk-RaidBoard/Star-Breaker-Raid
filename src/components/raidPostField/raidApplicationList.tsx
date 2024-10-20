@@ -43,7 +43,7 @@ export default function RaidApplicationList({ postId, applicationList, post_user
         countTage()
       }
     } catch (error) {
-      console.error(error)
+      console.error('applicationDelete Error :' + error)
     }
   }
 
@@ -70,7 +70,7 @@ export default function RaidApplicationList({ postId, applicationList, post_user
         setLoading(false)
       }
     } catch (error) {
-      console.error(error)
+      console.error('ApplicationStateUpdate :' + error)
       setLoading(false)
     }
   }

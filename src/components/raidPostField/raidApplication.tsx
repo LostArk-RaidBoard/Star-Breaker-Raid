@@ -112,6 +112,8 @@ export default function RaidApplication({
       if (session && session.user.id) {
         const applicationCharacter = await UtileCharacterDataFetch(session.user.id)
         setGetCharacterList(applicationCharacter)
+      } else {
+        setGetCharacterList([])
       }
     }
 
