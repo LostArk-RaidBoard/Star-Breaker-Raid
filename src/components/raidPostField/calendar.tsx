@@ -5,10 +5,19 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './calendar.module.css'
 import { useRaidSelect } from '@/store/raidSelectStore'
+import { setHours, setMinutes, nextDay } from 'date-fns'
 
 export default function CalendarPick() {
   const { raidDate, setRaidDate } = useRaidSelect()
+  const today = new Date()
 
+  // 다음주 수요일의 오전 5시로 maxTime 설정
+  const nextWednesday = nextDay(today, 3) // 수요일은 요일 상 숫자 3
+  const maxTime = setHours(setMinutes(nextWednesday, 0), 5) // 5시 0분으로 설정
+
+  // 현재 시간을 기준으로 minTime 설정
+  const minTimeToday = setHours(setMinutes(new Date(), 0), today.getHours()) // 현재 시간의 0분
+  const minDefaultTime = setHours(setMinutes(new Date(), 0), 0) // 자정
   return (
     <div className='flex w-full flex-col'>
       <label htmlFor='raidDate' className='text-lg'>
@@ -26,7 +35,18 @@ export default function CalendarPick() {
             }
           }}
           locale={ko}
-          minDate={new Date()}
+          minDate={today}
+          maxDate={nextWednesday}
+          minTime={
+            raidDate && raidDate.toDateString() === today.toDateString()
+              ? minTimeToday // 오늘이라면 현재 시간 이후로 선택
+              : minDefaultTime // 다른 날이라면 자정부터 선택 가능
+          }
+          maxTime={
+            raidDate && raidDate.toDateString() === nextWednesday.toDateString()
+              ? maxTime // 다음주 수요일이면 오전 5시까지
+              : setHours(setMinutes(new Date(), 59), 23) // 다른 날은 자정까지
+          }
           showTimeSelect
           timeFormat='HH:mm'
           timeIntervals={15}
