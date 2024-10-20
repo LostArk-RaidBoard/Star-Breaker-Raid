@@ -41,6 +41,24 @@ interface RaidPost {
   character_classicon: string
 }
 
+interface RaidPostCreate {
+  post_id: number
+  raid_name: string
+  raid_time: string
+  limit_level: number
+  user_id: string
+  post_position: string
+  noti: string
+  fixed: boolean
+  character_level: string
+  character_name: string
+  raid_limitperson: number
+  raid_type: string
+  raid_maxtime: string
+  character_classicon: string
+  applicant_count: number
+}
+
 const applicationPostGetHandler = async (userId: string) => {
   try {
     const response = await fetch(`${process.env.API_URL}/api/mypagePostGet?user_id=${userId}`, {
@@ -76,7 +94,7 @@ const createPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows.map((post: RaidPost) => ({
+      return data.postRows.map((post: RaidPostCreate) => ({
         ...post,
         raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
       }))
@@ -89,39 +107,17 @@ const createPostGetHandler = async (userId: string) => {
   }
 }
 
-const fetchCreateCount = async (postsRows: RaidPost[]) => {
-  const counts: { [key: number]: number } = {}
-  const promises = postsRows.map(async (item) => {
-    const response = await fetch(
-      `${process.env.API_URL}/api/applicationCount?post_id=${item.post_id}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-    if (response.ok) {
-      const data = await response.json()
-      counts[item.post_id] = data.count + 1 || 1
-    } else {
-      counts[item.post_id] = 1
-    }
-  })
-}
-
 export default async function MypageField() {
   const session = await getServerSession(authOptions)
   let userId = ''
   let serverCharacter: CharacterInfo[] = []
   let applicationPostGet: RaidPost[] = []
-  let createPostGet: RaidPost[] = []
+  let createPostGet: RaidPostCreate[] = []
 
   if (session && session.user.id) {
     serverCharacter = await UtileCharacterDataFetch(session.user.id)
     applicationPostGet = await applicationPostGetHandler(session.user.id)
     createPostGet = await createPostGetHandler(session.user.id)
-    fetchCreateCount(createPostGet)
     userId = session.user.id
   }
 

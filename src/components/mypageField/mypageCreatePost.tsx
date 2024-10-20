@@ -28,6 +28,7 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
+  applicant_count: number
 }
 
 type Props = {
@@ -69,33 +70,6 @@ export default function MypageCreatePost({ createPostGet }: Props) {
       console.error(error)
     }
   }
-
-  const fetchApplicationsCount = async () => {
-    const counts: { [key: number]: number } = {}
-    const promises = createPostGet.map(async (item) => {
-      const response = await fetch(`/api/applicationCount?post_id=${item.post_id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      if (response.ok) {
-        const data = await response.json()
-        counts[item.post_id] = data.count + 1 || 0
-      } else {
-        counts[item.post_id] = 1
-      }
-    })
-    await Promise.all(promises)
-    setMyPostApplicationsCount(counts)
-  }
-
-  useEffect(() => {
-    if (createPostGet.length > 0) {
-      fetchApplicationsCount()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createPostGet])
 
   return (
     <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
@@ -146,7 +120,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
               </div>
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {myPostApplicationsCount[item.post_id] || 1}/{item.raid_limitperson}
+                  {item.applicant_count}/{item.raid_limitperson}
                 </span>
               </div>
             </Link>

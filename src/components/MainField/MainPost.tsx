@@ -34,25 +34,15 @@ const fetchTeacherPosts = async () => {
       },
       next: { tags: ['teacherPost'] },
     })
-
-    // 응답 본문을 텍스트로 확인
-    const text = await response.text()
-    console.log('Response Text:', text)
-
-    try {
-      const data = JSON.parse(text)
-      if (response.ok) {
-        return data.postRows.map((post: RaidPost) => ({
-          ...post,
-          raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-        }))
-      } else {
-        console.error(`Error: ${response.status} - ${response.statusText} - ${data.message}`)
-        return []
-      }
-    } catch (jsonError) {
-      console.error('JSON 파싱 오류:', jsonError)
-      return [] // JSON 파싱에 실패했을 경우 빈 배열 반환
+    const data = await response.json()
+    console.log('loop')
+    if (response.ok) {
+      return data.postRows.map((post: RaidPost) => ({
+        ...post,
+        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+      }))
+    } else {
+      return []
     }
   } catch (error) {
     console.error('fetchTeacherPost Error' + error)
