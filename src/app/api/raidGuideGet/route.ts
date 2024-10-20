@@ -5,6 +5,9 @@ export async function GET(req: Request) {
   const url = new URL(req.url)
   const guideName = url.searchParams.get('raidGuide')
 
+  if (!guideName) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
   try {
     let res
     if (guideName === 'all') {

@@ -48,6 +48,7 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
 
   // 1분마다 wePostTage() 실행하여 데이터 업데이트
   useEffect(() => {
+    teacherTage()
     const fetchPosts = async () => {
       await teacherTage()
     }

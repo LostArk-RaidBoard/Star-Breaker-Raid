@@ -35,7 +35,7 @@ export default function PasswordChange({ userId }: Props) {
       })
       const data = await response.json()
       if (response.ok) {
-        if (response.status === 201) {
+        if (response.status === 200) {
           setMessage(data.message)
           return
         }

@@ -48,6 +48,7 @@ export default function MainWePosts({ wePostsRows, applicationsCount }: MainWePo
 
   // 1분마다 wePostTage() 실행하여 데이터 업데이트
   useEffect(() => {
+    wePostTage()
     const fetchPosts = async () => {
       await wePostTage()
     }

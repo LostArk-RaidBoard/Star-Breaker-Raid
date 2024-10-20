@@ -27,7 +27,7 @@ export default function UserDelete({ userId }: Props) {
         },
       })
       if (response.ok) {
-        if (response.status === 201) {
+        if (response.status === 200) {
           signOut({ callbackUrl: '/' })
         } else {
           const data = await response.json()

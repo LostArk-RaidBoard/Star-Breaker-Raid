@@ -31,6 +31,9 @@ export async function POST(req: Request) {
     evolution,
   } = saveCharacterInfo
 
+  if (!saveCharacterInfo) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
   try {
     const res = await sql`SELECT * FROM characters WHERE character_name=${character_name}`
 

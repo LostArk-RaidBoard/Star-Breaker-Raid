@@ -135,7 +135,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
         submit()
       }
     } catch (error) {
-      console.error(error)
+      console.error('mypage Character Delete Error :' + error)
     }
   }
 
@@ -170,7 +170,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
           submit()
         }
       } catch (error) {
-        console.error(error)
+        console.error('Mypage Character Update Error :' + error)
       }
     }
     if (resultList.includes(false)) {

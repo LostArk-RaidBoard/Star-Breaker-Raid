@@ -25,6 +25,11 @@ interface ApplicationList {
   character_level: string
 }
 
+/**
+ * 마이페이지 신청란에서 신청 취소하기
+ * @param param0
+ * @returns : Detele
+ */
 export default function RaidApplicationList({ postId, applicationList, post_user }: Props) {
   const { data: session } = useSession()
   const [loading, setLoading] = useState(false)
@@ -38,7 +43,7 @@ export default function RaidApplicationList({ postId, applicationList, post_user
         },
       })
       const data = await response.json()
-      if (response.ok && response.status === 201) {
+      if (response.ok && response.status === 200) {
         applicationListTage()
         countTage()
       }
@@ -63,7 +68,7 @@ export default function RaidApplicationList({ postId, applicationList, post_user
           },
         },
       )
-      if (res && res.status === 201) {
+      if (res && res.status === 200) {
         applicationListTage()
       }
       if (!res.ok) {

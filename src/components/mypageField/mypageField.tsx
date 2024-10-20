@@ -51,7 +51,7 @@ const applicationPostGetHandler = async (userId: string) => {
       next: { tags: ['applicationTage'] },
     })
     const data = await response.json()
-    if (response.ok && response.status === 201) {
+    if (response.ok && response.status === 200) {
       return data.postRows.map((post: RaidPost) => ({
         ...post,
         raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
@@ -75,7 +75,7 @@ const createPostGetHandler = async (userId: string) => {
       next: { tags: ['createPostTage'] },
     })
     const data = await response.json()
-    if (response.ok && response.status === 201) {
+    if (response.ok && response.status === 200) {
       return data.postRows.map((post: RaidPost) => ({
         ...post,
         raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환

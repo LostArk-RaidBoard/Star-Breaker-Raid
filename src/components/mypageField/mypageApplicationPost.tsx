@@ -62,7 +62,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
         },
       })
 
-      if (response.ok && response.status === 201) {
+      if (response.ok && response.status === 200) {
         applicationTage()
         teacherTage()
         wePostTage()

@@ -5,6 +5,10 @@ export async function GET(req: Request) {
   const url = new URL(req.url)
   const postId = url.searchParams.get('post_id')
 
+  if (!postId) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
+
   try {
     // 신청자 리스트 가져오기
     const response = await sql`SELECT * FROM applicants_list WHERE post_id = ${postId}`
