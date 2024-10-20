@@ -18,6 +18,7 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
+  applicant_count: number
 }
 
 /**
@@ -87,52 +88,15 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
   return []
 }
 
-async function fetchApplicationsCount(postsRows: RaidPost[]): Promise<{ [key: number]: number }> {
-  const counts: { [key: number]: number } = {}
-  const promises = postsRows.map(async (item) => {
-    try {
-      const response = await fetch(
-        `${process.env.API_URL}/api/applicationCount?post_id=${item.post_id}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          next: { tags: ['countTage'] },
-        },
-      )
-      if (response.ok) {
-        const data = await response.json()
-        counts[item.post_id] = data.count + 1 || 1
-      } else {
-        counts[item.post_id] = 1
-      }
-    } catch (error) {
-      console.error('applicationCount Error : ' + error)
-      counts[item.post_id] = 1 // 오류 발생 시 기본값 설정
-    }
-  })
-
-  await Promise.all(promises)
-  return counts // 모든 카운트가 포함된 객체 반환
-}
-
 export default async function MainPost() {
   const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
   const postsWeRows = await fetchWePostsFetch()
-  let applicationsCount = {}
-  let weApplicationsCount = {}
-  if (postsTeacherRows.length > 0) {
-    applicationsCount = await fetchApplicationsCount(postsTeacherRows) // 카운트 데이터 가져오기
-  }
-  if (postsWeRows.length > 0) {
-    weApplicationsCount = await fetchApplicationsCount(postsWeRows)
-  }
+
   return (
     <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
       <MainCharacter />
-      <MainTeacherPosts teacherPostsRows={postsTeacherRows} applicationsCount={applicationsCount} />
-      <MainWePosts wePostsRows={postsWeRows} applicationsCount={weApplicationsCount} />
+      <MainTeacherPosts teacherPostsRows={postsTeacherRows} />
+      <MainWePosts wePostsRows={postsWeRows} />
     </div>
   )
 }
