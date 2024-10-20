@@ -40,6 +40,7 @@ const fetchTeacherPosts = async () => {
         raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
       }))
     } else {
+      console.error(`Error: ${response.status} - ${response.statusText} - ${data.message}`)
       return []
     }
   } catch (error) {
