@@ -79,17 +79,6 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
   }
   return []
 }
-export async function getServerSideProps() {
-  const teacherPosts = await fetchTeacherPosts()
-  const wePosts = await fetchWePostsFetch()
-
-  return {
-    props: {
-      postsTeacherRows: teacherPosts,
-      postsWeRows: wePosts,
-    },
-  }
-}
 
 export default async function MainPost() {
   const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
