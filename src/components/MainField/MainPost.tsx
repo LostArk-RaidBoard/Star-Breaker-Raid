@@ -1,3 +1,4 @@
+'use server'
 import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
@@ -35,7 +36,7 @@ const fetchTeacherPosts = async () => {
       next: { tags: ['teacherPost'] },
     })
     const data = await response.json()
-    console.log('loop')
+    console.log('Teacher Post Fetch')
     if (response.ok) {
       return data.postRows.map((post: RaidPost) => ({
         ...post,
@@ -63,6 +64,7 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
       },
       next: { tags: ['wePost'] },
     })
+    console.log('We Post Fetch')
     const data = await response.json()
     if (response.ok) {
       return data.postRows.map((post: RaidPost) => ({
@@ -76,6 +78,17 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
     console.error('fetchWePost Error' + error)
   }
   return []
+}
+export async function getServerSideProps() {
+  const teacherPosts = await fetchTeacherPosts()
+  const wePosts = await fetchWePostsFetch()
+
+  return {
+    props: {
+      postsTeacherRows: teacherPosts,
+      postsWeRows: wePosts,
+    },
+  }
 }
 
 export default async function MainPost() {
