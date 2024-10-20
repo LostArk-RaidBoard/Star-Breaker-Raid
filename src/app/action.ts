@@ -28,7 +28,3 @@ export async function applicationListTage() {
 export async function raidGuideTage() {
   revalidateTag('raidGuideTage')
 }
-
-export async function countTage() {
-  revalidateTag('countTage')
-}

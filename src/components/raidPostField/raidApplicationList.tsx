@@ -1,6 +1,6 @@
 'use client'
 
-import { applicationListTage, countTage, teacherTage, wePostTage } from '@/app/action'
+import { applicationListTage, teacherTage, wePostTage } from '@/app/action'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
@@ -45,7 +45,8 @@ export default function RaidApplicationList({ postId, applicationList, post_user
       const data = await response.json()
       if (response.ok && response.status === 200) {
         applicationListTage()
-        countTage()
+        wePostTage()
+        teacherTage()
       }
     } catch (error) {
       console.error('applicationDelete Error :' + error)
