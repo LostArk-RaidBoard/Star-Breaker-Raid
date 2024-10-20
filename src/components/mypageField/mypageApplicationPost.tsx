@@ -9,7 +9,13 @@ import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import { useEffect } from 'react'
 import { usePageination } from '@/store/pageinationStore'
-import { applicationTage, countTage, teacherTage, wePostTage } from '@/app/action'
+import {
+  applicationListTage,
+  applicationTage,
+  countTage,
+  teacherTage,
+  wePostTage,
+} from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -66,6 +72,18 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
       console.error(error)
     }
   }
+  // 1분마다 wePostTage() 실행하여 데이터 업데이트
+  useEffect(() => {
+    const fetchPosts = async () => {
+      await teacherTage()
+    }
+
+    applicationListTage() // 초기 데이터 fetch
+
+    const interval = setInterval(fetchPosts, 60000)
+
+    return () => clearInterval(interval) // 컴포넌트 언마운트 시 타이머 정리
+  }, [])
 
   return (
     <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
