@@ -25,14 +25,14 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
+  applicant_count: number
 }
 
 interface Props {
   teacherPostsRows: RaidPost[]
-  applicationsCount: { [key: number]: number } // 추가된 props
 }
 
-export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }: Props) {
+export default function MainTeacherPosts({ teacherPostsRows }: Props) {
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageinationSub()
 
@@ -105,7 +105,7 @@ export default function MainTeacherPosts({ teacherPostsRows, applicationsCount }
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
-                {applicationsCount[item.post_id] || 1}/{item.raid_limitperson}
+                {item.applicant_count}/{item.raid_limitperson}
               </span>
             </div>
           </Link>
