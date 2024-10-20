@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
-import { wePostTage } from '@/app/action'
+import { teacherTage, wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -41,17 +41,19 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
   const currentItems = wePostsRows.slice(indexOfFirstItem, indexOfLastItem)
 
   useEffect(() => {
-    setDataLength(wePostsRows.length)
-    setCurrentPage(1)
-    setItemsPerPage(7)
+    if (wePostsRows) {
+      setDataLength(wePostsRows.length)
+      setCurrentPage(1)
+      setItemsPerPage(7)
+    }
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   // 1분마다 wePostTage() 실행하여 데이터 업데이트
   useEffect(() => {
     const fetchPosts = async () => {
       await wePostTage()
+      await teacherTage()
     }
-    fetchPosts() // 초기 데이터 fetch
     const interval = setInterval(fetchPosts, 60000)
 
     return () => clearInterval(interval) // 컴포넌트 언마운트 시 타이머 정리
