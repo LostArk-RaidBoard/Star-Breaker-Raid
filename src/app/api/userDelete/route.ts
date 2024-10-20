@@ -5,6 +5,10 @@ export async function DELETE(req: Request) {
   const url = new URL(req.url)
   const userId = url.searchParams.get('userId')
 
+  if (!userId) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
+
   try {
     const res = await sql`DELETE FROM users WHERE user_id=${userId}`
 

@@ -7,6 +7,10 @@ export async function GET(req: Request) {
   const userName = url.searchParams.get('userName')
   const birthday = url.searchParams.get('birthday')
 
+  if (!userName && !birthday) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
+
   try {
     const res =
       await sql`SELECT user_id FROM users WHERE user_name = ${userName} and birthday = ${birthday}`

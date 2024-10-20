@@ -19,6 +19,10 @@ interface RaidPost {
 
 export async function POST(req: Request) {
   const raidPost: RaidPost = await req.json()
+
+  if (!raidPost) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
   console.log('raidpost 처음 시간 :' + raidPost.raid_time)
   try {
     let raidTime: string | null = null

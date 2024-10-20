@@ -5,6 +5,10 @@ import { hashPassword } from '@/components/utils/bcrypt'
 export async function POST(req: Request) {
   const { userName, birthday, userEmail, userPassword } = await req.json()
 
+  if (!userEmail && !userName && !birthday && !userPassword) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
+
   // 비밀번호 해시화
   const hashedPassword = await hashPassword(userPassword)
 

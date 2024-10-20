@@ -11,6 +11,9 @@ interface Guide {
 export async function POST(req: Request) {
   const raidGuide: Guide = await req.json()
 
+  if (!raidGuide) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
   try {
     const response =
       await sql`INSERT INTO raid_guide (guide_name, youtube_url, image_url, role_id, raid_main_image) VALUES (${raidGuide.guide_name}, ${JSON.stringify(raidGuide.youtube_url)}, ${JSON.stringify(raidGuide.image_url)}, 1, ${raidGuide.raid_main_image})`

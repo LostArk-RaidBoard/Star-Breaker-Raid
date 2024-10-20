@@ -4,6 +4,9 @@ import { sql } from '@vercel/postgres'
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const userID = url.searchParams.get('user_id')
+  if (!userID) {
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+  }
 
   try {
     const res = await sql`SELECT * FROM raid_posts 
