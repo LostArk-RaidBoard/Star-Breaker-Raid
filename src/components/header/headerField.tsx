@@ -7,9 +7,11 @@ export default function HeaderField() {
   return (
     <div className='w-full'>
       <nav className='flex hidden h-12 w-full items-center justify-between sm:flex'>
-        <Logo />
         <NaviBar />
-        <LogField />
+        <div className='flex gap-4'>
+          <LogField />
+          <Logo />
+        </div>
       </nav>
       <MHeaderField />
     </div>

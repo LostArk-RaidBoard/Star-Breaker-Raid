@@ -9,6 +9,11 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Star Breaker Raid',
   description: 'Star Breaker Raid',
+  icons: {
+    icon: '/logo/favicon.ico',
+    shortcut: '/logo/favicon.ico', // 추가
+    apple: '/logo/favicon.ico', // 추가 (필요시)
+  },
 }
 
 export default function RootLayout({
