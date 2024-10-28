@@ -1,17 +1,17 @@
 export default function RaidLevel(raidName: string) {
-  if (raidName === '카제로스 아브렐슈드 하드') {
+  if (raidName === '2막 아브렐슈드 하드') {
     return 1690
   }
 
-  if (raidName === '카제로스 아브렐슈드 노말') {
+  if (raidName === '2막 아브렐슈드 노말') {
     return 1670
   }
 
-  if (raidName === '에기르 하드') {
+  if (raidName === '1막 에기르 하드') {
     return 1680
   }
 
-  if (raidName === '에기르 노말') {
+  if (raidName === '1막 에기르 노말') {
     return 1660
   }
 
@@ -19,11 +19,11 @@ export default function RaidLevel(raidName: string) {
     return 1640
   }
 
-  if (raidName === '애키드나 하드') {
+  if (raidName === '서막 에키드나 하드') {
     return 1640
   }
 
-  if (raidName === '애키드나 노말') {
+  if (raidName === '서막 에키드나 노말') {
     return 1620
   }
 
