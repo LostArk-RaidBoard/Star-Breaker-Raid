@@ -19,27 +19,27 @@ export default function RaidSelect() {
         value={raidSelect}
         onChange={selectHandler}
       >
-        <option className='text-base' value='카제로스 아브렐슈드 하드'>
-          카제로스 아브렐슈드 하드
+        <option className='text-base' value='2막 아브렐슈드 하드'>
+          2막 아브렐슈드 하드
         </option>
-        <option className='text-base' value='카제로스 아브렐슈드 노말'>
-          카제로스 아브렐슈드 노말
+        <option className='text-base' value='2막 아브렐슈드 노말'>
+          2막 아브렐슈드 노말
         </option>
 
-        <option className='text-base' value='에기르 하드'>
-          에기르 하드
+        <option className='text-base' value='1막 에기르 하드'>
+          1막 에기르 하드
         </option>
-        <option className='text-base' value='에기르 노말'>
-          에기르 노말
+        <option className='text-base' value='1막 에기르 노말'>
+          1막 에기르 노말
         </option>
         <option className='text-base' value='베히모스'>
           베히모스
         </option>
-        <option className='text-base' value='애키드나 하드'>
-          애키드나 하드
+        <option className='text-base' value='서막 에키드나 하드'>
+          서막 에키드나 하드
         </option>
-        <option className='text-base' value='애키드나 노말'>
-          애키드나 노말
+        <option className='text-base' value='서막 에키드나 노말'>
+          서막 에키드나 노말
         </option>
         <option className='text-base' value='카멘 하드'>
           카멘 하드
