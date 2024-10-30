@@ -73,6 +73,7 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
       (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
     )
 
+    console.log('diffDays 확인' + diffDays + '요일' + raidTime)
     if (diffDays >= 0 && diffDays < 7) {
       daysArray[diffDays].push(post)
     }
