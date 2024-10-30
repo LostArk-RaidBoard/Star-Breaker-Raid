@@ -57,12 +57,11 @@ export default function MainTeacherPosts({ teacherPostsRows }: Props) {
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Megaphone className='h-4 w-4' /> 선생님
         </div>
-        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+        <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Clock className='h-4 w-4' />
           시간
         </div>
-        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-          <User className='h-4 w-4' />
+        <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           인원
         </div>
       </div>
@@ -88,10 +87,10 @@ export default function MainTeacherPosts({ teacherPostsRows }: Props) {
                 {item.character_name}
               </span>
             </div>
-            <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+            <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
             </div>
-            <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
+            <div className='col-span-1 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
                 {item.applicant_count}/{item.raid_limitperson}
               </span>

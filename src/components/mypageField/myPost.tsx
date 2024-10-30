@@ -28,7 +28,6 @@ interface RaidCreatePost {
   user_id: string
   post_position: string
   noti: string
-  fixed: boolean
   character_level: string
   character_name: string
   raid_limitperson: number
@@ -46,11 +45,9 @@ interface Props {
 
 export default function MyPost({ userId, applicationPostGet, createPostGet }: Props) {
   return (
-    <div className='flex w-full flex-col rounded-md border p-4 shadow-lg sm:mt-8'>
-      <div className='flex flex-col gap-4 md:h-[380px] md:flex-row'>
-        <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
-        <MypageCreatePost createPostGet={createPostGet} />
-      </div>
+    <div className='flex flex-col gap-4 rounded-md border p-4 shadow-lg md:h-[380px] md:flex-row'>
+      <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
+      <MypageCreatePost createPostGet={createPostGet} />
     </div>
   )
 }

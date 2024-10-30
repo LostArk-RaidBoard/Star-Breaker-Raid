@@ -2,6 +2,7 @@ import MyPost from '@/components/mypageField/myPost'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import MypageWeek from '@/components/mypageField/mypageWeek'
 
 interface RaidPost {
   post_id: number
@@ -28,7 +29,6 @@ interface RaidPostCreate {
   user_id: string
   post_position: string
   noti: string
-  fixed: boolean
   character_level: string
   character_name: string
   raid_limitperson: number
@@ -49,10 +49,7 @@ const applicationPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows.map((post: RaidPost) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
+      return data.postRows
     } else {
       return []
     }
@@ -73,10 +70,7 @@ const createPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows.map((post: RaidPostCreate) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
+      return data.postRows
     } else {
       return []
     }
@@ -91,14 +85,39 @@ export default async function MyPostField() {
   let userId = ''
   let applicationPostGet: RaidPost[] = []
   let createPostGet: RaidPostCreate[] = []
+  let createPostGetWeek: RaidPostCreate[] = []
+  let applicationPostGetWeek: RaidPost[] = []
 
   if (session && session.user.id) {
     applicationPostGet = await applicationPostGetHandler(session.user.id)
+    applicationPostGetWeek = await applicationPostGetHandler(session.user.id)
     createPostGet = await createPostGetHandler(session.user.id)
+    createPostGetWeek = await createPostGetHandler(session.user.id)
     userId = session.user.id
   }
 
+  if (applicationPostGet) {
+    applicationPostGet = applicationPostGet.map((post: RaidPost) => ({
+      ...post,
+      raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+    }))
+  }
+
+  if (createPostGet) {
+    createPostGet = createPostGet.map((post: RaidPostCreate) => ({
+      ...post,
+      raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+    }))
+  }
+
   return (
-    <MyPost userId={userId} applicationPostGet={applicationPostGet} createPostGet={createPostGet} />
+    <div className='flex w-full flex-col sm:mt-8'>
+      <MyPost
+        userId={userId}
+        applicationPostGet={applicationPostGet}
+        createPostGet={createPostGet}
+      />
+      <MypageWeek applicationPostGet={applicationPostGetWeek} createPostGet={createPostGetWeek} />
+    </div>
   )
 }

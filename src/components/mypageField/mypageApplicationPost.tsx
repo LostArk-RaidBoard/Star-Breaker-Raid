@@ -3,7 +3,6 @@
 import Pagination from '@/components/utils/pagination'
 import Link from 'next/link'
 import Image from 'next/image'
-import Hand from '@image/icon/hand.svg'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
@@ -79,7 +78,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
   }, [])
 
   return (
-    <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
+    <div className='flex h-full basis-1/2 flex-col gap-4'>
       <span className='text-lg'>• 참여 신청한 모집글</span>
       <div className='grid grid-cols-8 rounded-md border px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
