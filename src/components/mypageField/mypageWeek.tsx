@@ -60,7 +60,6 @@ function getThisWeekWednesday6AM() {
 
 export default function MypageWeek({ applicationPostGet, createPostGet }: Props) {
   const startWednesday = getThisWeekWednesday6AM()
-  console.log('수요일 :' + startWednesday)
 
   // 요일별로 데이터를 분류
   const daysArray = Array.from({ length: 8 }, () => [] as (RaidPost | RaidCreatePost)[])
@@ -68,7 +67,6 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
 
   allPosts.forEach((post) => {
     const raidTime = toKST(new Date(post.raid_time))
-    console.log('각 요일별 :' + raidTime)
     const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
       const diffDays = Math.floor(
