@@ -53,7 +53,7 @@ function getThisWeekWednesday6AM() {
 
   const thisWednesday = new Date(now)
   thisWednesday.setDate(now.getDate() + diffToWednesday)
-  thisWednesday.setHours(6, 0, 0, 0) // 오전 6시로 설정
+  thisWednesday.setHours(0, 0, 0, 0) // 오전 6시로 설정
 
   return thisWednesday
 }
@@ -63,7 +63,7 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
   console.log('수요일 :' + startWednesday)
 
   // 요일별로 데이터를 분류
-  const daysArray = Array.from({ length: 7 }, () => [] as (RaidPost | RaidCreatePost)[])
+  const daysArray = Array.from({ length: 8 }, () => [] as (RaidPost | RaidCreatePost)[])
   const allPosts = [...applicationPostGet, ...createPostGet]
 
   allPosts.forEach((post) => {
@@ -74,7 +74,7 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
     )
 
     console.log('diffDays 확인' + diffDays + '요일' + raidTime)
-    if (diffDays >= 0 && diffDays < 7) {
+    if (diffDays >= 0 && diffDays < 8) {
       daysArray[diffDays].push(post)
     }
   })
