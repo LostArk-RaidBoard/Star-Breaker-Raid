@@ -69,13 +69,14 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
   allPosts.forEach((post) => {
     const raidTime = toKST(new Date(post.raid_time))
     console.log('각 요일별 :' + raidTime)
-    const diffDays = Math.floor(
-      (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
-    )
-
-    console.log('diffDays 확인' + diffDays + '요일' + raidTime)
-    if (diffDays >= 0 && diffDays < 8) {
-      daysArray[diffDays].push(post)
+    const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
+    if (diff >= 0.25 && diff < 7.25) {
+      const diffDays = Math.floor(
+        (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
+      )
+      if (diffDays >= 0 && diffDays < 8) {
+        daysArray[diffDays].push(post)
+      }
     }
   })
 
