@@ -14,7 +14,7 @@ export default function MyInfoNickName({ userId }: Props) {
 
   const nickNameHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault() // 폼 제출 기본 동작 방지
-
+    setNickName('')
     if (userId === '') {
       setMessage('로그인 해주세요')
       return

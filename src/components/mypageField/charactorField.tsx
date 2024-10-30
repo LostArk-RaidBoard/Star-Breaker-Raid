@@ -79,7 +79,8 @@ export default function CharactorField({ dbCharacter }: Props) {
   const [newCharacterList, setNewCharacterList] = useState<CharacterList[]>([])
 
   // 내 개정 모든 캐릭터 가져오기
-  const handlerAllCharacter = async () => {
+  const handlerAllCharacter = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() // 폼 제출 기본 동작 방지
     if (mainCharacter.length === 0) {
       setMainMessage('캐릭터 이름을 작성해주세요')
       return
@@ -145,7 +146,8 @@ export default function CharactorField({ dbCharacter }: Props) {
   }
 
   //한 캐릭터만 추가
-  const handlerOneCharacter = async () => {
+  const handlerOneCharacter = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() // 폼 제출 기본 동작 방지
     if (character.length === 0) {
       setOneMessage('캐릭터 이름을 작성해주세요')
       return
@@ -231,7 +233,10 @@ export default function CharactorField({ dbCharacter }: Props) {
               <span className='text-lg'>• 모든 캐릭터 가져오기</span>
               <div className='ml-2 flex flex-col'>
                 <span className='mt-2'>대표 캐릭터 입력하기</span>
-                <div className='flex flex-col items-center justify-between space-x-2 sm:flex-row'>
+                <form
+                  className='flex flex-col items-center justify-between space-x-2 sm:flex-row'
+                  onSubmit={handlerAllCharacter}
+                >
                   <InputLayout
                     setType={'text'}
                     setName={'text_character'}
@@ -241,13 +246,10 @@ export default function CharactorField({ dbCharacter }: Props) {
                     value={mainCharacter}
                   />
 
-                  <button
-                    className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500 sm:m-0'
-                    onClick={handlerAllCharacter}
-                  >
+                  <button className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500 sm:m-0'>
                     확인
                   </button>
-                </div>
+                </form>
                 <span className={`${mainMessage.length === 0 ? 'hidden' : ''} text-red-500`}>
                   {mainMessage}
                 </span>
@@ -257,7 +259,10 @@ export default function CharactorField({ dbCharacter }: Props) {
               <span className='text-lg'>• 한 캐릭터 가져오기</span>
               <div className='ml-2 flex flex-col'>
                 <span className='mt-2'>캐릭터명 입력하기</span>
-                <div className='flex flex-col items-center justify-between space-x-2 sm:flex-row'>
+                <form
+                  className='flex flex-col items-center justify-between space-x-2 sm:flex-row'
+                  onSubmit={handlerOneCharacter}
+                >
                   <InputLayout
                     setType={'text'}
                     setName={'text_character'}
@@ -267,13 +272,10 @@ export default function CharactorField({ dbCharacter }: Props) {
                     value={character}
                   />
 
-                  <button
-                    className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500 sm:m-0'
-                    onClick={handlerOneCharacter}
-                  >
+                  <button className='mt-2 h-9 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500 sm:m-0'>
                     확인
                   </button>
-                </div>
+                </form>
                 <span className={`${oneMessage.length === 0 ? 'hidden' : ''} text-red-500`}>
                   {oneMessage}
                 </span>
