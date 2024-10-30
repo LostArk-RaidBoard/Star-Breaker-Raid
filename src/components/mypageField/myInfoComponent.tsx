@@ -36,7 +36,7 @@ const myInfoFetch = async (userId: string) => {
 }
 
 export default async function MyInfoComponent({ userId }: Props) {
-  const dataRow: MyinfoFetch = await myInfoFetch(userId)
+  const dataRow = userId.length > 0 ? await myInfoFetch(userId) : null
 
   return (
     <div className='flex w-full flex-col rounded-md border p-4 shadow-lg'>
