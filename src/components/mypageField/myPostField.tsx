@@ -1,24 +1,8 @@
-import CharactorField from '@/components/mypageField/charactorField'
+import MyPost from '@/components/mypageField/myPost'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
-import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
-
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  transcendence: number
-  leap: number
-  evolution: number
-  enlightenment: number
-  elixir: number
-  class_icon_url: string
-  disable: boolean
-}
+import MypageWeek from '@/components/mypageField/mypageWeek'
 
 interface RaidPost {
   post_id: number
@@ -34,6 +18,7 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
+  approval: boolean
 }
 
 interface RaidPostCreate {
@@ -64,10 +49,7 @@ const applicationPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows.map((post: RaidPost) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
+      return data.postRows
     } else {
       return []
     }
@@ -88,10 +70,7 @@ const createPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows.map((post: RaidPostCreate) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
+      return data.postRows
     } else {
       return []
     }
@@ -101,25 +80,44 @@ const createPostGetHandler = async (userId: string) => {
   }
 }
 
-export default async function MypageField() {
+export default async function MyPostField() {
   const session = await getServerSession(authOptions)
   let userId = ''
-  let serverCharacter: CharacterInfo[] = []
   let applicationPostGet: RaidPost[] = []
   let createPostGet: RaidPostCreate[] = []
+  let createPostGetWeek: RaidPostCreate[] = []
+  let applicationPostGetWeek: RaidPost[] = []
 
   if (session && session.user.id) {
-    serverCharacter = await UtileCharacterDataFetch(session.user.id)
     applicationPostGet = await applicationPostGetHandler(session.user.id)
+    applicationPostGetWeek = await applicationPostGetHandler(session.user.id)
     createPostGet = await createPostGetHandler(session.user.id)
+    createPostGetWeek = await createPostGetHandler(session.user.id)
     userId = session.user.id
   }
 
+  if (applicationPostGet) {
+    applicationPostGet = applicationPostGet.map((post: RaidPost) => ({
+      ...post,
+      raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+    }))
+  }
+
+  if (createPostGet) {
+    createPostGet = createPostGet.map((post: RaidPostCreate) => ({
+      ...post,
+      raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+    }))
+  }
+
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center gap-4 sm:mt-8'>
-      <div className='w-full rounded-md border border-gray-200 shadow-lg'>
-        <CharactorField userId={userId} dbCharacter={serverCharacter} />
-      </div>
+    <div className='flex w-full flex-col sm:mt-8'>
+      <MyPost
+        userId={userId}
+        applicationPostGet={applicationPostGet}
+        createPostGet={createPostGet}
+      />
+      <MypageWeek applicationPostGet={applicationPostGetWeek} createPostGet={createPostGetWeek} />
     </div>
   )
 }

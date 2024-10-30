@@ -9,8 +9,19 @@ export async function GET(req: Request) {
   }
 
   try {
-    const res = await sql`SELECT * FROM raid_posts 
-    WHERE post_id IN (SELECT post_id FROM applicants_list WHERE user_id = ${userID})`
+    const res = await sql`SELECT 
+        raid_posts.*, 
+        applicants_list.character_check AS approval
+      FROM 
+        raid_posts 
+      INNER JOIN 
+        applicants_list ON raid_posts.post_id = applicants_list.post_id
+      WHERE 
+        EXISTS (
+          SELECT 1 
+          FROM applicants_list 
+          WHERE user_id = ${userID} AND post_id = raid_posts.post_id
+        )`
 
     return new Response(JSON.stringify({ postRows: res.rows }), {
       status: 200,

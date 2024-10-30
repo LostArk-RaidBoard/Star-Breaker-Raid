@@ -13,7 +13,6 @@ interface Post {
   user_id: string
   post_position: string
   noti: string
-  fixed: boolean
   character_level: string
   character_name: string
   raid_limitperson: number
@@ -21,6 +20,7 @@ interface Post {
   raid_maxtime: string
   character_classicon: string
   character_image: string
+  nickname: string
 }
 
 interface ApplicationList {

@@ -2,8 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import User from '@image/icon/user.svg'
-import Hand from '@image/icon/hand.svg'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
@@ -21,7 +19,6 @@ interface RaidPost {
   user_id: string
   post_position: string
   noti: string
-  fixed: boolean
   character_level: string
   character_name: string
   raid_limitperson: number
@@ -36,9 +33,6 @@ type Props = {
 }
 
 export default function MypageCreatePost({ createPostGet }: Props) {
-  const [myPostApplicationsCount, setMyPostApplicationsCount] = useState<{ [key: number]: number }>(
-    {},
-  )
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageinationSub()
 
@@ -72,38 +66,39 @@ export default function MypageCreatePost({ createPostGet }: Props) {
   }
 
   return (
-    <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
-      <span className='text-lg'>등록한 모집글</span>
+    <div className='flex h-full basis-1/2 flex-col gap-4'>
+      <span className='text-lg'>• 등록한 모집글</span>
       <div className='grid grid-cols-10 rounded-md border px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Fire className='hidden h-4 w-4 md:block' />
           레이드
         </div>
-        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+        <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Megaphone className='hidden h-4 w-4 md:block' />
           공대장
         </div>
-        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+        <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Clock className='hidden h-4 w-4 md:block' />
           시간
         </div>
-        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-          <User className='h-4 w-4' />
+        <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           인원
         </div>
-        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-          <Hand className='hidden h-4 w-4 md:block' />
-          모집글 닫기
+        <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+          닫기
         </div>
       </div>
       <div className='flex h-full w-full flex-col gap-3 scroll-auto'>
         {currentItems.map((item) => (
-          <div key={item.post_id} className='grid h-9 grid-cols-10 rounded-md border bg-gray-100'>
-            <Link href={`/raidpost/${item.post_id}`} className='col-span-8 grid grid-cols-8'>
-              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
+          <div
+            key={item.post_id}
+            className='grid h-9 grid-cols-10 rounded-md border border-gray-300 bg-gray-100'
+          >
+            <Link href={`/raidpost/${item.post_id}`} className='col-span-9 grid grid-cols-9'>
+              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
               </div>
-              <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r px-1'>
+              <div className='col-span-3 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <Image
                   src={item.character_classicon}
                   alt='아이콘'
@@ -115,27 +110,24 @@ export default function MypageCreatePost({ createPostGet }: Props) {
                   {item.character_name}
                 </span>
               </div>
-              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
+              <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
               </div>
-              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r px-1'>
+              <div className='col-span-1 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>
                   {item.applicant_count}/{item.raid_limitperson}
                 </span>
               </div>
             </Link>
-            <div className='col-span-2 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>
-                <button
-                  className='rounded-md bg-gray-900 p-1 px-2 text-sm text-white'
-                  onClick={() => {
-                    deleteCreatePostHandler(item.post_id)
-                  }}
-                >
-                  모집글 닫기
-                </button>
-              </span>
-            </div>
+
+            <button
+              className='col-span-1 flex items-center justify-center overflow-hidden truncate whitespace-nowrap rounded-r-md bg-gray-900 text-sm text-white'
+              onClick={() => {
+                deleteCreatePostHandler(item.post_id)
+              }}
+            >
+              닫기
+            </button>
           </div>
         ))}
         <PaginationSub />
