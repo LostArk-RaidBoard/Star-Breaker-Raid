@@ -8,7 +8,7 @@ export default function MypageMenu() {
       </div>
       <span className='black sm:hidden'>|</span>
       <div className='flex w-full items-center justify-center'>
-        <Link href={'/mypage/mypost'}>모집글</Link>
+        <Link href={'/mypage/mypost'}>일정</Link>
       </div>
       <span className='black sm:hidden'>|</span>
       <div className='flex w-full items-center justify-center'>

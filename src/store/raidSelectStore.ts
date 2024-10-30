@@ -5,7 +5,6 @@ type raidSelectState = {
   raidMaxTime: string
   raidNoti: string
   raidDate: Date | null
-  raidFixed: boolean
   raidType: string
   raidLimitLevel: number
 }
@@ -16,7 +15,6 @@ type raidSelectAction = {
   setRaidMaxTime: (inputRaidMaxTime: string) => void
   setRaidNoti: (inputRaidNoti: string) => void
   setRaidDate: (inputRaidDate: Date) => void
-  setRaidFixed: (inputRaidFixed: boolean) => void
   setRaidType: (inputRaidType: string) => void
   setRaidLimitLevel: (inputRaidLimitLevel: number) => void
   setReset: () => void
@@ -28,7 +26,6 @@ const initalRaidSelectState: raidSelectState = {
   raidMaxTime: '1시간',
   raidNoti: '',
   raidDate: new Date(),
-  raidFixed: false,
   raidType: '',
   raidLimitLevel: 0,
 }
@@ -40,7 +37,6 @@ export const useRaidSelect = create<raidSelectState & raidSelectAction>((set) =>
   setRaidMaxTime: (inputRaidMaxTime) => set((state) => ({ raidMaxTime: inputRaidMaxTime })),
   setRaidNoti: (inputRaidNoti) => set((state) => ({ raidNoti: inputRaidNoti })),
   setRaidDate: (inputRaidDate) => set((state) => ({ raidDate: inputRaidDate })),
-  setRaidFixed: (inputRaidFiexed) => set((state) => ({ raidFixed: inputRaidFiexed })),
   setRaidType: (inputRaidType) => set((state) => ({ raidType: inputRaidType })),
   setRaidLimitLevel: (inputRaidLimitLevel) =>
     set((state) => ({ raidLimitLevel: inputRaidLimitLevel })),

@@ -13,11 +13,12 @@ export async function GET(req: Request) {
 users.user_id,
 users.user_name,
 users.birthday,
+users.nickname,
 roles.role,
-COUNT(applicants_list.applicants_id) AS applicants_count,
-SUM(CASE WHEN applicants_list.character_check = TRUE THEN 1 ELSE 0 END) AS applicants_approval,
-COUNT(raid_posts.post_id) AS raid_posts_count,
-COUNT(characters.character_name) AS character_count
+COUNT(DISTINCT applicants_list.applicants_id) AS applicants_count,
+SUM(DISTINCT CASE WHEN applicants_list.character_check = TRUE THEN 1 ELSE 0 END) AS applicants_approval,
+COUNT(DISTINCT raid_posts.post_id) AS raid_posts_count,
+COUNT(DISTINCT characters.character_name) AS character_count
 FROM
 users
 LEFT JOIN

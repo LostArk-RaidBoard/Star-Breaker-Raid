@@ -6,6 +6,7 @@ interface MyinfoFetch {
   user_id: string
   user_name: string
   birthday: number
+  nickname: string
   role: string
   applicants_count: number
   applicants_approval: number
@@ -20,6 +21,7 @@ const myInfoFetch = async (userId: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      next: { tags: ['myInfo'] },
     })
     const data = await response.json()
     if (response.ok) {
@@ -45,6 +47,7 @@ export default async function MyInfoComponent({ userId }: Props) {
           <span className='mt-2'>아이디 : {dataRow.user_id}</span>
           <span>등급 : {dataRow.role}</span>
           <span>등록된 캐릭터 수 : {dataRow.character_count}</span>
+          <span>닉네임 : {dataRow.nickname}</span>
         </div>
         <div className='flex flex-col text-base sm:basis-1/2'>
           <span>개설 현황 : {dataRow.raid_posts_count}</span>
