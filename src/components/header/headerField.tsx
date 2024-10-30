@@ -5,13 +5,14 @@ import NaviBar from '@/components/header/NaviBar'
 
 export default function HeaderField() {
   return (
-    <div className='w-full'>
+    <div className='h-16 w-full border-b-2 border-gray-900'>
       <nav className='flex hidden h-12 w-full items-center justify-between sm:flex'>
-        <NaviBar />
-        <div className='flex gap-4'>
-          <LogField />
+        <div className='flex items-center gap-8'>
           <Logo />
+          <NaviBar />
         </div>
+
+        <LogField />
       </nav>
       <MHeaderField />
     </div>

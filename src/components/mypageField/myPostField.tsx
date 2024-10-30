@@ -1,24 +1,7 @@
-import CharactorField from '@/components/mypageField/charactorField'
+import MyPost from '@/components/mypageField/myPost'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
-import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
-
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  transcendence: number
-  leap: number
-  evolution: number
-  enlightenment: number
-  elixir: number
-  class_icon_url: string
-  disable: boolean
-}
 
 interface RaidPost {
   post_id: number
@@ -28,13 +11,13 @@ interface RaidPost {
   user_id: string
   post_position: string
   noti: string
-  fixed: boolean
   character_level: string
   character_name: string
   raid_limitperson: number
   raid_type: string
   raid_maxtime: string
   character_classicon: string
+  approval: boolean
 }
 
 interface RaidPostCreate {
@@ -103,25 +86,19 @@ const createPostGetHandler = async (userId: string) => {
   }
 }
 
-export default async function MypageField() {
+export default async function MyPostField() {
   const session = await getServerSession(authOptions)
   let userId = ''
-  let serverCharacter: CharacterInfo[] = []
   let applicationPostGet: RaidPost[] = []
   let createPostGet: RaidPostCreate[] = []
 
   if (session && session.user.id) {
-    serverCharacter = await UtileCharacterDataFetch(session.user.id)
     applicationPostGet = await applicationPostGetHandler(session.user.id)
     createPostGet = await createPostGetHandler(session.user.id)
     userId = session.user.id
   }
 
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center gap-4 sm:mt-8'>
-      <div className='w-full rounded-md border border-gray-200 shadow-lg'>
-        <CharactorField userId={userId} dbCharacter={serverCharacter} />
-      </div>
-    </div>
+    <MyPost userId={userId} applicationPostGet={applicationPostGet} createPostGet={createPostGet} />
   )
 }
