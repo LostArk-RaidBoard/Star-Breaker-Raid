@@ -10,7 +10,6 @@ interface Post {
   user_id: string
   post_position: string
   noti: string
-  fixed: boolean
   character_level: string
   character_name: string
   raid_limitperson: number
@@ -18,6 +17,7 @@ interface Post {
   raid_maxtime: string
   character_classicon: string
   character_image: string
+  nickname: string
 }
 
 interface RaidPostProps {
@@ -52,7 +52,7 @@ export default async function RaidPost({ postData }: RaidPostProps) {
         <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
           <span className='flex items-center gap-4 text-lg'>
             <Megaphone className='h-8 w-8' />
-            <span className='font-bold'>{postData.character_name}</span>
+            <span className='font-bold'>{postData.nickname || postData.user_id}</span>
           </span>
           <div className='flex h-16 items-center gap-4 overflow-hidden whitespace-nowrap rounded-md bg-gray-900 px-4 text-lg text-white'>
             <Image src={postData.character_image} alt='공대장' width={40} height={40} />

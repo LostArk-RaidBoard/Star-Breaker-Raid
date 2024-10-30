@@ -101,8 +101,8 @@ export default function NewCharacterField({
   return (
     <div className={`mt-4 ${newHidden ? '' : 'hidden'} flex flex-col gap-4`}>
       <div className='flex flex-col items-center justify-start sm:flex-row'>
-        <span className='flex w-full items-center justify-start text-xl sm:w-auto'>
-          추가 캐릭터 선택창
+        <span className='flex w-full items-center justify-start text-lg sm:w-auto'>
+          • 추가 캐릭터 선택창
         </span>
       </div>
 

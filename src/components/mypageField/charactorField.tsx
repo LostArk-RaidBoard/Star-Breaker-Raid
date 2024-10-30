@@ -226,7 +226,6 @@ export default function CharactorField({ dbCharacter }: Props) {
     <>
       {session && session?.user.id ? (
         <div className='flex h-full w-full flex-col p-4'>
-          <span className='text-lg'>캐릭터 관리</span>
           <div className='mt-2 flex w-full flex-col gap-4 sm:flex-row'>
             <div className='flex w-full flex-col sm:basis-1/2'>
               <span className='text-lg'>• 모든 캐릭터 가져오기</span>
