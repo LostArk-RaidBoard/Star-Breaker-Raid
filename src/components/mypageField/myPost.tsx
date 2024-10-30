@@ -1,6 +1,5 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
 import MypageApplicationPost from '@/components/mypageField/mypageApplicationPost'
 import MypageCreatePost from '@/components/mypageField/mypageCreatePost'
 
@@ -46,20 +45,12 @@ interface Props {
 }
 
 export default function MyPost({ userId, applicationPostGet, createPostGet }: Props) {
-  const { data: session } = useSession()
-
   return (
-    <>
-      {session && session?.user.id ? (
-        <div className='flex w-full flex-col rounded-md border p-4 shadow-lg sm:mt-8'>
-          <div className='flex flex-col gap-4 md:h-[380px] md:flex-row'>
-            <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
-            <MypageCreatePost createPostGet={createPostGet} />
-          </div>
-        </div>
-      ) : (
-        <div className='flex h-20 w-full items-center justify-center text-xl'></div>
-      )}
-    </>
+    <div className='flex w-full flex-col rounded-md border p-4 shadow-lg sm:mt-8'>
+      <div className='flex flex-col gap-4 md:h-[380px] md:flex-row'>
+        <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
+        <MypageCreatePost createPostGet={createPostGet} />
+      </div>
+    </div>
   )
 }
