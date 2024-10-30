@@ -55,7 +55,7 @@ function getThisWeekWednesday6AM() {
   thisWednesday.setDate(now.getDate() + diffToWednesday)
   thisWednesday.setHours(6, 0, 0, 0) // 오전 6시로 설정
 
-  return toKST(thisWednesday) // KST로 변환된 날짜 반환
+  return thisWednesday
 }
 
 export default function MypageWeek({ applicationPostGet, createPostGet }: Props) {
