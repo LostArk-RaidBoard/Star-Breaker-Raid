@@ -37,15 +37,25 @@ interface Props {
   createPostGet: RaidCreatePost[]
 }
 
-// 이번 주 수요일 오전 6시 시간을 가져오는 함수
+// KST로 변환하는 함수
+function toKST(date: Date) {
+  const kstDate = new Date(date.getTime() + 9 * 60 * 60 * 1000) // UTC에서 9시간을 더해 KST로 변환
+  return kstDate
+}
+
+// 이번 주 수요일 오전 6시를 KST로 가져오는 함수 (화요일이면 전주 수요일로 계산)
 function getThisWeekWednesday6AM() {
   const now = new Date()
   const dayOfWeek = now.getDay()
-  const diffToWednesday = (3 - dayOfWeek + 7) % 7 // 수요일은 요일 값이 3입니다.
+
+  // 수요일(3) 이후라면 이번 주 수요일, 그 전이라면 전주의 수요일로 설정
+  const diffToWednesday = dayOfWeek >= 3 ? 3 - dayOfWeek : 3 - dayOfWeek - 7
+
   const thisWednesday = new Date(now)
   thisWednesday.setDate(now.getDate() + diffToWednesday)
   thisWednesday.setHours(6, 0, 0, 0) // 오전 6시로 설정
-  return thisWednesday
+
+  return toKST(thisWednesday) // KST로 변환된 날짜 반환
 }
 
 export default function MypageWeek({ applicationPostGet, createPostGet }: Props) {
@@ -56,10 +66,11 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
   const allPosts = [...applicationPostGet, ...createPostGet]
 
   allPosts.forEach((post) => {
-    const raidTime = new Date(post.raid_time)
+    const raidTime = toKST(new Date(post.raid_time))
     const diffDays = Math.floor(
       (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
     )
+
     if (diffDays >= 0 && diffDays < 7) {
       daysArray[diffDays].push(post)
     }
