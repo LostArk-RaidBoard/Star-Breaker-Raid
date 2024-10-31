@@ -1,6 +1,15 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// next.config.js
+const runtimeCaching = require('next-pwa/cache')
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  runtimeCaching,
+})
+
+const nextConfig = withPWA({
   webpack: (config) => {
+    // SVG 파일을 처리하는 webpack 설정
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
@@ -20,31 +29,30 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn-lostark.game.onstove.com', // 여기서 원하는 호스트명 삽입
+        hostname: 'cdn-lostark.game.onstove.com',
         port: '',
-        pathname: '/**', // 모든 경로를 포함
+        pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'upload3.inven.co.kr', // 여기서 원하는 호스트명 삽입
+        hostname: 'upload3.inven.co.kr',
         port: '',
-        pathname: '/**', // 모든 경로를 포함
+        pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'www.inven.co.kr', // 여기서 원하는 호스트명 삽입
+        hostname: 'www.inven.co.kr',
         port: '',
-        pathname: '/**', // 모든 경로를 포함
+        pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'img.youtube.com', // 유튜브 셈네일
+        hostname: 'img.youtube.com',
         port: '',
-        pathname: '/**', // 모든 경로를 포함
+        pathname: '/**',
       },
     ],
   },
-
   env: {
     POSTGRES_URL: process.env.POSTGRES_URL,
     POSTGRES_USER: process.env.POSTGRES_USER,
@@ -53,9 +61,8 @@ const nextConfig = {
     POSTGRES_URL: process.env.POSTGRES_URL,
     POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
     POSTGRES_URL_NO_SSL: process.env.POSTGRES_URL_NO_SSL,
-    POSTGRES_USER: process.env.POSTGRES_USER,
 
-    //next-auth env
+    // next-auth env
     AUTH_SECRET: process.env.AUTH_SECRET,
     AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
     AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
@@ -64,6 +71,6 @@ const nextConfig = {
     LostArk_Token: process.env.LostArk_Token,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   },
-}
+})
 
-export default nextConfig
+module.exports = nextConfig

@@ -7,7 +7,7 @@ import { useState } from 'react'
 export default function MHeaderField() {
   const [link, setLinek] = useState(false)
   return (
-    <nav className='flex w-full flex-col items-center justify-between sm:hidden'>
+    <nav className='flex h-24 w-full flex-col items-center justify-between sm:hidden'>
       <div className='flex w-full items-center justify-between'>
         <button
           className='h-12 w-12'
@@ -19,11 +19,12 @@ export default function MHeaderField() {
         >
           <Menu className='h-8 w-8' />
         </button>
+
         <LogField />
       </div>
-      <div className={`${link ? '' : 'hidden'}`}>
+      <div className={`${link ? '' : 'hidden'} text-sm`}>
         <NaviBar />
-      </div>
+      </div>{' '}
     </nav>
   )
 }
