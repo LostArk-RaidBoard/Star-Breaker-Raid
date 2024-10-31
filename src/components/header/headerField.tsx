@@ -5,7 +5,7 @@ import NaviBar from '@/components/header/NaviBar'
 
 export default function HeaderField() {
   return (
-    <div className='h-16 w-full border-b-2 border-gray-900'>
+    <div className='h-24 w-full border-b-2 border-gray-900 sm:h-16'>
       <nav className='flex hidden h-12 w-full items-center justify-between sm:flex'>
         <div className='flex items-center gap-8'>
           <Logo />
