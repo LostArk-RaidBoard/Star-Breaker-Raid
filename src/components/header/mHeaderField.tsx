@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function MHeaderField() {
   return (
-    <nav className='flex h-24 w-full flex-col items-center justify-between sm:hidden'>
+    <nav className='flex h-20 w-full flex-col items-center justify-between sm:hidden'>
       <div className='flex w-full items-center justify-between'>
         <Link href='/' className='relative h-[30px] w-[30px]'>
           <Image
@@ -21,7 +21,7 @@ export default function MHeaderField() {
       </div>
       <div className={`text-sm`}>
         <NaviBar />
-      </div>{' '}
+      </div>
     </nav>
   )
 }
