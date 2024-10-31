@@ -1,10 +1,20 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Roboto_Mono } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/footer/Footer'
 import Providers from '@/components/Providers'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const roboto_mono = Roboto_Mono({
+  subsets: ['latin'],
+  variable: '--font-roboto-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Star Breaker Raid',
@@ -22,8 +32,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang='ko' className={`${inter.variable} ${roboto_mono.variable}`}>
       <head>
+        {/* TypeScript에서 onLoad 핸들러로 화살표 함수 사용 */}
+        <link rel='preload' href='/_next/static/css/app/layout.css' as='style' />
         <link rel='manifest' href='/manifest.json' />
         <meta name='theme-color' content='#121826' />
       </head>

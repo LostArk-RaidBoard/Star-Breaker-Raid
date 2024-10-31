@@ -1,28 +1,25 @@
-'use client'
 import LogField from '@/components/header/HeadlogField'
+import Image from 'next/image'
 import NaviBar from '@/components/header/NaviBar'
-import Menu from '@image/icon/menu.svg'
-import { useState } from 'react'
+import Link from 'next/link'
 
 export default function MHeaderField() {
-  const [link, setLinek] = useState(false)
   return (
     <nav className='flex h-24 w-full flex-col items-center justify-between sm:hidden'>
       <div className='flex w-full items-center justify-between'>
-        <button
-          className='h-12 w-12'
-          aria-label='Menu'
-          id='menu'
-          onClick={() => {
-            setLinek(!link)
-          }}
-        >
-          <Menu className='h-8 w-8' />
-        </button>
+        <Link href='/' className='relative h-[30px] w-[30px]'>
+          <Image
+            src={'/logo/favicon.png'}
+            alt='Logo 이미지'
+            fill
+            sizes='(max-width: 640px) 30px, (max-width: 768px) 35px, 50px'
+            className='object-contain'
+          />
+        </Link>
 
         <LogField />
       </div>
-      <div className={`${link ? '' : 'hidden'} text-sm`}>
+      <div className={`text-sm`}>
         <NaviBar />
       </div>{' '}
     </nav>
