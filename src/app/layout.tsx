@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang='ko' className={`${inter.variable} ${roboto_mono.variable}`}>
       <head>
         {/* TypeScript에서 onLoad 핸들러로 화살표 함수 사용 */}
-        <link rel='preload' href='/_next/static/css/app/layout.css' as='style' />
+        <link rel='prefetch' href='/_next/static/css/app/layout.css' as='style' />
         <link rel='manifest' href='/manifest.json' />
         <meta name='theme-color' content='#121826' />
       </head>
