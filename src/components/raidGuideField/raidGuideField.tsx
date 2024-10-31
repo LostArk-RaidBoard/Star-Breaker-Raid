@@ -7,6 +7,10 @@ import RadiGuideCreateButton from '@/components/button/raidGuideCreateButton'
 export default async function RaidGuideField() {
   const session = await getServerSession(authOptions)
   const role = session?.user.role
+  let userId = ''
+  if (session && session.user.id) {
+    userId = session.user.id
+  }
   const roleCheck = role === 'admin'
 
   return (
@@ -18,7 +22,7 @@ export default async function RaidGuideField() {
         <RadiGuideCreateButton />
       </div>
       <div className='mt-8 h-full w-full'>
-        <RaidGuideGrid />
+        <RaidGuideGrid userId={userId} />
       </div>
     </div>
   )
