@@ -5,6 +5,7 @@ const withPWA = require('next-pwa')({
   register: true,
   skipWaiting: true,
   runtimeCaching,
+  disable: process.env.NODE_ENV === 'development', // 개발 중 비활성화
 })
 
 const nextConfig = withPWA({
