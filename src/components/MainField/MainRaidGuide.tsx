@@ -1,3 +1,4 @@
+'use server'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -14,15 +15,13 @@ interface RaidGuide {
 }
 
 const raidGuideFetch = async (userId: string) => {
-  console.log('MainGuideFetch')
   try {
     const response = await fetch(`${process.env.API_URL}/api/raidGuideMainGet?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=10, must-revalidate',
       },
-      next: { tags: ['raidGudieLike'], revalidate: 10 },
+      next: { tags: ['raidGudieLike'] },
     })
     console.log('MainGuideFetch')
     const data = await response.json()
