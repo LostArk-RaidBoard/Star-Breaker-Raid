@@ -20,6 +20,7 @@ const raidGuideFetch = async (userId: string) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=10, must-revalidate',
       },
       next: { tags: ['raidGudieLike'], revalidate: 10 },
     })
