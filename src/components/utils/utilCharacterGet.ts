@@ -1,6 +1,9 @@
 import CharacterSorted from '@/components/utils/characterSorted'
 
 export default async function UtileCharacterDataFetch(userId: string) {
+  if (userId === '') {
+    return []
+  }
   try {
     const response = await fetch(`${process.env.API_URL}/api/characterGet?userId=${userId}`, {
       method: 'GET',
@@ -22,7 +25,6 @@ export default async function UtileCharacterDataFetch(userId: string) {
     }
   } catch (error) {
     console.error(error)
-
-    return []
   }
+  return []
 }

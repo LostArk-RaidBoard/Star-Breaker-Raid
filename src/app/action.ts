@@ -32,3 +32,7 @@ export async function raidGuideTage() {
 export async function myInfoTage() {
   revalidateTag('myInfo')
 }
+
+export async function raidGuideLike() {
+  revalidateTag('raidGudieLike')
+}
