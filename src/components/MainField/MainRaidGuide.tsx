@@ -14,14 +14,17 @@ interface RaidGuide {
 }
 
 const raidGuideFetch = async (userId: string) => {
+  console.log('MainGuideFetch')
   try {
     const response = await fetch(`${process.env.API_URL}/api/raidGuideMainGet?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=60',
       },
-      next: { tags: ['raidGudieLike'], revalidate: 60 },
+      next: { tags: ['raidGudieLike'] },
     })
+    console.log('MainGuideFetch')
     const data = await response.json()
     if (response.ok) {
       return data.guideRows
