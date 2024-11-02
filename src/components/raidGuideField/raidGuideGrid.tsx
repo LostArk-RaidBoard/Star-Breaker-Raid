@@ -95,7 +95,7 @@ export default function RaidGuideGrid({ userId }: Props) {
       setLoading(false)
     }
     fetchData()
-  }, [raidName])
+  }, [raidName, userId])
 
   if (loading) {
     return (
