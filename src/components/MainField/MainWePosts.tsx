@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
-import { teacherTage, wePostTage } from '@/app/action'
+import { raidGuideLike, teacherTage, wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -52,6 +52,7 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
     const fetchPosts = async () => {
       await wePostTage()
       await teacherTage()
+      await raidGuideLike()
     }
     const interval = setInterval(fetchPosts, 60000)
 
