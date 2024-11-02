@@ -49,10 +49,10 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
 
   // 1분마다 wePostTage() 실행하여 데이터 업데이트
   useEffect(() => {
+    raidGuideLike()
     const fetchPosts = async () => {
       await wePostTage()
       await teacherTage()
-      await raidGuideLike()
     }
     const interval = setInterval(fetchPosts, 60000)
 
