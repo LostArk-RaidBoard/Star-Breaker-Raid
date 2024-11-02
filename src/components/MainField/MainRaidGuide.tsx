@@ -20,9 +20,8 @@ const raidGuideFetch = async (userId: string) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=60',
       },
-      next: { tags: ['raidGudieLike'] },
+      next: { tags: ['raidGudieLike'], revalidate: 10 },
     })
     console.log('MainGuideFetch')
     const data = await response.json()
