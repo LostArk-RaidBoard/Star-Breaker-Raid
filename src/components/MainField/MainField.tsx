@@ -102,8 +102,7 @@ const raidGuideFetch = async (userId: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
-
-      cache: 'no-cache',
+      next: { tags: ['raidGudieLike'] },
     })
     console.log('MainGuideFetch')
     const data = await response.json()

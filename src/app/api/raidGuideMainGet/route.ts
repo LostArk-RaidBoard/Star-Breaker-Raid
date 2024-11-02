@@ -36,13 +36,8 @@ export async function GET(req: Request) {
       }
     }
 
-    // 캐시 설정 추가
-    const headers = new Headers()
-    headers.set('Cache-Control', 'public, s-maxage=3600, max-age=3600, stale-while-revalidate')
-
     return new Response(JSON.stringify({ guideRows: res.rows }), {
       status: 200,
-      headers,
     })
   } catch (error) {
     console.error('서버 오류 발생:', error)
