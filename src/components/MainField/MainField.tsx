@@ -25,6 +25,18 @@ interface RaidPost {
   applicant_count: number
 }
 
+interface RaidGuide {
+  guide_id: number
+  guide_name: string
+  youtube_url: string
+  image_url: string
+  create_at: string
+  update_at: string
+  raid_main_image: string
+  role_id: number
+  like_count: number
+}
+
 /**
  * teacher Post get
  * @returns
@@ -83,14 +95,40 @@ const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
   return []
 }
 
+const raidGuideFetch = async (userId: string) => {
+  try {
+    const response = await fetch(`${process.env.API_URL}/api/raidGuideMainGet?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { tags: ['raidGudieLike'] },
+    })
+    console.log('MainGuideFetch')
+    const data = await response.json()
+    if (response.ok) {
+      return data.guideRows
+    } else {
+      return []
+    }
+  } catch (error) {
+    console.error('MainraidGuide Error : ' + error)
+    return []
+  }
+}
+
 export default async function MainField() {
   const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
   const postsWeRows = await fetchWePostsFetch()
   const session = await getServerSession(authOptions)
+
   let userId = 'no'
   if (session && session.user.id) {
     userId = session.user.id
   }
+
+  const raideGuide: RaidGuide[] = await raidGuideFetch(userId)
+
   return (
     <div className='mt-8 flex h-full w-full flex-col items-center justify-center'>
       <div className='flex h-[950px] w-full flex-col gap-4 md:h-[580px] xl:h-[360px] xl:flex-row'>
@@ -107,7 +145,7 @@ export default async function MainField() {
         <SiteLink />
       </div>
       <div className='mt-8 w-full'>
-        <MainRaidGuide userId={userId} />
+        <MainRaidGuide raideGuide={raideGuide} />
       </div>
     </div>
   )
