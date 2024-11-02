@@ -5,7 +5,7 @@ import { useRaidSelect } from '@/store/raidSelectStore'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Under from '@image/icon/under.svg'
-import submit from '@/app/action'
+import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface CharacterInfo {
   character_name: string
@@ -24,7 +24,7 @@ interface CharacterInfo {
 }
 interface Props {
   raidLimitLevel: number
-  applicationCharacter: CharacterInfo[]
+  userId: string
 }
 
 const noCharacters = {
@@ -43,10 +43,7 @@ const noCharacters = {
   disable: false,
 }
 
-export default function ApplicationCharacterSelect({
-  raidLimitLevel,
-  applicationCharacter,
-}: Props) {
+export default function ApplicationCharacterSelect({ raidLimitLevel, userId }: Props) {
   const { characterAllList, setCharacterAllList, setCharacterInfo, characterInfo } =
     useCharacterInfoList()
   const { setRaidLimitLevel } = useRaidSelect()
@@ -63,22 +60,14 @@ export default function ApplicationCharacterSelect({
     }
   }
 
-  useEffect(() => {
-    // applicationCharacter가 없으면 submit 호출
-    if (applicationCharacter.length === 0) {
-      submit()
-    } else {
-      setCharacterAllList(applicationCharacter)
-    }
-
+  const raidLevelHandler = (characterRiadArray: CharacterInfo[]) => {
     const raidLevel = raidLimitLevel
     setRaidLimitLevel(raidLevel)
 
     // 최대 캐릭터 레벨 초기화
     let maxCharacterLevel = 0
 
-    // 캐릭터 리스트를 순회하며 disable 상태 설정
-    const updatedCharacterList = applicationCharacter.map((char) => {
+    const updatedCharacterList = characterRiadArray.map((char) => {
       const characterLevel = parseFloat(char.character_level.replace(/,/g, ''))
 
       if (characterLevel > maxCharacterLevel) {
@@ -91,113 +80,126 @@ export default function ApplicationCharacterSelect({
       return char // 업데이트된 캐릭터 객체 반환
     })
 
-    // 상태 업데이트
     setCharacterAllList(updatedCharacterList)
+  }
 
-    // 최대 레벨보다 낮은 캐릭터가 없을 경우 noCharacters 설정
-    if (raidLevel > maxCharacterLevel) {
-      setCharacterInfo([noCharacters])
-    } else {
-      setCharacterInfo([updatedCharacterList[0]])
+  useEffect(() => {
+    const fetchCharacterData = async () => {
+      const characterGetHandler = async (userId: string) => {
+        const characterGetArray: CharacterInfo[] = await UtileCharacterDataFetch(userId)
+        return characterGetArray
+      }
+
+      if (characterInfo.length > 0 && characterAllList.length > 0) {
+        raidLevelHandler(characterAllList)
+        const isCharacterEnabled = characterAllList.find(
+          (char) => char.character_name === characterInfo[0].character_name && !char.disable,
+        )
+        if (isCharacterEnabled) {
+        } else {
+          if (characterAllList.length > 0) {
+            setCharacterInfo([characterAllList[0]])
+          } else {
+            setCharacterInfo([noCharacters])
+          }
+        }
+      } else {
+        const characterReFetch: CharacterInfo[] = await characterGetHandler(userId)
+        if (characterReFetch.length > 0) {
+          raidLevelHandler(characterReFetch)
+          if (characterReFetch[0].disable) {
+            setCharacterInfo([noCharacters])
+          } else {
+            setCharacterInfo([characterReFetch[0]])
+          }
+        } else {
+          setCharacterInfo([noCharacters])
+        }
+      }
     }
-  }, [
-    applicationCharacter,
-    raidLimitLevel,
-    setCharacterAllList,
-    setCharacterInfo,
-    setRaidLimitLevel,
-  ])
+
+    fetchCharacterData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
-    <div className='w-full md:min-w-[450px] md:max-w-[500px]'>
-      {characterAllList.length > 0 && characterInfo.length > 0 ? (
-        <div className='relative w-full flex-col rounded-md bg-gray-900'>
-          <button
-            className='flex h-16 w-full items-center justify-between rounded-md border border-gray-500 px-1 shadow-md'
-            onClick={handlerHidden}
-          >
-            <div className='flex items-center gap-4'>
-              <div className='h-12 w-12 overflow-hidden rounded-full'>
-                <Image
-                  src={characterInfo[0].class_image}
-                  alt={characterInfo[0].character_name}
-                  width={70}
-                  height={70}
-                  className='h-full w-full object-cover'
-                />
-              </div>
+    <div className='relative w-full flex-col rounded-md bg-gray-900 xl:w-1/2'>
+      <button
+        className='flex h-16 w-full items-center justify-between rounded-md border border-gray-500 px-1 shadow-md'
+        onClick={handlerHidden}
+      >
+        {characterInfo.length > 0 && (
+          <div className='flex items-center gap-4'>
+            <div className='h-12 w-12 overflow-hidden rounded-full'>
               <Image
-                src={characterInfo[0].class_icon_url}
+                src={characterInfo[0].class_image}
                 alt={characterInfo[0].character_name}
-                width={40}
-                height={40}
-                className='p-1'
+                width={70}
+                height={70}
+                className='h-full w-full object-cover'
               />
-              <span className='text-lg text-white'>{characterInfo[0].character_name}</span>
-              <span className='hidden text-lg text-black text-white sm:flex'>
-                {characterInfo[0].character_level}
-              </span>
-              <div className='flex hidden items-center text-white sm:flex'>
-                <Image src={'/엘릭서.png'} alt={'엘릭서'} width={30} height={30} className='p-1' />
-                <span>{characterInfo[0].elixir}</span>
-              </div>
-              <div className='flex hidden items-center text-white sm:flex'>
-                <Image src={'/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
-                <span>{characterInfo[0].transcendence}</span>
-              </div>
             </div>
-            <Under className='h-4 w-4 text-white' />
-          </button>
-          <div
-            className={`absolute left-0 top-full z-10 mt-1 w-full rounded-md bg-gray-300 text-white shadow-md ${hidden ? 'hidden' : ''}`}
-          >
-            {characterAllList.map((char) => (
-              <div
-                key={char.character_name}
-                className={`flex cursor-pointer items-center gap-4 p-2 hover:bg-gray-200 ${char.disable ? 'hidden' : ''}`}
-                onClick={() => handler(char.character_name)}
-              >
-                <div className='h-12 w-12 overflow-hidden rounded-full'>
-                  <Image
-                    src={char.class_image}
-                    alt={char.character_name}
-                    width={70}
-                    height={70}
-                    className='h-full w-full object-cover'
-                  />
-                </div>
-                <Image
-                  src={char.class_icon_url}
-                  alt={char.character_name}
-                  width={30}
-                  height={30}
-                  className='p-1'
-                />
-                <span className='text-black'>{char.character_name}</span>
-                <span className='hidden text-black sm:block'>{char.character_level}</span>
-                <div className='flex hidden items-center text-white sm:flex'>
-                  <Image
-                    src={'/엘릭서.png'}
-                    alt={'엘릭서'}
-                    width={30}
-                    height={30}
-                    className='p-1'
-                  />
-                  <span>{char.elixir}</span>
-                </div>
-                <div className='flex hidden items-center text-white sm:flex'>
-                  <Image src={'/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
-                  <span>{char.transcendence}</span>
-                </div>
-              </div>
-            ))}
+            <Image
+              src={characterInfo[0].class_icon_url}
+              alt={characterInfo[0].character_name}
+              width={40}
+              height={40}
+              className='p-1'
+            />
+            <span className='text-lg text-white'>{characterInfo[0].character_name}</span>
+            <span className='hidden text-lg text-black text-white sm:flex'>
+              {characterInfo[0].character_level}
+            </span>
+            <div className='flex hidden items-center text-white sm:flex'>
+              <Image src={'/엘릭서.png'} alt={'엘릭서'} width={30} height={30} className='p-1' />
+              <span>{characterInfo[0].elixir}</span>
+            </div>
+            <div className='flex hidden items-center text-white sm:flex'>
+              <Image src={'/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
+              <span>{characterInfo[0].transcendence}</span>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className='flex h-14 w-full items-center rounded-md bg-gray-900 px-1 text-white'>
-          캐릭터 없음
-        </div>
-      )}
+        )}
+        <Under className='h-4 w-4 text-white' />
+      </button>
+      <div
+        className={`absolute left-0 top-full z-10 mt-1 w-full rounded-md bg-gray-300 text-white shadow-md ${hidden ? 'hidden' : ''}`}
+      >
+        {characterAllList.map((char) => (
+          <div
+            key={char.character_name}
+            className={`flex cursor-pointer items-center gap-4 p-2 hover:bg-gray-200 ${char.disable ? 'hidden' : ''}`}
+            onClick={() => handler(char.character_name)}
+          >
+            <div className='h-12 w-12 overflow-hidden rounded-full'>
+              <Image
+                src={char.class_image}
+                alt={char.character_name}
+                width={70}
+                height={70}
+                className='h-full w-full object-cover'
+              />
+            </div>
+            <Image
+              src={char.class_icon_url}
+              alt={char.character_name}
+              width={30}
+              height={30}
+              className='p-1'
+            />
+            <span className='text-black'>{char.character_name}</span>
+            <span className='hidden text-black sm:block'>{char.character_level}</span>
+            <div className='flex hidden items-center text-white sm:flex'>
+              <Image src={'/엘릭서.png'} alt={'엘릭서'} width={30} height={30} className='p-1' />
+              <span>{char.elixir}</span>
+            </div>
+            <div className='flex hidden items-center text-white sm:flex'>
+              <Image src={'/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
+              <span>{char.transcendence}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

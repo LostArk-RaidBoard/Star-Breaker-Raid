@@ -31,14 +31,14 @@ export default function CharacterSelect() {
   }, [characterAllList])
 
   return (
-    <div className='relative'>
+    <div className='relative mt-3 w-full'>
       {characterInfo[0] ? (
         <>
           <button
             className='flex h-16 w-full items-center justify-between rounded-md border border-gray-300 px-1 shadow-md'
             onClick={handlerHidden}
           >
-            <div className='flex items-center gap-4'>
+            <div className='flex w-full items-center gap-4 overflow-hidden truncate whitespace-nowrap'>
               <div className='h-12 w-12 overflow-hidden rounded-full'>
                 <Image
                   src={characterInfo[0].class_image}
@@ -48,7 +48,9 @@ export default function CharacterSelect() {
                   className='h-full w-full object-cover'
                 />
               </div>
-              <span className='text-lg text-white'>{characterInfo[0].character_name}</span>
+              <span className='overflow-hidden truncate whitespace-nowrap text-lg text-white'>
+                {characterInfo[0].character_name}
+              </span>
             </div>
             <Under className='h-4 w-4 text-white' />
           </button>

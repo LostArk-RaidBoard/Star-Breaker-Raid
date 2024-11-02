@@ -43,7 +43,7 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
     if (wePostsRows) {
       setDataLength(wePostsRows.length)
       setCurrentPage(1)
-      setItemsPerPage(7)
+      setItemsPerPage(6)
     }
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
@@ -59,7 +59,7 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
   }, [])
 
   return (
-    <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-[45%]'>
+    <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-1/2'>
       <div className='grid grid-cols-8 rounded-t-md bg-gray-200 px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Fire className='h-4 w-4' />

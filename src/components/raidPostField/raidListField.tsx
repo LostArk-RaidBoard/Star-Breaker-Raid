@@ -1,6 +1,8 @@
 import RaidApplication from '@/components/raidPostField/raidApplication'
 import RaidApplicationList from '@/components/raidPostField/raidApplicationList'
 import RaidPost from '@/components/raidPostField/raidpost'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/auth'
 interface Props {
   postId: number
 }
@@ -81,6 +83,11 @@ const applicationGet = async (postId: number) => {
 export default async function RaidListField({ postId }: Props) {
   const postData: Post = await fetchPostData(postId)
   const applicationList: ApplicationList[] = await applicationGet(postId)
+  const session = await getServerSession(authOptions)
+  let userId = ''
+  if (session && session.user.id) {
+    userId = session.user.id
+  }
   let raidLimitLevel = 0
   let post_user = ''
   if (postData) {
@@ -95,7 +102,12 @@ export default async function RaidListField({ postId }: Props) {
       </div>
       <label className='mt-4 flex w-full justify-start'>* 지원 신청 작성</label>
       <div className='w-full'>
-        <RaidApplication raidLimitLevel={raidLimitLevel} postId={postId} post_user={post_user} />
+        <RaidApplication
+          userId={userId}
+          raidLimitLevel={raidLimitLevel}
+          postId={postId}
+          post_user={post_user}
+        />
       </div>
       <label className='mt-4 flex w-full justify-start'>* 신청자</label>
       <div className='h-auto w-full'>
