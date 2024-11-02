@@ -29,7 +29,7 @@ const raidGuideFetch = async (userId: string) => {
       return []
     }
   } catch (error) {
-    console.error(error)
+    console.error('MainraidGuide Error : ' + error)
     return []
   }
 }

@@ -87,7 +87,7 @@ export default async function MainField() {
   const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
   const postsWeRows = await fetchWePostsFetch()
   const session = await getServerSession(authOptions)
-  let userId = ''
+  let userId = 'no'
   if (session && session.user.id) {
     userId = session.user.id
   }
