@@ -20,7 +20,7 @@ const raidGuideFetch = async (userId: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      next: { tags: ['raidGudieLike'] },
+      next: { tags: ['raidGudieLike'], revalidate: 60 },
     })
     const data = await response.json()
     if (response.ok) {
