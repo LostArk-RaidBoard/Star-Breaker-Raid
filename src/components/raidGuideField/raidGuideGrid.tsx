@@ -73,7 +73,7 @@ export default function RaidGuideGrid({ userId }: Props) {
       })
       const data = await response.json()
       if (response.ok) {
-        raidGuideLike()
+        await raidGuideLike()
 
         const data = await raidGuideFetch(raidName, userId)
         setRaidGuides(data)
