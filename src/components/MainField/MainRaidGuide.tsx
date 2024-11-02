@@ -10,16 +10,17 @@ interface RaidGuide {
   update_at: string
   raid_main_image: string
   role_id: number
+  like_count: number
 }
 
-const raidGuideFetch = async () => {
+const raidGuideFetch = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/raidGuideGet?raidGuide=all`, {
+    const response = await fetch(`${process.env.API_URL}/api/raidGuideMainGet?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=3600, must-revaildate',
       },
+      next: { tags: ['raidGudieLike'] },
     })
     const data = await response.json()
     if (response.ok) {
@@ -33,8 +34,12 @@ const raidGuideFetch = async () => {
   }
 }
 
-export default async function MainRaidGuide() {
-  const raideGuide: RaidGuide[] = await raidGuideFetch()
+interface Props {
+  userId: string
+}
+export default async function MainRaidGuide({ userId }: Props) {
+  const raideGuide: RaidGuide[] = await raidGuideFetch(userId)
+
   return (
     <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
       {raideGuide.map((item: RaidGuide, key: number) => (

@@ -2,34 +2,18 @@
 
 import { applicationListTage, teacherTage, wePostTage } from '@/app/action'
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
-import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
-import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  transcendence: number
-  leap: number
-  evolution: number
-  enlightenment: number
-  elixir: number
-  class_icon_url: string
-  disable: boolean
-}
-
 interface RaidApplicationProps {
+  userId: string
   raidLimitLevel: number
   postId: number
   post_user: string
 }
 
 export default function RaidApplication({
+  userId,
   raidLimitLevel,
   postId,
   post_user,
@@ -37,10 +21,8 @@ export default function RaidApplication({
   const [hope, setHope] = useState('')
   const [state, setState] = useState(1)
   const [message, setMessage] = useState('')
-  const { data: session } = useSession()
   const { characterInfo } = useCharacterInfoList()
   const [loading, setLoading] = useState(0)
-  const [getCharacterList, setGetCharacterList] = useState<CharacterInfo[]>([])
 
   /**
    * 지원자 DB에 저장
@@ -55,8 +37,8 @@ export default function RaidApplication({
       return
     }
 
-    if (session && session?.user.id) {
-      if (post_user === session.user.id) {
+    if (userId != '') {
+      if (post_user === userId) {
         setMessage('본인이 개설한 모집글입니다.')
         setState(2)
         setLoading(0)
@@ -64,7 +46,7 @@ export default function RaidApplication({
       }
 
       const applicationList = {
-        user_id: session.user.id,
+        user_id: userId,
         character_name: characterInfo[0].character_name,
         hope: hope,
         post_id: postId,
@@ -109,31 +91,18 @@ export default function RaidApplication({
   }
 
   useEffect(() => {
-    const applicationFetch = async () => {
-      if (session && session.user.id) {
-        const applicationCharacter = await UtileCharacterDataFetch(session.user.id)
-        setGetCharacterList(applicationCharacter)
-      } else {
-        setGetCharacterList([])
-      }
-    }
-
-    applicationFetch()
     setMessage('')
     setState(0)
-  }, [, session])
+  }, [userId])
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border p-4 shadow-lg'>
-      <div className='flex w-full flex-col items-center justify-center gap-4 sm:flex-col lg:flex-row'>
-        <ApplicationCharacterSelect
-          raidLimitLevel={raidLimitLevel}
-          applicationCharacter={getCharacterList}
-        />
+      <div className='flex w-full flex-col items-center justify-center gap-4 sm:flex-col xl:flex-row'>
+        <ApplicationCharacterSelect raidLimitLevel={raidLimitLevel} userId={userId} />
 
         <div className='w-full lg:basis-1/4'>
           <input
-            className={`h-12 w-full rounded-md border border-gray-400 px-1 lg:min-w-[300px]`}
+            className={`h-12 w-full rounded-md border border-gray-400 px-1 xl:min-w-[300px]`}
             type={'text'}
             name={'text'}
             autoComplete='off'

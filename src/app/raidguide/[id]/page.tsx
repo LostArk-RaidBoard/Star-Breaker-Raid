@@ -14,11 +14,11 @@ interface RaidGuide {
 }
 
 interface IdParams {
-  params: { id: string }
+  params: { id: number }
 }
-const handleFetch = async (id: string) => {
+const handleFetch = async (id: number) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/raidGuideGet?raidGuide=${id}`, {
+    const response = await fetch(`${process.env.API_URL}/api/raidGuidePerGet?raidGuideId=${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
