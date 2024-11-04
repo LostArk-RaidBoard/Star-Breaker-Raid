@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function SiteLink() {
   return (
-    <div className='flex h-full gap-4 overflow-x-auto whitespace-nowrap md:grid md:grid-cols-4 md:gap-4'>
+    <div className='flex h-full gap-4 overflow-x-auto whitespace-nowrap md:grid md:grid-cols-5 md:gap-4'>
       <Link
         href='https://loa.icepeng.com/refining'
         className='inline-flex h-full min-w-[100px] flex-col flex-nowrap items-center justify-center overflow-hidden rounded-md bg-[#4350af] text-sm font-bold text-white shadow-lg sm:flex-row sm:text-xl'
@@ -46,6 +46,12 @@ export default function SiteLink() {
       >
         <span className='text-sm font-bold sm:text-xl'>ILOA.GG</span>
         <span className='hidden text-sm sm:block'>로스트아크 종합 정보</span>
+      </Link>
+      <Link
+        href='https://zloa.net/'
+        className='inline-flex h-full min-w-[100px] flex-col items-center justify-center overflow-hidden rounded-md bg-[#21263f] text-white shadow-lg'
+      >
+        <span className='text-sm font-bold sm:text-xl'>ZLOA</span>
       </Link>
     </div>
   )

@@ -43,7 +43,7 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
     if (wePostsRows) {
       setDataLength(wePostsRows.length)
       setCurrentPage(1)
-      setItemsPerPage(6)
+      setItemsPerPage(5)
     }
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
