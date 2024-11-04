@@ -57,7 +57,7 @@ export default async function MyInfoField() {
     myInfoData = await myInfoFetch(userId)
   }
   return (
-    <div className='flex w-full flex-col items-center justify-center gap-4 sm:mt-8'>
+    <div className='flex w-full flex-col items-center justify-center gap-4'>
       <MyInfoComponent myInfoData={myInfoData} />
       <MyInfoNickName userId={userId} />
       <PasswordChange userId={userId} />

@@ -111,7 +111,7 @@ export default async function MyPostField() {
   }
 
   return (
-    <div className='flex w-full flex-col sm:mt-8'>
+    <div className='flex w-full flex-col'>
       <MyPost
         userId={userId}
         applicationPostGet={applicationPostGet}

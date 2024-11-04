@@ -32,7 +32,7 @@ export default async function RaidCreateField() {
   }
 
   return (
-    <div className='mt-8 flex h-full w-full flex-col gap-4 rounded-md border p-4 shadow-lg'>
+    <div className='flex h-full w-full flex-col gap-4 rounded-md border p-4 shadow-lg'>
       <h1 className='text-xl'>* 레이드 개설</h1>
       <div className='mt-4 flex w-full flex-col gap-8 sm:flex-row'>
         {/* 왼쪽 */}

@@ -8,11 +8,13 @@ interface raidPost {
 
 export default function Raidpost({ params: { id } }: raidPost) {
   return (
-    <Section>
-      <main className='flex min-h-screen w-full flex-col items-center'>
-        <HeaderField />
-        <RaidListField postId={id} />
-      </main>
-    </Section>
+    <>
+      <HeaderField />
+      <Section>
+        <main className='flex min-h-screen w-full flex-col items-center'>
+          <RaidListField postId={id} />
+        </main>
+      </Section>
+    </>
   )
 }

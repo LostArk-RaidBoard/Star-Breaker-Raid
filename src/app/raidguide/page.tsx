@@ -4,11 +4,13 @@ import Section from '@/components/utils/section'
 
 export default function RaidGuide() {
   return (
-    <Section>
-      <main className='flex min-h-screen w-full flex-col items-center'>
-        <HeaderField />
-        <RaidGuideField />
-      </main>
-    </Section>
+    <>
+      <HeaderField />
+      <Section>
+        <main className='flex min-h-screen w-full flex-col items-center'>
+          <RaidGuideField />
+        </main>
+      </Section>
+    </>
   )
 }

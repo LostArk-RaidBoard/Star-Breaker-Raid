@@ -43,6 +43,13 @@ export default function RaidPostCreateButton() {
       return
     }
 
+    if (raidType == '') {
+      setMessage('레이드 타입을 정해주세요')
+      setPostSave(2)
+      setLoading(0)
+      return
+    }
+
     if (characterInfo[0].character_name === '캐릭터 없음') {
       setMessage('레이드에 알맞는 공대장 캐릭터를 선정해 주세요')
       setPostSave(2)

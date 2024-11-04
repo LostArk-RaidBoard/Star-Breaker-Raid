@@ -130,9 +130,9 @@ export default async function MainField() {
   const raideGuide: RaidGuide[] = await raidGuideFetch(userId)
 
   return (
-    <div className='mt-8 flex h-full w-full flex-col items-center justify-center'>
+    <div className='flex h-full w-full flex-col items-center justify-center'>
       <div className='flex h-[880px] w-full flex-col gap-4 md:h-[540px] xl:h-[310px] xl:flex-row'>
-        <div className='relative flex h-[210px] w-full grow flex-col justify-start rounded-md bg-gray-900 p-2 shadow-lg md:h-[220px] xl:h-full xl:w-[400px] xl:p-4'>
+        <div className='relative z-50 flex h-[210px] w-full grow flex-col justify-start rounded-md bg-gray-900 p-2 shadow-lg md:h-[220px] xl:h-full xl:w-[400px] xl:p-4'>
           <MainCharacter />
         </div>
 

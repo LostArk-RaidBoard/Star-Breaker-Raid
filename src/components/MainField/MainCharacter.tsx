@@ -81,7 +81,7 @@ export default function MainCharacter() {
   return (
     <>
       {loading && ( // 로딩 상태에 따라 전체 div에 로딩 화면 표시
-        <div className='absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-gray-100 bg-opacity-90'>
+        <div className='absolute inset-0 z-30 flex h-full w-full items-center justify-center bg-gray-100 bg-opacity-90'>
           <Loading className='h-12 w-12 animate-spin text-white' />
         </div>
       )}
