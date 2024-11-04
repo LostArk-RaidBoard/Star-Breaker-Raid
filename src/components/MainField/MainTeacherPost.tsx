@@ -42,7 +42,7 @@ export default function MainTeacherPosts({ teacherPostsRows }: Props) {
     if (teacherPostsRows) {
       setDataLength(teacherPostsRows.length)
       setCurrentPage(1)
-      setItemsPerPage(6)
+      setItemsPerPage(5)
     }
   }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 

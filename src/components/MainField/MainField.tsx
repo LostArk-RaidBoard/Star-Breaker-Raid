@@ -131,12 +131,12 @@ export default async function MainField() {
 
   return (
     <div className='mt-8 flex h-full w-full flex-col items-center justify-center'>
-      <div className='flex h-[950px] w-full flex-col gap-4 md:h-[580px] xl:h-[360px] xl:flex-row'>
-        <div className='relative flex h-60 w-full grow flex-col justify-start rounded-md bg-gray-900 p-2 shadow-lg md:h-[380px] xl:h-full xl:w-[400px] xl:p-4'>
+      <div className='flex h-[880px] w-full flex-col gap-4 md:h-[540px] xl:h-[310px] xl:flex-row'>
+        <div className='relative flex h-[210px] w-full grow flex-col justify-start rounded-md bg-gray-900 p-2 shadow-lg md:h-[220px] xl:h-full xl:w-[400px] xl:p-4'>
           <MainCharacter />
         </div>
 
-        <div className='flex h-full w-full flex-col gap-4 md:flex-row'>
+        <div className='flex h-[650px] w-full flex-col gap-4 md:h-[320px] md:flex-row xl:h-full'>
           <MainTeacherPosts teacherPostsRows={postsTeacherRows} />
           <MainWePosts wePostsRows={postsWeRows} />
         </div>

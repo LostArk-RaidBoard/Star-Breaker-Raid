@@ -148,7 +148,7 @@ export default function MainCharacter() {
                   </div>
                 </div>
               </div>
-              <button className='mt-1 w-full md:mt-4 xl:mt-12'>
+              <button className='mt-4 w-full xl:mt-8'>
                 <Link href={'/raidpost/create'} className='rounded-md bg-gray-200 p-2 shadow-lg'>
                   모집 글 등록
                 </Link>
