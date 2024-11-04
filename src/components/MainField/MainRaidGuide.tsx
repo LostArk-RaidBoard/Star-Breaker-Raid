@@ -23,7 +23,7 @@ export default async function MainRaidGuide({ raideGuide }: Props) {
       {raideGuide.map((item: RaidGuide, key: number) => (
         <div className='h-72 rounded-md' key={key}>
           <div className='h-[90%] w-full rounded-md'>
-            <Link href={`/raidguide/${item.guide_name}`}>
+            <Link href={`/raidguide/${item.guide_id}`}>
               <Image
                 src={item.raid_main_image}
                 alt='레이드 대표 이미지'
