@@ -8,14 +8,14 @@ export default function MypageLayout({
   children: React.ReactNode
 }>) {
   return (
-    <Section>
-      <main className='flex w-full flex-col items-center'>
-        <HeaderField />
-        <div className='flex min-h-screen w-full flex-col gap-4 sm:flex-row'>
+    <>
+      <HeaderField />
+      <Section>
+        <main className='flex min-h-screen w-full flex-col gap-4 sm:flex-row'>
           <MypageMenu />
           {children}
-        </div>
-      </main>
-    </Section>
+        </main>
+      </Section>
+    </>
   )
 }

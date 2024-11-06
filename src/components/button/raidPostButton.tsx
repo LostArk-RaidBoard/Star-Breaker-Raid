@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
-import { teacherTage, wePostTage } from '@/app/action'
+import { wePostTage } from '@/app/action'
 
 export default function RaidPostCreateButton() {
   const router = useRouter()
@@ -36,8 +36,23 @@ export default function RaidPostCreateButton() {
 
   const raidCreateHandler = async () => {
     setLoading(1)
+
+    if (session?.user.nickName === '') {
+      setMessage('넥네임이 없습니다.')
+      setPostSave(2)
+      setLoading(0)
+      return
+    }
+
     if (raidLimitLevel == 0) {
       setMessage('레이드 선택을 해주세요')
+      setPostSave(2)
+      setLoading(0)
+      return
+    }
+
+    if (raidType == '') {
+      setMessage('레이드 타입을 정해주세요')
       setPostSave(2)
       setLoading(0)
       return
@@ -67,7 +82,6 @@ export default function RaidPostCreateButton() {
         user_id: session?.user.id,
         post_position: session?.user.role,
         noti: raidNoti,
-        character_level: characterInfo[0].character_level,
         character_name: characterInfo[0].character_name,
         character_classicon: characterInfo[0].class_icon_url,
         raid_limitperson: raidLimitPerson,
@@ -90,7 +104,7 @@ export default function RaidPostCreateButton() {
           setLoading(0)
 
           wePostTage()
-          teacherTage()
+
           setTimeout(() => router.push('/'), 1000)
         }
       } else {
@@ -119,7 +133,7 @@ export default function RaidPostCreateButton() {
         레이드 개설 실패 : {message}
       </span>
       <button
-        className='mt-2 flex w-32 items-center justify-center rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
+        className='mt-2 flex h-10 w-32 items-center justify-center rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
         disabled={loading === 1 || postSave === 1}
         onClick={raidCreateHandler}
       >

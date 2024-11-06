@@ -32,9 +32,11 @@ export const authOptions = {
           }
 
           console.log('로그인 : ' + user.user_id)
+
           // 유저 반환
-          return { id: user.user_id, role: user.role }
+          return { id: user.user_id, nickName: user.nickname, role: user.role }
         } catch (error) {
+          console.error('Login error:', error)
           if (error instanceof ZodError) {
             return null
           }
@@ -59,6 +61,7 @@ export const authOptions = {
       if (user) {
         token.id = user.id
         token.role = user.role // 역할 추가
+        token.nickName = user.nickName
         if (account && account.access_token) {
           token.accessToken = account.access_token
         }
@@ -68,6 +71,7 @@ export const authOptions = {
     async session({ session, token }: any) {
       session.user.id = token.id as string
       session.user.role = token.role as string // 세션에 역할 추가
+      session.user.nickName = token.nickName
       return session
     },
     async signIn({ user, account, profile }: any) {
@@ -97,10 +101,12 @@ export const authOptions = {
 
           user.id = profile.email
           user.role = 'user'
+          user.nickName = ''
           console.log('로그인 : ' + profile.email)
         } else {
           user.id = existingUser.user_id
           user.role = existingUser.role
+          user.nickName = existingUser.nickname
           console.log('로그인 : ' + existingUser.user_id)
         }
       }

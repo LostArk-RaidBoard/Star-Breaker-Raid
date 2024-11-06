@@ -38,11 +38,13 @@ export default async function Raidguide({ params: { id } }: IdParams) {
   const raideGuide: RaidGuide[] = await handleFetch(id)
 
   return (
-    <Section>
-      <main className='flex h-full w-full flex-col items-center gap-4'>
-        <HeaderField />
-        <RaidGuidedIdField raideGuide={raideGuide[0]} />
-      </main>
-    </Section>
+    <>
+      <HeaderField />
+      <Section>
+        <main className='flex h-full w-full flex-col items-center gap-4'>
+          <RaidGuidedIdField raideGuide={raideGuide[0]} />
+        </main>
+      </Section>
+    </>
   )
 }

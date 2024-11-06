@@ -2,13 +2,10 @@
 import Login from '@image/icon/login.svg'
 import Logout from '@image/icon/logout.svg'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
 
 export default function HeadLogField() {
   const { data: session } = useSession()
-
-  const currentPath = usePathname()
 
   return (
     <div className='flex h-12 items-center justify-center text-base text-gray-800 sm:text-lg'>

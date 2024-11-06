@@ -1,6 +1,5 @@
 'use client'
 import Image from 'next/image'
-import User from '@image/icon/user.svg'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
@@ -24,6 +23,7 @@ interface RaidPost {
   raid_maxtime: string
   character_classicon: string
   applicant_count: number
+  nickname: string
 }
 
 interface Props {
@@ -47,56 +47,61 @@ export default function MainTeacherPosts({ teacherPostsRows }: Props) {
   }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   return (
-    <div className='h-full w-full rounded-md bg-gray-300 shadow-lg md:w-1/2'>
-      <div className='grid grid-cols-8 text-nowrap rounded-t-md bg-gray-200 px-1'>
-        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-          <Fire className='h-4 w-4' />
-          레이드
-        </div>
-        <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-          <Megaphone className='h-4 w-4' /> 선생님
-        </div>
-        <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-          <Clock className='h-4 w-4' />
-          시간
-        </div>
-        <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-          인원
-        </div>
+    <div className='flex h-full w-full flex-col md:w-1/2'>
+      <div className='bg-[#f9fafb]'>
+        <span className='rounded-t-md bg-red-200 px-2 pb-1 text-sm'>선생님 레이드</span>
       </div>
-      <div className='mt-2 flex w-full flex-col gap-3 p-1'>
-        {currentItems.map((item, key) => (
-          <Link
-            key={key}
-            href={`/raidpost/${item.post_id}`}
-            className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
-          >
-            <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
-            </div>
-            <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-              <Image
-                src={item.character_classicon}
-                alt='아이콘'
-                width={100}
-                height={100}
-                className='h-6 w-6'
-              />
-              <span className='overflow-hidden truncate whitespace-nowrap'>
-                {item.character_name}
-              </span>
-            </div>
-            <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
-            </div>
-            <div className='col-span-1 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>
-                {item.applicant_count}/{item.raid_limitperson}
-              </span>
-            </div>
-          </Link>
-        ))}
-        <PaginationSub />
+      <div className='h-full rounded-b-md rounded-r-md bg-gray-300'>
+        <div className='grid grid-cols-8 rounded-tr-md bg-gray-200 px-1'>
+          <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+            <Fire className='h-4 w-4' />
+            레이드
+          </div>
+          <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+            <Megaphone className='h-4 w-4' /> 선생님
+          </div>
+          <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+            <Clock className='h-4 w-4' />
+            시간
+          </div>
+          <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+            인원
+          </div>
+        </div>
+        <div className='mt-2 flex w-full flex-col gap-3 p-1'>
+          {currentItems.map((item, key) => (
+            <Link
+              key={key}
+              href={`/raidpost/${item.post_id}`}
+              className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
+            >
+              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
+              </div>
+              <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+                <Image
+                  src={item.character_classicon}
+                  alt='아이콘'
+                  width={100}
+                  height={100}
+                  className='h-6 w-6'
+                />
+                <span className='overflow-hidden truncate whitespace-nowrap'>
+                  {item.character_name}
+                </span>
+              </div>
+              <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
+              </div>
+              <div className='col-span-1 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
+                <span className='overflow-hidden truncate whitespace-nowrap'>
+                  {item.applicant_count}/{item.raid_limitperson}
+                </span>
+              </div>
+            </Link>
+          ))}
+          <PaginationSub />
+        </div>
       </div>
     </div>
   )

@@ -3,6 +3,7 @@ import { Inter, Roboto_Mono } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/footer/Footer'
 import Providers from '@/components/Providers'
+import HeaderField from '@/components/header/headerField'
 
 const inter = Inter({
   subsets: ['latin'],

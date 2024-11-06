@@ -29,7 +29,7 @@ export default async function RaidPost({ postData }: RaidPostProps) {
     <div className='flex h-full w-full flex-col justify-center'>
       <div className='flex flex-col sm:flex-row'>
         <div className='flex basis-1/2 flex-col gap-4 p-4'>
-          <span className='flex justify-center rounded-md border border-gray-500 bg-gray-900 p-2 text-xl text-white'>
+          <span className='flex h-14 items-center justify-center rounded-md border border-gray-500 bg-gray-900 p-2 text-xl text-white'>
             💥 &nbsp; <span className='font-bold'>{postData.raid_name}</span> &nbsp; 💥
           </span>
           <span className='text-lg'>

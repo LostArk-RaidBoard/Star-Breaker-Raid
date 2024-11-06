@@ -199,7 +199,7 @@ export default function RaidCharacterSelect({ createPostCharacter }: Props) {
           </div>
         </div>
       ) : (
-        <div className='flex h-14 w-full items-center rounded-md bg-gray-900 px-1 text-white'>
+        <div className='flex h-14 w-full items-center rounded-md bg-gray-900 px-4 text-white'>
           캐릭터 없음
         </div>
       )}
