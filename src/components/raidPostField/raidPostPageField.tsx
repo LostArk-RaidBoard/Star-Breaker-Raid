@@ -50,8 +50,8 @@ export default async function RaidPostPageField() {
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center rounded-md'>
-      <div className='flex w-full items-center justify-between gap-4 border-b-2 border-gray-900 py-4'>
-        <span className='text-lg font-bold'>
+      <div className='flex w-full items-center justify-end gap-4 border-b-2 border-gray-900 py-4 sm:justify-between'>
+        <span className='hidden text-lg font-bold sm:block'>
           공지사항 :{' '}
           <span className='text-base font-medium'>
             메뉴바, 메뉴바 모집글 개수 5개, 모집글 페이지, 공략 즐겨찾기 기능을 변경하였습니다.
