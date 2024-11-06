@@ -8,67 +8,22 @@ import Loading from '@image/icon/loading.svg'
 import { useSession } from 'next-auth/react'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  transcendence: number
-  leap: number
-  evolution: number
-  enlightenment: number
-  elixir: number
-  class_icon_url: string
-  disable: boolean
-}
-
-interface MainCharacter {
-  mainCharacter: CharacterInfo[]
-}
-
-/**
- * nickName
- * @returns user의 nickname 반환
- */
-const fetchNickFetch = async (userId: string) => {
-  try {
-    const response = await fetch(`${process.env.API_URL}/api/mainGetNickName?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-    const data = await response.json()
-    if (response.ok) {
-      return data.nickName[0]?.nickname ?? ''
-    } else {
-      return ''
-    }
-  } catch (error) {
-    console.error('NickName Fetch Error' + error)
-  }
-  return ''
-}
-
 export default function MainCharacter() {
   const { data: session } = useSession()
   const { characterInfo, setCharacterAllList } = useCharacterInfoList()
   const [loading, setLoading] = useState(false)
-  const [nickName, setNickName] = useState('마이페이지-내정보-닉네임 설정')
+  const [mainNickName, setMainNickName] = useState('마이페이지-내정보-닉네임 설정')
 
   useEffect(() => {
     setLoading(true)
     const fetchCharacterData = async () => {
       if (session && session.user.id) {
+        session.user.nickName
         const userId = session.user.id
         const getCharacterList = await UtileCharacterDataFetch(userId) // await 추가
         setCharacterAllList(getCharacterList)
-        const nickName = await fetchNickFetch(session.user.id)
-        if (nickName != '') {
-          setNickName(nickName)
+        if (session.user.nickName != '') {
+          setMainNickName(session.user.nickName)
         }
       } else {
       }
@@ -95,7 +50,7 @@ export default function MainCharacter() {
               height={30}
               className='p-1'
             />
-            <span>{nickName}</span>
+            <span>{mainNickName}</span>
           </div>
           <CharacterSelect />
           {characterInfo[0] ? (
@@ -148,7 +103,7 @@ export default function MainCharacter() {
                   </div>
                 </div>
               </div>
-              <button className='mt-4 w-full xl:mt-8'>
+              <button className='mt-4 w-full xl:mt-10'>
                 <Link href={'/raidpost/create'} className='rounded-md bg-gray-200 p-2 shadow-lg'>
                   모집 글 등록
                 </Link>

@@ -13,15 +13,19 @@ export async function GET(req: Request) {
     const res = await sql`
       SELECT 
           rp.*, 
-          COUNT(al.post_id) + 1 AS applicant_count
+          COUNT(al.post_id) + 1 AS applicant_count, 
+          users.nickname 
       FROM 
           raid_posts rp
       LEFT JOIN 
           applicants_list al ON rp.post_id = al.post_id
+ LEFT JOIN 
+          users ON rp.user_id = users.user_id
       WHERE 
-         rp.post_position IN (${position})
+          (${position} = 'all' AND rp.post_position IN ('user', 'teacher')) OR 
+          (rp.post_position = ${position} AND ${position} != 'all')
       GROUP BY 
-          rp.post_id;
+          rp.post_id, users.nickname;
     `
 
     return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })

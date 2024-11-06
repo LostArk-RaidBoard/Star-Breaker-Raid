@@ -16,12 +16,30 @@ interface RaidPost {
   user_id: string
   post_position: string
   noti: string
-  character_level: string
   character_name: string
   raid_limitperson: number
   raid_type: string
   raid_maxtime: string
   character_classicon: string
+  applicant_count: number
+  nickname: string
+}
+
+interface RaidMyPost {
+  post_id: number
+  raid_name: string
+  raid_time: any
+  limit_level: number
+  user_id: string
+  post_position: string
+  noti: string
+  character_name: string
+  raid_limitperson: number
+  raid_type: string
+  raid_maxtime: string
+  character_classicon: string
+  character_image: string
+  approval: boolean
   applicant_count: number
 }
 
@@ -48,7 +66,7 @@ const fetchTeacherPosts = async () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      next: { tags: ['teacherPost'] },
+      next: { tags: ['wePost'] },
     })
     const data = await response.json()
     console.log('Teacher Post Fetch')
@@ -67,22 +85,22 @@ const fetchTeacherPosts = async () => {
 }
 
 /**
- * wePost get
- * @returns wePost 항목들 반환
+ * mainMainPost get
+ * @returns 나의 일정 모집글 반환
  */
-const fetchWePostsFetch = async (): Promise<RaidPost[]> => {
+const fetchMinPostsFetch = async (userId: string): Promise<RaidMyPost[]> => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=user`, {
+    const response = await fetch(`${process.env.API_URL}/api/mainMyPost?user_id=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      next: { tags: ['wePost'] },
+      next: { tags: ['wePost', 'applicationList'] },
     })
     console.log('We Post Fetch')
     const data = await response.json()
     if (response.ok) {
-      return data.postRows.map((post: RaidPost) => ({
+      return data.postRows.map((post: RaidMyPost) => ({
         ...post,
         raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
       }))
@@ -119,24 +137,26 @@ const raidGuideFetch = async (userId: string) => {
 
 export default async function MainField() {
   const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
-  const postsWeRows = await fetchWePostsFetch()
+
   const session = await getServerSession(authOptions)
 
   let userId = 'no'
+
   if (session && session.user.id) {
     userId = session.user.id
   }
 
   const raideGuide: RaidGuide[] = await raidGuideFetch(userId)
+  const postsWeRows: RaidMyPost[] = await fetchMinPostsFetch(userId)
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
-      <div className='flex h-[880px] w-full flex-col gap-4 md:h-[540px] xl:h-[310px] xl:flex-row'>
+      <div className='flex h-[880px] w-full flex-col gap-4 md:h-[550px] xl:h-[330px] xl:flex-row'>
         <div className='relative z-50 flex h-[210px] w-full grow flex-col justify-start rounded-md bg-gray-900 p-2 shadow-lg md:h-[220px] xl:h-full xl:w-[400px] xl:p-4'>
           <MainCharacter />
         </div>
 
-        <div className='flex h-[650px] w-full flex-col gap-4 md:h-[320px] md:flex-row xl:h-full'>
+        <div className='flex h-[650px] w-full flex-col gap-4 md:h-[330px] md:flex-row xl:h-full'>
           <MainTeacherPosts teacherPostsRows={postsTeacherRows} />
           <MainWePosts wePostsRows={postsWeRows} />
         </div>

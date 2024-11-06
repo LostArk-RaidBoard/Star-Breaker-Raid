@@ -1,3 +1,4 @@
+import RaidPostList from '@/components/raidPostField/raidPostPage/raidPostList'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 import Link from 'next/link'
 
@@ -16,18 +17,19 @@ interface RaidPost {
   raid_maxtime: string
   character_classicon: string
   applicant_count: number
+  nickname: string
 }
 
 const fetchPostsAllFetch = async (): Promise<RaidPost[]> => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/raidPostAllGet`, {
+    const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=all`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
       next: { tags: ['wePost'] },
     })
-    console.log('We Post Fetch')
+
     const data = await response.json()
     if (response.ok) {
       return data.postRows.map((post: RaidPost) => ({
@@ -48,10 +50,14 @@ export default async function RaidPostPageField() {
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center rounded-md'>
-      <div className='flex w-full justify-end gap-4 border-b-2 border-gray-900 py-4'>
-        <Link href={'/raidpost'} className='rounded-md bg-gray-900 p-2 px-4 text-white shadow-lg'>
-          목록
-        </Link>
+      <div className='flex w-full items-center justify-between gap-4 border-b-2 border-gray-900 py-4'>
+        <span className='text-lg font-bold'>
+          공지사항 :{' '}
+          <span className='text-base font-medium'>
+            메뉴바, 메뉴바 모집글 개수 5개, 모집글 페이지, 공략 즐겨찾기 기능을 변경하였습니다.
+          </span>
+        </span>
+
         <Link
           href={'/raidpost/create'}
           className='rounded-md bg-gray-900 p-2 px-4 text-white shadow-lg'
@@ -59,6 +65,7 @@ export default async function RaidPostPageField() {
           모집 글 등록
         </Link>
       </div>
+      <RaidPostList raidPost={postAllposts} />
     </div>
   )
 }

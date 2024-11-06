@@ -5,8 +5,7 @@ export async function getUserFromDb(email: string) {
     const res = await sql`SELECT 
     users.user_id,
     users.password,
-    users.user_name,
-    users.birthday,
+    users.nickname,
     roles.role
 FROM users
 LEFT OUTER JOIN roles ON users.role_id = roles.role_id WHERE user_id=${email}`

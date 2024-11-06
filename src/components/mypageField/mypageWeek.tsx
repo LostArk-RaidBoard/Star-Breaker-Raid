@@ -88,7 +88,7 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
         </div>
         <div className='flex flex-row gap-1'>
           <div className='rounded-full bg-red-200 p-2 px-3'></div>
-          <span>신청, 미승인</span>
+          <span>신청, 대기</span>
         </div>
         <div className='flex flex-row gap-1'>
           <div className='rounded-full bg-blue-200 p-2 px-3'></div>

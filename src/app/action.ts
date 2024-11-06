@@ -14,9 +14,6 @@ export async function createPostTage() {
   revalidateTag('createPostTage')
 }
 
-export async function teacherTage() {
-  revalidateTag('teacherPost')
-}
 export async function wePostTage() {
   revalidateTag('wePost')
 }

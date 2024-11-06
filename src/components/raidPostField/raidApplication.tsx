@@ -1,6 +1,6 @@
 'use client'
 
-import { applicationListTage, teacherTage, wePostTage } from '@/app/action'
+import { applicationListTage, wePostTage } from '@/app/action'
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useEffect, useState } from 'react'
@@ -70,7 +70,6 @@ export default function RaidApplication({
           setState(1)
           await applicationListTage()
           await wePostTage()
-          await teacherTage()
           setLoading(0)
         } else {
           setMessage(data.message)

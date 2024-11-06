@@ -9,6 +9,7 @@ import RaidSelect from '@/components/select/raidSelect'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
+
 interface CharacterInfo {
   character_name: string
   user_id: string
@@ -33,8 +34,12 @@ export default async function RaidCreateField() {
 
   return (
     <div className='flex h-full w-full flex-col gap-4 rounded-md border p-4 shadow-lg'>
-      <h1 className='text-xl'>* 레이드 개설</h1>
-      <div className='mt-4 flex w-full flex-col gap-8 sm:flex-row'>
+      <h1 className='text-xl'>* {session.user.nickName} 레이드 개설</h1>
+      <p className={`${session.user.nickName === '' ? '' : 'hidden'} text-red-500`}>
+        닉네임을 설정해야 모집 글 등록이 가능합니다.
+        <br /> 마이페이지-내 정보-닉네임 설정
+      </p>
+      <div className='flex w-full flex-col gap-8 sm:flex-row'>
         {/* 왼쪽 */}
         <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
           <RaidSelect />
