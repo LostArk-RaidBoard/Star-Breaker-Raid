@@ -10,3 +10,34 @@ body {
   color: rgb(var(--foreground-rgb));
   background-color: rgb(249, 250, 251);
 }
+
+/* styles/globals.css 또는 해당 스타일 파일에 추가 */
+@keyframes slide-in {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+}
+
+.slide-in {
+  animation: slide-in 0.2s ease forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.2s ease forwards;
+}

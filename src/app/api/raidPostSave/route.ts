@@ -8,7 +8,6 @@ interface RaidPost {
   user_id: string
   post_position: string
   noti: string
-  character_level: string
   character_name: string
   character_classicon: string
   raid_limitperson: number
@@ -45,7 +44,6 @@ export async function POST(req: Request) {
         user_id,
         post_position,
         noti,
-        character_level,
         character_name,
         raid_limitperson,
         raid_type,
@@ -59,7 +57,6 @@ export async function POST(req: Request) {
         ${raidPost.user_id},
         ${raidPost.post_position},
         ${raidPost.noti},
-        ${raidPost.character_level},
         ${raidPost.character_name},
         ${raidPost.raid_limitperson},
         ${raidPost.raid_type},

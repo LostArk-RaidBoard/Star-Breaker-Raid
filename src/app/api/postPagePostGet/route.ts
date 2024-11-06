@@ -10,8 +10,12 @@ export async function GET(req: Request) {
   }
 
   try {
-    const res =
-      await sql`SELECT raid_posts.*, users.nickname FROM raid_posts INNER JOIN users ON raid_posts.user_id  = users.user_id WHERE post_id = ${postId}`
+    const res = await sql`
+      SELECT raid_posts.*, users.nickname, characters.character_level
+      FROM raid_posts 
+      INNER JOIN users ON raid_posts.user_id  = users.user_id
+      INNER JOIN characters ON raid_posts.character_name = characters.character_name
+      WHERE post_id = ${postId}`
 
     return new Response(JSON.stringify({ postRows: res.rows }), {
       status: 200,

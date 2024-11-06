@@ -14,7 +14,7 @@ export default async function RaidGuideField() {
   const roleCheck = role === 'admin'
 
   return (
-    <div className='mt-8 flex h-full w-full flex-col items-center justify-center'>
+    <div className='flex h-full w-full flex-col items-center justify-center'>
       <div className='h-12 w-full'>
         <RaidGuideInput />
       </div>

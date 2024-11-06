@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
-import { createPostTage, teacherTage, wePostTage } from '@/app/action'
+import { createPostTage, wePostTage } from '@/app/action'
 
 interface RaidPost {
   post_id: number
@@ -57,7 +57,6 @@ export default function MypageCreatePost({ createPostGet }: Props) {
 
       if (response.ok && response.status === 200) {
         createPostTage()
-        teacherTage()
         wePostTage()
       }
     } catch (error) {

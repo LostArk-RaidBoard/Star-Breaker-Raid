@@ -96,7 +96,7 @@ export default async function RaidListField({ postId }: Props) {
   }
 
   return (
-    <div className='mt-8 flex h-full w-full flex-col items-center justify-center'>
+    <div className='flex h-full w-full flex-col items-center justify-center'>
       <div className='w-full rounded-md border shadow-lg'>
         <RaidPost postData={postData} />
       </div>

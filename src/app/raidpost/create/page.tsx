@@ -4,11 +4,13 @@ import Section from '@/components/utils/section'
 
 export default function RaidPostCreate() {
   return (
-    <Section>
-      <main className='flex w-full flex-col items-center'>
-        <HeaderField />
-        <RaidCreateField />
-      </main>
-    </Section>
+    <>
+      <HeaderField />
+      <Section>
+        <main className='flex w-full flex-col items-center'>
+          <RaidCreateField />
+        </main>
+      </Section>
+    </>
   )
 }
