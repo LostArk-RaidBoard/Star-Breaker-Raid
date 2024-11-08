@@ -144,10 +144,10 @@ export default async function MainField() {
   let raideGuide: RaidGuide[] = []
 
   try {
-    postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
+    // postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
     getCharacterList = await UtileCharacterDataFetch(userId) // await 추가
 
-    postsWeRows = await fetchMinPostsFetch(userId)
+    // postsWeRows = await fetchMinPostsFetch(userId)
   } catch (error) {
     console.log('main fetch error : ' + error)
   }
@@ -160,7 +160,7 @@ export default async function MainField() {
         </div>
 
         <div className='flex h-[650px] w-full flex-col gap-4 md:h-[330px] md:flex-row xl:h-full'>
-          <MainTeacherPosts teacherPostsRows={postsTeacherRows} />
+          {/* <MainTeacherPosts teacherPostsRows={postsTeacherRows} /> */}
           {/* <MainWePosts wePostsRows={postsWeRows} /> */}
         </div>
       </div>
