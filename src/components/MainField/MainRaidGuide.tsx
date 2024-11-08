@@ -15,9 +15,32 @@ interface RaidGuide {
 }
 
 interface Props {
-  raideGuide: RaidGuide[]
+  userId: string
 }
-export default async function MainRaidGuide({ raideGuide }: Props) {
+const raidGuideFetch = async (userId: string) => {
+  try {
+    const response = await fetch(`${process.env.API_URL}/api/raidGuideMainGet?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { tags: ['raidGudieLike'], revalidate: 10 },
+    })
+    console.log('MainGuideFetch')
+    const data = await response.json()
+    if (response.ok) {
+      return data.guideRows
+    } else {
+      return []
+    }
+  } catch (error) {
+    console.error('MainraidGuide Error : ' + error)
+    return []
+  }
+}
+
+export default async function MainRaidGuide({ userId }: Props) {
+  const raideGuide = await raidGuideFetch(userId)
   return (
     <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
       {raideGuide.map((item: RaidGuide, key: number) => (

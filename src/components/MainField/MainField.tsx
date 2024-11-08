@@ -114,7 +114,7 @@ const fetchMinPostsFetch = async (userId: string): Promise<RaidMyPost[]> => {
       },
       next: { tags: ['wePost', 'applicationList'] },
     })
-    console.log('We Post Fetch')
+    console.log('mainMainPost fetch')
     const data = await response.json()
     if (response.ok) {
       return data.postRows.map((post: RaidMyPost) => ({
@@ -128,28 +128,6 @@ const fetchMinPostsFetch = async (userId: string): Promise<RaidMyPost[]> => {
     console.error('fetchWePost Error' + error)
   }
   return []
-}
-
-const raidGuideFetch = async (userId: string) => {
-  try {
-    const response = await fetch(`${process.env.API_URL}/api/raidGuideMainGet?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next: { tags: ['raidGudieLike'], revalidate: 10 },
-    })
-    console.log('MainGuideFetch')
-    const data = await response.json()
-    if (response.ok) {
-      return data.guideRows
-    } else {
-      return []
-    }
-  } catch (error) {
-    console.error('MainraidGuide Error : ' + error)
-    return []
-  }
 }
 
 export default async function MainField() {
@@ -168,7 +146,7 @@ export default async function MainField() {
   try {
     postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
     getCharacterList = await UtileCharacterDataFetch(userId) // await 추가
-    raideGuide = await raidGuideFetch(userId)
+
     postsWeRows = await fetchMinPostsFetch(userId)
   } catch (error) {
     console.log('main fetch error : ' + error)
@@ -190,7 +168,7 @@ export default async function MainField() {
         <SiteLink />
       </div>
       <div className='mt-8 w-full'>
-        <MainRaidGuide raideGuide={raideGuide} />
+        <MainRaidGuide userId={userId} />
       </div>
     </div>
   )
