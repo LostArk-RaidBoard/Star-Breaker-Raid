@@ -8,7 +8,27 @@ import Loading from '@image/icon/loading.svg'
 import { useSession } from 'next-auth/react'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
-export default function MainCharacter() {
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  class_icon_url: string
+  transcendence: number
+  elixir: number
+  leap: number
+  enlightenment: number
+  evolution: number
+  disable: boolean
+}
+
+interface Props {
+  getCharacterList: CharacterInfo[]
+}
+
+export default function MainCharacter({ getCharacterList }: Props) {
   const { data: session } = useSession()
   const { characterInfo, setCharacterAllList } = useCharacterInfoList()
   const [loading, setLoading] = useState(false)
@@ -19,19 +39,16 @@ export default function MainCharacter() {
     const fetchCharacterData = async () => {
       if (session && session.user.id) {
         session.user.nickName
-        const userId = session.user.id
-        const getCharacterList = await UtileCharacterDataFetch(userId) // await 추가
         setCharacterAllList(getCharacterList)
         if (session.user.nickName != '') {
           setMainNickName(session.user.nickName)
         }
-      } else {
       }
       setLoading(false)
     }
 
     fetchCharacterData() // 비동기 함수 호출
-  }, [session, setCharacterAllList])
+  }, [session, setCharacterAllList, getCharacterList])
 
   return (
     <>

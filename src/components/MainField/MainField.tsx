@@ -7,6 +7,7 @@ import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface RaidPost {
   post_id: number
@@ -41,6 +42,22 @@ interface RaidMyPost {
   character_image: string
   approval: boolean
   applicant_count: number
+}
+
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  class_icon_url: string
+  transcendence: number
+  elixir: number
+  leap: number
+  enlightenment: number
+  evolution: number
+  disable: boolean
 }
 
 interface RaidGuide {
@@ -145,7 +162,7 @@ export default async function MainField() {
   if (session && session.user.id) {
     userId = session.user.id
   }
-
+  const getCharacterList: CharacterInfo[] = await UtileCharacterDataFetch(userId) // await 추가
   const raideGuide: RaidGuide[] = await raidGuideFetch(userId)
   const postsWeRows: RaidMyPost[] = await fetchMinPostsFetch(userId)
 
@@ -153,7 +170,7 @@ export default async function MainField() {
     <div className='flex h-full w-full flex-col items-center justify-center'>
       <div className='flex h-[880px] w-full flex-col gap-4 md:h-[550px] xl:h-[330px] xl:flex-row'>
         <div className='relative z-50 flex h-[210px] w-full grow flex-col justify-start rounded-md bg-gray-900 p-2 shadow-lg md:h-[220px] xl:h-full xl:w-[400px] xl:p-4'>
-          <MainCharacter />
+          <MainCharacter getCharacterList={getCharacterList} />
         </div>
 
         <div className='flex h-[650px] w-full flex-col gap-4 md:h-[330px] md:flex-row xl:h-full'>
