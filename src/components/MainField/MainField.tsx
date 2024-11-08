@@ -153,18 +153,26 @@ const raidGuideFetch = async (userId: string) => {
 }
 
 export default async function MainField() {
-  const postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
-
-  const session = await getServerSession(authOptions)
-
   let userId = 'no'
 
+  const session = await getServerSession(authOptions)
   if (session && session.user.id) {
     userId = session.user.id
   }
-  const getCharacterList: CharacterInfo[] = await UtileCharacterDataFetch(userId) // await 추가
-  const raideGuide: RaidGuide[] = await raidGuideFetch(userId)
-  const postsWeRows: RaidMyPost[] = await fetchMinPostsFetch(userId)
+
+  let postsWeRows: RaidMyPost[] = []
+  let postsTeacherRows = []
+  let getCharacterList: CharacterInfo[] = []
+  let raideGuide: RaidGuide[] = []
+
+  try {
+    postsTeacherRows = await fetchTeacherPosts() // 포스트 데이터 가져오기
+    getCharacterList = await UtileCharacterDataFetch(userId) // await 추가
+    raideGuide = await raidGuideFetch(userId)
+    postsWeRows = await fetchMinPostsFetch(userId)
+  } catch (error) {
+    console.log('main fetch error : ' + error)
+  }
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
