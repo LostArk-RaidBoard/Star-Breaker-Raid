@@ -99,40 +99,46 @@ export default async function RaidListField({ postId }: Props) {
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
-      {session && session.user.id ? (
-        <div className='mb-2 flex w-full items-center justify-end gap-4'>
-          <RaidPostDeleteButton postId={postId} />
-          <Link
-            href={`/raidpost/update/${postId}`}
-            className={`${(session.user.id = postData.user_id ? '' : 'hidden')} rounded-md bg-gray-900 px-3 py-1 text-white`}
-          >
-            수정하기
-          </Link>
-        </div>
-      ) : (
-        <></>
-      )}
+      {postData ? (
+        <>
+          {session && session.user.id ? (
+            <div className='mb-2 flex w-full items-center justify-end gap-4'>
+              <RaidPostDeleteButton postId={postId} />
+              <Link
+                href={`/raidpost/update/${postId}`}
+                className={`${(session.user.id = postData.user_id ? '' : 'hidden')} rounded-md bg-gray-900 px-3 py-1 text-white`}
+              >
+                수정하기
+              </Link>
+            </div>
+          ) : (
+            <></>
+          )}
 
-      <div className='w-full rounded-md border shadow-lg'>
-        <RaidPost postData={postData} />
-      </div>
-      <label className='mt-4 flex w-full justify-start'>* 지원 신청 작성</label>
-      <div className='w-full'>
-        <RaidApplication
-          userId={userId}
-          raidLimitLevel={raidLimitLevel}
-          postId={postId}
-          post_user={post_user}
-        />
-      </div>
-      <label className='mt-4 flex w-full justify-start'>* 신청자</label>
-      <div className='h-auto w-full'>
-        <RaidApplicationList
-          postId={postId}
-          applicationList={applicationList}
-          post_user={post_user}
-        />
-      </div>
+          <div className='w-full rounded-md border shadow-lg'>
+            <RaidPost postData={postData} />
+          </div>
+          <label className='mt-4 flex w-full justify-start'>* 지원 신청 작성</label>
+          <div className='w-full'>
+            <RaidApplication
+              userId={userId}
+              raidLimitLevel={raidLimitLevel}
+              postId={postId}
+              post_user={post_user}
+            />
+          </div>
+          <label className='mt-4 flex w-full justify-start'>* 신청자</label>
+          <div className='h-auto w-full'>
+            <RaidApplicationList
+              postId={postId}
+              applicationList={applicationList}
+              post_user={post_user}
+            />
+          </div>
+        </>
+      ) : (
+        <div>포스트를 찾을 수 없습니다.</div>
+      )}
     </div>
   )
 }
