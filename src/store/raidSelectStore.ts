@@ -26,7 +26,7 @@ const initalRaidSelectState: raidSelectState = {
   raidMaxTime: '1시간',
   raidNoti: '',
   raidDate: new Date(),
-  raidType: '',
+  raidType: '학원',
   raidLimitLevel: 0,
 }
 

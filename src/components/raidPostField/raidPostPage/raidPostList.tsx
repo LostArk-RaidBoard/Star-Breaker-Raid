@@ -60,9 +60,12 @@ export default function RaidPostList({ raidPost }: Props) {
 
   return (
     <div className='mt-4 flex h-full w-full flex-col'>
-      <div id='Postbar' className='flex w-full flex-row gap-4'>
+      <div
+        id='Postbar'
+        className='flex-reverse flex w-full flex-col-reverse items-center sm:flex-row'
+      >
         <button
-          className={`w-24 rounded-md text-lg ${selectMenu === 'all' ? 'bg-gray-200' : ''} `}
+          className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'all' ? 'bg-gray-200' : ''} `}
           onClick={() => {
             setSelectMenu('all')
           }}
@@ -70,7 +73,7 @@ export default function RaidPostList({ raidPost }: Props) {
           전체
         </button>
         <button
-          className={`w-24 rounded-md text-lg ${selectMenu === 'teacher' ? 'bg-gray-200' : ''} `}
+          className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'teacher' ? 'bg-gray-200' : ''} `}
           onClick={() => {
             setSelectMenu('teacher')
           }}
@@ -78,7 +81,7 @@ export default function RaidPostList({ raidPost }: Props) {
           선생님
         </button>
         <button
-          className={`w-24 rounded-md text-lg ${selectMenu === 'user' ? 'bg-gray-200' : ''} `}
+          className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'user' ? 'bg-gray-200' : ''} `}
           onClick={() => {
             setSelectMenu('user')
           }}
@@ -113,7 +116,7 @@ export default function RaidPostList({ raidPost }: Props) {
         </div>
         {currentItems.map((item: RaidPost) => (
           <Link
-            href={`/raidpost/${item.post_id}`}
+            href={`/raidpost/${item.post_id}?redirect=/raidpost`}
             key={item.post_id}
             className='grid h-12 w-full grid-cols-6 rounded-md border-b text-sm hover:bg-gray-200 sm:grid-cols-9 sm:text-base'
           >

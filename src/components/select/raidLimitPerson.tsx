@@ -37,7 +37,7 @@ export default function RaidLimitPersonSelect() {
 
   return (
     <div className='w-full'>
-      <label className='text-lg'>최대인원 선택</label>
+      <label className='text-lg'>• 최대인원 선택</label>
       <select
         name='raidSelect'
         aria-label='레이드 인원 선택'
