@@ -3,6 +3,8 @@ import RaidApplicationList from '@/components/raidPostField/raidApplicationList'
 import RaidPost from '@/components/raidPostField/raidpost'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
+import Link from 'next/link'
+import RaidPostDeleteButton from '@/components/button/raidPostDeleteButton'
 interface Props {
   postId: number
 }
@@ -97,6 +99,20 @@ export default async function RaidListField({ postId }: Props) {
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
+      {session && session.user.id ? (
+        <div className='mb-2 flex w-full items-center justify-end gap-4'>
+          <RaidPostDeleteButton postId={postId} />
+          <Link
+            href={`/raidpost/update/${postId}`}
+            className={`${(session.user.id = postData.user_id ? '' : 'hidden')} rounded-md bg-gray-900 px-3 py-1 text-white`}
+          >
+            수정하기
+          </Link>
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div className='w-full rounded-md border shadow-lg'>
         <RaidPost postData={postData} />
       </div>

@@ -10,7 +10,7 @@ export default function MHeaderField() {
       <div className='flex h-full w-full items-center justify-between'>
         <div className='flex items-center gap-3'>
           <MNaviBar />
-          <Link href='/' className='relative h-[30px] w-[30px]'>
+          <Link href='/' className='relative h-[30px] w-[30px]' scroll={false}>
             <Image
               src={'/logo/favicon.png'}
               alt='Logo 이미지'

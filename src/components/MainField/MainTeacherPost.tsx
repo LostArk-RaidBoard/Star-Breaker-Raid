@@ -72,7 +72,7 @@ export default function MainTeacherPosts({ teacherPostsRows }: Props) {
           {currentItems.map((item, key) => (
             <Link
               key={key}
-              href={`/raidpost/${item.post_id}`}
+              href={`/raidpost/${item.post_id}?redirect=/`}
               className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
             >
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
@@ -86,9 +86,7 @@ export default function MainTeacherPosts({ teacherPostsRows }: Props) {
                   height={100}
                   className='h-6 w-6'
                 />
-                <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.character_name}
-                </span>
+                <span className='overflow-hidden truncate whitespace-nowrap'>{item.nickname}</span>
               </div>
               <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>

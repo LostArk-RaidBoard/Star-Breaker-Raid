@@ -92,6 +92,7 @@ export default function RaidApplication({
   useEffect(() => {
     setMessage('')
     setState(0)
+    applicationListTage()
   }, [userId])
 
   return (

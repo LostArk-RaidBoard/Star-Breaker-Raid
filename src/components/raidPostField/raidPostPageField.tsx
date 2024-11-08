@@ -1,3 +1,4 @@
+import RevaildatePostTageButton from '@/components/button/revalidatePostTageButton'
 import RaidPostList from '@/components/raidPostField/raidPostPage/raidPostList'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 import Link from 'next/link'
@@ -58,12 +59,15 @@ export default async function RaidPostPageField() {
           </span>
         </span>
 
-        <Link
-          href={'/raidpost/create'}
-          className='rounded-md bg-gray-900 p-2 px-4 text-white shadow-lg'
-        >
-          모집 글 등록
-        </Link>
+        <div className='flex w-full justify-end gap-4 sm:w-auto'>
+          <RevaildatePostTageButton />
+          <Link
+            href={'/raidpost/create?redirect=/raidpost'}
+            className='rounded-md bg-gray-900 p-2 px-4 text-white'
+          >
+            모집 글 등록
+          </Link>
+        </div>
       </div>
       <RaidPostList raidPost={postAllposts} />
     </div>

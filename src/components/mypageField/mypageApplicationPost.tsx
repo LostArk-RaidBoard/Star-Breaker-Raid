@@ -93,7 +93,10 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
             key={item.post_id}
             className={`grid h-9 grid-cols-8 rounded-md border border-gray-300 ${item.approval ? 'bg-blue-100' : 'bg-gray-100'} `}
           >
-            <Link href={`/raidpost/${item.post_id}`} className='col-span-7 grid grid-cols-7'>
+            <Link
+              href={`/raidpost/${item.post_id}?redirect=/mypage/mypost`}
+              className='col-span-7 grid grid-cols-7'
+            >
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
               </div>
