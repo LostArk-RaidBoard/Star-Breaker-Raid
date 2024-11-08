@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
-import { raidGuideLike, wePostTage } from '@/app/action'
+import { wePostTage } from '@/app/action'
 
 interface RaidMyPost {
   post_id: number
@@ -47,15 +47,19 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
     }
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
-  // 1분마다 wePostTage() 실행하여 데이터 업데이트
   useEffect(() => {
-    raidGuideLike()
     const fetchPosts = async () => {
       await wePostTage()
     }
-    const interval = setInterval(fetchPosts, 60000)
+    // 1분 후에 첫 번째 호출
+    const timeout = setTimeout(() => {
+      fetchPosts()
+      // 이후 1분마다 호출
+      const interval = setInterval(fetchPosts, 60000)
+      return () => clearInterval(interval) // 타이머 정리
+    }, 60000)
 
-    return () => clearInterval(interval) // 컴포넌트 언마운트 시 타이머 정리
+    return () => clearTimeout(timeout) // 컴포넌트 언마운트 시 타이머 정리
   }, [])
 
   return (
@@ -85,7 +89,7 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
           {currentItems.map((item) => (
             <Link
               key={item.post_id}
-              href={`/raidpost/${item.post_id}`}
+              href={`/raidpost/${item.post_id}?redirect=/`}
               className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
             >
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>

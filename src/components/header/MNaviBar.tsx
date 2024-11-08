@@ -55,16 +55,16 @@ export default function MNaviBar() {
           ref={menuRef}
           className={`absolute -left-4 top-9 z-50 flex min-h-screen w-44 flex-col items-start gap-4 rounded-r-md border bg-white p-4 shadow-lg ${closing ? 'slide-out' : 'slide-in'}`}
         >
-          <Link href={'/'}>
+          <Link href={'/'} scroll={false}>
             <span className='py-2 text-lg hover:text-blue-500'>• 메인</span>
           </Link>
-          <Link href={'/raidguide'}>
+          <Link href={'/raidguide'} scroll={false}>
             <span className='py-2 text-lg hover:text-blue-500'>• 공략</span>
           </Link>
-          <Link href={'/raidpost'}>
+          <Link href={'/raidpost'} scroll={false}>
             <span className='py-2 text-lg hover:text-blue-500'>• 모집글</span>
           </Link>
-          <Link href={'/mypage'}>
+          <Link href={'/mypage'} scroll={false}>
             <span className='py-2 text-lg hover:text-blue-500'>• 마이페이지</span>
           </Link>
         </div>

@@ -14,7 +14,7 @@ export async function GET(req: Request) {
       SELECT
 rp.*,
 al.character_check AS approval,
-COUNT(al2.post_id) AS applicant_count
+COUNT(al2.post_id) + 1 AS applicant_count
 FROM
 raid_posts rp
 LEFT JOIN

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Megaphone from '@image/icon/megaphone.svg'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import RaidNotiTextArea from '@/components/raidPostField/raidNotiTextArea'
 
 interface Post {
   post_id: number
@@ -72,13 +73,7 @@ export default async function RaidPost({ postData }: RaidPostProps) {
           </span>
           <div className='flex flex-col gap-2 text-lg'>
             • 레이드 공지
-            <textarea
-              rows={4}
-              aria-label='공지 사항 글'
-              className='resize-none border p-1'
-              disabled
-              defaultValue={postData.noti}
-            ></textarea>
+            <RaidNotiTextArea postNoti={postData.noti} />
           </div>
         </div>
       </div>

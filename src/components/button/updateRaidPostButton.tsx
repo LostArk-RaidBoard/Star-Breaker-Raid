@@ -1,31 +1,49 @@
 'use client'
 
 import { useCharacterInfoList } from '@/store/characterStore'
-import { useRaidSelect } from '@/store/raidSelectStore'
 import { useSession } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import Loading from '@image/icon/loading.svg'
-import { wePostTage } from '@/app/action'
+import { applicationListTage, wePostTage } from '@/app/action'
 
-export default function RaidPostCreateButton() {
+interface CharacterInfo {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  transcendence: number
+  leap: number
+  evolution: number
+  enlightenment: number
+  elixir: number
+  class_icon_url: string
+  disable: boolean
+}
+
+interface Props {
+  postId: number
+  updateTime: Date
+  updateRaidType: string
+  updateRaidMaxTime: string
+  updateCharacterSelect: CharacterInfo | undefined
+  updateRaidNoti: string
+}
+
+export default function RaidPostUpdateButton({
+  postId,
+  updateTime,
+  updateRaidType,
+  updateRaidMaxTime,
+  updateCharacterSelect,
+  updateRaidNoti,
+}: Props) {
   const router = useRouter()
   const [postSave, setPostSave] = useState(0)
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(0)
-  const {
-    raidType,
-    raidLimitLevel,
-    raidLimitPerson,
-    raidMaxTime,
-    raidNoti,
-    raidSelect,
-    raidDate,
-    setReset,
-  } = useRaidSelect()
-  const searchParams = useSearchParams()
-  const search = searchParams.get('redirect') || ''
-
   const { characterInfo } = useCharacterInfoList()
   const { data: session } = useSession()
 
@@ -46,30 +64,23 @@ export default function RaidPostCreateButton() {
       return
     }
 
-    if (raidLimitLevel == 0) {
-      setMessage('레이드 선택을 해주세요')
-      setPostSave(2)
-      setLoading(0)
-      return
-    }
-
-    if (raidType == '') {
+    if (updateRaidType == '') {
       setMessage('레이드 타입을 정해주세요')
       setPostSave(2)
       setLoading(0)
       return
     }
 
-    if (characterInfo[0].character_name === '캐릭터 없음') {
+    if (updateCharacterSelect?.character_name === '캐릭터 없음' || !updateCharacterSelect) {
       setMessage('레이드에 알맞는 공대장 캐릭터를 선정해 주세요')
       setPostSave(2)
       setLoading(0)
       return
     }
 
-    if (raidDate) {
+    if (updateTime) {
       // 현재 시간과 초, 밀리초를 제외하고 5분 이내인지 비교
-      if (isWithinFiveMinutes(new Date(), raidDate)) {
+      if (isWithinFiveMinutes(new Date(), updateTime)) {
         setMessage('레이드 날짜를 선택해주세요')
         setPostSave(2)
         setLoading(0)
@@ -78,20 +89,16 @@ export default function RaidPostCreateButton() {
     }
     try {
       const raidPost = {
-        raid_name: raidSelect,
-        raid_time: raidDate,
-        limit_level: raidLimitLevel,
-        user_id: session?.user.id,
-        post_position: session?.user.role,
-        noti: raidNoti,
-        character_name: characterInfo[0].character_name,
-        character_classicon: characterInfo[0].class_icon_url,
-        raid_limitperson: raidLimitPerson,
-        raid_type: raidType,
-        raid_maxtime: raidMaxTime,
-        character_image: characterInfo[0].class_image,
+        postId: postId,
+        raid_time: updateTime,
+        noti: updateRaidNoti,
+        character_name: updateCharacterSelect.character_name,
+        character_classicon: updateCharacterSelect.class_icon_url,
+        raid_type: updateRaidType,
+        raid_maxtime: updateRaidMaxTime,
+        character_image: updateCharacterSelect.class_image,
       }
-      const response = await fetch('/api/raidPostSave', {
+      const response = await fetch('/api/raidPostUpdate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,10 +111,10 @@ export default function RaidPostCreateButton() {
         if (response.status === 200) {
           setPostSave(1)
           setLoading(0)
+          await applicationListTage()
+          await wePostTage()
 
-          wePostTage()
-
-          setTimeout(() => router.push(search), 1000)
+          setTimeout(() => router.push(`/raidpost/${postId}`), 2000)
         }
       } else {
         setMessage(data.message)
@@ -122,24 +129,20 @@ export default function RaidPostCreateButton() {
     }
   }
 
-  useEffect(() => {
-    setReset()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   return (
     <div className='flex w-full flex-col items-center justify-center'>
       <span className={`${postSave === 1 ? '' : 'hidden'} text-blue-500`}>
-        레이드 개설 성공 잠시 후 페이지 이동합니다.
+        레이드 수정 성공 잠시 후 모집글로 이동합니다.
       </span>
       <span className={`${postSave === 2 ? '' : 'hidden'} text-red-500`}>
-        레이드 개설 실패 : {message}
+        레이드 수정 실패 : {message}
       </span>
       <button
         className='mt-2 flex h-10 w-32 items-center justify-center rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
         disabled={loading === 1 || postSave === 1}
         onClick={raidCreateHandler}
       >
-        <span className={`${loading === 0 ? '' : 'hidden'}`}>모집 글 등록</span>
+        <span className={`${loading === 0 ? '' : 'hidden'}`}>모집 글 수정</span>
         <span className={`${loading === 1 ? '' : 'hidden'}`}>
           <Loading className='h-8 w-8' />
         </span>

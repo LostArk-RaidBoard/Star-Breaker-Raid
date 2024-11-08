@@ -1,16 +1,16 @@
-import RaidListField from '@/components/raidPostField/raidListField'
+import RaidPostUpdate from '@/components/raidPostField/raidPostUpdate/raidPostUpdate'
 import Section from '@/components/utils/section'
 
 interface raidPost {
   params: { id: number }
 }
 
-export default function Raidpost({ params: { id } }: raidPost) {
+export default function PostUpdate({ params: { id } }: raidPost) {
   return (
     <>
       <Section>
         <main className='flex min-h-screen w-full flex-col items-center'>
-          <RaidListField postId={id} />
+          <RaidPostUpdate postId={id} />
         </main>
       </Section>
     </>

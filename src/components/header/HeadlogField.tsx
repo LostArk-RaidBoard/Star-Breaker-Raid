@@ -18,7 +18,7 @@ export default function HeadLogField() {
         </button>
       ) : (
         <button className={``}>
-          <Link href={`/login`} className='flex items-center justify-center gap-1'>
+          <Link href={`/login`} className='flex items-center justify-center gap-1' scroll={false}>
             <span>로그인</span> <Login className='h-6' />
           </Link>
         </button>

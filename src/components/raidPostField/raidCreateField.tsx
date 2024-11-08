@@ -34,27 +34,33 @@ export default async function RaidCreateField() {
 
   return (
     <div className='flex h-full w-full flex-col gap-4 rounded-md border p-4 shadow-lg'>
-      <h1 className='text-xl'>* {session.user.nickName} 레이드 개설</h1>
-      <p className={`${session.user.nickName === '' ? '' : 'hidden'} text-red-500`}>
-        닉네임을 설정해야 모집 글 등록이 가능합니다.
-        <br /> 마이페이지-내 정보-닉네임 설정
-      </p>
-      <div className='flex w-full flex-col gap-8 sm:flex-row'>
-        {/* 왼쪽 */}
-        <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
-          <RaidSelect />
-          <RaidLimitPersonSelect />
-          <CalendarPick />
-          <RaidDetail />
-        </div>
-        {/* 오른쪽 */}
-        <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
-          <RaidCharacterSelect createPostCharacter={createPostCharacter} />
-          <RaidMaxTime />
-          <RaidNoti />
-        </div>
-      </div>
-      <RaidPostCreateButton />
+      {session && session.user.id ? (
+        <>
+          <h1 className='text-xl'>* {session.user.nickName} 레이드 개설</h1>
+          <p className={`${session.user.nickName === '' ? '' : 'hidden'} text-red-500`}>
+            닉네임을 설정해야 모집 글 등록이 가능합니다.
+            <br /> 마이페이지-내 정보-닉네임 설정
+          </p>
+          <div className='flex w-full flex-col gap-8 sm:flex-row'>
+            {/* 왼쪽 */}
+            <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
+              <RaidSelect />
+              <RaidLimitPersonSelect />
+              <CalendarPick />
+              <RaidDetail />
+            </div>
+            {/* 오른쪽 */}
+            <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
+              <RaidCharacterSelect createPostCharacter={createPostCharacter} />
+              <RaidMaxTime />
+              <RaidNoti />
+            </div>
+          </div>
+          <RaidPostCreateButton />
+        </>
+      ) : (
+        <div className='flex items-center justify-center text-lg'>로그인 해주세요</div>
+      )}
     </div>
   )
 }
