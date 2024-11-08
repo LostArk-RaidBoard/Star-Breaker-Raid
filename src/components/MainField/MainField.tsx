@@ -161,15 +161,13 @@ export default async function MainField() {
 
         <div className='flex h-[650px] w-full flex-col gap-4 md:h-[330px] md:flex-row xl:h-full'>
           <MainTeacherPosts teacherPostsRows={postsTeacherRows} />
-          <MainWePosts wePostsRows={postsWeRows} />
+          {/* <MainWePosts wePostsRows={postsWeRows} /> */}
         </div>
       </div>
       <div className='mt-8 h-24 w-full overflow-hidden'>
         <SiteLink />
       </div>
-      <div className='mt-8 w-full'>
-        <MainRaidGuide userId={userId} />
-      </div>
+      <div className='mt-8 w-full'>{/* <MainRaidGuide userId={userId} /> */}</div>
     </div>
   )
 }
