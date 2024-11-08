@@ -24,7 +24,7 @@ export default async function UtileCharacterDataFetch(userId: string) {
       return []
     }
   } catch (error) {
-    console.error(error)
+    console.error('getCharacter' + error)
   }
   return []
 }
