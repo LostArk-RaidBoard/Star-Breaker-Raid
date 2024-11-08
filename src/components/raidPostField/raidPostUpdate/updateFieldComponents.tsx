@@ -63,6 +63,7 @@ export default function UpdateFieldComponent({ postData, createPostCharacter }: 
     )
     setUpdateCharacterSelect(selectedCharacter)
     setUpdateRaidNoti(postData.noti)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <>

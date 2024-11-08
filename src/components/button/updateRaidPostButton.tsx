@@ -1,10 +1,9 @@
 'use client'
 
 import { useCharacterInfoList } from '@/store/characterStore'
-import { useRaidSelect } from '@/store/raidSelectStore'
 import { useSession } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import { applicationListTage, wePostTage } from '@/app/action'
 

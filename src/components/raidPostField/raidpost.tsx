@@ -26,7 +26,6 @@ interface RaidPostProps {
 }
 
 export default async function RaidPost({ postData }: RaidPostProps) {
-  console.log(postData.noti)
   return (
     <div className='flex h-full w-full flex-col justify-center'>
       <div className='flex flex-col sm:flex-row'>

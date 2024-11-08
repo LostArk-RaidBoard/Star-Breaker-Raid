@@ -1,4 +1,3 @@
-import HeaderField from '@/components/header/headerField'
 import RaidListField from '@/components/raidPostField/raidListField'
 import Section from '@/components/utils/section'
 
@@ -9,7 +8,6 @@ interface raidPost {
 export default function Raidpost({ params: { id } }: raidPost) {
   return (
     <>
-      <HeaderField />
       <Section>
         <main className='flex min-h-screen w-full flex-col items-center'>
           <RaidListField postId={id} />

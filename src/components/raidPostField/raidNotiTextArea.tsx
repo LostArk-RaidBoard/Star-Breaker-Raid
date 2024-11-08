@@ -10,7 +10,6 @@ export default function RaidNotiTextArea({ postNoti }: Props) {
   const [noti, setNoti] = useState('')
 
   useEffect(() => {
-    console.log(postNoti)
     setNoti(postNoti)
   }, [postNoti])
   return (

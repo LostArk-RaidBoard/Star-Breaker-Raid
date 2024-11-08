@@ -4,7 +4,7 @@ import Link from 'next/link'
 export default function Logo() {
   return (
     <div className='flex items-center text-white'>
-      <Link href='/' className='relative h-[35px] w-[35px]'>
+      <Link href='/' className='relative h-[35px] w-[35px]' scroll={false}>
         <Image
           src={'/logo/favicon.png'}
           alt='Logo 이미지'
