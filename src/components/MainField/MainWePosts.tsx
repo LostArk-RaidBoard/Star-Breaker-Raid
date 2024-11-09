@@ -47,21 +47,6 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
     }
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      await wePostTage()
-    }
-    // 1분 후에 첫 번째 호출
-    const timeout = setTimeout(() => {
-      fetchPosts()
-      // 이후 1분마다 호출
-      const interval = setInterval(fetchPosts, 60000)
-      return () => clearInterval(interval) // 타이머 정리
-    }, 60000)
-
-    return () => clearTimeout(timeout) // 컴포넌트 언마운트 시 타이머 정리
-  }, [])
-
   return (
     <div className='flex h-full w-full flex-col md:w-1/2'>
       <div className='bg-[#f9fafb]'>
