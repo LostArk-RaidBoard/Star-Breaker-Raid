@@ -5,8 +5,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
-import MainWePosts from '@/components/MainField/MainWePosts'
-import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import MainMyPostsSchedule from '@/components/MainField/MainMyPostsSchedule'
 
 interface RaidPost {
   post_id: number
@@ -88,7 +87,7 @@ export default async function MainField() {
 
         <div className='flex h-[650px] w-full flex-col gap-4 md:h-[330px] md:flex-row xl:h-full'>
           <MainTeacherPosts />
-          <MainWePosts />
+          <MainMyPostsSchedule userId={userId} />
         </div>
       </div>
       <div className='mt-8 h-24 w-full overflow-hidden'>

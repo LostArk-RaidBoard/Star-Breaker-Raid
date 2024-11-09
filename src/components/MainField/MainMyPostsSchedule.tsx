@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
-import { useSession } from 'next-auth/react'
 
 interface RaidMyPost {
   post_id: number
@@ -28,9 +27,12 @@ interface RaidMyPost {
   applicant_count: number
 }
 
-export default function MainWePosts() {
+interface Props {
+  userId: string
+}
+
+export default function MainMyPostsSchedule({ userId }: Props) {
   const [wePostsRows, setWePostsRows] = useState<RaidMyPost[]>([])
-  const { data: session } = useSession()
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageination()
 
@@ -47,7 +49,7 @@ export default function MainWePosts() {
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   useEffect(() => {
-    const fetchWePosts = async (userId: string) => {
+    const fetchMainMyPostsSchedule = async (userId: string) => {
       try {
         const response = await fetch(`${process.env.API_URL}/api/mainMyPost?user_id=${userId}`, {
           method: 'GET',
@@ -70,10 +72,10 @@ export default function MainWePosts() {
       }
     }
 
-    if (session?.user?.id) {
-      fetchWePosts(session.user.id)
+    if (userId != '') {
+      fetchMainMyPostsSchedule(userId)
     }
-  }, [session])
+  }, [userId])
 
   return (
     <div className='flex h-full w-full flex-col md:w-1/2'>
