@@ -16,7 +16,6 @@ interface RaidPost {
   user_id: string
   post_position: string
   noti: string
-  character_level: string
   character_name: string
   raid_limitperson: number
   raid_type: string
