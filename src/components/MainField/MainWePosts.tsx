@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
-import { wePostTage } from '@/app/action'
 
 interface RaidMyPost {
   post_id: number
