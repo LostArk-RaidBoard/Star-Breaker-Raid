@@ -1,11 +1,12 @@
 'use client'
-import CharacterSelect from '@/components/select/CharacterSelect'
+
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Loading from '@image/icon/loading.svg'
 import { useSession } from 'next-auth/react'
+import Under from '@image/icon/under.svg'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface CharacterInfo {
@@ -24,31 +25,51 @@ interface CharacterInfo {
   disable: boolean
 }
 
-interface Props {
-  getCharacterList: CharacterInfo[]
-}
-
-export default function MainCharacter({ getCharacterList }: Props) {
+export default function MainCharacter() {
   const { data: session } = useSession()
-  const { characterInfo, setCharacterAllList } = useCharacterInfoList()
-  const [loading, setLoading] = useState(false)
   const [mainNickName, setMainNickName] = useState('마이페이지-내정보-닉네임 설정')
+  const [loading, setLoading] = useState(false)
+  const [userId, setUserId] = useState('')
+
+  const { setCharacterInfo, characterInfo, setCharacterAllList, characterAllList } =
+    useCharacterInfoList()
+  const [hidden, setHidden] = useState(true)
+  const handler = (name: string) => {
+    const selectedCharacter = characterAllList.find((char) => char.character_name === name)
+    if (selectedCharacter) {
+      setCharacterInfo([selectedCharacter])
+      setHidden(!hidden)
+    }
+  }
+  const handlerHidden = () => {
+    setHidden(!hidden)
+  }
 
   useEffect(() => {
-    setLoading(true)
-    const fetchCharacterData = async () => {
+    const characterHandelr = async () => {
       if (session && session.user.id) {
-        session.user.nickName
-        setCharacterAllList(getCharacterList)
         if (session.user.nickName != '') {
           setMainNickName(session.user.nickName)
+          setUserId(session.user.id)
         }
+        const getCharacterList: CharacterInfo[] = await UtileCharacterDataFetch(userId)
+        setCharacterAllList(getCharacterList)
       }
-      setLoading(false)
+    }
+    setLoading(true)
+    characterHandelr()
+    setLoading(false)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
+
+  useEffect(() => {
+    if (characterAllList.length > 0) {
+      setCharacterInfo([characterAllList[0]])
     }
 
-    fetchCharacterData() // 비동기 함수 호출
-  }, [session, setCharacterAllList, getCharacterList])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [characterAllList])
 
   return (
     <>
@@ -57,7 +78,7 @@ export default function MainCharacter({ getCharacterList }: Props) {
           <Loading className='h-12 w-12 animate-spin text-white' />
         </div>
       )}
-      {session && session.user.id ? (
+      {userId != '' ? (
         <div className='flex h-full w-full flex-col'>
           <div className='flex items-center gap-2 text-white'>
             <Image
@@ -69,7 +90,56 @@ export default function MainCharacter({ getCharacterList }: Props) {
             />
             <span>{mainNickName}</span>
           </div>
-          <CharacterSelect />
+          <div className='relative mt-3 w-full'>
+            {characterInfo[0] ? (
+              <>
+                <button
+                  className='flex h-16 w-full items-center justify-between rounded-md border border-gray-300 px-1 shadow-md'
+                  onClick={handlerHidden}
+                >
+                  <div className='flex w-full items-center gap-4 overflow-hidden truncate whitespace-nowrap'>
+                    <div className='h-12 w-12 overflow-hidden rounded-full'>
+                      <Image
+                        src={characterInfo[0].class_image}
+                        alt='클래스 캐릭터 이미지'
+                        width={70}
+                        height={70}
+                        className='h-full w-full object-cover'
+                      />
+                    </div>
+                    <span className='overflow-hidden truncate whitespace-nowrap text-lg text-white'>
+                      {characterInfo[0].character_name}
+                    </span>
+                  </div>
+                  <Under className='h-4 w-4 text-white' />
+                </button>
+                <div
+                  className={`absolute left-0 top-full z-10 mt-1 w-full rounded-md bg-white shadow-md ${hidden ? 'hidden' : ''}`}
+                >
+                  {characterAllList.map((char) => (
+                    <div
+                      key={char.character_name}
+                      className='flex cursor-pointer items-center gap-4 p-2 hover:rounded-md hover:bg-gray-200'
+                      onClick={() => handler(char.character_name)}
+                    >
+                      <div className='h-12 w-12 overflow-hidden rounded-full'>
+                        <Image
+                          src={char.class_image}
+                          alt='클래스 캐릭터 이미지'
+                          width={70}
+                          height={70}
+                          className='h-full w-full object-cover'
+                        />
+                      </div>
+                      <span className='text-black'>{char.character_name}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <span className='text-white'>캐릭터가 없습니다.</span>
+            )}
+          </div>
           {characterInfo[0] ? (
             <>
               <div className='mt-2 flex w-full flex-col items-center text-white md:flex-row md:gap-4 xl:mt-4 xl:w-full xl:flex-col'>
