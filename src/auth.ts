@@ -50,7 +50,6 @@ export const authOptions = {
       authorization: {
         params: {
           scope: 'openid email profile https://www.googleapis.com/auth/user.birthday.read',
-          prompt: 'consent',
         },
       },
     }),

@@ -6,41 +6,7 @@ import { authOptions } from '@/auth'
 import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainMyPostsSchedule from '@/components/MainField/MainMyPostsSchedule'
-
-interface RaidPost {
-  post_id: number
-  raid_name: string
-  raid_time: any
-  limit_level: number
-  user_id: string
-  post_position: string
-  noti: string
-  character_name: string
-  raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
-  character_classicon: string
-  applicant_count: number
-  nickname: string
-}
-
-interface RaidMyPost {
-  post_id: number
-  raid_name: string
-  raid_time: any
-  limit_level: number
-  user_id: string
-  post_position: string
-  noti: string
-  character_name: string
-  raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
-  character_classicon: string
-  character_image: string
-  approval: boolean
-  applicant_count: number
-}
+import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface CharacterInfo {
   character_name: string
@@ -58,24 +24,19 @@ interface CharacterInfo {
   disable: boolean
 }
 
-interface RaidGuide {
-  guide_id: number
-  guide_name: string
-  youtube_url: string
-  image_url: string
-  create_at: string
-  update_at: string
-  raid_main_image: string
-  role_id: number
-  like_count: number
-}
-
 export default async function MainField() {
   let userId = 'no'
+  let userNickName = ''
 
   const session = await getServerSession(authOptions)
   if (session && session.user.id) {
     userId = session.user.id
+    userNickName = session.user.nickName
+  }
+
+  let getCharacterList: CharacterInfo[] = []
+  if (userId != 'no') {
+    getCharacterList = await UtileCharacterDataFetch(userId)
   }
 
   return (
