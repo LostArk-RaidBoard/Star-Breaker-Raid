@@ -30,6 +30,7 @@ export default function MainCharacter() {
   const [mainNickName, setMainNickName] = useState('마이페이지-내정보-닉네임 설정')
   const [loading, setLoading] = useState(false)
   const [userId, setUserId] = useState('')
+  const [getCharacterList, setGetCharaacterList] = useState<CharacterInfo[]>([])
 
   const { setCharacterInfo, characterInfo, setCharacterAllList, characterAllList } =
     useCharacterInfoList()
@@ -47,29 +48,28 @@ export default function MainCharacter() {
 
   useEffect(() => {
     const characterHandelr = async () => {
-      if (session && session.user.id) {
-        if (session.user.nickName != '') {
-          setMainNickName(session.user.nickName)
-          setUserId(session.user.id)
-        }
-        const getCharacterList: CharacterInfo[] = await UtileCharacterDataFetch(userId)
-        setCharacterAllList(getCharacterList)
-      }
+      const getCharacterList: CharacterInfo[] = await UtileCharacterDataFetch(userId)
+      setGetCharaacterList(getCharacterList)
     }
     setLoading(true)
-    characterHandelr()
+    if (session && session.user.id) {
+      if (session.user.nickName != '') {
+        setMainNickName(session.user.nickName)
+        setUserId(session.user.id)
+      }
+      characterHandelr()
+      console.log(characterAllList)
+    }
     setLoading(false)
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session])
+  }, [session, userId])
 
   useEffect(() => {
-    if (characterAllList.length > 0) {
+    if (getCharacterList.length > 0) {
       setCharacterInfo([characterAllList[0]])
+      setCharacterAllList(getCharacterList)
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [characterAllList])
+  }, [characterAllList, getCharacterList, setCharacterAllList, setCharacterInfo])
 
   return (
     <>
