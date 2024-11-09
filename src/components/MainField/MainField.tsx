@@ -71,36 +71,6 @@ interface RaidGuide {
   like_count: number
 }
 
-/**
- * mainMainPost get
- * @returns 나의 일정 모집글 반환
- */
-const fetchMinPostsFetch = async (userId: string): Promise<RaidMyPost[]> => {
-  console.log('mainPostFetch test')
-  try {
-    const response = await fetch(`${process.env.API_URL}/api/mainMyPost?user_id=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next: { tags: ['wePost', 'applicationList'] },
-    })
-    console.log('mainMainPost fetch')
-    const data = await response.json()
-    if (response.ok) {
-      return data.postRows.map((post: RaidMyPost) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
-    } else {
-      return []
-    }
-  } catch (error) {
-    console.error('fetchWePost Error' + error)
-  }
-  return []
-}
-
 export default async function MainField() {
   let userId = 'no'
 
@@ -108,8 +78,6 @@ export default async function MainField() {
   if (session && session.user.id) {
     userId = session.user.id
   }
-
-  const postsWeRows: RaidMyPost[] = await fetchMinPostsFetch(userId)
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
@@ -120,7 +88,7 @@ export default async function MainField() {
 
         <div className='flex h-[650px] w-full flex-col gap-4 md:h-[330px] md:flex-row xl:h-full'>
           <MainTeacherPosts />
-          <MainWePosts wePostsRows={postsWeRows} />
+          <MainWePosts />
         </div>
       </div>
       <div className='mt-8 h-24 w-full overflow-hidden'>

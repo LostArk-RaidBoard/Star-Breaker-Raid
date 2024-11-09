@@ -26,39 +26,6 @@ interface RaidPost {
   nickname: string
 }
 
-interface Props {
-  teacherPostsRows: RaidPost[]
-}
-
-/**
- * teacher Post get
- * @returns
- */
-const fetchTeacherPosts = async () => {
-  try {
-    const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=teacher`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next: { tags: ['wePost'] },
-    })
-    const data = await response.json()
-    console.log('Teacher Post Fetch')
-    if (response.ok) {
-      return data.postRows.map((post: RaidPost) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
-    } else {
-      return []
-    }
-  } catch (error) {
-    console.error('fetchTeacherPost Error' + error)
-  }
-  return [] // 오류 발생 시 빈 배열 반환
-}
-
 export default function MainTeacherPosts() {
   const [teacherPostsRows, setTeacherPostsRows] = useState<RaidPost[]>([])
 
@@ -78,38 +45,26 @@ export default function MainTeacherPosts() {
   }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   useEffect(() => {
-    /**
-     * teacher Post get
-     * @returns
-     */
     const fetchTeacherPosts = async () => {
       try {
-        const response = await fetch(
-          `${process.env.API_URL}/api/raidPostGet?posts_position=teacher`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            next: { tags: ['wePost'] },
+        const response = await fetch(`/api/raidPostGet?posts_position=teacher`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
-        const data = await response.json()
-        console.log('Teacher Post Fetch')
-        if (response.ok) {
-          setTeacherPostsRows(
-            data.postRows.map((post: RaidPost) => ({
-              ...post,
-              raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-            })),
-          )
-        } else {
-          return setTeacherPostsRows([])
+        })
+        if (!response.ok) {
+          throw new Error('Failed to fetch data')
         }
+        const data = await response.json()
+        const formattedData = data.postRows.map((post: RaidPost) => ({
+          ...post,
+          raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+        }))
+        setTeacherPostsRows(formattedData) // 데이터를 상태에 저장
       } catch (error) {
-        console.error('fetchTeacherPost Error' + error)
+        console.error('fetchTeacherPost Error:', error)
       }
-      return [] // 오류 발생 시 빈 배열 반환
     }
 
     fetchTeacherPosts()

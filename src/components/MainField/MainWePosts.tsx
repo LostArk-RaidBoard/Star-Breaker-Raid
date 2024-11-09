@@ -4,9 +4,11 @@ import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
+import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import { useSession } from 'next-auth/react'
 
 interface RaidMyPost {
   post_id: number
@@ -26,11 +28,9 @@ interface RaidMyPost {
   applicant_count: number
 }
 
-interface MainWePostsProps {
-  wePostsRows: RaidMyPost[]
-}
-
-export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
+export default function MainWePosts() {
+  const [wePostsRows, setWePostsRows] = useState<RaidMyPost[]>([])
+  const { data: session } = useSession()
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageination()
 
@@ -45,6 +45,35 @@ export default function MainWePosts({ wePostsRows }: MainWePostsProps) {
       setItemsPerPage(5)
     }
   }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
+
+  useEffect(() => {
+    const fetchWePosts = async (userId: string) => {
+      try {
+        const response = await fetch(`${process.env.API_URL}/api/mainMyPost?user_id=${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (!response.ok) throw new Error('Failed to fetch data')
+
+        const data = await response.json()
+        const formattedData = data.postRows.map((post: RaidMyPost) => ({
+          ...post,
+          raid_time: convertToKoreanTime(post.raid_time),
+        }))
+        setWePostsRows(formattedData)
+      } catch (error) {
+        console.error('fetchWePosts Error:', error)
+        setWePostsRows([])
+      }
+    }
+
+    if (session?.user?.id) {
+      fetchWePosts(session.user.id)
+    }
+  }, [session])
 
   return (
     <div className='flex h-full w-full flex-col md:w-1/2'>

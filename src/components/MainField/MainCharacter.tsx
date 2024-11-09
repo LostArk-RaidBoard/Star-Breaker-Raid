@@ -58,7 +58,6 @@ export default function MainCharacter() {
         setUserId(session.user.id)
       }
       characterHandelr()
-      console.log(characterAllList)
     }
     setLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
