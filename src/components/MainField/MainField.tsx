@@ -7,7 +7,6 @@ import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainWePosts from '@/components/MainField/MainWePosts'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
-import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface RaidPost {
   post_id: number
@@ -73,35 +72,6 @@ interface RaidGuide {
 }
 
 /**
- * teacher Post get
- * @returns
- */
-const fetchTeacherPosts = async () => {
-  try {
-    const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=teacher`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next: { tags: ['wePost'] },
-    })
-    const data = await response.json()
-    console.log('Teacher Post Fetch')
-    if (response.ok) {
-      return data.postRows.map((post: RaidPost) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
-    } else {
-      return []
-    }
-  } catch (error) {
-    console.error('fetchTeacherPost Error' + error)
-  }
-  return [] // 오류 발생 시 빈 배열 반환
-}
-
-/**
  * mainMainPost get
  * @returns 나의 일정 모집글 반환
  */
@@ -140,7 +110,6 @@ export default async function MainField() {
   }
 
   const postsWeRows: RaidMyPost[] = await fetchMinPostsFetch(userId)
-  const postsTeacherRows: RaidPost[] = await fetchTeacherPosts() // 포스트 데이터 가져오기
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
@@ -150,7 +119,7 @@ export default async function MainField() {
         </div>
 
         <div className='flex h-[650px] w-full flex-col gap-4 md:h-[330px] md:flex-row xl:h-full'>
-          <MainTeacherPosts teacherPostsRows={postsTeacherRows} />
+          <MainTeacherPosts />
           <MainWePosts wePostsRows={postsWeRows} />
         </div>
       </div>
