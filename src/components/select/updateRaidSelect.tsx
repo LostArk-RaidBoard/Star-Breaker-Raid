@@ -14,7 +14,6 @@ export default function UpdateRaidSelect({ raidSelected }: Props) {
   }
 
   useEffect(() => {
-    console.log('Initial raidSelected:', raidSelected)
     setRaidSelect(raidSelected)
   }, [raidSelected, setRaidSelect])
 

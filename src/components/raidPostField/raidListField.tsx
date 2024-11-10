@@ -102,8 +102,8 @@ export default async function RaidListField({ postId }: Props) {
     <div className='flex h-full w-full flex-col items-center justify-center'>
       {postData ? (
         <>
-          {session && session.user.id ? (
-            <div className='mb-2 flex w-full items-center justify-end gap-4'>
+          {session && session.user.id === postData.user_id ? (
+            <div className={`mb-2 flex w-full items-center justify-end gap-4`}>
               <RaidPostDeleteButton postId={postId} />
               <Link
                 href={`/raidpost/update/${postId}`}
@@ -138,7 +138,15 @@ export default async function RaidListField({ postId }: Props) {
           </div>
         </>
       ) : (
-        <div>포스트를 찾을 수 없습니다.</div>
+        <div className='flex min-h-screen flex-col gap-4'>
+          <span>포스트를 찾을 수 없습니다.</span>
+          <Link
+            href={'/raidpost'}
+            className='flex items-center justify-center rounded-md bg-gray-900 p-3 px-2 text-white'
+          >
+            모집글로 돌아가기
+          </Link>
+        </div>
       )}
     </div>
   )
