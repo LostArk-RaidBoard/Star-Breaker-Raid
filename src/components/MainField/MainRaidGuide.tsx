@@ -44,7 +44,10 @@ export default async function MainRaidGuide({ userId }: Props) {
   return (
     <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
       {raideGuide.map((item: RaidGuide, key: number) => (
-        <div className='h-72 rounded-md' key={key}>
+        <div
+          className='h-72 justify-center overflow-ellipsis whitespace-nowrap rounded-md'
+          key={key}
+        >
           <div className='h-[90%] w-full rounded-md'>
             <Link href={`/raidguide/${item.guide_id}`}>
               <Image
@@ -58,7 +61,7 @@ export default async function MainRaidGuide({ userId }: Props) {
               />
             </Link>
           </div>
-          <span className='flex w-full justify-center text-lg font-medium text-[#222222]'>
+          <span className='flex w-full justify-center overflow-hidden truncate whitespace-nowrap text-lg font-medium text-[#222222]'>
             ✨ {item.guide_name} 공략 ✨
           </span>
         </div>
