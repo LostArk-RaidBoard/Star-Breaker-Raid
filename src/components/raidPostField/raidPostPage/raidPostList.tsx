@@ -65,7 +65,10 @@ export default function RaidPostList({ raidPost }: Props) {
 
   return (
     <div className='flex h-full w-full flex-col'>
-      <div id='Postbar' className='flex h-12 w-full flex-col items-center bg-blue-100 sm:flex-row'>
+      <div
+        id='Postbar'
+        className='flex h-20 w-full flex-col items-center justify-center bg-blue-100 sm:h-12 sm:flex-row'
+      >
         <div className='flex flex-row items-center'>
           <button
             aria-label='전체 선택 버튼'
