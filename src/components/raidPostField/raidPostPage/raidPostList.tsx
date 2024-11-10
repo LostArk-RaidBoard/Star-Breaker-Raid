@@ -64,12 +64,12 @@ export default function RaidPostList({ raidPost }: Props) {
   }, [selectMenu, raidPost])
 
   return (
-    <div className='mt-4 flex h-full w-full flex-col'>
-      <div id='Postbar' className='flex w-full flex-col items-center sm:flex-row'>
+    <div className='flex h-full w-full flex-col'>
+      <div id='Postbar' className='flex h-12 w-full flex-col items-center bg-blue-100 sm:flex-row'>
         <div className='flex flex-row items-center'>
           <button
             aria-label='전체 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'all' ? 'bg-gray-200' : ''} `}
+            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'all' ? 'bg-gray-900 text-white' : ''} `}
             onClick={() => {
               setSelectMenu('all')
             }}
@@ -78,7 +78,7 @@ export default function RaidPostList({ raidPost }: Props) {
           </button>
           <button
             aria-label='선생님 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'teacher' ? 'bg-gray-200' : ''} `}
+            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'teacher' ? 'bg-gray-900 text-white' : ''} `}
             onClick={() => {
               setSelectMenu('teacher')
             }}
@@ -87,7 +87,7 @@ export default function RaidPostList({ raidPost }: Props) {
           </button>
           <button
             aria-label='유저 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'user' ? 'bg-gray-200' : ''} `}
+            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'user' ? 'bg-gray-900 text-white' : ''} `}
             onClick={() => {
               setSelectMenu('user')
             }}
@@ -96,7 +96,7 @@ export default function RaidPostList({ raidPost }: Props) {
           </button>
           <button
             aria-label='학원 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '학원' ? 'bg-gray-200' : ''} `}
+            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '학원' ? 'bg-gray-900 text-white' : ''} `}
             onClick={() => {
               setSelectMenu('학원')
             }}
@@ -107,7 +107,7 @@ export default function RaidPostList({ raidPost }: Props) {
         <div className='flex flex-row items-center'>
           <button
             aria-label='트라이 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '트라이' ? 'bg-gray-200' : ''} `}
+            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '트라이' ? 'bg-gray-900 text-white' : ''} `}
             onClick={() => {
               setSelectMenu('트라이')
             }}
@@ -116,7 +116,7 @@ export default function RaidPostList({ raidPost }: Props) {
           </button>
           <button
             aria-label='클경 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '클경' ? 'bg-gray-200' : ''} `}
+            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '클경' ? 'bg-gray-900 text-white' : ''} `}
             onClick={() => {
               setSelectMenu('클경')
             }}
@@ -125,7 +125,7 @@ export default function RaidPostList({ raidPost }: Props) {
           </button>
           <button
             aria-label='반숙 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '반숙' ? 'bg-gray-200' : ''} `}
+            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '반숙' ? 'bg-gray-900 text-white' : ''} `}
             onClick={() => {
               setSelectMenu('반숙')
             }}
@@ -134,7 +134,7 @@ export default function RaidPostList({ raidPost }: Props) {
           </button>
           <button
             aria-label='숙련 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '숙련' ? 'bg-gray-200' : ''} `}
+            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '숙련' ? 'bg-gray-900 text-white' : ''} `}
             onClick={() => {
               setSelectMenu('숙련')
             }}
@@ -144,7 +144,7 @@ export default function RaidPostList({ raidPost }: Props) {
         </div>
       </div>
       <div className='mb-4 flex h-full w-full flex-col items-center'>
-        <div className='mt-4 grid h-12 w-full grid-cols-6 rounded-md border-b border-t font-bold sm:grid-cols-9'>
+        <div className='grid h-12 w-full grid-cols-6 rounded-md border-b font-bold sm:grid-cols-9'>
           <div className='flex items-center justify-center'>
             <span className='overflow-hidden truncate whitespace-nowrap'>role</span>
           </div>
