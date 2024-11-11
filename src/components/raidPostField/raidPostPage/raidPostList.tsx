@@ -67,7 +67,7 @@ export default function RaidPostList({ raidPost }: Props) {
     <div className='flex h-full w-full flex-col'>
       <div
         id='Postbar'
-        className='flex h-20 w-full flex-col items-center justify-center bg-gray-200 sm:h-12 sm:flex-row'
+        className='flex h-20 w-full flex-col items-center justify-center bg-gray-200 sm:h-12 sm:flex-row sm:justify-start sm:px-3'
       >
         <div className='flex flex-row items-center'>
           <button
