@@ -1,5 +1,6 @@
+import RaidGuideImage from '@/components/raidGuideField/raidGudieImage'
 import RaidGudiePlayer from '@/components/raidGuideField/raidGuideVideo'
-import Image from 'next/image'
+
 interface Props {
   raideGuide: {
     guide_id: number
@@ -27,26 +28,7 @@ export default function RaidGuidedIdField({ raideGuide }: Props) {
       <RaidGudiePlayer raideYoutubeURLsArray={raideYoutubeURLsArray} />
 
       <h3 className='mt-4 text-xl'>* 컨닝페이퍼</h3>
-
-      <div className='mt-2 grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2'>
-        {raideImageArray.map((imageUrl, key: number) => (
-          <div className='relative w-full p-4' key={key}>
-            <Image
-              src={imageUrl as string}
-              alt={'컨닝페이퍼'}
-              width={800} // fill 대신 width와 height 설정
-              height={1189}
-              style={{
-                maxWidth: '100%', // max-width 적용
-                height: 'auto', // height auto 적용
-                border: 0, // border 제거
-              }}
-              className='object-cover'
-              loading='lazy'
-            />
-          </div>
-        ))}
-      </div>
+      <RaidGuideImage raideImageArray={raideImageArray} />
     </div>
   )
 }
