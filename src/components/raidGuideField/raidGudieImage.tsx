@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 interface Props {
   raideImageArray: string[]
@@ -18,13 +18,11 @@ export default function RaidGuideImage({ raideImageArray }: Props) {
     setIsFullscreen(true)
     setScale(1)
     setOffset({ x: 0, y: 0 })
-    document.body.style.overflow = 'hidden' // 배경 스크롤 방지
   }
 
   const closeFullscreen = () => {
     setIsFullscreen(false)
     setCurrentImage(null)
-    document.body.style.overflow = 'auto' // 배경 스크롤 복구
   }
 
   const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -46,6 +44,19 @@ export default function RaidGuideImage({ raideImageArray }: Props) {
   const handleMouseUp = () => {
     setIsDragging(false)
   }
+
+  useEffect(() => {
+    if (isFullscreen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    // 컴포넌트 언마운트 시 스크롤 상태 복원
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [isFullscreen])
   return (
     <>
       <div className='mt-2 grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2'>
