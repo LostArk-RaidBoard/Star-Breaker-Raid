@@ -6,23 +6,6 @@ import { authOptions } from '@/auth'
 import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainMyPostsSchedule from '@/components/MainField/MainMyPostsSchedule'
-import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
-
-interface CharacterInfo {
-  character_name: string
-  user_id: string
-  character_level: string
-  character_class: string
-  server_name: string
-  class_image: string
-  class_icon_url: string
-  transcendence: number
-  elixir: number
-  leap: number
-  enlightenment: number
-  evolution: number
-  disable: boolean
-}
 
 export default async function MainField() {
   let userId = 'no'
@@ -32,11 +15,6 @@ export default async function MainField() {
   if (session && session.user.id) {
     userId = session.user.id
     userNickName = session.user.nickName
-  }
-
-  let getCharacterList: CharacterInfo[] = []
-  if (userId != 'no') {
-    getCharacterList = await UtileCharacterDataFetch(userId)
   }
 
   return (

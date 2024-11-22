@@ -15,7 +15,7 @@ export default function RaidLevel(raidName: string) {
     return 1660
   }
 
-  if (raidName === '베히모스') {
+  if (raidName === '베히모스 노말') {
     return 1640
   }
 
