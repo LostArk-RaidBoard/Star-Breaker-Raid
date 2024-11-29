@@ -41,8 +41,14 @@ export default function RaidSelect() {
         <option className='text-base' value='서막 에키드나 노말'>
           서막 에키드나 노말
         </option>
-        <option className='text-base' value='카멘 하드'>
-          카멘 하드
+        <option className='text-base' value='카멘 하드 1~4관'>
+          카멘 하드 1~4관
+        </option>
+        <option className='text-base' value='카멘 하드 4관'>
+          카멘 하드 4관
+        </option>
+        <option className='text-base' value='카멘 하드 1~3관'>
+          카멘 하드 1~3관
         </option>
         <option className='text-base' value='카멘 노말'>
           카멘 노말

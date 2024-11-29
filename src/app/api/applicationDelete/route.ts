@@ -6,13 +6,29 @@ export async function DELETE(req: Request) {
   const post_id = url.searchParams.get('post_id')
   const userId = url.searchParams.get('user_id')
 
-  if (!post_id && !userId) {
+  if (!post_id || !userId) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
 
   try {
+    const res1 = await sql`SELECT applicants_list.character_name, raid_posts.raid_name
+FROM applicants_list 
+LEFT JOIN raid_posts ON applicants_list.post_id = raid_posts.post_id 
+        WHERE applicants_list.post_id = ${post_id} AND applicants_list.user_id =${userId}`
+    if (res1.rows.length === 0) {
+      return new Response(JSON.stringify({ message: '해당하는 데이터가 없습니다.' }), {
+        status: 404,
+      })
+    }
+    console.log(res1.rows)
+    const raid_name = res1.rows[0].raid_name
+    const character_name = res1.rows[0].character_name
+
     const res =
       await sql`DELETE FROM applicants_list WHERE user_id = ${userId} AND post_id = ${post_id}`
+
+    const response =
+      await sql`DELETE FROM schedule WHERE user_id = ${userId} AND raid_name = ${raid_name} AND character_name = ${character_name}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,

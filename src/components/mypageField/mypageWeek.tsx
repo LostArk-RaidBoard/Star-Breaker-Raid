@@ -95,9 +95,9 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
           <span>신청, 승인</span>
         </div>
       </div>
-      <div className='mt-2 grid w-full grid-cols-2 rounded-sm border-2 border-gray-800 sm:grid-cols-4 lg:grid-cols-8'>
+      <div className='mt-2 grid w-full grid-cols-2 rounded-sm border-2 border-gray-300 sm:grid-cols-4 lg:grid-cols-8'>
         {[
-          '수요일 (6시~)',
+          '수요일 (10시~)',
           '목요일',
           '금요일',
           '토요일',
@@ -106,9 +106,9 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
           '화요일',
           '수요일 (~6시)',
         ].map((day, index) => (
-          <div key={day} className={`flex min-h-48 flex-col border border-gray-800 p-1`}>
+          <div key={day} className={`flex min-h-80 flex-col border border-gray-300`}>
             <span
-              className={`${index === 3 || index === 4 ? 'text-red-500' : ''} text-sm font-bold`}
+              className={`${index === 3 || index === 4 ? 'text-red-500' : ''} bg-gray-200 p-1 text-base font-bold`}
             >
               {day}
             </span>

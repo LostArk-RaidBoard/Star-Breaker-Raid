@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import { wePostTage } from '@/app/action'
+import RaidGold from '@/components/utils/raidGold'
 
 export default function RaidPostCreateButton() {
   const router = useRouter()
@@ -90,6 +91,7 @@ export default function RaidPostCreateButton() {
         raid_type: raidType,
         raid_maxtime: raidMaxTime,
         character_image: characterInfo[0].class_image,
+        raid_gold: RaidGold(raidSelect),
       }
       const response = await fetch('/api/raidPostSave', {
         method: 'POST',
