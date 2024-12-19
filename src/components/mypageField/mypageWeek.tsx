@@ -88,10 +88,10 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
             {daysArray[index]?.map((item) => {
               // approval 속성이 있는지 확인
               let bgColorClass = 'bg-gray-200' // 기본 색상
-              const raidTime = toKST(new Date(item.schedule_time)) // KST로 변환
+              const raidTime = new Date(item.schedule_time) // KST로 변환
 
               // 현재 날짜를 KST로 변환
-              const now = toKST(new Date())
+              const now = new Date()
 
               const raidDate = new Date(
                 raidTime.getFullYear(),

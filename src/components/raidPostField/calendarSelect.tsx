@@ -30,7 +30,7 @@ export default function CalendarSelect() {
   const nextWednesday = addDays(thisWednesday, 7) // 다음주 수요일
 
   // 선택 가능한 날짜 범위 설정
-  let minDate = today // 기본값 설정
+  let minDate = thisWednesday // 기본값 설정
   let maxDate = nextWednesday // 기본값 설정
   let minTime = setHours(setMinutes(thisWednesday, 0), 0) // 기본 minTime
   let maxTime = setHours(setMinutes(nextWednesday, 59), 23) // 기본 maxTime
