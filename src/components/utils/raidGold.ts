@@ -24,6 +24,10 @@ export default function RaidGold(raidName: string) {
   }
 
   if (raidName === '서막 에키드나 노말') {
+    return 11600
+  }
+
+  if (raidName === '서막 에키드나 싱글') {
     return 14500
   }
 
@@ -43,12 +47,20 @@ export default function RaidGold(raidName: string) {
     return 10000
   }
 
+  if (raidName === '카멘 싱글') {
+    return 8000
+  }
+
   if (raidName === '상아탑 하드') {
     return 10500
   }
 
   if (raidName === '상아탑 노말') {
     return 6500
+  }
+
+  if (raidName === '상아탑 싱글') {
+    return 5200
   }
 
   if (raidName === '일리아칸 하드') {
@@ -58,12 +70,21 @@ export default function RaidGold(raidName: string) {
   if (raidName === '일리아칸 노말') {
     return 5400
   }
+
+  if (raidName === '일리아칸 싱글') {
+    return 4320
+  }
+
   if (raidName === '카양겔 하드') {
     return 4800
   }
 
   if (raidName === '카양겔 노말') {
     return 3600
+  }
+
+  if (raidName === '카양겔 싱글') {
+    return 2880
   }
 
   if (raidName === '아브렐슈드 하드') {
@@ -74,8 +95,16 @@ export default function RaidGold(raidName: string) {
     return 4600
   }
 
+  if (raidName === '아브렐슈드 싱글') {
+    return 3680
+  }
+
   if (raidName === '쿠크세이튼 노말') {
     return 3000
+  }
+
+  if (raidName === '쿠크세이튼 싱글') {
+    return 2400
   }
 
   if (raidName === '비아키스 하드') {
@@ -86,11 +115,18 @@ export default function RaidGold(raidName: string) {
     return 1600
   }
 
+  if (raidName === '비아키스 싱글') {
+    return 1280
+  }
+
   if (raidName === '발탄 하드') {
     return 1800
   }
   if (raidName === '발탄 노말') {
     return 1200
+  }
+  if (raidName === '발탄 싱글') {
+    return 960
   }
   return 0
 }

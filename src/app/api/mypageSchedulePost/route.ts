@@ -1,4 +1,4 @@
-'use sever'
+'use server'
 import { sql } from '@vercel/postgres'
 
 export async function POST(req: Request) {

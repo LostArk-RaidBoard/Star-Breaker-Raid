@@ -11,26 +11,7 @@ export async function GET(req: Request) {
 
   try {
     const res = await sql`
-      SELECT
-rp.*,
-al.character_check AS approval,
-COUNT(al2.post_id) + 1 AS applicant_count
-FROM
-raid_posts rp
-LEFT JOIN
-applicants_list al ON rp.post_id = al.post_id AND al.user_id = ${userId}
-LEFT JOIN
-applicants_list al2 ON rp.post_id = al2.post_id
-
-WHERE
-rp.user_id = ${userId} OR
-EXISTS (
-SELECT 1
-FROM applicants_list
-WHERE user_id = ${userId} AND post_id = rp.post_id
-)
-GROUP BY
-rp.post_id, al.character_check
+      SELECT * FROM schedule WHERE user_id = ${userId} AND (schedule_time AT TIME ZONE 'UTC')::date = CURRENT_DATE;
     `
 
     return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })

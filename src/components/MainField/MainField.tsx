@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import MainCharacter from '@/components/MainField/MainCharacter'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
-import MainMyPostsSchedule from '@/components/MainField/MainMyPostsSchedule'
+import MainMyPostsSchedule from '@/components/MainField/MainMySchedule'
 
 export default async function MainField() {
   let userId = 'no'

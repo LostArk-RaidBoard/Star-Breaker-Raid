@@ -1,5 +1,6 @@
 import AddScheduleButton from '@/components/button/addScheduleButton'
 import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
+import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
 import Image from 'next/image'
 
 interface Schedule {
@@ -8,6 +9,7 @@ interface Schedule {
   raid_gold: number
   character_name: string
   raid_name: string
+  gold_check: boolean
 }
 interface Props {
   weekSchedule: Schedule[]
@@ -43,7 +45,10 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
   let sumGold = 0
 
   weekSchedule.forEach((post) => {
-    sumGold += post.raid_gold
+    if (post.gold_check) {
+      sumGold += post.raid_gold
+    }
+
     const raidTime = toKST(new Date(post.schedule_time))
     const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
@@ -127,6 +132,12 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                     />
                   </div>
                   <span>{item.character_name}</span>
+                  <ScheduleGoldCheckBox
+                    goldCheck={item.gold_check}
+                    characterName={item.character_name}
+                    raidName={item.raid_name}
+                    userId={item.user_id}
+                  />
                 </div>
               )
             })}

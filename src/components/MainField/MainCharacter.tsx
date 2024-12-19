@@ -50,7 +50,7 @@ export default function MainCharacter() {
               height={30}
               className='p-1'
             />
-            <span>{mainNickName}</span>
+            <span>{mainNickName}님</span>
           </div>
           <CharacterSelect />
           {characterInfo[0] ? (

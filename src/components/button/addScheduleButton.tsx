@@ -4,6 +4,7 @@ import { createPostTage } from '@/app/action'
 import CalendarSelect from '@/components/raidPostField/calendarSelect'
 
 import RaidSelect from '@/components/select/raidSelect'
+import RaidSelectSchedule from '@/components/select/raidSelectSchedule'
 import raidGold from '@/components/utils/raidGold'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
@@ -79,7 +80,7 @@ export default function AddScheduleButton({ userId }: Props) {
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-30'>
           <div className='flex w-[300px] flex-col rounded-lg bg-white p-4 shadow-lg'>
             <h1 className='text-xl font-bold'>일정 추가</h1>
-            <RaidSelect />
+            <RaidSelectSchedule />
             <CalendarSelect />
             <span className='text-lg'>• 캐릭터 선택</span>
             <select
