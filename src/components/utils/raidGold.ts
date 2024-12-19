@@ -16,7 +16,7 @@ export default function RaidGold(raidName: string) {
   }
 
   if (raidName === '베히모스 노말') {
-    return 21500
+    return 18500
   }
 
   if (raidName === '서막 에키드나 하드') {
@@ -28,23 +28,23 @@ export default function RaidGold(raidName: string) {
   }
 
   if (raidName === '카멘 하드 1~4관') {
-    return 41000
+    return 23000
   }
 
   if (raidName === '카멘 하드 4관') {
-    return 21000
+    return 8000
   }
 
   if (raidName === '카멘 하드 1~3관') {
-    return 20000
+    return 15000
   }
 
   if (raidName === '카멘 노말') {
-    return 13000
+    return 10000
   }
 
   if (raidName === '상아탑 하드') {
-    return 13000
+    return 10500
   }
 
   if (raidName === '상아탑 노말') {

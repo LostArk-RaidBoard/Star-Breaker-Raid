@@ -11,7 +11,7 @@ export default function RaidSelect() {
 
   return (
     <div className='flex flex-col'>
-      <label className='text-lg'>레이드 선택</label>
+      <label className='text-lg'>• 레이드 선택</label>
       <select
         name='raidSelect'
         aria-label='레이드 선택 창'

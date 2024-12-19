@@ -38,6 +38,14 @@ interface RaidPostCreate {
   applicant_count: number
 }
 
+interface Schedule {
+  user_id: string
+  schedule_time: string
+  raid_gold: number
+  character_name: string
+  raid_name: string
+}
+
 const applicationPostGetHandler = async (userId: string) => {
   try {
     const response = await fetch(`${process.env.API_URL}/api/mypagePostGet?user_id=${userId}`, {
@@ -80,19 +88,38 @@ const createPostGetHandler = async (userId: string) => {
   }
 }
 
+const weekScheduleGetHandler = async (userId: string) => {
+  try {
+    const response = await fetch(`${process.env.API_URL}/api/mypageScheduleGet?user_id=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { tags: ['createPostTage'] },
+    })
+    const data = await response.json()
+    if (response.ok && response.status === 200) {
+      return data.postRows
+    } else {
+      return []
+    }
+  } catch (error) {
+    console.error(error)
+    return []
+  }
+}
+
 export default async function MyPostField() {
   const session = await getServerSession(authOptions)
   let userId = ''
   let applicationPostGet: RaidPost[] = []
   let createPostGet: RaidPostCreate[] = []
-  let createPostGetWeek: RaidPostCreate[] = []
-  let applicationPostGetWeek: RaidPost[] = []
+  let weekSchedule: Schedule[] = []
 
   if (session && session.user.id) {
     applicationPostGet = await applicationPostGetHandler(session.user.id)
-    applicationPostGetWeek = await applicationPostGetHandler(session.user.id)
     createPostGet = await createPostGetHandler(session.user.id)
-    createPostGetWeek = await createPostGetHandler(session.user.id)
+    weekSchedule = await weekScheduleGetHandler(session.user.id)
     userId = session.user.id
   }
 
@@ -117,7 +144,7 @@ export default async function MyPostField() {
         applicationPostGet={applicationPostGet}
         createPostGet={createPostGet}
       />
-      <MypageWeek applicationPostGet={applicationPostGetWeek} createPostGet={createPostGetWeek} />
+      <MypageWeek weekSchedule={weekSchedule} userId={userId} />
     </div>
   )
 }

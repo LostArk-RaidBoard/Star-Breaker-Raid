@@ -1,40 +1,17 @@
-interface RaidPost {
-  post_id: number
-  raid_name: string
-  raid_time: string
-  limit_level: number
-  user_id: string
-  post_position: string
-  noti: string
-  character_level: string
-  character_name: string
-  raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
-  character_classicon: string
-  approval: boolean
-}
+import AddScheduleButton from '@/components/button/addScheduleButton'
+import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
+import Image from 'next/image'
 
-interface RaidCreatePost {
-  post_id: number
-  raid_name: string
-  raid_time: string
-  limit_level: number
+interface Schedule {
   user_id: string
-  post_position: string
-  noti: string
-  character_level: string
+  schedule_time: string
+  raid_gold: number
   character_name: string
-  raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
-  character_classicon: string
-  applicant_count: number
+  raid_name: string
 }
-
 interface Props {
-  applicationPostGet: RaidPost[]
-  createPostGet: RaidCreatePost[]
+  weekSchedule: Schedule[]
+  userId: string
 }
 
 // KST로 변환하는 함수
@@ -58,15 +35,16 @@ function getThisWeekWednesday6AM() {
   return thisWednesday
 }
 
-export default function MypageWeek({ applicationPostGet, createPostGet }: Props) {
+export default function MypageWeek({ weekSchedule, userId }: Props) {
   const startWednesday = getThisWeekWednesday6AM()
 
   // 요일별로 데이터를 분류
-  const daysArray = Array.from({ length: 8 }, () => [] as (RaidPost | RaidCreatePost)[])
-  const allPosts = [...applicationPostGet, ...createPostGet]
+  const daysArray = Array.from({ length: 8 }, () => [] as Schedule[])
+  let sumGold = 0
 
-  allPosts.forEach((post) => {
-    const raidTime = toKST(new Date(post.raid_time))
+  weekSchedule.forEach((post) => {
+    sumGold += post.raid_gold
+    const raidTime = toKST(new Date(post.schedule_time))
     const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
       const diffDays = Math.floor(
@@ -80,19 +58,14 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
 
   return (
     <div className='mt-4 rounded-md border p-4 shadow-lg'>
-      <span className='text-lg'>• 이번주 일정</span>
-      <div className='flex flex-row justify-end gap-3 text-sm'>
-        <div className='flex flex-row gap-1'>
-          <div className='rounded-full bg-green-200 p-2 px-3'></div>
-          <span>등록</span>
-        </div>
-        <div className='flex flex-row gap-1'>
-          <div className='rounded-full bg-red-200 p-2 px-3'></div>
-          <span>신청, 대기</span>
-        </div>
-        <div className='flex flex-row gap-1'>
-          <div className='rounded-full bg-blue-200 p-2 px-3'></div>
-          <span>신청, 승인</span>
+      <div className='flex w-full justify-between'>
+        <span className='text-lg'>• 이번주 일정</span>
+        <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-1'>
+            <Image src='/골드.png' alt='골드 이미지' width='25' height='25' />
+            <span className='text-lg text-yellow-600'>{sumGold}</span>
+          </div>
+          <AddScheduleButton userId={userId} />
         </div>
       </div>
       <div className='mt-2 grid w-full grid-cols-2 rounded-sm border-2 border-gray-300 sm:grid-cols-4 lg:grid-cols-8'>
@@ -108,32 +81,52 @@ export default function MypageWeek({ applicationPostGet, createPostGet }: Props)
         ].map((day, index) => (
           <div key={day} className={`flex min-h-80 flex-col border border-gray-300`}>
             <span
-              className={`${index === 3 || index === 4 ? 'text-red-500' : ''} bg-gray-200 p-1 text-base font-bold`}
+              className={`${index === 3 || index === 4 ? 'text-red-500' : ''} flex justify-center bg-gray-200 text-base font-bold`}
             >
               {day}
             </span>
             {daysArray[index]?.map((item) => {
               // approval 속성이 있는지 확인
               let bgColorClass = 'bg-gray-200' // 기본 색상
-              if ('approval' in item) {
-                // item이 RaidPost인지 확인
-                if (item.approval === undefined) {
-                  bgColorClass = 'bg-green-200' // approval가 없을 때
-                } else if (item.approval === false) {
-                  bgColorClass = 'bg-red-200' // approval이 false일 때
-                } else if (item.approval === true) {
-                  bgColorClass = 'bg-blue-200' // approval이 true일 때
-                }
-              } else {
-                bgColorClass = 'bg-green-200' // RaidCreatePost는 기본 색상
+              const raidTime = toKST(new Date(item.schedule_time)) // KST로 변환
+
+              // 현재 날짜를 KST로 변환
+              const now = toKST(new Date())
+
+              const raidDate = new Date(
+                raidTime.getFullYear(),
+                raidTime.getMonth(),
+                raidTime.getDate(),
+              )
+              const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+              if (raidDate.getTime() === currentDate.getTime()) {
+                bgColorClass = 'bg-green-200' // 오늘
+              } else if (raidDate.getTime() > currentDate.getTime()) {
+                bgColorClass = 'bg-red-200' // 미래
               }
 
               return (
                 <div
-                  key={item.post_id}
-                  className={`${bgColorClass} mt-2 overflow-hidden truncate whitespace-nowrap rounded-md p-1`}
+                  key={item.schedule_time}
+                  className={`flex flex-col overflow-hidden truncate whitespace-nowrap rounded-md p-1`}
                 >
-                  {item.raid_name}
+                  <span className={`${bgColorClass} rounded-md p-1`}>{item.raid_name}</span>
+                  <div className='flex items-center justify-between'>
+                    <span>
+                      {item.schedule_time
+                        .split('T')[1]
+                        .split('.')[0]
+                        .split(':')
+                        .slice(0, 2)
+                        .join(':')}
+                    </span>
+                    <DeleteScheduleButton
+                      characterName={item.character_name}
+                      raidName={item.raid_name}
+                      userId={item.user_id}
+                    />
+                  </div>
+                  <span>{item.character_name}</span>
                 </div>
               )
             })}
