@@ -11,7 +11,7 @@ export default function RaidSelect() {
 
   return (
     <div className='flex flex-col'>
-      <label className='text-lg'>레이드 선택</label>
+      <label className='text-lg'>• 레이드 선택</label>
       <select
         name='raidSelect'
         aria-label='레이드 선택 창'
@@ -32,8 +32,8 @@ export default function RaidSelect() {
         <option className='text-base' value='1막 에기르 노말'>
           1막 에기르 노말
         </option>
-        <option className='text-base' value='베히모스'>
-          베히모스
+        <option className='text-base' value='베히모스 노말'>
+          베히모스 노말
         </option>
         <option className='text-base' value='서막 에키드나 하드'>
           서막 에키드나 하드
@@ -41,8 +41,14 @@ export default function RaidSelect() {
         <option className='text-base' value='서막 에키드나 노말'>
           서막 에키드나 노말
         </option>
-        <option className='text-base' value='카멘 하드'>
-          카멘 하드
+        <option className='text-base' value='카멘 하드 1~4관'>
+          카멘 하드 1~4관
+        </option>
+        <option className='text-base' value='카멘 하드 4관'>
+          카멘 하드 4관
+        </option>
+        <option className='text-base' value='카멘 하드 1~3관'>
+          카멘 하드 1~3관
         </option>
         <option className='text-base' value='카멘 노말'>
           카멘 노말

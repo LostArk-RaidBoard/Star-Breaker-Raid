@@ -41,6 +41,7 @@ const noCharacters = {
   enlightenment: 0,
   evolution: 0,
   disable: false,
+  raid: '',
 }
 
 export default function ApplicationCharacterSelect({ raidLimitLevel, userId }: Props) {

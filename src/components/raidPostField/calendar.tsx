@@ -21,7 +21,7 @@ export default function CalendarPick() {
   return (
     <div className='flex w-full flex-col'>
       <label htmlFor='raidDate' className='text-lg'>
-        날짜 선정
+        • 날짜 선정
       </label>{' '}
       {/* 레이블 추가 */}
       <div className='mt-1 h-full w-full'>

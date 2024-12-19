@@ -9,6 +9,7 @@ interface Props {
   postId: number
   post_user: string
   applicationList: ApplicationList[]
+  raid_name: string
 }
 
 interface ApplicationList {
@@ -25,12 +26,12 @@ interface ApplicationList {
   character_level: string
 }
 
-/**
- * 마이페이지 신청란에서 신청 취소하기
- * @param param0
- * @returns : Detele
- */
-export default function RaidApplicationList({ postId, applicationList, post_user }: Props) {
+export default function RaidApplicationList({
+  postId,
+  applicationList,
+  post_user,
+  raid_name,
+}: Props) {
   const { data: session } = useSession()
   const [loading, setLoading] = useState(false)
 
@@ -60,7 +61,7 @@ export default function RaidApplicationList({ postId, applicationList, post_user
     setLoading(true)
     try {
       const res = await fetch(
-        `/api/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}`,
+        `/api/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}&raid_name=${raid_name}`,
         {
           method: 'POST',
           headers: {

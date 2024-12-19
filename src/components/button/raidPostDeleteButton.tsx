@@ -4,20 +4,31 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 interface Props {
   postId: number
+  userId: string
+  raidName: string
+  characterName: string
 }
-export default function RaidPostDeleteButton({ postId }: Props) {
+export default function RaidPostDeleteButton({ postId, userId, raidName, characterName }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams() // searchParams를 통해 쿼리 파라미터에 접근
   const search = searchParams.get('redirect') || ''
 
-  const deleteCreatePostHandler = async (post_id: number) => {
+  const deleteCreatePostHandler = async (
+    postId: number,
+    userId: string,
+    raidName: string,
+    characterName: string,
+  ) => {
     try {
-      const response = await fetch(`/api/mypageCreatePost?post_id=${post_id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/mypageCreatePost?post_id=${postId}&character_name=${characterName}&user_id=${userId}&raid_name=${raidName}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
 
       if (response.ok && response.status === 200) {
         router.push(search)
@@ -31,7 +42,7 @@ export default function RaidPostDeleteButton({ postId }: Props) {
     <button
       className='rounded-md bg-gray-900 px-3 py-1 text-white'
       onClick={() => {
-        deleteCreatePostHandler(postId)
+        deleteCreatePostHandler(postId, userId, raidName, characterName)
       }}
     >
       모집글 닫기

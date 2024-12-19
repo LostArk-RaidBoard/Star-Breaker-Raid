@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
@@ -46,14 +46,22 @@ export default function MypageCreatePost({ createPostGet }: Props) {
     setItemsPerPage(5)
   }, [createPostGet, setDataLength, setCurrentPage, setItemsPerPage])
 
-  const deleteCreatePostHandler = async (post_id: number) => {
+  const deleteCreatePostHandler = async (
+    post_id: number,
+    character_name: string,
+    user_id: string,
+    raid_name: string,
+  ) => {
     try {
-      const response = await fetch(`/api/mypageCreatePost?post_id=${post_id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/mypageCreatePost?post_id=${post_id}&character_name=${character_name}&user_id=${user_id}&raid_name=${raid_name}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
 
       if (response.ok && response.status === 200) {
         createPostTage()
@@ -125,7 +133,12 @@ export default function MypageCreatePost({ createPostGet }: Props) {
             <button
               className='col-span-1 flex items-center justify-center overflow-hidden truncate whitespace-nowrap rounded-r-md bg-gray-900 text-sm text-white'
               onClick={() => {
-                deleteCreatePostHandler(item.post_id)
+                deleteCreatePostHandler(
+                  item.post_id,
+                  item.character_name,
+                  item.user_id,
+                  item.raid_name,
+                )
               }}
             >
               닫기

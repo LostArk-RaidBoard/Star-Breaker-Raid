@@ -22,6 +22,7 @@ interface SaveCharacterInfo {
   leap: number
   enlightenment: number
   evolution: number
+  disable: boolean
 }
 
 interface CharacterInfo {

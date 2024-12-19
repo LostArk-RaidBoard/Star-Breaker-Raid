@@ -93,9 +93,16 @@ export default async function RaidListField({ postId }: Props) {
   }
   let raidLimitLevel = 0
   let post_user = ''
+  let raid_name = ''
+  let character_name = ''
+  let schedule = new Date()
+
   if (postData) {
     raidLimitLevel = postData.limit_level
     post_user = postData.user_id
+    raid_name = postData.raid_name
+    character_name = postData.character_name
+    schedule = new Date(postData.raid_time)
   }
 
   return (
@@ -104,7 +111,12 @@ export default async function RaidListField({ postId }: Props) {
         <>
           {session && session.user.id === postData.user_id ? (
             <div className={`mb-2 flex w-full items-center justify-end gap-4`}>
-              <RaidPostDeleteButton postId={postId} />
+              <RaidPostDeleteButton
+                postId={postId}
+                userId={userId}
+                raidName={raid_name}
+                characterName={character_name}
+              />
               <Link
                 href={`/raidpost/update/${postId}`}
                 className={`${(session.user.id = postData.user_id ? '' : 'hidden')} rounded-md bg-gray-900 px-3 py-1 text-white`}
@@ -126,6 +138,8 @@ export default async function RaidListField({ postId }: Props) {
               raidLimitLevel={raidLimitLevel}
               postId={postId}
               post_user={post_user}
+              raid_name={raid_name}
+              schedule={schedule}
             />
           </div>
           <label className='mt-4 flex w-full justify-start'>* 신청자</label>
@@ -134,6 +148,7 @@ export default async function RaidListField({ postId }: Props) {
               postId={postId}
               applicationList={applicationList}
               post_user={post_user}
+              raid_name={raid_name}
             />
           </div>
         </>
