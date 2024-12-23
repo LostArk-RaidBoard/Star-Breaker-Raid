@@ -40,8 +40,8 @@ export default function UpdateRaidSelect({ raidSelected }: Props) {
         <option className='text-base' value='1막 에기르 노말'>
           1막 에기르 노말
         </option>
-        <option className='text-base' value='베히모스'>
-          베히모스
+        <option className='text-base' value='베히모스 노말'>
+          베히모스 노말
         </option>
         <option className='text-base' value='서막 에키드나 하드'>
           서막 에키드나 하드

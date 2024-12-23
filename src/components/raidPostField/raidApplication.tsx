@@ -2,6 +2,7 @@
 
 import { applicationListTage, wePostTage } from '@/app/action'
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
+import RaidGold from '@/components/utils/raidGold'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useEffect, useState } from 'react'
 
@@ -10,6 +11,8 @@ interface RaidApplicationProps {
   raidLimitLevel: number
   postId: number
   post_user: string
+  raid_name: string
+  schedule: Date
 }
 
 export default function RaidApplication({
@@ -17,6 +20,8 @@ export default function RaidApplication({
   raidLimitLevel,
   postId,
   post_user,
+  raid_name,
+  schedule,
 }: RaidApplicationProps) {
   const [hope, setHope] = useState('')
   const [state, setState] = useState(1)
@@ -55,6 +60,9 @@ export default function RaidApplication({
         character_elixir: characterInfo[0].elixir,
         character_transcendence: characterInfo[0].transcendence,
         character_level: characterInfo[0].character_level,
+        raid_name: raid_name,
+        raid_gold: RaidGold(raid_name),
+        schedule: schedule,
       }
       try {
         const response = await fetch('/api/applicationSave', {

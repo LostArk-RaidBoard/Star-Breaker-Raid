@@ -14,11 +14,13 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_image: string
+  raid_gold: number
 }
 
 export async function POST(req: Request) {
   const raidPost: RaidPost = await req.json()
 
+  console.log(raidPost.raid_gold)
   if (!raidPost) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
@@ -64,6 +66,22 @@ export async function POST(req: Request) {
         ${raidPost.character_classicon},
         ${raidPost.character_image}
       )`
+
+    const response = await sql`
+    INSERT INTO schedule(
+         user_id,
+         schedule_time,
+         raid_gold,
+         character_name,
+         raid_name
+        ) VALUES (
+         ${raidPost.user_id},
+         ${raidTime},
+         ${raidPost.raid_gold},
+         ${raidPost.character_name},
+         ${raidPost.raid_name}
+        )
+      `
 
     return new Response(JSON.stringify({ message: '레이드 생성 성공' }), { status: 200 })
   } catch (error) {

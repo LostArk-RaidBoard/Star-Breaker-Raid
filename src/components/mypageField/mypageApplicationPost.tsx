@@ -46,14 +46,17 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
     setItemsPerPage(5)
   }, [applicationPostGet, setDataLength, setCurrentPage, setItemsPerPage])
 
-  const deleteApplicationHandler = async (post_id: number) => {
+  const deleteApplicationHandler = async (post_id: number, raid_name: string) => {
     try {
-      const response = await fetch(`/api/applicationDelete?post_id=${post_id}&user_id=${userId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
 
       if (response.ok && response.status === 200) {
         applicationTage()
@@ -120,7 +123,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
             <button
               className='col-span-1 overflow-hidden truncate whitespace-nowrap rounded-r-md bg-gray-900 text-sm text-white'
               onClick={() => {
-                deleteApplicationHandler(item.post_id)
+                deleteApplicationHandler(item.post_id, item.raid_name)
               }}
             >
               취소

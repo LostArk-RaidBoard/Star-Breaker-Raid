@@ -11,6 +11,9 @@ interface Application {
   character_elixir: number
   character_transcendence: number
   character_level: string
+  raid_name: string
+  raid_gold: number
+  schedule: Date | null | string // 문자열이거나 null일 수도 있으므로 추가
 }
 
 export async function POST(req: Request) {
@@ -21,6 +24,16 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: '필수 필드가 누락되었습니다.' }), { status: 400 })
   }
   try {
+    let raidTime: string | null = null
+
+    // raid_time이 Date 객체인지 확인 후 처리
+    if (application.schedule instanceof Date) {
+      // Date 객체라면 TIMESTAMP 형식으로 변환
+      raidTime = application.schedule.toISOString().slice(0, 19).replace('T', ' ')
+    } else if (typeof application.schedule === 'string') {
+      // 문자열로 넘어온 경우 그대로 사용
+      raidTime = application.schedule
+    }
     const response =
       await sql`SELECT * FROM applicants_list WHERE post_id = ${application.post_id} AND user_id = ${application.user_id}`
     if (response.rowCount != 0) {
@@ -48,6 +61,22 @@ export async function POST(req: Request) {
         ${application.character_level},
         ${application.character_transcendence}
       )`
+
+      const response = await sql`
+      INSERT INTO schedule(
+           user_id,
+           schedule_time,
+           raid_gold,
+           character_name,
+           raid_name
+          ) VALUES (
+           ${application.user_id},
+           ${raidTime},
+           ${application.raid_gold},
+           ${application.character_name},
+           ${application.raid_name}
+          )
+        `
 
       return new Response(JSON.stringify({ message: '지원 성공' }), { status: 200 })
     }

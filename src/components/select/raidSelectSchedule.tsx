@@ -2,7 +2,7 @@
 
 import { useRaidSelect } from '@/store/raidSelectStore'
 
-export default function RaidSelect() {
+export default function RaidSelectSchedule() {
   const { raidSelect, setRaidSelect } = useRaidSelect()
 
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -41,6 +41,9 @@ export default function RaidSelect() {
         <option className='text-base' value='서막 에키드나 노말'>
           서막 에키드나 노말
         </option>
+        <option className='text-base' value='서막 에키드나 싱글'>
+          서막 에키드나 싱글
+        </option>
         <option className='text-base' value='카멘 하드 1~4관'>
           카멘 하드 1~4관
         </option>
@@ -53,11 +56,17 @@ export default function RaidSelect() {
         <option className='text-base' value='카멘 노말'>
           카멘 노말
         </option>
+        <option className='text-base' value='카멘 싱글'>
+          카멘 싱글
+        </option>
         <option className='text-base' value='상아탑 하드'>
           상아탑 하드
         </option>
         <option className='text-base' value='상아탑 노말'>
           상아탑 노말
+        </option>
+        <option className='text-base' value='상아탑 싱글'>
+          상아탑 싱글
         </option>
         <option className='text-base' value='일리아칸 하드'>
           일리아칸 하드
@@ -65,11 +74,17 @@ export default function RaidSelect() {
         <option className='text-base' value='일리아칸 노말'>
           일리아칸 노말
         </option>
+        <option className='text-base' value='일리아칸 싱글'>
+          일리아칸 싱글
+        </option>
         <option className='text-base' value='카양겔 하드'>
           카양겔 하드
         </option>
         <option className='text-base' value='카양겔 노말'>
           카양겔 노말
+        </option>
+        <option className='text-base' value='카양겔 싱글'>
+          카양겔 싱글
         </option>
         <option className='text-base' value='아브렐슈드 하드'>
           아브렐슈드 하드
@@ -77,8 +92,14 @@ export default function RaidSelect() {
         <option className='text-base' value='아브렐슈드 노말'>
           아브렐슈드 노말
         </option>
+        <option className='text-base' value='아브렐슈드 싱글'>
+          아브렐슈드 싱글
+        </option>
         <option className='text-base' value='쿠크세이튼 노말'>
           쿠크세이튼 노말
+        </option>
+        <option className='text-base' value='쿠크세이튼 싱글'>
+          쿠크세이튼 싱글
         </option>
         <option className='text-base' value='비아키스 하드'>
           비아키스 하드
@@ -86,11 +107,17 @@ export default function RaidSelect() {
         <option className='text-base' value='비아키스 노말'>
           비아키스 노말
         </option>
+        <option className='text-base' value='비아키스 싱글'>
+          비아키스 싱글
+        </option>
         <option className='text-base' value='발탄 하드'>
           발탄 하드
         </option>
         <option className='text-base' value='발탄 노말'>
           발탄 노말
+        </option>
+        <option className='text-base' value='발탄 싱글'>
+          발탄 싱글
         </option>
       </select>
     </div>

@@ -28,12 +28,18 @@ export async function GET(req: Request) {
 export async function DELETE(req: Request) {
   const url = new URL(req.url)
   const post_id = url.searchParams.get('post_id')
-  if (!post_id) {
+  const character_name = url.searchParams.get('character_name')
+  const user_id = url.searchParams.get('user_id')
+  const raid_name = url.searchParams.get('raid_name')
+
+  if (!post_id || !character_name || !user_id || !raid_name) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
 
   try {
     const res = await sql`DELETE FROM raid_posts WHERE post_id = ${post_id}`
+    const response =
+      await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
