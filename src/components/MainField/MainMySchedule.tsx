@@ -2,29 +2,17 @@
 import Image from 'next/image'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
-import Megaphone from '@image/icon/megaphone.svg'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 
-interface RaidMyPost {
-  post_id: number
-  raid_name: string
-  raid_time: any
-  limit_level: number
+interface todaySchedule {
   user_id: string
-  post_position: string
-  noti: string
+  schedule_time: any
+  raid_gold: number
   character_name: string
-  raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
-  character_classicon: string
-  character_image: string
-  approval: boolean
-  applicant_count: number
+  raid_name: string
 }
 
 interface Props {
@@ -32,7 +20,7 @@ interface Props {
 }
 
 export default function MainMyPostsSchedule({ userId }: Props) {
-  const [wePostsRows, setWePostsRows] = useState<RaidMyPost[]>([])
+  const [wePostsRows, setWePostsRows] = useState<todaySchedule[]>([])
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageination()
 
@@ -51,19 +39,22 @@ export default function MainMyPostsSchedule({ userId }: Props) {
   useEffect(() => {
     const fetchMainMyPostsSchedule = async (userId: string) => {
       try {
-        const response = await fetch(`${process.env.API_URL}/api/mainMyPost?user_id=${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `${process.env.API_URL}/api/mainMySchedule?user_id=${userId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        })
+        )
 
         if (!response.ok) throw new Error('Failed to fetch data')
 
         const data = await response.json()
-        const formattedData = data.postRows.map((post: RaidMyPost) => ({
+        const formattedData = data.postRows.map((post: todaySchedule) => ({
           ...post,
-          raid_time: convertToKoreanTime(post.raid_time),
+          schedule_time: convertToKoreanTime(post.schedule_time),
         }))
         setWePostsRows(formattedData)
       } catch (error) {
@@ -80,57 +71,49 @@ export default function MainMyPostsSchedule({ userId }: Props) {
   return (
     <div className='flex h-full w-full flex-col md:w-1/2'>
       <div className='bg-[#f9fafb]'>
-        <span className='rounded-t-md bg-yellow-200 px-2 pb-1 text-sm'>레이드 일정</span>
+        <span className='rounded-t-md bg-blue-950 px-2 pb-1 text-sm text-white'>today 일정</span>
       </div>
-      <div className='h-full rounded-b-md rounded-r-md bg-gray-300'>
-        <div className='grid grid-cols-8 rounded-tr-md bg-gray-200 px-1'>
+      <div className='h-full rounded-b-md rounded-r-md bg-blue-100'>
+        <div className='grid grid-cols-8 rounded-tr-md bg-blue-950 px-1 text-white'>
           <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             <Fire className='h-4 w-4' />
             레이드
           </div>
           <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Megaphone className='h-4 w-4' />
-            공대장
+            캐릭터
           </div>
           <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             <Clock className='h-4 w-4' />
             시간
           </div>
           <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            인원
+            <Image src={'/골드.png'} alt='골드 이미지' width={20} height={20} />
+            골드
           </div>
         </div>
         <div className='mt-2 flex w-full flex-col gap-3 p-1'>
-          {currentItems.map((item) => (
-            <Link
-              key={item.post_id}
-              href={`/raidpost/${item.post_id}?redirect=/`}
+          {currentItems.map((item, index) => (
+            <div
+              key={index}
               className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
             >
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
               </div>
               <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <Image
-                  src={item.character_classicon}
-                  alt='아이콘'
-                  width={100}
-                  height={100}
-                  className='h-6 w-6 fill-yellow-600'
-                />
                 <span className='overflow-hidden truncate whitespace-nowrap'>
                   {item.character_name}
                 </span>
               </div>
               <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
-              </div>
-              <div className='col-span-1 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.applicant_count}/{item.raid_limitperson}
+                  {item.schedule_time}
                 </span>
               </div>
-            </Link>
+              <div className='col-span-1 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
+                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_gold}</span>
+              </div>
+            </div>
           ))}
           <Pagination />
         </div>

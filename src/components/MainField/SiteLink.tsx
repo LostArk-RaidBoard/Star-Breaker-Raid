@@ -3,26 +3,12 @@ import Link from 'next/link'
 
 export default function SiteLink() {
   return (
-    <div className='flex h-full gap-4 overflow-x-auto whitespace-nowrap md:grid md:grid-cols-5 md:gap-4'>
+    <div className='flex h-full gap-4 overflow-x-auto whitespace-nowrap md:grid md:grid-cols-4 md:gap-4'>
       <Link
         href='https://loa.icepeng.com/refining'
         className='inline-flex h-full min-w-[100px] flex-col flex-nowrap items-center justify-center overflow-hidden rounded-md bg-[#4350af] text-sm font-bold text-white shadow-lg sm:flex-row sm:text-xl'
       >
         <span>Lostark</span> <span>Calculator</span>
-      </Link>
-      <Link
-        href='https://cho.elphago.work'
-        className='inline-flex h-full min-w-[100px] flex-nowrap items-center justify-center gap-1 rounded-md bg-[#3662e3] text-sm font-bold text-white shadow-lg sm:text-xl'
-      >
-        <Image
-          src={'/초월.png'}
-          alt='초파고 로고'
-          width={48}
-          height={48}
-          loading='lazy'
-          className='hidden p-1 sm:block'
-        />
-        초파고
       </Link>
       <Link
         href='https://loatool.taeu.kr/'

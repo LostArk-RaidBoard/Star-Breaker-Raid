@@ -1,5 +1,6 @@
 import AddScheduleButton from '@/components/button/addScheduleButton'
 import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
+import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
 import Image from 'next/image'
 
 interface Schedule {
@@ -8,6 +9,7 @@ interface Schedule {
   raid_gold: number
   character_name: string
   raid_name: string
+  gold_check: boolean
 }
 interface Props {
   weekSchedule: Schedule[]
@@ -43,7 +45,10 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
   let sumGold = 0
 
   weekSchedule.forEach((post) => {
-    sumGold += post.raid_gold
+    if (post.gold_check) {
+      sumGold += post.raid_gold
+    }
+
     const raidTime = toKST(new Date(post.schedule_time))
     const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
@@ -59,7 +64,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
   return (
     <div className='mt-4 rounded-md border p-4 shadow-lg'>
       <div className='flex w-full justify-between'>
-        <span className='text-lg'>• 이번주 일정</span>
+        <span className='text-lg'>• 이번주 레이드 일정</span>
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-1'>
             <Image src='/골드.png' alt='골드 이미지' width='25' height='25' />
@@ -88,10 +93,10 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
             {daysArray[index]?.map((item) => {
               // approval 속성이 있는지 확인
               let bgColorClass = 'bg-gray-200' // 기본 색상
-              const raidTime = toKST(new Date(item.schedule_time)) // KST로 변환
+              const raidTime = new Date(item.schedule_time) // KST로 변환
 
               // 현재 날짜를 KST로 변환
-              const now = toKST(new Date())
+              const now = new Date()
 
               const raidDate = new Date(
                 raidTime.getFullYear(),
@@ -127,12 +132,22 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                     />
                   </div>
                   <span>{item.character_name}</span>
+                  <ScheduleGoldCheckBox
+                    goldCheck={item.gold_check}
+                    characterName={item.character_name}
+                    raidName={item.raid_name}
+                    userId={item.user_id}
+                  />
                 </div>
               )
             })}
           </div>
         ))}
       </div>
+      <p className='text-sm'>
+        * 이번 주 레이드 일정은 레이드 카운트와 골드 계산의 기준이 됩니다. 골드 체크가 완료되어야만
+        골드가 합산되며, 메인 페이지에서 레이드 횟수로 추가됩니다.
+      </p>
     </div>
   )
 }

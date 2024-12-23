@@ -1,4 +1,4 @@
-'use sever'
+'use server'
 import { sql } from '@vercel/postgres'
 
 export async function POST(req: Request) {
@@ -18,12 +18,20 @@ export async function POST(req: Request) {
   const formattedScheduleTime = new Date(schedule_time).toISOString()
 
   try {
+    const response =
+      await sql`SELECT * FROM schedule WHERE user_id = ${userId} AND character_name = ${character_name} AND raid_name = ${raid_name}`
+    if (response.rowCount != 0) {
+      return new Response(JSON.stringify({ message: '중복' }), {
+        status: 409,
+      })
+    }
+
     const res = await sql`
        INSERT INTO schedule (user_id, schedule_time, raid_gold, character_name, raid_name) 
       VALUES (${userId}, ${formattedScheduleTime}, ${raid_gold}, ${character_name}, ${raid_name})
     `
 
-    return new Response(JSON.stringify({ postRows: res.rows }), {
+    return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
     })
   } catch (error) {

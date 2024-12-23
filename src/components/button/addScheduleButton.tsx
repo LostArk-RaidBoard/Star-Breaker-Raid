@@ -2,8 +2,7 @@
 
 import { createPostTage } from '@/app/action'
 import CalendarSelect from '@/components/raidPostField/calendarSelect'
-
-import RaidSelect from '@/components/select/raidSelect'
+import RaidSelectSchedule from '@/components/select/raidSelectSchedule'
 import raidGold from '@/components/utils/raidGold'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
@@ -19,6 +18,7 @@ export default function AddScheduleButton({ userId }: Props) {
   const { setReset, raidDate, raidSelect } = useRaidSelect()
   const { setCharacterAllList, characterAllList } = useCharacterInfoList()
   const [characterName, setCharacterName] = useState('')
+  const [fetchSuccess, setFetchSuccess] = useState(0)
 
   const addScheduleHandler = () => {
     setMoState()
@@ -46,7 +46,12 @@ export default function AddScheduleButton({ userId }: Props) {
       )
       if (response.ok && response.status === 200) {
         createPostTage()
+        setFetchSuccess(1)
         setMoOpen(!moOpen)
+      } else if (response.status === 409) {
+        setFetchSuccess(2)
+      } else {
+        setFetchSuccess(3)
       }
     } catch (error) {
       console.error(error)
@@ -69,6 +74,7 @@ export default function AddScheduleButton({ userId }: Props) {
         className='rounded-md bg-gray-900 p-1 px-2 text-white'
         onClick={() => {
           addScheduleHandler()
+          setFetchSuccess(0)
         }}
       >
         일정 추가
@@ -77,9 +83,9 @@ export default function AddScheduleButton({ userId }: Props) {
       {/* bg-black bg-opacity-50 */}
       {moOpen && (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-30'>
-          <div className='flex w-[300px] flex-col rounded-lg bg-white p-4 shadow-lg'>
+          <div className='flex w-[350px] flex-col rounded-lg bg-white p-4 shadow-lg'>
             <h1 className='text-xl font-bold'>일정 추가</h1>
-            <RaidSelect />
+            <RaidSelectSchedule />
             <CalendarSelect />
             <span className='text-lg'>• 캐릭터 선택</span>
             <select
@@ -95,10 +101,21 @@ export default function AddScheduleButton({ userId }: Props) {
                 </option>
               ))}
             </select>
+            <div className='mt-2 flex w-full items-center justify-center'>
+              <span className={`${fetchSuccess === 1 ? '' : 'hidden'} text-blue-500`}>
+                일정 추가 성공
+              </span>
+              <span className={`${fetchSuccess === 2 ? '' : 'hidden'} text-red-500`}>
+                일정 추가 실패 : 동일 캐릭터 중복된 일정
+              </span>
+              <span className={`${fetchSuccess === 3 ? '' : 'hidden'} text-red-500`}>
+                일정 추가 실패 : 서버 연결 실패
+              </span>
+            </div>
 
-            <div className='flex w-full items-center justify-center gap-4'>
+            <div className='mt-2 flex w-full items-center justify-center gap-4'>
               <button
-                className='mt-4 w-24 rounded-md bg-gray-900 p-1 px-2 text-white'
+                className='w-24 rounded-md bg-gray-900 p-1 px-2 text-white'
                 onClick={() => {
                   scheduleFetchHandler()
                 }}
@@ -106,7 +123,7 @@ export default function AddScheduleButton({ userId }: Props) {
                 저장
               </button>
               <button
-                className='mt-4 w-24 rounded-md bg-gray-900 p-1 px-2 text-white'
+                className='w-24 rounded-md bg-gray-900 p-1 px-2 text-white'
                 onClick={setMoState}
               >
                 닫기

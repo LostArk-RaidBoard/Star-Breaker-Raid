@@ -44,6 +44,7 @@ interface Schedule {
   raid_gold: number
   character_name: string
   raid_name: string
+  gold_check: boolean
 }
 
 const applicationPostGetHandler = async (userId: string) => {
