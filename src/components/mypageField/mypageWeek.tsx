@@ -64,7 +64,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
   return (
     <div className='mt-4 rounded-md border p-4 shadow-lg'>
       <div className='flex w-full justify-between'>
-        <span className='text-lg'>• 이번주 일정</span>
+        <span className='text-lg'>• 이번주 레이드 일정</span>
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-1'>
             <Image src='/골드.png' alt='골드 이미지' width='25' height='25' />
@@ -144,6 +144,10 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
           </div>
         ))}
       </div>
+      <p className='text-sm'>
+        * 이번 주 레이드 일정은 레이드 카운트와 골드 계산의 기준이 됩니다. 골드 체크가 완료되어야만
+        골드가 합산되며, 메인 페이지에서 레이드 횟수로 추가됩니다.
+      </p>
     </div>
   )
 }
