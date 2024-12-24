@@ -22,7 +22,7 @@ interface ApplicationList {
   character_icon: string
   character_elixir: number
   character_transcendence: number
-  character_check: boolean
+  approval: boolean
   character_level: string
 }
 
@@ -123,8 +123,8 @@ export default function RaidApplicationList({
               </div>
 
               <span>희망사항 : {char.hope}</span>
-              <span className={`${char.character_check ? 'text-blue-500' : 'text-red-500'}`}>
-                {char.character_check ? '승인 완료' : '승인 대기 중'}
+              <span className={`${char.approval ? 'text-blue-500' : 'text-red-500'}`}>
+                {char.approval ? '승인 완료' : '승인 대기 중'}
               </span>
               {session && session.user.id ? (
                 <>
@@ -132,14 +132,14 @@ export default function RaidApplicationList({
                     className={`flex w-24 items-center justify-center rounded-md bg-gray-900 p-1 p-2 px-2 px-4 text-base text-white ${post_user === session.user.id ? '' : 'hidden'}`}
                     disabled={loading}
                     onClick={() => {
-                      checkUpdateHandler(char.user_id, char.character_name, char.character_check)
+                      checkUpdateHandler(char.user_id, char.character_name, char.approval)
                     }}
                   >
-                    <span className={`${char.character_check === true ? 'hidden' : ''}`}>
+                    <span className={`${char.approval === true ? 'hidden' : ''}`}>
                       <span className={`${loading ? 'hidden' : ''}`}>승인</span>
                       <span className={`${loading ? '' : 'hidden'}`}>로딩...</span>
                     </span>
-                    <span className={`${char.character_check === true ? '' : 'hidden'}`}>
+                    <span className={`${char.approval === true ? '' : 'hidden'}`}>
                       <span className={`${loading ? 'hidden' : ''}`}>승인 취소</span>
                       <span className={`${loading ? '' : 'hidden'}`}>로딩...</span>
                     </span>
@@ -160,7 +160,7 @@ export default function RaidApplicationList({
           ))}
         </div>
       ) : (
-        <div className='text-lg'>신청자가 아직 없습니다. ㅠㅠ</div>
+        <div className='text-lg'>신청자가 아직 없습니다.</div>
       )}
     </div>
   )

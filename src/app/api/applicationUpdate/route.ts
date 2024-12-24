@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
   try {
     const res =
-      await sql`UPDATE applicants_list SET character_check=${check} WHERE post_id=${postId} AND user_id=${userId} AND character_name=${characterName}`
+      await sql`UPDATE applicants_list SET approval=${check} WHERE post_id=${postId} AND user_id=${userId} AND character_name=${characterName}`
     return new Response(JSON.stringify({ message: '성공' }), { status: 200 })
   } catch (error) {
     console.error(error)

@@ -19,7 +19,8 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
-  applicant_count: number
+  approval: number
+  rejected_count: number
   nickname: string
 }
 
@@ -168,7 +169,7 @@ export default function RaidPostList({ raidPost }: Props) {
             <span className='overflow-hidden truncate whitespace-nowrap'>레이드 시간</span>
           </div>
           <div className='flex hidden items-center justify-center sm:flex'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>인원</span>
+            <span className='overflow-hidden truncate whitespace-nowrap'>승인 인원 (대기)</span>
           </div>
         </div>
         {currentItems.map((item: RaidPost) => (
@@ -202,7 +203,7 @@ export default function RaidPostList({ raidPost }: Props) {
             </div>
             <div className='flex hidden items-center justify-center overflow-hidden whitespace-nowrap sm:flex'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
-                {item.applicant_count}/{item.raid_limitperson}
+                {item.approval}({item.rejected_count}) / {item.raid_limitperson}
               </span>
             </div>
           </Link>

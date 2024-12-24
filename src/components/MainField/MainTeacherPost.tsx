@@ -22,7 +22,8 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
-  applicant_count: number
+  approval: number
+  rejected_count: number
   nickname: string
 }
 
@@ -117,7 +118,7 @@ export default function MainTeacherPosts() {
               </div>
               <div className='col-span-1 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.applicant_count}/{item.raid_limitperson}
+                  {item.approval}/{item.raid_limitperson}
                 </span>
               </div>
             </Link>
