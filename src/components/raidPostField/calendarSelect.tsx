@@ -17,14 +17,14 @@ export default function CalendarSelect() {
       : subDays(startOfWeek(today, { weekStartsOn: 1 }), 7) // 저번주 수요일
 
   const thisWednesday = nextDay(lastWednesday, 3) // 이번주 수요일
-  const nextWednesday = addDays(thisWednesday, 7) // 다음주 수요일
+  const nextTuesday = addDays(thisWednesday, 6) // 다음주 화요일
 
   // 선택 가능한 날짜 범위 설정
   let minDate = thisWednesday // 기본값 설정
-  let maxDate = nextWednesday // 기본값 설정
+  let maxDate = nextTuesday // 기본값 설정
 
   let minTime = setHours(setMinutes(thisWednesday, 0), 0) // 기본 minTime
-  let maxTime = setHours(setMinutes(nextWednesday, 59), 23) // 기본 maxTime
+  let maxTime = setHours(setMinutes(nextTuesday, 59), 23) // 기본 maxTime
 
   return (
     <div className='flex w-full flex-col'>

@@ -105,7 +105,7 @@ export default function MainMyInfo() {
             />{' '}
             {myInfoState?.raid_gold}
           </span>
-          <div className='mt-2 flex w-full items-center justify-center text-white md:flex-row md:gap-4 xl:mt-4 xl:w-full'>
+          <div className='mt-2 flex w-full items-center justify-center gap-4 text-white md:flex-row xl:mt-4 xl:w-full'>
             <Link
               href={'/mypage/mypost'}
               className='flex w-[100px] items-center justify-center rounded-md bg-gray-200 p-2 text-black shadow-lg'
