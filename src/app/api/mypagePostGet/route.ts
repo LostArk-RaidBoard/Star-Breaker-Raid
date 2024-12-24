@@ -9,9 +9,9 @@ export async function GET(req: Request) {
   }
 
   try {
-    const res = await sql`SELECT 
+    const res = await sql`SELECT DISTINCT
         raid_posts.*, 
-        applicants_list.character_check AS approval
+        applicants_list.approval AS approval
       FROM 
         raid_posts 
       INNER JOIN 

@@ -16,7 +16,7 @@ users.birthday,
 users.nickname,
 roles.role,
 COUNT(DISTINCT applicants_list.applicants_id) AS applicants_count,
-SUM(DISTINCT CASE WHEN applicants_list.character_check = TRUE THEN 1 ELSE 0 END) AS applicants_approval,
+SUM(DISTINCT CASE WHEN applicants_list.approval = TRUE THEN 1 ELSE 0 END) AS applicants_approval,
 COUNT(DISTINCT raid_posts.post_id) AS raid_posts_count,
 COUNT(DISTINCT characters.character_name) AS character_count
 FROM

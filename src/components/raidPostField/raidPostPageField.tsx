@@ -17,7 +17,8 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
-  applicant_count: number
+  approval: number
+  rejected_count: number
   nickname: string
 }
 

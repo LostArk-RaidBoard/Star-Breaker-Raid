@@ -25,7 +25,8 @@ interface RaidPost {
   raid_type: string
   raid_maxtime: string
   character_classicon: string
-  applicant_count: number
+  approval: number
+  rejected_count: number
 }
 
 type Props = {
@@ -125,7 +126,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
               </div>
               <div className='col-span-1 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.applicant_count}/{item.raid_limitperson}
+                  {item.approval}({item.rejected_count})/{item.raid_limitperson}
                 </span>
               </div>
             </Link>

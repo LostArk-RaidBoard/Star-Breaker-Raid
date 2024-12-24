@@ -13,7 +13,8 @@ export async function GET(req: Request) {
     const res = await sql`
       SELECT 
           rp.*, 
-          COUNT(al.post_id) + 1 AS applicant_count, 
+          COUNT(DISTINCT CASE WHEN al.approval = true THEN al.user_id END) + 1 AS approval, 
+          COUNT(DISTINCT CASE WHEN al.approval = false THEN al.user_id END) AS rejected_count,
           users.nickname 
       FROM 
           raid_posts rp

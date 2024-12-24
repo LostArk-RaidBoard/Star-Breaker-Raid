@@ -37,7 +37,7 @@ interface ApplicationList {
   character_icon: string
   character_elixir: number
   character_transcendence: number
-  character_check: boolean
+  approval: boolean
   character_level: string
 }
 
