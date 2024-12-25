@@ -52,10 +52,7 @@ export default function MainMyPostsSchedule({ userId }: Props) {
         if (!response.ok) throw new Error('Failed to fetch data')
 
         const data = await response.json()
-        const formattedData = data.postRows.map((post: todaySchedule) => ({
-          ...post,
-          schedule_time: convertToKoreanTime(post.schedule_time),
-        }))
+        const formattedData = data.postRows
         setWePostsRows(formattedData)
       } catch (error) {
         console.error('fetchWePosts Error:', error)
