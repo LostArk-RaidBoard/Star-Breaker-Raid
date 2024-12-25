@@ -71,9 +71,9 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
   }, [])
 
   return (
-    <div className='flex h-full basis-1/2 flex-col gap-4'>
+    <div className='flex h-full basis-1/2 flex-col'>
       <span className='text-lg'>• 참여 신청한 모집글</span>
-      <div className='grid grid-cols-8 rounded-md border px-1'>
+      <div className='mt-4 grid grid-cols-8 rounded-md border px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Fire className='hidden h-4 w-4 md:block' />
           레이드
@@ -90,7 +90,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
           취소
         </div>
       </div>
-      <div className='flex h-full w-full flex-col gap-3'>
+      <div className='mt-2 flex h-full w-full flex-col gap-3'>
         {currentItems.map((item) => (
           <div
             key={item.post_id}
@@ -132,6 +132,9 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
         ))}
         <Pagination />
       </div>
+      <span className='hidden text-sm sm:block'>
+        * 참여 신청한 모집글은 공대장이 승인하면 배경색이 파란색으로 변경됩니다.
+      </span>
     </div>
   )
 }

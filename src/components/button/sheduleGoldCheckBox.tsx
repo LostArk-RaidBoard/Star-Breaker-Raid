@@ -38,6 +38,7 @@ export default function ScheduleGoldCheckBox({
       <span>골드 체크</span>
       <input
         type='checkbox'
+        aria-label='골드 체크 버튼'
         checked={goldCheck}
         onClick={() => {
           updateFetchHandler(goldCheck)

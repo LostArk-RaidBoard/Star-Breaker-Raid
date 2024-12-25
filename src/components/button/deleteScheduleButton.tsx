@@ -30,11 +30,12 @@ export default function DeleteScheduleButton({ characterName, raidName, userId }
   }
   return (
     <button
+      aria-label='일정 삭제 버튼'
       onClick={() => {
         deleteHandler(characterName, raidName, userId)
       }}
     >
-      <Xmark className='h-4 w-4' />
+      <Xmark className='h-4 w-4 stroke-[3px]' />
     </button>
   )
 }
