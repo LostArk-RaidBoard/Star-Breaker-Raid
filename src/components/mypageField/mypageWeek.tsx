@@ -44,7 +44,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
       sumGold += post.raid_gold
     }
 
-    const raidTime = toKST(new Date(post.schedule_time))
+    const raidTime = new Date(post.schedule_time)
 
     const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
@@ -64,7 +64,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-1'>
             <Image src='/골드.png' alt='골드 이미지' width='25' height='25' />
-            <span className='text-lg text-yellow-600'>{sumGold}</span>
+            <span className='text-lg text-yellow-700'>{sumGold}</span>
           </div>
           <AddScheduleButton userId={userId} />
         </div>
@@ -74,7 +74,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
           (day, index) => (
             <div key={day} className={`flex min-h-80 flex-col border border-gray-300`}>
               <span
-                className={`${index === 3 || index === 4 ? 'text-red-500' : ''} flex justify-center bg-gray-200 text-base font-bold`}
+                className={`${index === 3 || index === 4 ? 'text-red-700' : ''} flex justify-center bg-gray-200 text-base font-bold`}
               >
                 {day}
               </span>
@@ -101,7 +101,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                 return (
                   <div
                     key={item.schedule_time}
-                    className={`flex flex-col overflow-hidden truncate whitespace-nowrap rounded-md p-1`}
+                    className={`mt-1 flex flex-col overflow-hidden truncate whitespace-nowrap border-b-2 border-dashed p-1`}
                   >
                     <span className={`${bgColorClass} rounded-md p-1`}>{item.raid_name}</span>
                     <div className='flex items-center justify-between'>
