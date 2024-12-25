@@ -115,7 +115,7 @@ export default function RaidApplication({
             autoComplete='off'
             value={hope}
             maxLength={30}
-            placeholder={'희망사항'}
+            placeholder={'의견'}
             onChange={handleChange}
           ></input>
         </div>
