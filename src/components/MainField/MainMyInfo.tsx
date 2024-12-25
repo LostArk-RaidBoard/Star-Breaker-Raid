@@ -12,6 +12,8 @@ interface Myinfo {
   role: string
   schedule_count: number
   user_id: string
+  applicant_count: number
+  raid_post_count: number
 }
 
 export default function MainMyInfo() {
@@ -24,6 +26,8 @@ export default function MainMyInfo() {
     role: '',
     schedule_count: 0,
     user_id: '',
+    applicant_count: 0,
+    raid_post_count: 0,
   })
 
   useEffect(() => {
@@ -79,8 +83,6 @@ export default function MainMyInfo() {
             />
             <span>{mainNickName}</span>
           </div>
-
-          <span>권한 : {myInfoState.role}</span>
           <span>캐릭터 수 : {myInfoState.character_count}</span>
           <span className='flex items-center'>
             레이드 횟수 :{' '}
@@ -94,6 +96,7 @@ export default function MainMyInfo() {
             {myInfoState.schedule_count} /{' '}
             {myInfoState.character_count > 6 ? 18 : myInfoState.character_count * 3}
           </span>
+
           <span className='flex items-center'>
             이번주 레이드 골드 수익 :
             <Image
@@ -103,8 +106,13 @@ export default function MainMyInfo() {
               height={30}
               className='p-1'
             />{' '}
-            {myInfoState?.raid_gold}
+            {myInfoState.raid_gold}
           </span>
+          <div className='flex items-center gap-4'>
+            <span>모집글 개설 현황 : {myInfoState.raid_post_count} </span>
+            <span>모집글 신청 현황 : {myInfoState.applicant_count}</span>
+          </div>
+
           <div className='mt-2 flex w-full items-center justify-center gap-4 text-white md:flex-row xl:mt-4 xl:w-full'>
             <Link
               href={'/mypage/mypost'}
