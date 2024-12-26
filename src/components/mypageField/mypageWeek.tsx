@@ -1,7 +1,6 @@
 import AddScheduleButton from '@/components/button/addScheduleButton'
 import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
 import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
-import toKST from '@/components/utils/toKST'
 import Image from 'next/image'
 
 interface Schedule {
