@@ -59,7 +59,10 @@ const applicationPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows
+      return data.postRows.map((post: RaidPost) => ({
+        ...post,
+        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+      }))
     } else {
       return []
     }
@@ -80,7 +83,10 @@ const createPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows
+      return data.postRows.map((post: RaidPostCreate) => ({
+        ...post,
+        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+      }))
     } else {
       return []
     }
@@ -124,22 +130,6 @@ export default async function MyPostField() {
     weekSchedule = await weekScheduleGetHandler(session.user.id)
     userId = session.user.id
   }
-
-  // if (applicationPostGet) {
-  //   applicationPostGet = applicationPostGet.map((post: RaidPost) => ({
-  //     ...post,
-  //     raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-  //   }))
-  // }
-
-  // if (createPostGet) {
-  //   createPostGet = createPostGet.map((post: RaidPostCreate) => ({
-  //     ...post,
-  //     raid_time: post.raid_time, // 한국 시간으로 변환
-  //   }))
-  // }
-
-  console.log(createPostGet)
 
   return (
     <div className='flex w-full flex-col'>
