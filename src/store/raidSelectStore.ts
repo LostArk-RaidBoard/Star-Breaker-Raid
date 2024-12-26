@@ -4,7 +4,7 @@ type raidSelectState = {
   raidLimitPerson: number
   raidMaxTime: string
   raidNoti: string
-  raidDate: Date | null
+  raidDate: Date
   raidType: string
   raidLimitLevel: number
 }

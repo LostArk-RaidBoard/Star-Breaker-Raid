@@ -27,7 +27,7 @@
     },
     {
       "path": "/api/cron2",
-      "schedule": "00 20 * * 3"
+      "schedule": "00 20 * * 2"
     }
   ]
 }
