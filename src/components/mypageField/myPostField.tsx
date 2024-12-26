@@ -125,19 +125,21 @@ export default async function MyPostField() {
     userId = session.user.id
   }
 
-  if (applicationPostGet) {
-    applicationPostGet = applicationPostGet.map((post: RaidPost) => ({
-      ...post,
-      raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-    }))
-  }
+  // if (applicationPostGet) {
+  //   applicationPostGet = applicationPostGet.map((post: RaidPost) => ({
+  //     ...post,
+  //     raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
+  //   }))
+  // }
 
-  if (createPostGet) {
-    createPostGet = createPostGet.map((post: RaidPostCreate) => ({
-      ...post,
-      raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-    }))
-  }
+  // if (createPostGet) {
+  //   createPostGet = createPostGet.map((post: RaidPostCreate) => ({
+  //     ...post,
+  //     raid_time: post.raid_time, // 한국 시간으로 변환
+  //   }))
+  // }
+
+  console.log(createPostGet)
 
   return (
     <div className='flex w-full flex-col'>
