@@ -5,7 +5,7 @@ import Fire from '@image/icon/fire.svg'
 import { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
-import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import { convertToKoreanTime2 } from '@/components/utils/converToKoreanTime'
 
 interface TodaySchedule {
   user_id: string
@@ -54,7 +54,7 @@ export default function MainMyPostsSchedule({ userId }: Props) {
         const data = await response.json()
         const formattedData = data.postRows.map((todaySchedule: TodaySchedule) => ({
           ...todaySchedule,
-          schedule_time: convertToKoreanTime(todaySchedule.schedule_time),
+          schedule_time: convertToKoreanTime2(todaySchedule.schedule_time),
         }))
         setWePostsRows(formattedData)
       } catch (error) {
@@ -73,16 +73,16 @@ export default function MainMyPostsSchedule({ userId }: Props) {
       <div className='bg-[#f9fafb]'>
         <span className='rounded-t-md bg-blue-950 px-2 pb-1 text-sm text-white'>today 일정</span>
       </div>
-      <div className='h-full rounded-b-md rounded-r-md bg-blue-100'>
+      <div className='h-full rounded-b-md rounded-r-md bg-blue-200'>
         <div className='grid grid-cols-8 rounded-tr-md bg-blue-950 px-1 text-white'>
           <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             <Fire className='h-4 w-4' />
             레이드
           </div>
-          <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+          <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             캐릭터
           </div>
-          <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
+          <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             <Clock className='h-4 w-4' />
             시간
           </div>
@@ -100,12 +100,12 @@ export default function MainMyPostsSchedule({ userId }: Props) {
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
               </div>
-              <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+              <div className='col-span-3 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>
                   {item.character_name}
                 </span>
               </div>
-              <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
+              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>
                   {item.schedule_time}
                 </span>

@@ -74,16 +74,16 @@ export default function MainTeacherPosts() {
   return (
     <div className='flex h-full w-full flex-col md:w-1/2'>
       <div className='bg-[#f9fafb]'>
-        <span className='rounded-t-md bg-yellow-300 px-2 pb-1 text-sm'>인증 레이드</span>
+        <span className='rounded-t-md bg-yellow-900 px-2 pb-1 text-sm text-white'>인증 레이드</span>
       </div>
       <div className='h-full rounded-b-md rounded-r-md bg-gray-300'>
-        <div className='grid grid-cols-8 rounded-tr-md bg-gray-200 px-1'>
+        <div className='grid grid-cols-8 rounded-tr-md bg-yellow-900 px-1 text-white'>
           <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             <Fire className='h-4 w-4' />
             레이드
           </div>
           <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Megaphone className='h-4 w-4' /> 선생님
+            <Megaphone className='h-4 w-4' /> 공대장
           </div>
           <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             <Clock className='h-4 w-4' />

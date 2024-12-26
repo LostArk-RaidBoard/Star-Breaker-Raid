@@ -109,21 +109,21 @@ export default function MainMyInfo() {
             {myInfoState.raid_gold}
           </span>
           <div className='flex items-center gap-4'>
-            <span>모집글 개설 현황 : {myInfoState.raid_post_count} </span>
-            <span>모집글 신청 현황 : {myInfoState.applicant_count}</span>
+            <span>모집글 개설 : {myInfoState.raid_post_count} </span>
+            <span>모집글 신청 : {myInfoState.applicant_count}</span>
           </div>
 
           <div className='mt-2 flex w-full items-center justify-center gap-4 text-white md:flex-row xl:mt-4 xl:w-full'>
             <Link
               href={'/mypage/mypost'}
-              className='flex w-[100px] items-center justify-center rounded-md bg-gray-200 p-2 text-black shadow-lg'
+              className='flex items-center justify-center rounded-md bg-gray-200 p-2 text-black shadow-lg'
             >
               일정 관리
             </Link>
 
             <Link
               href={'/raidpost/create?redirect=/'}
-              className='flex w-[100px] items-center justify-center rounded-md bg-gray-200 p-2 text-black shadow-lg'
+              className='flex items-center justify-center rounded-md bg-gray-200 p-2 text-black shadow-lg'
             >
               모집 글 등록
             </Link>
