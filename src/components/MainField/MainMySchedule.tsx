@@ -7,7 +7,7 @@ import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 
-interface todaySchedule {
+interface TodaySchedule {
   user_id: string
   schedule_time: any
   raid_gold: number
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function MainMyPostsSchedule({ userId }: Props) {
-  const [wePostsRows, setWePostsRows] = useState<todaySchedule[]>([])
+  const [wePostsRows, setWePostsRows] = useState<TodaySchedule[]>([])
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageination()
 
@@ -52,7 +52,10 @@ export default function MainMyPostsSchedule({ userId }: Props) {
         if (!response.ok) throw new Error('Failed to fetch data')
 
         const data = await response.json()
-        const formattedData = data.postRows
+        const formattedData = data.postRows.map((todaySchedule: TodaySchedule) => ({
+          ...todaySchedule,
+          schedule_time: convertToKoreanTime(todaySchedule.schedule_time),
+        }))
         setWePostsRows(formattedData)
       } catch (error) {
         console.error('fetchWePosts Error:', error)
