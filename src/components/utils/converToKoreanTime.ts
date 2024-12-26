@@ -2,7 +2,6 @@ export const convertToKoreanTime = (dateString: string) => {
   const date = new Date(dateString)
 
   return date.toLocaleString('ko-KR', {
-    timeZone: 'Asia/Seoul',
     year: '2-digit',
     month: '2-digit', // 월 표시 (두 자리)
     day: '2-digit', // 일 표시 (두 자리)
