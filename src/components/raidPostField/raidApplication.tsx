@@ -103,7 +103,7 @@ export default function RaidApplication({
   }, [userId])
 
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border p-4 shadow-lg'>
+    <div className='flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border border-gray-400 p-4 shadow-lg'>
       <div className='flex w-full flex-col items-center justify-center gap-4 sm:flex-col xl:flex-row'>
         <ApplicationCharacterSelect raidLimitLevel={raidLimitLevel} userId={userId} />
 
