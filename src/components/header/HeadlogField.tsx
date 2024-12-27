@@ -8,7 +8,7 @@ export default function HeadLogField() {
   const { data: session } = useSession()
 
   return (
-    <div className='flex h-12 items-center justify-center text-base text-gray-800 sm:text-lg'>
+    <div className='flex h-8 items-center justify-center text-base text-gray-800 sm:text-lg'>
       {session && session.user ? (
         <button
           className={`flex items-center justify-center gap-1`}
