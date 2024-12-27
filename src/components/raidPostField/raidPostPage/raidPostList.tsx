@@ -148,7 +148,7 @@ export default function RaidPostList({ raidPost }: Props) {
         </div>
       </div>
       <div className='mb-4 flex h-full w-full flex-col items-center'>
-        <div className='grid h-12 w-full grid-cols-6 border-b border-gray-300 font-bold sm:grid-cols-9'>
+        <div className='grid h-12 w-full grid-cols-6 border-b border-gray-400 font-bold sm:grid-cols-9'>
           <div className='flex items-center justify-center'>
             <span className='overflow-hidden truncate whitespace-nowrap'>role</span>
           </div>
@@ -176,7 +176,7 @@ export default function RaidPostList({ raidPost }: Props) {
           <Link
             href={`/raidpost/${item.post_id}?redirect=/raidpost`}
             key={item.post_id}
-            className='grid h-12 w-full grid-cols-6 border-b border-gray-300 text-sm hover:bg-gray-200 sm:grid-cols-9 sm:text-base'
+            className='grid h-12 w-full grid-cols-6 border-b border-gray-400 text-sm hover:bg-gray-200 sm:grid-cols-9 sm:text-base'
           >
             <div className='flex items-center justify-center overflow-hidden whitespace-nowrap'>
               <span className='overflow-hidden truncate whitespace-nowrap'>

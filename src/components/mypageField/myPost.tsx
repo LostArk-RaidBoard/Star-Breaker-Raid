@@ -46,7 +46,7 @@ interface Props {
 
 export default function MyPost({ userId, applicationPostGet, createPostGet }: Props) {
   return (
-    <div className='flex flex-col gap-4 rounded-md border border-gray-300 p-4 shadow-lg md:h-[400px] md:flex-row'>
+    <div className='flex flex-col gap-4 rounded-md border border-gray-400 p-4 shadow-lg md:h-[400px] md:flex-row'>
       <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
       <MypageCreatePost createPostGet={createPostGet} />
     </div>
