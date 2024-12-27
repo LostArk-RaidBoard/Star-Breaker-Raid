@@ -1,20 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter, Roboto_Mono } from 'next/font/google'
+import { Noto_Sans_KR } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/footer/Footer'
 import Providers from '@/components/Providers'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const roboto_mono = Roboto_Mono({
-  subsets: ['latin'],
-  variable: '--font-roboto-mono',
-  display: 'swap',
-})
+const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Star Breaker Raid',
@@ -32,12 +22,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='ko' className={`${inter.variable} ${roboto_mono.variable}`}>
+    <html lang='ko'>
       <head>
         <link rel='manifest' href='/manifest.json' />
         <meta name='theme-color' content='#121826' />
       </head>
-      <body className={inter.className}>
+      <body className={notoSansKr.className}>
         <Providers>{children}</Providers>
         <Footer />
       </body>
