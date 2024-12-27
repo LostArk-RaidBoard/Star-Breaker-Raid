@@ -128,7 +128,7 @@ export default async function RaidListField({ postId }: Props) {
             <></>
           )}
 
-          <div className='w-full rounded-md border shadow-lg'>
+          <div className='w-full rounded-md border border-gray-400 shadow-lg'>
             <RaidPost postData={postData} />
           </div>
           <label className='mt-4 flex w-full justify-start'>* 지원 신청 작성</label>

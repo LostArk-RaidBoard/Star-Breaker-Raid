@@ -95,7 +95,7 @@ export default function RaidApplicationList({
           <div className='flex w-full flex-col gap-4'>
             {applicationList.map((char, key) => (
               <div
-                className='flex w-full flex-col items-center justify-center gap-2 rounded-md border p-2 text-lg shadow-lg lg:flex-row lg:gap-8'
+                className='flex w-full flex-col items-center justify-center gap-2 rounded-md border border-gray-400 p-2 text-lg shadow-lg lg:flex-row lg:gap-8'
                 key={key}
               >
                 <div className='flex items-center gap-4'>
