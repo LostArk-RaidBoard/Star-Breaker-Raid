@@ -55,7 +55,7 @@ export default function PasswordChange({ userId }: Props) {
   }
 
   return (
-    <div className='w-full rounded-md border border-gray-200 border-gray-300 p-4 shadow-lg'>
+    <div className='w-full rounded-md border border-gray-400 p-4 shadow-lg'>
       <span className='text-lg'>• 비밀번호 변경</span>
 
       <form className='mt-2 flex w-full flex-col' onSubmit={handlerChange}>

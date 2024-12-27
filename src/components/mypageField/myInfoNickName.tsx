@@ -51,7 +51,7 @@ export default function MyInfoNickName({ userId }: Props) {
     return
   }
   return (
-    <div className='w-full rounded-md border border-gray-200 border-gray-300 p-4 shadow-lg'>
+    <div className='w-full rounded-md border border-gray-400 p-4 shadow-lg'>
       <span className='text-lg'>• 닉네임 설정</span>
       <form className='mt-2 flex w-full flex-col' onSubmit={nickNameHandler}>
         <span className='overflow-hidden truncate whitespace-nowrap'>닉네임 입력해 주세요</span>
