@@ -76,7 +76,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
   return (
     <div className='flex h-full basis-1/2 flex-col'>
       <span className='text-lg'>• 등록한 모집글</span>
-      <div className='mt-4 grid grid-cols-10 rounded-md border px-1'>
+      <div className='mt-4 grid grid-cols-10 rounded-md border border-gray-900 px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Fire className='hidden h-4 w-4 md:block' />
           레이드
@@ -100,7 +100,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
         {currentItems.map((item) => (
           <div
             key={item.post_id}
-            className='grid h-9 grid-cols-10 rounded-md border border-gray-300 bg-gray-100'
+            className='grid h-9 grid-cols-10 rounded-md border border-gray-900 bg-gray-100'
           >
             <Link
               href={`/raidpost/${item.post_id}?redirect=/mypage/mypost`}
@@ -132,7 +132,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
             </Link>
 
             <button
-              className='col-span-1 flex items-center justify-center overflow-hidden truncate whitespace-nowrap rounded-r-md bg-gray-900 text-sm text-white'
+              className='col-span-1 flex items-center justify-center overflow-hidden truncate whitespace-nowrap rounded-r-sm bg-gray-900 text-sm text-white'
               onClick={() => {
                 deleteCreatePostHandler(
                   item.post_id,

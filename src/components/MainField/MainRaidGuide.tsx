@@ -61,8 +61,8 @@ export default async function MainRaidGuide({ userId }: Props) {
               />
             </Link>
           </div>
-          <span className='flex w-full justify-center overflow-hidden truncate whitespace-nowrap text-lg font-medium text-[#222222]'>
-            ✨ {item.guide_name} 공략 ✨
+          <span className='flex w-full justify-center overflow-hidden truncate whitespace-nowrap text-lg font-bold font-medium text-[#222222]'>
+            {item.guide_name} 공략
           </span>
         </div>
       ))}

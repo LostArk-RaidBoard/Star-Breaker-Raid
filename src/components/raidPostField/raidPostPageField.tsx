@@ -53,12 +53,12 @@ export default async function RaidPostPageField() {
   return (
     <div className='flex h-full w-full flex-col items-center justify-center rounded-md'>
       <div className='flex w-full items-center justify-end gap-4 border-b-2 border-gray-900 py-4 sm:justify-between'>
-        <span className='hidden text-lg font-bold sm:block'>
-          공지사항 :{' '}
-          <span className='text-base font-medium'>
-            메뉴바, 메뉴바 모집글 개수 5개, 모집글 페이지, 공략 즐겨찾기 기능을 변경하였습니다.
-          </span>
-        </span>
+        <div className='flex hidden items-center gap-4 text-lg font-bold sm:flex'>
+          <span>로아 팁 :</span>
+          <Link className='text-base font-medium' href={'/raidpost/tip/엘릭서'}>
+            엘릭서 옵션
+          </Link>
+        </div>
 
         <div className='flex w-full justify-end gap-4 sm:w-auto'>
           <RevaildatePostTageButton />

@@ -65,7 +65,9 @@ export default function AddScheduleButton({ userId }: Props) {
       setCharacterAllList(characterlist)
       setCharacterName(characterlist[0].character_name)
     }
-    characterFetch(userId)
+    if (userId) {
+      characterFetch(userId)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
