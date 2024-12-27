@@ -42,7 +42,7 @@ export default function UserDelete({ userId }: Props) {
     }
   }
   return (
-    <div className='flex w-full flex-col rounded-md border border-gray-200 p-4 shadow-lg'>
+    <div className='flex w-full flex-col rounded-md border border-gray-300 p-4 shadow-lg'>
       <span className='text-lg'>• 회원 탈퇴</span>
       <div className='mt-2 flex w-full flex-col'>
         <span className='overflow-hidden whitespace-nowrap'>

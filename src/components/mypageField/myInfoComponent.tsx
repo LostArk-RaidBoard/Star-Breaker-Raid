@@ -16,7 +16,7 @@ interface MyinfoFetch {
 
 export default async function MyInfoComponent({ myInfoData }: Props) {
   return (
-    <div className='flex w-full flex-col rounded-md border p-4 shadow-lg'>
+    <div className='flex w-full flex-col rounded-md border border-gray-300 p-4 shadow-lg'>
       <h1 className='text-lg'>• 내 정보</h1>
 
       <div className='flex flex-col sm:flex-row'>

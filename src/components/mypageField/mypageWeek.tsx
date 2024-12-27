@@ -57,7 +57,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
   })
 
   return (
-    <div className='mt-4 rounded-md border p-4 shadow-lg'>
+    <div className='mt-4 rounded-md border border-gray-300 p-4 shadow-lg'>
       <div className='flex w-full justify-between'>
         <span className='text-lg'>• 이번주 레이드 일정</span>
         <div className='flex items-center gap-4'>
@@ -68,18 +68,18 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
           <AddScheduleButton userId={userId} />
         </div>
       </div>
-      <div className='mt-2 grid w-full grid-cols-2 rounded-sm border-2 border-gray-300 sm:grid-cols-4 lg:grid-cols-7'>
+      <div className='mt-2 grid w-full grid-cols-2 rounded-sm border-2 border-gray-400 sm:grid-cols-4 lg:grid-cols-7'>
         {['수요일', '목요일', '금요일', '토요일', '일요일', '월요일', '화요일'].map(
           (day, index) => (
-            <div key={day} className={`flex min-h-80 flex-col border border-gray-300`}>
+            <div key={day} className={`flex min-h-80 flex-col border border-gray-400`}>
               <span
-                className={`${index === 3 || index === 4 ? 'text-red-700' : ''} flex justify-center bg-gray-200 text-base font-bold`}
+                className={`${index === 3 || index === 4 ? 'text-red-700' : ''} flex justify-center bg-gray-300 text-base font-bold`}
               >
                 {day}
               </span>
               {daysArray[index]?.map((item) => {
                 // approval 속성이 있는지 확인
-                let bgColorClass = 'bg-gray-200' // 기본 색상
+                let bgColorClass = 'bg-gray-300' // 기본 색상
                 const raidTime = new Date(item.schedule_time) // KST로 변환
 
                 // 현재 날짜를 KST로 변환
@@ -92,15 +92,15 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                 )
                 const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
                 if (raidDate.getTime() === currentDate.getTime()) {
-                  bgColorClass = 'bg-green-200' // 오늘
+                  bgColorClass = 'bg-green-300' // 오늘
                 } else if (raidDate.getTime() > currentDate.getTime()) {
-                  bgColorClass = 'bg-red-200' // 미래
+                  bgColorClass = 'bg-red-300' // 미래
                 }
 
                 return (
                   <div
                     key={item.schedule_time}
-                    className={`mt-1 flex flex-col overflow-hidden truncate whitespace-nowrap border-b-2 border-dashed p-1`}
+                    className={`mt-1 flex flex-col overflow-hidden truncate whitespace-nowrap border-b-2 border-dashed border-gray-300 p-1`}
                   >
                     <span className={`${bgColorClass} rounded-md p-1`}>{item.raid_name}</span>
                     <div className='flex items-center justify-between'>

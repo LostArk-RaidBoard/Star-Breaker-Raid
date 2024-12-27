@@ -30,7 +30,7 @@ export default function RaidGuideInput() {
       />
       <button
         type='submit' // 버튼 타입을 submit으로 변경
-        className='h-12 w-24 rounded-md border bg-gray-900 p-2 px-1 text-white'
+        className='h-12 w-24 rounded-md border bg-gray-900 p-2 px-1 text-lg text-white'
       >
         검색
       </button>

@@ -21,7 +21,7 @@ export default function InputLayout({
   }
   return (
     <input
-      className={`h-12 border border-gray-400 px-1 ${setCSS}`}
+      className={`h-12 border border-gray-500 px-1 ${setCSS}`}
       type={setType}
       name={setName}
       autoComplete='off'
