@@ -3,28 +3,27 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './calendar.module.css'
 import { useRaidSelect } from '@/store/raidSelectStore'
-import { setHours, setMinutes, nextDay, startOfWeek, isWednesday, subDays, addDays } from 'date-fns'
+import { setHours, setMinutes, subDays, addDays } from 'date-fns'
 
 export default function CalendarSelect() {
   const { raidDate, setRaidDate } = useRaidSelect()
   const today = new Date()
-  const todayDay = today.getDay()
+  const todayDay = today.getDay() // 오늘의 요일 (0: 일요일, 1: 월요일, ..., 6: 토요일)
 
-  // 수요일 날짜 계산
-  const lastWednesday =
+  // 기준이 되는 수요일 계산
+  const baseWednesday =
     todayDay >= 3
-      ? startOfWeek(today, { weekStartsOn: 0 }) // 이번주 수요일
-      : subDays(startOfWeek(today, { weekStartsOn: 1 }), 7) // 저번주 수요일
+      ? subDays(today, todayDay - 3) // 이번 주 수요일
+      : subDays(today, todayDay + 4) // 지난 주 수요일
 
-  const thisWednesday = nextDay(lastWednesday, 3) // 이번주 수요일
-  const nextTuesday = addDays(thisWednesday, 6) // 다음주 화요일
+  const nextTuesday = addDays(baseWednesday, 6) // 다음 주 화요일
 
   // 선택 가능한 날짜 범위 설정
-  let minDate = thisWednesday // 기본값 설정
-  let maxDate = nextTuesday // 기본값 설정
+  const minDate = baseWednesday
+  const maxDate = nextTuesday
 
-  let minTime = setHours(setMinutes(thisWednesday, 0), 0) // 기본 minTime
-  let maxTime = setHours(setMinutes(nextTuesday, 59), 23) // 기본 maxTime
+  const minTime = setHours(setMinutes(baseWednesday, 0), 0) // 기본 minTime
+  const maxTime = setHours(setMinutes(nextTuesday, 59), 23) // 기본 maxTime
 
   return (
     <div className='flex w-full flex-col'>

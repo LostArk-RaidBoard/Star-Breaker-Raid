@@ -99,7 +99,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
 
                 return (
                   <div
-                    key={item.schedule_time}
+                    key={`${item.schedule_time}-${index}-${item.raid_name}`}
                     className={`mt-1 flex flex-col overflow-hidden truncate whitespace-nowrap border-b-2 border-dashed border-gray-700 p-1`}
                   >
                     <span className={`${bgColorClass} rounded-md p-1`}>{item.raid_name}</span>
