@@ -11,14 +11,14 @@ export default function HeadLogField() {
     <div className='flex h-8 items-center justify-center text-base font-medium text-gray-800 sm:text-lg'>
       {session && session.user ? (
         <button
-          className={`flex flex-row items-center justify-center gap-1`}
+          className={`flex flex-row items-center justify-center gap-1 hover:text-blue-500`}
           onClick={() => signOut({ callbackUrl: '/' })}
         >
           <span>로그아웃</span>
           <Logout className='h-6 w-6' strokeWidth={2} />
         </button>
       ) : (
-        <button className={``}>
+        <button className={`hover:text-blue-500`}>
           <Link
             href={`/login`}
             className='flex flex-row items-center justify-center gap-1'

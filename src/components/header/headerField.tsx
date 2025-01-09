@@ -18,7 +18,7 @@ export default function HeaderField() {
             href={
               'https://turquoise-ruby-e63.notion.site/Star-Breaker-Raid-17650b18d95780c39815d872a0cca2f6'
             }
-            className='text-md flex items-center justify-center gap-2 rounded-md border-2 border-gray-700 p-2 font-medium'
+            className='text-md flex items-center justify-center gap-2 rounded-md border-2 border-gray-700 p-2 font-medium hover:border-blue-500 hover:text-blue-500'
           >
             가이드
             <Book className='h-5 w-5' strokeWidth={2} />
