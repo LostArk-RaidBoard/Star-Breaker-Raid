@@ -10,6 +10,7 @@ interface CharacterList {
 }
 
 export default function CharacterImage(characterList: CharacterList) {
+  // 슈사이어 전사 이미지
   if (characterList.CharacterClassName === '버서커') {
     characterList.CharacterClassIcon = '/classIcon/버서커.svg'
     characterList.CharacterImage =
@@ -41,6 +42,8 @@ export default function CharacterImage(characterList: CharacterList) {
       'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/berserker_female.png'
     return
   }
+
+  // 무도가 이미지
   if (characterList.CharacterClassName === '배틀마스터') {
     characterList.CharacterClassIcon = '/classIcon/배틀마스터.svg'
     characterList.CharacterImage =
@@ -77,6 +80,8 @@ export default function CharacterImage(characterList: CharacterList) {
       'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/infighter_male.png'
     return
   }
+
+  // 헌터 이미지
   if (characterList.CharacterClassName === '데빌헌터') {
     characterList.CharacterClassIcon = '/classIcon/데빌헌터.svg'
     characterList.CharacterImage =
@@ -107,6 +112,8 @@ export default function CharacterImage(characterList: CharacterList) {
       'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/devil_hunter_female.png'
     return
   }
+
+  // 실링 이미지
   if (characterList.CharacterClassName === '아르카나') {
     characterList.CharacterClassIcon = '/classIcon/아르카나.svg'
     characterList.CharacterImage =
@@ -131,6 +138,8 @@ export default function CharacterImage(characterList: CharacterList) {
       'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/elemental_master.png'
     return
   }
+
+  // 암살자 이미지
   if (characterList.CharacterClassName === '데모닉') {
     characterList.CharacterClassIcon = '/classIcon/데모닉.svg'
     characterList.CharacterImage =
@@ -155,6 +164,8 @@ export default function CharacterImage(characterList: CharacterList) {
       'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/soul_eater.png'
     return
   }
+
+  // 스페셜리스트 이미지
   if (characterList.CharacterClassName === '도화가') {
     characterList.CharacterClassIcon = '/classIcon/도화가.svg'
     characterList.CharacterImage =
@@ -168,6 +179,14 @@ export default function CharacterImage(characterList: CharacterList) {
     return
   }
 
+  if (characterList.CharacterClassName === '환수사') {
+    characterList.CharacterClassIcon = '/classIcon/환수사.svg'
+    characterList.CharacterImage =
+      'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/alchemist.png'
+    return
+  }
+
+  //클래스 기본 이미지
   if (characterList.CharacterClassName === '전사(남)') {
     characterList.CharacterClassIcon =
       'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/warrior.png'
@@ -239,5 +258,6 @@ export default function CharacterImage(characterList: CharacterList) {
       'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/specialist.png'
     return
   }
+
   return characterList
 }
