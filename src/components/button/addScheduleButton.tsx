@@ -87,13 +87,12 @@ export default function AddScheduleButton({ userId }: Props) {
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-30'>
           <div className='flex w-[350px] flex-col rounded-lg bg-white p-4 shadow-lg'>
             <h1 className='text-xl font-bold'>일정 추가</h1>
-            <RaidSelectSchedule />
-            <CalendarSelect />
-            <span className='text-lg'>• 캐릭터 선택</span>
+            {/* 일정 모달 캐릭터 선택 */}
+            <span className='mt-2 text-lg font-semibold'>• 캐릭터 선택</span>
             <select
               name='scheduleCharacterSelect'
               aria-label='스케줄 케릭터 선택'
-              className='mt-1 h-12 w-full rounded-md border px-1 text-lg'
+              className='mt-1 h-12 w-full rounded-md border border-gray-400 px-1 text-lg'
               value={characterName}
               onChange={selectHandler}
             >
@@ -103,6 +102,11 @@ export default function AddScheduleButton({ userId }: Props) {
                 </option>
               ))}
             </select>
+            {/* 일정 모달 레이드 스케줄 선택 */}
+            <RaidSelectSchedule />
+            {/* 일정 모달 날짜 선택 */}
+            <CalendarSelect />
+
             <div className='mt-2 flex w-full items-center justify-center'>
               <span className={`${fetchSuccess === 1 ? '' : 'hidden'} text-blue-500`}>
                 일정 추가 성공

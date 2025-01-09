@@ -72,7 +72,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
 
   return (
     <div className='flex h-full basis-1/2 flex-col'>
-      <span className='text-lg'>• 참여 신청한 모집글</span>
+      <span className='text-lg font-semibold'>• 참여 신청한 모집 글</span>
       <div className='mt-4 grid grid-cols-8 rounded-md border border-gray-900 px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Fire className='hidden h-4 w-4 md:block' />
@@ -133,7 +133,7 @@ export default function MypageApplicationPost({ userId, applicationPostGet }: Pr
         <Pagination />
       </div>
       <span className='hidden text-sm sm:block'>
-        * 참여 신청한 모집글은 공대장이 승인하면 배경색이 파란색으로 변경됩니다.
+        * 참여 신청한 모집 글은 공대장이 승인하면 색상이 파란색으로 변경됩니다.
       </span>
     </div>
   )

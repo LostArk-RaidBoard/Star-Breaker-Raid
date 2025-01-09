@@ -20,7 +20,7 @@ export default function CalendarPick() {
   const minDefaultTime = setHours(setMinutes(new Date(), 0), 0) // 자정
   return (
     <div className='flex w-full flex-col'>
-      <label htmlFor='raidDate' className='text-lg'>
+      <label htmlFor='raidDate' className='text-lg font-bold'>
         • 날짜 선정
       </label>{' '}
       {/* 레이블 추가 */}

@@ -58,9 +58,13 @@ export default async function MyInfoField() {
   }
   return (
     <div className='flex h-full w-full flex-col items-center justify-center gap-4'>
+      {/* 내 정보 현황 */}
       <MyInfoComponent myInfoData={myInfoData} />
+      {/* 닉네임 변경 */}
       <MyInfoNickName userId={userId} />
+      {/* 비밀번호 변경 */}
       <PasswordChange userId={userId} />
+      {/* 회원 탈퇴 */}
       <UserDelete userId={userId} />
     </div>
   )

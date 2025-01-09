@@ -43,10 +43,10 @@ export default function UserDelete({ userId }: Props) {
   }
   return (
     <div className='flex w-full flex-col rounded-md border border-gray-400 p-4 shadow-lg'>
-      <span className='text-lg'>• 회원 탈퇴</span>
+      <span className='text-lg font-semibold'>• 회원 탈퇴</span>
       <div className='mt-2 flex w-full flex-col'>
         <span className='overflow-hidden whitespace-nowrap'>
-          &#39;탈퇴하기&#39; 입력 후 탈퇴 버튼을 클릭해 주세요
+          &#39;탈퇴하기&#39; 입력 후 탈퇴 버튼을 눌러주세요
         </span>
         <InputLayout
           setType={'text'}

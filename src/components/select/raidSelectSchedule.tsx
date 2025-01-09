@@ -10,12 +10,12 @@ export default function RaidSelectSchedule() {
   }
 
   return (
-    <div className='flex flex-col'>
-      <label className='text-lg'>• 레이드 선택</label>
+    <div className='mt-3 flex flex-col'>
+      <label className='text-lg font-semibold'>• 레이드 선택</label>
       <select
         name='raidSelect'
         aria-label='레이드 선택 창'
-        className='mt-1 h-12 w-full rounded-md border px-1 text-lg'
+        className='mt-1 h-12 w-full rounded-md border border-gray-400 px-1 text-lg'
         value={raidSelect}
         onChange={selectHandler}
       >

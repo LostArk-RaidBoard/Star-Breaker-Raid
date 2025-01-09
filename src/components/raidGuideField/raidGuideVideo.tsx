@@ -59,7 +59,7 @@ export default function RaidGudiePlayer({ raideYoutubeURLsArray }: Props) {
   }, [updateVideoHeight])
 
   return (
-    <div className='flex w-full flex-col items-center justify-center gap-2 rounded-md bg-black md:flex-row'>
+    <div className='mt-2 flex w-full flex-col items-center justify-center gap-2 rounded-md bg-black md:flex-row'>
       <div ref={videoRef} className='relative w-full md:basis-3/4'>
         <div className='relative w-full' style={{ paddingBottom: '56.25%', height: '0' }}>
           <iframe

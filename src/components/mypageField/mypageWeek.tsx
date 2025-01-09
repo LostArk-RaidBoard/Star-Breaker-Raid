@@ -59,7 +59,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
   return (
     <div className='mt-4 rounded-md border border-gray-400 p-4 shadow-lg'>
       <div className='flex w-full justify-between'>
-        <span className='text-lg'>• 이번주 레이드 일정</span>
+        <span className='text-lg font-semibold'>• 이번 주 레이드 일정</span>
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-1'>
             <Image src='/골드.png' alt='골드 이미지' width='25' height='25' />

@@ -17,12 +17,12 @@ interface MyinfoFetch {
 export default async function MyInfoComponent({ myInfoData }: Props) {
   return (
     <div className='flex w-full flex-col rounded-md border border-gray-400 p-4 shadow-lg'>
-      <h1 className='text-lg'>• 내 정보</h1>
+      <h1 className='text-lg font-semibold'>• 내 정보</h1>
 
       <div className='flex flex-col sm:flex-row'>
         <div className='flex flex-col text-base sm:basis-1/2'>
           <span className='mt-2'>아이디 : {myInfoData.user_id}</span>
-          <span>등급 : {myInfoData.role}</span>
+          <span>칭호 : {myInfoData.role}</span>
           <span>등록된 캐릭터 수 : {myInfoData.character_count}</span>
           <span>닉네임 : {myInfoData.nickname}</span>
         </div>

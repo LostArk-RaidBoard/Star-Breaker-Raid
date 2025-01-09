@@ -26,8 +26,8 @@ export default function CalendarSelect() {
   const maxTime = setHours(setMinutes(nextTuesday, 59), 23) // 기본 maxTime
 
   return (
-    <div className='flex w-full flex-col'>
-      <label htmlFor='raidDate' className='text-lg'>
+    <div className='mt-2 flex w-full flex-col'>
+      <label htmlFor='raidDate' className='text-lg font-semibold'>
         • 날짜 선정
       </label>
       <div className='mt-1 h-full w-full'>
