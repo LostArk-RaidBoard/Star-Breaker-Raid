@@ -1,7 +1,7 @@
 import RevaildatePostTageButton from '@/components/button/revalidatePostTageButton'
 import RaidPostList from '@/components/raidPostField/raidPostPage/raidPostList'
 import Link from 'next/link'
-import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
 
 interface RaidPost {
   post_id: number
@@ -35,7 +35,7 @@ const fetchPostsAllFetch = async (): Promise<RaidPost[]> => {
     const data = await response.json()
     if (response.ok) {
       return data.postRows.map((item: RaidPost) => {
-        item.raid_time = convertToKoreanTime(item.raid_time)
+        item.raid_time = converToKoranTime1(item.raid_time)
         return item
       })
     } else {
