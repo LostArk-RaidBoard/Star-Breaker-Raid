@@ -26,7 +26,7 @@ const raidGuideFetch = async (userId: string) => {
       },
       next: { tags: ['raidGudieLike'], revalidate: 10 },
     })
-    console.log('MainGuideFetch')
+
     const data = await response.json()
     if (response.ok) {
       return data.guideRows
