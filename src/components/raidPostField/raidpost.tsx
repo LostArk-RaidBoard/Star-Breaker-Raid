@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Megaphone from '@image/icon/megaphone.svg'
 import RaidNotiTextArea from '@/components/raidPostField/raidNotiTextArea'
-import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 
 interface Post {
   post_id: number
