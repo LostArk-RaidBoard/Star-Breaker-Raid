@@ -34,10 +34,11 @@ const fetchPostsAllFetch = async (): Promise<RaidPost[]> => {
 
     const data = await response.json()
     if (response.ok) {
-      return data.postRows.map((item: RaidPost) => {
-        item.raid_time = convertToKoreanTime(item.raid_time)
-        return item
-      })
+      return data.postRows
+      // .map((item: RaidPost) => {
+      //   item.raid_time = convertToKoreanTime(item.raid_time)
+      //   return item
+      // })
     } else {
       return []
     }

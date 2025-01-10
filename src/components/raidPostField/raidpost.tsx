@@ -35,7 +35,7 @@ export default async function RaidPost({ postData }: RaidPostProps) {
           </span>
           <div className='text-lg'>
             <span className='font-semibold'>• 레이드 시간 : </span>
-            <span className='font-medium'>{convertToKoreanTime(postData.raid_time)}</span>
+            <span className='font-medium'>{postData.raid_time}</span>
           </div>
           <div className='text-lg'>
             <span className='font-semibold'>• 레이드 타입 : </span>
