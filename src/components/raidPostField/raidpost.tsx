@@ -26,8 +26,9 @@ interface RaidPostProps {
 }
 
 export default async function RaidPost({ postData }: RaidPostProps) {
-  console.log(postData.raid_time)
+  console.log('postDateTime : ' + postData.raid_time)
   const formatTime = convertToKoreanTime(postData.raid_time)
+  console.log('formatTime : ' + formatTime)
 
   return (
     <div className='flex h-full w-full flex-col justify-center'>
