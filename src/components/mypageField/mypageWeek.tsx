@@ -45,6 +45,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
 
     const raidTime = new Date(post.schedule_time)
 
+    // 요일 구분하기
     const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
       const diffDays = Math.floor(
@@ -78,22 +79,31 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                 {day}
               </span>
               {daysArray[index]?.map((item) => {
-                // approval 속성이 있는지 확인
                 let bgColorClass = 'bg-gray-300' // 기본 색상
-                const raidTime = new Date(item.schedule_time) // KST로 변환
+                const raidTime = new Date(item.schedule_time) // schedlue_time 시간으로 형변환
 
-                // 현재 날짜를 KST로 변환
-                const now = new Date()
-
+                // 스케줄 시간 년도, 월, 일 가져오기
                 const raidDate = new Date(
                   raidTime.getFullYear(),
                   raidTime.getMonth(),
                   raidTime.getDate(),
                 )
-                const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-                if (raidDate.getTime() === currentDate.getTime()) {
-                  bgColorClass = 'bg-green-300' // 오늘
-                } else if (raidDate.getTime() > currentDate.getTime()) {
+                // 현재 날짜
+                const now = new Date()
+                const kstDate = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }))
+                const currentDate = new Date(
+                  kstDate.getFullYear(),
+                  kstDate.getMonth(),
+                  kstDate.getDate(),
+                  kstDate.getHours(),
+                  kstDate.getMinutes(),
+                )
+                console.log('서버 시간: ' + new Date().toISOString())
+                console.log('한국 시간 : ' + currentDate)
+                // 날짜에 따른 색상 구분, 오늘 : 초록, 미래 : 빨강
+                if (raidDate.getDate() === currentDate.getDate()) {
+                  bgColorClass = 'bg-green-300'
+                } else if (raidDate.getDate() > currentDate.getDate()) {
                   bgColorClass = 'bg-red-300' // 미래
                 }
 
