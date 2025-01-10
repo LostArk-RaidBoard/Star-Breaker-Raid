@@ -68,8 +68,9 @@ export default function RaidPostList({ raidPost }: Props) {
     <div className='flex h-full w-full flex-col'>
       <div
         id='Postbar'
-        className='flex h-20 w-full flex-col items-center justify-center bg-gray-300 sm:h-12 sm:flex-row sm:justify-start sm:px-3'
+        className='flex h-20 w-full flex-col items-center justify-center border-y-2 border-gray-900 bg-gray-300 sm:h-12 sm:flex-row sm:justify-start sm:px-3'
       >
+        {/* 모바일 버전 첫 번째줄 메뉴 */}
         <div className='flex flex-row items-center'>
           <button
             aria-label='전체 선택 버튼'
@@ -108,6 +109,7 @@ export default function RaidPostList({ raidPost }: Props) {
             학원
           </button>
         </div>
+        {/* 모바일 버전에서 두 번째 메뉴  */}
         <div className='flex flex-row items-center'>
           <button
             aria-label='트라이 선택 버튼'
@@ -150,7 +152,7 @@ export default function RaidPostList({ raidPost }: Props) {
       <div className='mb-4 flex h-full w-full flex-col items-center'>
         <div className='grid h-12 w-full grid-cols-6 border-b border-gray-400 font-bold sm:grid-cols-9'>
           <div className='flex items-center justify-center'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>role</span>
+            <span className='overflow-hidden truncate whitespace-nowrap'>칭호</span>
           </div>
           <div className='flex items-center justify-center'>
             <span className='overflow-hidden truncate whitespace-nowrap'>공대장</span>
@@ -180,7 +182,7 @@ export default function RaidPostList({ raidPost }: Props) {
           >
             <div className='flex items-center justify-center overflow-hidden whitespace-nowrap'>
               <span className='overflow-hidden truncate whitespace-nowrap'>
-                {item.post_position}
+                {item.post_position === 'teacher' ? 'Teacher' : 'User'}
               </span>
             </div>
             <div className='flex items-center justify-center overflow-hidden whitespace-nowrap'>

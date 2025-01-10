@@ -33,29 +33,30 @@ export default async function RaidCreateField() {
   }
 
   return (
-    <div className='flex h-full w-full flex-col gap-4 rounded-md border p-4 shadow-lg'>
+    <div className='flex h-full w-full flex-col gap-4 rounded-md border border-gray-400 p-4 shadow-lg'>
       {session && session.user.id ? (
         <>
-          <h1 className='text-xl'>* {session.user.nickName} 레이드 개설</h1>
+          <h1 className='text-xl font-bold'>{session.user.nickName} 레이드 개설</h1>
           <p className={`${session.user.nickName === '' ? '' : 'hidden'} text-red-500`}>
             닉네임을 설정해야 모집 글 등록이 가능합니다.
             <br /> 마이페이지-내 정보-닉네임 설정
           </p>
           <div className='flex w-full flex-col gap-8 sm:flex-row'>
-            {/* 왼쪽 */}
+            {/* 왼쪽 : 레이드 선택, 레이드 최대 정원, 날짜 선택, 레이드 숙련도 선택 */}
             <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
               <RaidSelect />
               <RaidLimitPersonSelect />
               <CalendarPick />
               <RaidDetail />
             </div>
-            {/* 오른쪽 */}
+            {/* 오른쪽 : 캐릭터 선택, 레이드 최대 시간, 공지 사항 선택*/}
             <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
               <RaidCharacterSelect createPostCharacter={createPostCharacter} />
               <RaidMaxTime />
               <RaidNoti />
             </div>
           </div>
+          {/* 모집 글 등록 버튼 */}
           <RaidPostCreateButton />
         </>
       ) : (

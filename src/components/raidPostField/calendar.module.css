@@ -1,15 +1,15 @@
 .datePicker {
   display: flex;
   align-items: center;
-  border: 1px solid #e5e7eb; /* gray-200의 hex 코드 */
+  border: 1px solid #9ca3af; /* gray-200의 hex 코드 */
   border-radius: 4px;
   box-sizing: border-box;
   width: 100%; /* 날짜 선택기의 너비를 100%로 설정 */
-  height: 48px;
+  height: 56px;
   padding: 0 4px; /* 좌우 패딩을 4px로 설정 (px-1에 해당) */
 
   &:focus {
-    border: 2px solid #e5e7eb; /* focus 시 테두리 색상도 gray-200으로 설정 */
+    border: 2px solid #9ca3af; /* focus 시 테두리 색상도 gray-200으로 설정 */
   }
 }
 

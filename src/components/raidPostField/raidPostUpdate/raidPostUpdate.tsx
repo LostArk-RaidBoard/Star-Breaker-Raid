@@ -69,7 +69,7 @@ export default async function RaidPostUpdate({ postId }: Props) {
     createPostCharacter = await UtileCharacterDataFetch(session.user.id)
   }
   return (
-    <div className='flex h-full w-full flex-col justify-center rounded-md border p-4'>
+    <div className='flex h-full w-full flex-col justify-center rounded-md border border-gray-400 p-4'>
       <span className='flex h-14 items-center justify-center rounded-md border border-gray-500 bg-gray-900 p-2 text-xl text-white'>
         📝 &nbsp; <span className='font-bold'>{postData.raid_name} 수정 중</span> &nbsp; 📝
       </span>

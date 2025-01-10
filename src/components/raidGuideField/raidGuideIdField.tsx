@@ -21,13 +21,15 @@ export default function RaidGuidedIdField({ raideGuide }: Props) {
   const raideImageArray = Object.values(raideImage)
 
   return (
-    <div className='flex h-full w-full flex-col rounded-md border p-4 shadow-lg'>
-      <h1 className='text-2xl'>{raideGuide.guide_name} 레이드 가이드</h1>
-      <h1 className='mt-4 text-xl'>{raideGuide.guide_name} 레이드 공략 추천 동영상</h1>
+    <div className='flex h-full w-full flex-col rounded-md border border-gray-400 p-4 shadow-lg'>
+      <h1 className='text-2xl font-semibold'>{raideGuide.guide_name} 레이드 가이드</h1>
+      <h1 className='mt-4 text-xl font-semibold'>
+        • {raideGuide.guide_name} 레이드 공략 추천 동영상
+      </h1>
 
       <RaidGudiePlayer raideYoutubeURLsArray={raideYoutubeURLsArray} />
 
-      <h3 className='mt-4 text-xl'>* 컨닝페이퍼</h3>
+      <h3 className='mt-4 text-xl font-semibold'>• 컨닝페이퍼</h3>
       <RaidGuideImage raideImageArray={raideImageArray} />
     </div>
   )

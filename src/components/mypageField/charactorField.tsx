@@ -230,11 +230,11 @@ export default function CharactorField({ dbCharacter }: Props) {
         <div className='flex h-full w-full flex-col p-4'>
           <div className='mt-2 flex w-full flex-col gap-4 sm:flex-row'>
             <div className='flex w-full flex-col sm:basis-1/2'>
-              <span className='text-lg'>• 모든 캐릭터 가져오기</span>
+              <span className='text-lg font-semibold'>• 모든 캐릭터 가져오기</span>
               <div className='ml-2 flex flex-col'>
                 <span className='mt-2'>대표 캐릭터 입력하기</span>
                 <form
-                  className='flex flex-col items-center justify-between space-x-2 sm:flex-row'
+                  className='mt-1 flex flex-col items-center justify-between space-x-2 sm:flex-row'
                   onSubmit={handlerAllCharacter}
                 >
                   <InputLayout
@@ -256,11 +256,11 @@ export default function CharactorField({ dbCharacter }: Props) {
               </div>
             </div>
             <div className='sm: flex w-full flex-col sm:basis-1/2'>
-              <span className='text-lg'>• 한 캐릭터 가져오기</span>
+              <span className='text-lg font-semibold'>• 한 캐릭터 가져오기</span>
               <div className='ml-2 flex flex-col'>
                 <span className='mt-2'>캐릭터명 입력하기</span>
                 <form
-                  className='flex flex-col items-center justify-between space-x-2 sm:flex-row'
+                  className='mt-1 flex flex-col items-center justify-between space-x-2 sm:flex-row'
                   onSubmit={handlerOneCharacter}
                 >
                   <InputLayout

@@ -101,13 +101,13 @@ export default function NewCharacterField({
   return (
     <div className={`mt-4 ${newHidden ? '' : 'hidden'} flex flex-col gap-4`}>
       <div className='flex flex-col items-center justify-start sm:flex-row'>
-        <span className='flex w-full items-center justify-start text-lg sm:w-auto'>
-          • 추가 캐릭터 선택창
+        <span className='flex w-full items-center justify-start text-lg font-semibold sm:w-auto'>
+          • 추가 캐릭터
         </span>
       </div>
 
       {/* 새로운 캐릭터 그리드로 넣기 */}
-      <div className='relative grid w-full grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      <div className='relative grid w-full grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3'>
         {newCharacterList.map((item, index) => (
           <div
             key={index}

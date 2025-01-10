@@ -11,9 +11,9 @@ export default function RaidDetail() {
 
   return (
     <div className='flex flex-col'>
-      <label className='text-lg'>레이드 타입</label>
-      <div className='grid h-12 w-full grid-cols-2 text-base sm:grid-cols-3 lg:grid-cols-5'>
-        {['학원', '트라이', '클경', '반숙', '숙련'].map((type) => (
+      <label className='text-lg font-bold'>• 레이드 타입</label>
+      <div className='grid h-12 w-full grid-cols-2 text-base sm:grid-cols-3 lg:grid-cols-6'>
+        {['학원', '트라이', '클경', '반숙', '숙련', '숙제'].map((type) => (
           <div key={type} className='flex items-center justify-center gap-2'>
             <input
               type='radio'

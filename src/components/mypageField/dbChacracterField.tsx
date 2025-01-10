@@ -195,7 +195,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
 
   return (
     <div className='mt-4 flex flex-col'>
-      <span className='w-full text-lg'>• 캐릭터</span>
+      <span className='w-full text-lg font-semibold'>• 캐릭터</span>
 
       {/* DB에 저장된 캐릭터 */}
       <div className='relative mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3'>
