@@ -39,15 +39,12 @@ export default function MainMyPostsSchedule({ userId }: Props) {
   useEffect(() => {
     const fetchMainMyPostsSchedule = async (userId: string) => {
       try {
-        const response = await fetch(
-          `${process.env.API_URL}/api/mainMySchedule?user_id=${userId}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+        const response = await fetch(`/api/mainMySchedule?user_id=${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+        })
 
         if (!response.ok) throw new Error('Failed to fetch data')
 
