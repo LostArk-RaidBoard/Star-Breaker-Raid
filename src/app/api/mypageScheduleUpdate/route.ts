@@ -13,7 +13,6 @@ export async function PUT(req: Request) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
 
-  console.log(gold_check)
   try {
     const res = await sql`
        UPDATE schedule SET gold_check=${gold_check} WHERE user_id = ${userId} AND character_name = ${character_name} AND raid_name =  ${raid_name}

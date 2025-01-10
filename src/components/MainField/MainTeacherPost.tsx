@@ -58,7 +58,11 @@ export default function MainTeacherPosts() {
           throw new Error('Failed to fetch data')
         }
         const data = await response.json()
-        setTeacherPostsRows(data.postRows) // 데이터를 상태에 저장
+        const formatTime = data.postRows.map((item: RaidPost) => {
+          item.raid_time = convertToKoreanTime(item.raid_time)
+          return item
+        })
+        setTeacherPostsRows(formatTime) // 데이터를 상태에 저장
       } catch (error) {
         console.error('fetchTeacherPost Error:', error)
       }

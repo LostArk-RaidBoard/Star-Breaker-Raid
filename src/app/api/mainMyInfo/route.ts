@@ -28,7 +28,7 @@ LEFT JOIN
 LEFT JOIN
     characters ON users.user_id = characters.user_id
 LEFT JOIN
-    schedule ON characters.character_name = schedule.character_name AND schedule.schedule_time < ${nextWednesdayDate} 
+    schedule ON characters.character_name = schedule.character_name AND schedule.schedule_time < ${nextWednesdayDate + ' 06:00'} 
 LEFT JOIN
     applicants_list ON users.user_id = applicants_list.user_id
 LEFT JOIN

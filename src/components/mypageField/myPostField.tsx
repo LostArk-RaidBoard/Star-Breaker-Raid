@@ -59,7 +59,10 @@ const applicationPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows
+      return data.postRows.map((item: RaidPost) => {
+        item.raid_time = convertToKoreanTime(item.raid_time)
+        return item
+      })
     } else {
       return []
     }
@@ -80,7 +83,10 @@ const createPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows
+      return data.postRows.map((item: RaidPostCreate) => {
+        item.raid_time = convertToKoreanTime(item.raid_time)
+        return item
+      })
     } else {
       return []
     }
@@ -125,7 +131,6 @@ export default async function MyPostField() {
     userId = session.user.id
   }
 
-  console.log(createPostGet)
   return (
     <div className='flex w-full flex-col'>
       <MyPost

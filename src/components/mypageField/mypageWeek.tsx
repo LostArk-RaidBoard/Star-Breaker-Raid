@@ -3,8 +3,6 @@ import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
 import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
 import Image from 'next/image'
 import { toZonedTime } from 'date-fns-tz'
-import { setHours, setMinutes, subDays, addDays } from 'date-fns'
-import nextWednesday from '@/components/utils/nextWednesday'
 
 interface Schedule {
   user_id: string
@@ -36,7 +34,6 @@ function getThisWeekWednesday6AM() {
 
 export default function MypageWeek({ weekSchedule, userId }: Props) {
   const startWednesday = getThisWeekWednesday6AM()
-
   // 요일별로 데이터를 분류
   const daysArray = Array.from({ length: 7 }, () => [] as Schedule[])
   let sumGold = 0
