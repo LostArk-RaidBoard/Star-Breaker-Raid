@@ -53,7 +53,7 @@ export default function MainMyPostsSchedule({ userId }: Props) {
           item.schedule_time = convertToKoreanTime2(item.schedule_time)
           return item
         })
-        setWePostsRows(data.postRows)
+        setWePostsRows(formatTime)
       } catch (error) {
         console.error('fetchWePosts Error:', error)
         setWePostsRows([])
