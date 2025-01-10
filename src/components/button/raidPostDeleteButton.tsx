@@ -45,7 +45,7 @@ export default function RaidPostDeleteButton({ postId, userId, raidName, charact
         deleteCreatePostHandler(postId, userId, raidName, characterName)
       }}
     >
-      모집글 닫기
+      모집 글 닫기
     </button>
   )
 }

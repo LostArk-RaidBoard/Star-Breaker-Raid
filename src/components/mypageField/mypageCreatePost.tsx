@@ -75,7 +75,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
 
   return (
     <div className='flex h-full basis-1/2 flex-col'>
-      <span className='text-lg'>• 등록한 모집글</span>
+      <span className='text-lg font-semibold'>• 등록한 모집 글</span>
       <div className='mt-4 grid grid-cols-10 rounded-md border border-gray-900 px-1'>
         <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
           <Fire className='hidden h-4 w-4 md:block' />
@@ -149,7 +149,7 @@ export default function MypageCreatePost({ createPostGet }: Props) {
         <PaginationSub />
       </div>
       <span className='hidden text-sm sm:block'>
-        * 인원칸에는 승인 대기 중인 인원이 소괄호로 표시됩니다.
+        * 인원에는 승인 대기 중인 인원이 소괄호로 표시됩니다.
       </span>
     </div>
   )

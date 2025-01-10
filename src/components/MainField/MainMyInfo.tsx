@@ -98,7 +98,7 @@ export default function MainMyInfo() {
           </span>
 
           <span className='flex items-center'>
-            이번주 레이드 골드 수익 :
+            이번 주 레이드 골드 수익 :
             <Image
               src={'/골드.png'}
               alt='골드 이미지'

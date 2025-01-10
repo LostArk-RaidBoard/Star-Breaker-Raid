@@ -6,7 +6,8 @@ export const revalidate = 0
 
 export async function GET(req: Request) {
   try {
-    const res = await sql`DELETE FROM raid_posts WHERE raid_time < NOW()`
+    const res =
+      await sql`DELETE FROM raid_posts WHERE raid_time < (NOW() AT TIME ZONE 'Asia/Seoul')`
     console.log('삭제된 행 수:', res.rowCount) // 삭제된 행 수를 로그에 출력
     wePostTage()
     createPostTage()

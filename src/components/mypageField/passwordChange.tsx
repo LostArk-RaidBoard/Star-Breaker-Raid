@@ -56,11 +56,11 @@ export default function PasswordChange({ userId }: Props) {
 
   return (
     <div className='w-full rounded-md border border-gray-400 p-4 shadow-lg'>
-      <span className='text-lg'>• 비밀번호 변경</span>
+      <span className='text-lg font-semibold'>• 비밀번호 변경</span>
 
       <form className='mt-2 flex w-full flex-col' onSubmit={handlerChange}>
         <span className='overflow-hidden truncate whitespace-nowrap'>
-          변경할 비밀번호를 입력해 주세요
+          새 비밀번호를 입력해 주세요
         </span>
         <InputLayout
           setType={'password'}

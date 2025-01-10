@@ -52,7 +52,7 @@ export default async function RaidPostPageField() {
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center rounded-md'>
-      <div className='flex w-full items-center justify-end gap-4 border-b-2 border-gray-900 py-4 sm:justify-between'>
+      <div className='flex h-12 w-full items-center justify-end gap-4 sm:justify-between'>
         <div className='flex hidden items-center gap-4 text-lg font-bold sm:flex'>
           <span>로아 팁 :</span>
           <Link className='text-base font-medium' href={'/raidpost/tip/엘릭서'}>

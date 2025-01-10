@@ -107,11 +107,11 @@ export default function UpdateRaidCharacterSelect({
 
   return (
     <div className='flex flex-col'>
-      <label className='text-lg'>캐릭터 선택</label>
+      <label className='text-lg font-bold'>• 캐릭터 선택</label>
       {createPostCharacter.length > 0 && updateCharacterSelect ? (
         <div className='relative w-full flex-col rounded-md bg-gray-900'>
           <button
-            className='flex h-16 w-full items-center justify-between rounded-md border border-gray-500 px-1 shadow-md'
+            className='flex h-16 w-full items-center justify-between rounded-md border border-gray-700 px-2 shadow-md'
             onClick={handlerHidden}
           >
             <div className='flex items-center gap-4'>
@@ -136,14 +136,14 @@ export default function UpdateRaidCharacterSelect({
                 {updateCharacterSelect.character_level}
               </span>
             </div>
-            <Under className='h-4 w-4 text-white' />
+            <Under className='h-4 w-4 text-white' strokeWidth={3} />
           </button>
           <div
-            className={`absolute left-0 top-full z-10 mt-1 w-full rounded-md bg-gray-300 text-white shadow-md ${hidden ? 'hidden' : ''}`}
+            className={`absolute left-0 top-full z-10 mt-1 w-full rounded-md bg-gray-600 text-white shadow-md ${hidden ? 'hidden' : ''}`}
           >
             <div
               key={'캐릭터 미정'}
-              className={`flex cursor-pointer items-center gap-4 p-2 text-black hover:bg-gray-200 ${updateCharacterSelect.character_name === '캐릭터 없음' ? 'hidden' : ''}`}
+              className={`flex cursor-pointer items-center gap-4 rounded-md p-2 text-white hover:bg-gray-400 hover:text-black ${updateCharacterSelect.character_name === '캐릭터 없음' ? 'hidden' : ''}`}
               onClick={() => handler('캐릭터 미정')}
             >
               <div className='h-12 w-12 overflow-hidden rounded-full'>
@@ -167,7 +167,7 @@ export default function UpdateRaidCharacterSelect({
             {createPostCharacter.map((char) => (
               <div
                 key={char.character_name}
-                className={`flex cursor-pointer items-center gap-4 p-2 hover:bg-gray-200 ${char.disable ? 'hidden' : ''}`}
+                className={`flex cursor-pointer items-center gap-4 rounded-md p-2 text-white hover:bg-gray-400 hover:text-black ${char.disable ? 'hidden' : ''}`}
                 onClick={() => handler(char.character_name)}
               >
                 <div className='h-12 w-12 overflow-hidden rounded-full'>
@@ -186,8 +186,8 @@ export default function UpdateRaidCharacterSelect({
                   height={30}
                   className='p-1'
                 />
-                <span className='text-black'>{char.character_name}</span>
-                <span className='hidden text-black sm:block'>{char.character_level}</span>
+                <span className=''>{char.character_name}</span>
+                <span className='hidden sm:block'>{char.character_level}</span>
               </div>
             ))}
           </div>
