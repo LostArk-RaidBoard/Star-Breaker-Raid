@@ -25,7 +25,7 @@ export default function UpdateCalendarPick({ updateTime, setUpdateTime }: Props)
 
   return (
     <div className='flex w-full flex-col'>
-      <label htmlFor='raidDate' className='text-lg font-bold'>
+      <label htmlFor='raidDate' className='text-lg font-semibold'>
         • 날짜, 시간 선택
       </label>{' '}
       {/* 레이블 추가 */}

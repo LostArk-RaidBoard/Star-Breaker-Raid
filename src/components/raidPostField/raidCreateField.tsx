@@ -36,7 +36,7 @@ export default async function RaidCreateField() {
     <div className='flex h-full w-full flex-col gap-4 rounded-md border border-gray-400 p-4 shadow-lg'>
       {session && session.user.id ? (
         <>
-          <h1 className='text-xl font-bold'>{session.user.nickName} 레이드 개설</h1>
+          <h1 className='text-xl font-bold'>{session.user.nickName}님 모집 글 등록</h1>
           <p className={`${session.user.nickName === '' ? '' : 'hidden'} text-red-500`}>
             닉네임을 설정해야 모집 글 등록이 가능합니다.
             <br /> 마이페이지-내 정보-닉네임 설정

@@ -11,7 +11,7 @@ export default function UpdateRaidNoti({ updateRaidNoti, setUpdateRaidNoti }: Pr
 
   return (
     <div className='flex flex-col'>
-      <label className='text-lg font-bold'>• 공지 사항 수정하기</label>
+      <label className='text-lg font-semibold'>• 공지 사항 수정하기</label>
       <textarea
         id='raidNoti'
         name='raidNoti'
