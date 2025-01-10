@@ -1,9 +1,11 @@
 'use server'
+import nextWednesday from '@/components/utils/nextWednesday'
 import { sql } from '@vercel/postgres'
 
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const userId = url.searchParams.get('userId')
+  const nextWednesdayDate = nextWednesday()
 
   if (!userId) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
@@ -26,13 +28,13 @@ LEFT JOIN
 LEFT JOIN
     characters ON users.user_id = characters.user_id
 LEFT JOIN
-    schedule ON characters.character_name = schedule.character_name
+    schedule ON characters.character_name = schedule.character_name AND schedule.schedule_time < ${nextWednesdayDate + ' 06:00'} 
 LEFT JOIN
     applicants_list ON users.user_id = applicants_list.user_id
 LEFT JOIN
     raid_posts ON applicants_list.post_id = raid_posts.post_id
 WHERE
-    users.user_id = ${userId}
+    users.user_id = ${userId} 
 GROUP BY
     users.user_id, roles.role;
     `

@@ -15,7 +15,9 @@ export async function POST(req: Request) {
   }
 
   // schedule_time을 ISO 형식으로 변환
-  const formattedScheduleTime = new Date(schedule_time).toISOString()
+  const formattedScheduleTime = new Date(
+    new Date(schedule_time).getTime() - 9 * 60 * 60 * 1000,
+  ).toISOString()
 
   try {
     const response =

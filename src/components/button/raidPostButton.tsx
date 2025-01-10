@@ -9,6 +9,10 @@ import Loading from '@image/icon/loading.svg'
 import { wePostTage } from '@/app/action'
 import RaidGold from '@/components/utils/raidGold'
 
+/**
+ * 모집 글 등록 버튼 입니다.
+ * @returns DB에 모집 글 등록
+ */
 export default function RaidPostCreateButton() {
   const router = useRouter()
   const [postSave, setPostSave] = useState(0)

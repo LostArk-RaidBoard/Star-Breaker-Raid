@@ -39,24 +39,21 @@ export default function MainMyPostsSchedule({ userId }: Props) {
   useEffect(() => {
     const fetchMainMyPostsSchedule = async (userId: string) => {
       try {
-        const response = await fetch(
-          `${process.env.API_URL}/api/mainMySchedule?user_id=${userId}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+        const response = await fetch(`/api/mainMySchedule?user_id=${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
           },
-        )
+        })
 
         if (!response.ok) throw new Error('Failed to fetch data')
 
         const data = await response.json()
-        const formattedData = data.postRows.map((todaySchedule: TodaySchedule) => ({
-          ...todaySchedule,
-          schedule_time: convertToKoreanTime2(todaySchedule.schedule_time),
-        }))
-        setWePostsRows(formattedData)
+        const formatTime = data.postRows.map((item: TodaySchedule) => {
+          item.schedule_time = convertToKoreanTime2(item.schedule_time)
+          return item
+        })
+        setWePostsRows(formatTime)
       } catch (error) {
         console.error('fetchWePosts Error:', error)
         setWePostsRows([])

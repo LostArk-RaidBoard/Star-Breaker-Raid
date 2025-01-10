@@ -3,7 +3,8 @@ import { sql } from '@vercel/postgres'
 
 interface RaidPost {
   postId: number
-  raid_time: Date | null | string // 문자열이거나 null일 수도 있으므로 추가
+  raidName: string
+  raid_time: Date // 문자열이거나 null일 수도 있으므로 추가
   noti: string
   character_name: string
   character_classicon: string
@@ -18,23 +19,12 @@ export async function POST(req: Request) {
   if (!raidPost) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
-  console.log('raidpost 처음 시간 :' + raidPost.raid_time)
+
+  const updateTime = new Date(raidPost.raid_time).toISOString()
   try {
-    let raidTime: string | null = null
-
-    // raid_time이 Date 객체인지 확인 후 처리
-    if (raidPost.raid_time instanceof Date) {
-      // Date 객체라면 TIMESTAMP 형식으로 변환
-      raidTime = raidPost.raid_time.toISOString().slice(0, 19).replace('T', ' ')
-    } else if (typeof raidPost.raid_time === 'string') {
-      // 문자열로 넘어온 경우 그대로 사용
-      raidTime = raidPost.raid_time
-    }
-
-    console.log('post에 들어가는 시간' + raidTime)
     const res = await sql`
     UPDATE raid_posts SET 
-      raid_time = ${raidTime},
+      raid_time = ${updateTime},
       noti = ${raidPost.noti},
       character_name = ${raidPost.character_name},
       raid_type = ${raidPost.raid_type},
@@ -43,6 +33,25 @@ export async function POST(req: Request) {
       character_image = ${raidPost.character_image}
     WHERE post_id = ${raidPost.postId}
   `
+
+    // 모집 글에 지원한 사람들 조회
+    const response =
+      await sql`SELECT user_id, character_name FROM applicants_list WHERE post_id = ${raidPost.postId}`
+
+    const applictionList = response.rows
+
+    // 각 요소에 대해 schedule.schedule_time UPDATE 쿼리 실행
+    for (const applicant of applictionList) {
+      const userId = applicant.user_id
+      const characterName = applicant.character_name
+      const raidName = raidPost.raidName // raidName이 raidPost에 포함되어 있다고 가정
+
+      await sql`
+      UPDATE schedule SET
+        schedule_time = ${updateTime}
+      WHERE user_id = ${userId} AND character_name = ${characterName} AND raid_name = ${raidName}
+    `
+    }
 
     return new Response(JSON.stringify({ message: '레이드 업데이트 성공' }), { status: 200 })
   } catch (error) {

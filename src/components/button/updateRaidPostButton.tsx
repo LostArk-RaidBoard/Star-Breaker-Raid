@@ -1,6 +1,5 @@
 'use client'
 
-import { useCharacterInfoList } from '@/store/characterStore'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -30,6 +29,7 @@ interface Props {
   updateRaidMaxTime: string
   updateCharacterSelect: CharacterInfo | undefined
   updateRaidNoti: string
+  raidName: string
 }
 
 export default function RaidPostUpdateButton({
@@ -39,12 +39,13 @@ export default function RaidPostUpdateButton({
   updateRaidMaxTime,
   updateCharacterSelect,
   updateRaidNoti,
+  raidName,
 }: Props) {
   const router = useRouter()
   const [postSave, setPostSave] = useState(0)
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(0)
-  const { characterInfo } = useCharacterInfoList()
+
   const { data: session } = useSession()
 
   // 현재 시간과 raidDate 간의 차이가 5분 이내인지 확인하는 함수
@@ -87,9 +88,11 @@ export default function RaidPostUpdateButton({
         return
       }
     }
+
     try {
       const raidPost = {
         postId: postId,
+        raidName: raidName,
         raid_time: updateTime,
         noti: updateRaidNoti,
         character_name: updateCharacterSelect.character_name,

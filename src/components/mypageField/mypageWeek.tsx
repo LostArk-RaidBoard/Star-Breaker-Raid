@@ -2,6 +2,7 @@ import AddScheduleButton from '@/components/button/addScheduleButton'
 import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
 import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
 import Image from 'next/image'
+import { toZonedTime } from 'date-fns-tz'
 
 interface Schedule {
   user_id: string
@@ -33,7 +34,6 @@ function getThisWeekWednesday6AM() {
 
 export default function MypageWeek({ weekSchedule, userId }: Props) {
   const startWednesday = getThisWeekWednesday6AM()
-
   // 요일별로 데이터를 분류
   const daysArray = Array.from({ length: 7 }, () => [] as Schedule[])
   let sumGold = 0
@@ -74,13 +74,14 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
           (day, index) => (
             <div key={day} className={`flex min-h-80 flex-col border border-gray-400`}>
               <span
-                className={`${index === 3 || index === 4 ? 'text-red-700' : ''} flex justify-center bg-gray-300 text-base font-bold`}
+                className={`${index === 3 || index === 4 ? 'text-red-700' : ''} flex justify-center bg-gray-300 text-base font-semibold antialiased`}
               >
                 {day}
               </span>
               {daysArray[index]?.map((item) => {
+                const timeZone = 'Asia/Seoul'
                 let bgColorClass = 'bg-gray-300' // 기본 색상
-                const raidTime = new Date(item.schedule_time) // schedlue_time 시간으로 형변환
+                const raidTime = toZonedTime(item.schedule_time, timeZone) // schedlue_time 시간으로 형변환
 
                 // 스케줄 시간 년도, 월, 일 가져오기
                 const raidDate = new Date(
@@ -89,21 +90,12 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                   raidTime.getDate(),
                 )
                 // 현재 날짜
-                const now = new Date()
-                const kstDate = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }))
-                const currentDate = new Date(
-                  kstDate.getFullYear(),
-                  kstDate.getMonth(),
-                  kstDate.getDate(),
-                  kstDate.getHours(),
-                  kstDate.getMinutes(),
-                )
-                console.log('서버 시간: ' + new Date().toISOString())
-                console.log('한국 시간 : ' + currentDate)
+                const today = toZonedTime(new Date(), timeZone)
+
                 // 날짜에 따른 색상 구분, 오늘 : 초록, 미래 : 빨강
-                if (raidDate.getDate() === currentDate.getDate()) {
+                if (raidDate.getDate() === today.getDate()) {
                   bgColorClass = 'bg-green-300'
-                } else if (raidDate.getDate() > currentDate.getDate()) {
+                } else if (raidDate.getDate() > today.getDate()) {
                   bgColorClass = 'bg-red-300' // 미래
                 }
 
@@ -114,14 +106,7 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                   >
                     <span className={`${bgColorClass} rounded-md p-1`}>{item.raid_name}</span>
                     <div className='flex items-center justify-between'>
-                      <span>
-                        {item.schedule_time
-                          .split('T')[1]
-                          .split('.')[0]
-                          .split(':')
-                          .slice(0, 2)
-                          .join(':')}
-                      </span>
+                      <span>{raidTime.getHours() + '시 ' + raidTime.getMinutes() + '분'}</span>
                       <DeleteScheduleButton
                         characterName={item.character_name}
                         raidName={item.raid_name}

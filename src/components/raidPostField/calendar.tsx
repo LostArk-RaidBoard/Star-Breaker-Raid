@@ -20,7 +20,7 @@ export default function CalendarPick() {
   const minDefaultTime = setHours(setMinutes(new Date(), 0), 0) // 자정
   return (
     <div className='flex w-full flex-col'>
-      <label htmlFor='raidDate' className='text-lg font-bold'>
+      <label htmlFor='raidDate' className='text-lg font-semibold'>
         • 날짜 선정
       </label>{' '}
       {/* 레이블 추가 */}
@@ -51,7 +51,7 @@ export default function CalendarPick() {
           timeFormat='HH:mm'
           timeIntervals={15}
           timeCaption='time'
-          dateFormat='EEEE, HH시 mm분 yyyy. MM.dd'
+          dateFormat='yyyy. MM.dd EEEE HH시 mm분'
           className={styles.datePicker} // CSS 모듈 클래스 적용
           wrapperClassName={styles.datePickerWrapper} // wrapper 클래스 추가
         />

@@ -38,7 +38,6 @@ interface CharacterInfo {
 }
 
 const fetchPostData = async (postId: number) => {
-  console.log('raidPostUpdate 호출됨')
   try {
     const response = await fetch(`${process.env.API_URL}/api/postPagePostGet?postId=${postId}`, {
       method: 'GET',
@@ -71,7 +70,7 @@ export default async function RaidPostUpdate({ postId }: Props) {
   return (
     <div className='flex h-full w-full flex-col justify-center rounded-md border border-gray-400 p-4'>
       <span className='flex h-14 items-center justify-center rounded-md border border-gray-500 bg-gray-900 p-2 text-xl text-white'>
-        📝 &nbsp; <span className='font-bold'>{postData.raid_name} 수정 중</span> &nbsp; 📝
+        📝 &nbsp; <span className='font-semibold'>{postData.raid_name} 수정 중</span> &nbsp; 📝
       </span>
       <UpdateFieldComponent postData={postData} createPostCharacter={createPostCharacter} />
     </div>

@@ -11,7 +11,7 @@ export default function UpdateRaidMaxTime({ updateRaidMaxTime, setUpdateRaidMaxT
 
   return (
     <div className='flex flex-col'>
-      <label className='text-lg font-bold'>• 레이드 최대 시간 </label>
+      <label className='text-lg font-semibold'>• 레이드 최대 시간 </label>
       <div className='grid h-12 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'>
         <div className='flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap'>
           <input
