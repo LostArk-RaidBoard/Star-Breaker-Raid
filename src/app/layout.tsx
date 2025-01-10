@@ -3,6 +3,7 @@ import { Noto_Sans_KR } from 'next/font/google'
 import './globals.css'
 import Footer from '@/components/footer/Footer'
 import Providers from '@/components/Providers'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
       </head>
       <body className={notoSansKr.className}>
         <Providers>{children}</Providers>
+        <SpeedInsights />
         <Footer />
       </body>
     </html>
