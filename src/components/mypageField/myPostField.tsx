@@ -1,7 +1,7 @@
 import MyPost from '@/components/mypageField/myPost'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
-import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
 import MypageWeek from '@/components/mypageField/mypageWeek'
 
 interface RaidPost {
@@ -60,7 +60,7 @@ const applicationPostGetHandler = async (userId: string) => {
     const data = await response.json()
     if (response.ok && response.status === 200) {
       return data.postRows.map((item: RaidPost) => {
-        item.raid_time = convertToKoreanTime(item.raid_time)
+        item.raid_time = converToKoranTime1(item.raid_time)
         return item
       })
     } else {
@@ -84,7 +84,7 @@ const createPostGetHandler = async (userId: string) => {
     const data = await response.json()
     if (response.ok && response.status === 200) {
       return data.postRows.map((item: RaidPostCreate) => {
-        item.raid_time = convertToKoreanTime(item.raid_time)
+        item.raid_time = converToKoranTime1(item.raid_time)
         return item
       })
     } else {
