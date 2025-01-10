@@ -150,7 +150,7 @@ export default function RaidPostList({ raidPost }: Props) {
         </div>
       </div>
       <div className='mb-4 flex h-full w-full flex-col items-center'>
-        <div className='grid h-12 w-full grid-cols-6 border-b border-gray-400 font-bold sm:grid-cols-9'>
+        <div className='grid h-12 w-full grid-cols-6 border-b border-gray-400 font-semibold sm:grid-cols-9'>
           <div className='flex items-center justify-center'>
             <span className='overflow-hidden truncate whitespace-nowrap'>칭호</span>
           </div>

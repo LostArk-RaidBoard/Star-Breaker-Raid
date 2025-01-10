@@ -8,7 +8,7 @@ export default function RaidNoti() {
   }
   return (
     <div className='flex flex-col'>
-      <label className='text-lg font-bold'>• 공지 사항</label>
+      <label className='text-lg font-semibold'>• 공지 사항</label>
       <textarea
         id='raidNoti'
         name='raidNoti'
