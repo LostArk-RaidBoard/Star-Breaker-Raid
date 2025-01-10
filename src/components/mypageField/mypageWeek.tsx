@@ -3,8 +3,6 @@ import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
 import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
 import Image from 'next/image'
 import { toZonedTime } from 'date-fns-tz'
-import { setHours, setMinutes, subDays, addDays } from 'date-fns'
-import nextWednesday from '@/components/utils/nextWednesday'
 
 interface Schedule {
   user_id: string
@@ -36,7 +34,6 @@ function getThisWeekWednesday6AM() {
 
 export default function MypageWeek({ weekSchedule, userId }: Props) {
   const startWednesday = getThisWeekWednesday6AM()
-
   // 요일별로 데이터를 분류
   const daysArray = Array.from({ length: 7 }, () => [] as Schedule[])
   let sumGold = 0
@@ -94,12 +91,6 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                 )
                 // 현재 날짜
                 const today = toZonedTime(new Date(), timeZone)
-                console.log('=================')
-                console.log('riadDat : ' + raidDate)
-                console.log('riadDat getDate : ' + raidDate.getDate())
-                console.log('today :' + today.toString())
-                console.log('오늘 날짜' + today.getDate())
-                console.log('다음 수요일 : ' + nextWednesday())
 
                 // 날짜에 따른 색상 구분, 오늘 : 초록, 미래 : 빨강
                 if (raidDate.getDate() === today.getDate()) {

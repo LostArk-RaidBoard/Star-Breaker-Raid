@@ -14,7 +14,7 @@ export default function nextWednesday() {
 
   const nextWednesday = addDays(baseWednesday, 7) // 다음 주 수요일
   const nextWednesdayDate = nextWednesday.toDateString()
-  console.log('nextWednesday 날짜 : ' + nextWednesdayDate)
+  console.log('nextWednesday 날짜 : ' + nextWednesdayDate + ' 06:00')
 
   return nextWednesdayDate
 }

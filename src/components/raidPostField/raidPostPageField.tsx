@@ -1,12 +1,12 @@
 import RevaildatePostTageButton from '@/components/button/revalidatePostTageButton'
 import RaidPostList from '@/components/raidPostField/raidPostPage/raidPostList'
-import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 import Link from 'next/link'
+import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
 
 interface RaidPost {
   post_id: number
   raid_name: string
-  raid_time: any
+  raid_time: string
   limit_level: number
   user_id: string
   post_position: string
@@ -34,10 +34,10 @@ const fetchPostsAllFetch = async (): Promise<RaidPost[]> => {
 
     const data = await response.json()
     if (response.ok) {
-      return data.postRows.map((post: RaidPost) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
+      return data.postRows.map((item: RaidPost) => {
+        item.raid_time = converToKoranTime1(item.raid_time)
+        return item
+      })
     } else {
       return []
     }

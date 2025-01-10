@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Megaphone from '@image/icon/megaphone.svg'
-import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 import RaidNotiTextArea from '@/components/raidPostField/raidNotiTextArea'
+import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
 
 interface Post {
   post_id: number
@@ -26,6 +26,10 @@ interface RaidPostProps {
 }
 
 export default async function RaidPost({ postData }: RaidPostProps) {
+  console.log('postDateTime : ' + postData.raid_time)
+  const formatTime = converToKoranTime1(postData.raid_time)
+  console.log('formatTime : ' + formatTime)
+
   return (
     <div className='flex h-full w-full flex-col justify-center'>
       <div className='flex flex-col sm:flex-row'>
@@ -35,7 +39,7 @@ export default async function RaidPost({ postData }: RaidPostProps) {
           </span>
           <div className='text-lg'>
             <span className='font-semibold'>• 레이드 시간 : </span>
-            <span className='font-medium'>{convertToKoreanTime(postData.raid_time)}</span>
+            <span className='font-medium'>{formatTime}</span>
           </div>
           <div className='text-lg'>
             <span className='font-semibold'>• 레이드 타입 : </span>

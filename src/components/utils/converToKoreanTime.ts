@@ -1,26 +1,28 @@
-export const convertToKoreanTime = (dateString: string) => {
-  const date = new Date(dateString)
+import { toZonedTime, formatInTimeZone } from 'date-fns-tz'
 
-  return date.toLocaleString('ko-KR', {
-    year: '2-digit',
-    month: '2-digit', // 월 표시 (두 자리)
-    day: '2-digit', // 일 표시 (두 자리)
-    weekday: 'short', // 요일 표시
-    hour: '2-digit', // 시 표시
-    minute: '2-digit', // 분 표시
-    hour12: false, // 24시간 형식
-    timeZone: 'UTC', // UTC 시간대로 변환
-  })
+const koreanWeekdays = ['일', '월', '화', '수', '목', '금', '토']
+const timeZone = 'Asia/Seoul'
+export const convertToKoreanTime = (dateString: string) => {
+  const converToKoreanTime = toZonedTime(dateString, timeZone)
+  const formatDate = formatInTimeZone(converToKoreanTime, timeZone, 'yy. MM. dd.')
+  const formatTime = formatInTimeZone(converToKoreanTime, timeZone, 'HH:mm')
+  // 요일을 한국어로 변환
+  const dayOfWeek = koreanWeekdays[converToKoreanTime.getDay()]
+  return `${formatDate} (${dayOfWeek}) ${formatTime}`
+}
+
+export const converToKoranTime1 = (dateString: string) => {
+  const date = new Date(dateString)
+  const formatDate = formatInTimeZone(date, timeZone, 'yy. MM. dd.')
+  const formatTime = formatInTimeZone(date, timeZone, 'HH:mm')
+  // 요일을 한국어로 변환
+  const dayOfWeek = koreanWeekdays[date.getDay()]
+  return `${formatDate} (${dayOfWeek}) ${formatTime}`
 }
 
 export const convertToKoreanTime2 = (dateString: string) => {
-  const date = new Date(dateString)
-
-  return date.toLocaleString('ko-KR', {
-    weekday: 'short', // 요일 표시
-    hour: '2-digit', // 시 표시
-    minute: '2-digit', // 분 표시
-    hour12: false, // 24시간 형식
-    timeZone: 'UTC', // UTC 시간대로 변환
-  })
+  const converToKoreanTime = toZonedTime(dateString, timeZone)
+  const formatTime = formatInTimeZone(converToKoreanTime, timeZone, 'HH:mm')
+  const dayOfWeek = koreanWeekdays[converToKoreanTime.getDay()]
+  return `(${dayOfWeek}) ${formatTime}`
 }

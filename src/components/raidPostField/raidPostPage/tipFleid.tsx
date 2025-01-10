@@ -6,7 +6,7 @@ interface Props {
 
 export default function TipFleid({ id }: Props) {
   const decodedId = decodeURIComponent(id) // URL 디코딩
-  console.log(decodedId)
+
   let lender
   if (decodedId === '엘릭서') {
     lender = (

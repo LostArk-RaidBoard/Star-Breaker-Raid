@@ -38,7 +38,6 @@ interface CharacterInfo {
 }
 
 const fetchPostData = async (postId: number) => {
-  console.log('raidPostUpdate 호출됨')
   try {
     const response = await fetch(`${process.env.API_URL}/api/postPagePostGet?postId=${postId}`, {
       method: 'GET',

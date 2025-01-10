@@ -20,7 +20,7 @@ LEFT JOIN raid_posts ON applicants_list.post_id = raid_posts.post_id
         status: 404,
       })
     }
-    console.log(res1.rows)
+
     const raid_name = res1.rows[0].raid_name
     const character_name = res1.rows[0].character_name
 
