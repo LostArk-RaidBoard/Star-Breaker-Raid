@@ -6,7 +6,7 @@ import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 interface RaidPost {
   post_id: number
   raid_name: string
-  raid_time: any
+  raid_time: string
   limit_level: number
   user_id: string
   post_position: string
