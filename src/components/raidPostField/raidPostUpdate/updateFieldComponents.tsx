@@ -92,6 +92,7 @@ export default function UpdateFieldComponent({ postData, createPostCharacter }: 
 
       <RaidPostUpdateButton
         postId={postData.post_id}
+        raidName={postData.raid_name}
         updateTime={updateTime}
         updateRaidType={updateRaidType}
         updateRaidMaxTime={updateRaidMaxTime}

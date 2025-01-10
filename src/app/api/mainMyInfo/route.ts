@@ -28,13 +28,13 @@ LEFT JOIN
 LEFT JOIN
     characters ON users.user_id = characters.user_id
 LEFT JOIN
-    schedule ON characters.character_name = schedule.character_name
+    schedule ON characters.character_name = schedule.character_name AND schedule.schedule_time < ${nextWednesdayDate} 
 LEFT JOIN
     applicants_list ON users.user_id = applicants_list.user_id
 LEFT JOIN
     raid_posts ON applicants_list.post_id = raid_posts.post_id
 WHERE
-    users.user_id = ${userId} AND schedule.schedule_time < ${nextWednesdayDate} 
+    users.user_id = ${userId} 
 GROUP BY
     users.user_id, roles.role;
     `

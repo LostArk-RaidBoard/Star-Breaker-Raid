@@ -51,7 +51,7 @@ export default function CalendarPick() {
           timeFormat='HH:mm'
           timeIntervals={15}
           timeCaption='time'
-          dateFormat='EEEE, HH시 mm분 yyyy. MM.dd'
+          dateFormat='yyyy. MM.dd EEEE HH시 mm분'
           className={styles.datePicker} // CSS 모듈 클래스 적용
           wrapperClassName={styles.datePickerWrapper} // wrapper 클래스 추가
         />

@@ -94,14 +94,6 @@ export default function MypageWeek({ weekSchedule, userId }: Props) {
                 )
                 // 현재 날짜
                 const today = toZonedTime(new Date(), timeZone)
-                console.log('=================')
-                console.log('아이템 : ' + item.schedule_time)
-                console.log('raidTime : ' + raidTime)
-                console.log('riadDat : ' + raidDate)
-                console.log('riadDat getDate : ' + raidDate.getDate())
-                console.log('today :' + today.toString())
-                console.log('오늘 날짜' + today.getDate())
-                console.log('다음 수요일 : ' + nextWednesday())
 
                 // 날짜에 따른 색상 구분, 오늘 : 초록, 미래 : 빨강
                 if (raidDate.getDate() === today.getDate()) {

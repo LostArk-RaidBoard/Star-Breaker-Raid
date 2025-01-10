@@ -48,7 +48,7 @@ export default function CalendarSelect() {
           timeFormat='HH:mm'
           timeIntervals={15}
           timeCaption='time'
-          dateFormat='EEEE, HH시 mm분 yyyy. MM.dd'
+          dateFormat='yyyy. MM.dd EEEE HH시 mm분'
           className={styles.datePicker}
           wrapperClassName={styles.datePickerWrapper}
         />

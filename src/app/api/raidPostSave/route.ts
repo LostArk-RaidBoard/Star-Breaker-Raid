@@ -33,7 +33,9 @@ export async function POST(req: Request) {
   ) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
-  const formattedScheduleTime = new Date(raid_time).toISOString()
+  const formattedScheduleTime = new Date(
+    new Date(raid_time).getTime() - 9 * 60 * 60 * 1000,
+  ).toISOString()
 
   try {
     const res = await sql`

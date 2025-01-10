@@ -49,6 +49,7 @@ const fetchPostData = async (postId: number) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      next: { tags: ['wePost'] },
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {

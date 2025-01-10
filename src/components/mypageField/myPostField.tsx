@@ -59,10 +59,7 @@ const applicationPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows.map((post: RaidPost) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
+      return data.postRows
     } else {
       return []
     }
@@ -83,10 +80,7 @@ const createPostGetHandler = async (userId: string) => {
     })
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows.map((post: RaidPostCreate) => ({
-        ...post,
-        raid_time: convertToKoreanTime(post.raid_time), // 한국 시간으로 변환
-      }))
+      return data.postRows
     } else {
       return []
     }
@@ -131,6 +125,7 @@ export default async function MyPostField() {
     userId = session.user.id
   }
 
+  console.log(createPostGet)
   return (
     <div className='flex w-full flex-col'>
       <MyPost

@@ -21,7 +21,6 @@ export async function GET(req: Request) {
       WHERE rp.user_id = ${userID} 
       GROUP BY rp.post_id;
     `
-
     return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })
   } catch (error) {
     console.error(error)

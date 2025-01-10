@@ -13,6 +13,11 @@ interface Props {
   userId: string
 }
 
+/**
+ * 마이페이지 일정 추가 버튼
+ * @param userId : 유저 식별 ID
+ * @returns
+ */
 export default function AddScheduleButton({ userId }: Props) {
   const [moOpen, setMoOpen] = useState(false)
   const { setReset, raidDate, raidSelect } = useRaidSelect()

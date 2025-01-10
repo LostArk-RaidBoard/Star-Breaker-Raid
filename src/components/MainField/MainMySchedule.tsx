@@ -5,7 +5,6 @@ import Fire from '@image/icon/fire.svg'
 import { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
-import { convertToKoreanTime2 } from '@/components/utils/converToKoreanTime'
 
 interface TodaySchedule {
   user_id: string
@@ -52,11 +51,7 @@ export default function MainMyPostsSchedule({ userId }: Props) {
         if (!response.ok) throw new Error('Failed to fetch data')
 
         const data = await response.json()
-        const formattedData = data.postRows.map((todaySchedule: TodaySchedule) => ({
-          ...todaySchedule,
-          schedule_time: convertToKoreanTime2(todaySchedule.schedule_time),
-        }))
-        setWePostsRows(formattedData)
+        setWePostsRows(data.postRows)
       } catch (error) {
         console.error('fetchWePosts Error:', error)
         setWePostsRows([])
