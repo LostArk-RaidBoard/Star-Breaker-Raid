@@ -1,4 +1,3 @@
-'use server'
 import { sql } from '@vercel/postgres'
 
 export async function POST(req: Request) {
@@ -27,8 +26,7 @@ export async function POST(req: Request) {
     const limit = parseInt(response.rows[0].raid_limitperson)
     const approval = parseInt(response2.rows[0].count) + 1
     if (approval < limit || check === 'false') {
-      const res =
-        await sql`UPDATE applicants_list SET approval=${check} WHERE post_id=${postId} AND user_id=${userId} AND character_name=${characterName}`
+      await sql`UPDATE applicants_list SET approval=${check} WHERE post_id=${postId} AND user_id=${userId} AND character_name=${characterName}`
       return new Response(JSON.stringify({ message: '성공' }), { status: 200 })
     } else {
       return new Response(JSON.stringify({ message: '초과' }), { status: 409 })

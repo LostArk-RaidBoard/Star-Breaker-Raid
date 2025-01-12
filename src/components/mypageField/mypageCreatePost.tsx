@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'

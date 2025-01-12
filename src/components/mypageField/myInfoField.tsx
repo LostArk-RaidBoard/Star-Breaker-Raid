@@ -1,7 +1,7 @@
 import PasswordChange from '@/components/mypageField/passwordChange'
 import UserDelete from '@/components/mypageField/userDelete'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
+import { auth } from '@/auth'
+import React from 'react'
 import MyInfoComponent from '@/components/mypageField/myInfoComponent'
 import MyInfoNickName from '@/components/mypageField/myInfoNickName'
 
@@ -32,14 +32,20 @@ const myInfoFetch = async (userId: string) => {
     } else {
       return []
     }
-  } catch (error) {
-    console.error('myInfoFetch 에러')
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      // Error 객체인 경우
+      console.error('myInfoFetch 에러:', error.message)
+    } else {
+      // 그 외의 객체나 값인 경우
+      console.error('myInfoFetch 에러:', error)
+    }
   }
   return []
 }
 
 export default async function MyInfoField() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   let userId = ''
   let myInfoData: MyinfoFetch = {
     user_id: '',

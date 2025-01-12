@@ -2,7 +2,7 @@
 
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import { applicationListTage, wePostTage } from '@/app/action'
 

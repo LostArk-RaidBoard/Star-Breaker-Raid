@@ -1,6 +1,7 @@
 'use client'
 
 import { useRaidSelect } from '@/store/raidSelectStore'
+import React from 'react'
 
 export default function RaidSelectSchedule() {
   const { raidSelect, setRaidSelect } = useRaidSelect()

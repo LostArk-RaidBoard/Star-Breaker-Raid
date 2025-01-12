@@ -17,6 +17,6 @@ const initalTrigger: triggerState = {
 
 export const useTrigger = create<triggerAction & triggerState>((set) => ({
   ...initalTrigger,
-  setTrigger: (inTrigger) => set((state) => ({ trigger: inTrigger })),
-  setApplicationTrigger: (inTrigger) => set((state) => ({ applicationTrigger: inTrigger })),
+  setTrigger: (inTrigger) => set(() => ({ trigger: inTrigger })),
+  setApplicationTrigger: (inTrigger) => set(() => ({ applicationTrigger: inTrigger })),
 }))

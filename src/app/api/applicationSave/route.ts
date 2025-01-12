@@ -1,4 +1,3 @@
-'use server'
 import { sql } from '@vercel/postgres'
 
 interface Application {
@@ -39,7 +38,7 @@ export async function POST(req: Request) {
     if (response.rowCount != 0) {
       return new Response(JSON.stringify({ message: '중복 레이드 신청입니다.' }), { status: 400 })
     } else {
-      const res = await sql`
+      await sql`
       INSERT INTO applicants_list (
         user_id,
         hope,
@@ -62,7 +61,7 @@ export async function POST(req: Request) {
         ${application.character_transcendence}
       )`
 
-      const response = await sql`
+      await sql`
       INSERT INTO schedule(
            user_id,
            schedule_time,

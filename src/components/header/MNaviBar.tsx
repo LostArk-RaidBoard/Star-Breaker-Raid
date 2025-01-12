@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import Menu from '@image/icon/menu.svg'
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 export default function MNaviBar() {
   const [menu, setMenu] = useState(false)

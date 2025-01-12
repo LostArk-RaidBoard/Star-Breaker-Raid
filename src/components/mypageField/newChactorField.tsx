@@ -2,7 +2,7 @@
 import SaveCharacterFetch from '@/components/mypageField/saveFetch'
 import Xmark from '@image/icon/xmark.svg'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import submit from '@/app/action'
 import { useTrigger } from '@/store/triggerStore'
@@ -54,7 +54,7 @@ export default function NewCharacterField({
    * @param itemCharacterName 캐릭터 이름
    */
   const deleteItemHandler = (index: number, itemCharacterName: string) => {
-    let filltered = newCharacterList.filter(
+    const filltered = newCharacterList.filter(
       (element) => element.CharacterName !== itemCharacterName,
     )
     setNewCharacterList(filltered)
@@ -71,6 +71,7 @@ export default function NewCharacterField({
     setLoading(true)
     const resultList = []
     for (const item of newCharacterList) {
+      console.log('save 시작 버튼 클릭')
       resultList.push(await SaveCharacterFetch(item, userId)) // 함수로 호출
     }
 

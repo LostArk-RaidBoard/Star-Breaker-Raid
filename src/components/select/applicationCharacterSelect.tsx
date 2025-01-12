@@ -2,7 +2,7 @@
 
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Under from '@image/icon/under.svg'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
@@ -96,14 +96,12 @@ export default function ApplicationCharacterSelect({ raidLimitLevel, userId }: P
         const isCharacterEnabled = characterAllList.find(
           (char) => char.character_name === characterInfo[0].character_name && !char.disable,
         )
-        if (isCharacterEnabled) {
-        } else {
+        if (!isCharacterEnabled)
           if (characterAllList.length > 0) {
             setCharacterInfo([characterAllList[0]])
           } else {
             setCharacterInfo([noCharacters])
           }
-        }
       } else {
         const characterReFetch: CharacterInfo[] = await characterGetHandler(userId)
         if (characterReFetch.length > 0) {

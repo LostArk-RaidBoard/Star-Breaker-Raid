@@ -1,10 +1,11 @@
 import TipFleid from '@/components/raidPostField/raidPostPage/tipFleid'
 import Section from '@/components/utils/section'
-interface Props {
-  params: { id: string }
-}
+import React from 'react'
 
-export default function TipPage({ params: { id } }: Props) {
+type Params = Promise<{ id: string }>
+
+export default async function TipPage({ params }: { params: Params }) {
+  const { id } = await params
   return (
     <>
       <Section>

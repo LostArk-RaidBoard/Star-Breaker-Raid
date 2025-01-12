@@ -4,10 +4,9 @@ import { NextResponse } from 'next/server'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    const res =
-      await sql`DELETE FROM raid_posts WHERE raid_time < (NOW() AT TIME ZONE 'Asia/Seoul')`
+    const res = await sql`DELETE FROM raid_posts WHERE raid_time < NOW()`
     console.log('삭제된 행 수:', res.rowCount) // 삭제된 행 수를 로그에 출력
     wePostTage()
     createPostTage()

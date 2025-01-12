@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Loading from '@image/icon/loading.svg'
@@ -16,6 +16,10 @@ interface Myinfo {
   raid_post_count: number
 }
 
+/**
+ * MainMyInfo
+ * @returns 메인 화면의 나의 정보를 출력해주는 칸 입니다.
+ */
 export default function MainMyInfo() {
   const { data: session, status } = useSession()
   const [loading, setLoading] = useState(true)
@@ -53,14 +57,14 @@ export default function MainMyInfo() {
       if (status === 'loading') {
         setLoading(true)
       } else {
-        setLoading(false)
-        if (session && session.user) {
+        if (session && session.user.id) {
           await mainFetchHandler(session.user.id)
           setMainNickName(session.user.nickName || '마이페이지-내정보 설정')
         }
+        setLoading(false)
       }
     }
-
+    // MainMyInfo 정보 fetch
     fetchData()
   }, [session, status])
 

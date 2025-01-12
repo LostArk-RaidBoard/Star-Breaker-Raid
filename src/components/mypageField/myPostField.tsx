@@ -1,8 +1,8 @@
 import MyPost from '@/components/mypageField/myPost'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
+import { auth } from '@/auth'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
 import MypageWeek from '@/components/mypageField/mypageWeek'
+import React from 'react'
 
 interface RaidPost {
   post_id: number
@@ -118,7 +118,7 @@ const weekScheduleGetHandler = async (userId: string) => {
 }
 
 export default async function MyPostField() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   let userId = ''
   let applicationPostGet: RaidPost[] = []
   let createPostGet: RaidPostCreate[] = []

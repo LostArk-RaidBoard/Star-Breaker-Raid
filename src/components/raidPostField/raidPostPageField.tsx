@@ -2,6 +2,7 @@ import RevaildatePostTageButton from '@/components/button/revalidatePostTageButt
 import RaidPostList from '@/components/raidPostField/raidPostPage/raidPostList'
 import Link from 'next/link'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
+import React from 'react'
 
 interface RaidPost {
   post_id: number

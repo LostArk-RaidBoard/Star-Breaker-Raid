@@ -1,17 +1,14 @@
-// auth.ts
 import NextAuth from 'next-auth'
-import { ZodError } from 'zod'
-import Credentials from 'next-auth/providers/credentials'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
-
 import { verifyPassword } from '@/components/utils/bcrypt'
 import { getUserFromDb } from '@/lib/getUserFromDB'
 import { signInSchema } from '@/lib/zod'
 import getUserBirthday from '@/lib/getUserBirthday'
 
-export const authOptions = {
+export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    Credentials({
+    CredentialsProvider({
       credentials: {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
@@ -25,21 +22,15 @@ export const authOptions = {
             throw new Error('User not found.')
           }
 
-          // 비밀번호 확인
           const isValid = await verifyPassword(password, user.password)
           if (!isValid) {
             throw new Error('Invalid password.')
           }
 
           console.log('로그인 : ' + user.user_id)
-
-          // 유저 반환
           return { id: user.user_id, nickName: user.nickname, role: user.role }
         } catch (error) {
           console.error('Login error:', error)
-          if (error instanceof ZodError) {
-            return null
-          }
           return null
         }
       },
@@ -56,10 +47,10 @@ export const authOptions = {
   ],
   secret: process.env.AUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }: any) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id
-        token.role = user.role // 역할 추가
+        token.role = user.role
         token.nickName = user.nickName
         if (account && account.access_token) {
           token.accessToken = account.access_token
@@ -67,17 +58,17 @@ export const authOptions = {
       }
       return token
     },
-    async session({ session, token }: any) {
+    async session({ session, token }) {
       session.user.id = token.id as string
-      session.user.role = token.role as string // 세션에 역할 추가
-      session.user.nickName = token.nickName
+      session.user.role = token.role as string
+      session.user.nickName = token.nickName as string
       return session
     },
-    async signIn({ user, account, profile }: any) {
-      if (account && account.provider === 'google' && profile && profile.email) {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === 'google' && profile?.email) {
         const existingUser = await getUserFromDb(profile.email)
         if (!existingUser) {
-          const userName = profile.given_name || '이름 없음' // 이름이 없는 경우 기본값 설정
+          const userName = profile.given_name || '이름 없음'
           const birthday = account.access_token ? await getUserBirthday(account.access_token) : null
 
           const userRegistrationResponse = await fetch(`${process.env.API_URL}/api/signup`, {
@@ -88,14 +79,14 @@ export const authOptions = {
             body: JSON.stringify({
               userName,
               userEmail: profile.email,
-              userPassword: '12345678', // 임시 비밀번호 설정
-              birthday: birthday,
+              userPassword: '12345678',
+              birthday,
             }),
           })
 
           if (!userRegistrationResponse.ok) {
             const errorData = await userRegistrationResponse.json()
-            throw new Error(errorData.message) // 에러 처리
+            throw new Error(errorData.message)
           }
 
           user.id = profile.email
@@ -109,15 +100,10 @@ export const authOptions = {
           console.log('로그인 : ' + existingUser.user_id)
         }
       }
-
-      return true // 로그인 성공
+      return true
     },
   },
   pages: {
     signIn: '/login',
   },
-}
-
-// 핸들러 내보내기
-const handler = NextAuth(authOptions)
-export { handler as GET, handler as POST }
+})

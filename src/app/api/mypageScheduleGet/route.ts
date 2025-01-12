@@ -1,4 +1,3 @@
-'use sever'
 import { sql } from '@vercel/postgres'
 import nextWednesday from '@/components/utils/nextWednesday'
 

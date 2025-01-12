@@ -1,6 +1,7 @@
 import HeaderField from '@/components/header/headerField'
 import RaidGuidedIdField from '@/components/raidGuideField/raidGuideIdField'
 import Section from '@/components/utils/section'
+import React from 'react'
 
 interface RaidGuide {
   guide_id: number
@@ -13,10 +14,7 @@ interface RaidGuide {
   role_id: number
 }
 
-interface IdParams {
-  params: { id: number }
-}
-const handleFetch = async (id: number) => {
+const handleFetch = async (id: string) => {
   try {
     const response = await fetch(`${process.env.API_URL}/api/raidGuidePerGet?raidGuideId=${id}`, {
       method: 'GET',
@@ -34,7 +32,9 @@ const handleFetch = async (id: number) => {
   }
 }
 
-export default async function Raidguide({ params: { id } }: IdParams) {
+type Params = Promise<{ id: string }>
+export default async function Raidguide({ params }: { params: Params }) {
+  const { id } = await params
   const raideGuide: RaidGuide[] = await handleFetch(id)
 
   return (

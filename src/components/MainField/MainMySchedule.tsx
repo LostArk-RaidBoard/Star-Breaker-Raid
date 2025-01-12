@@ -2,14 +2,14 @@
 import Image from 'next/image'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
 import { convertToKoreanTime2 } from '@/components/utils/converToKoreanTime'
 
 interface TodaySchedule {
   user_id: string
-  schedule_time: any
+  schedule_time: string
   raid_gold: number
   character_name: string
   raid_name: string

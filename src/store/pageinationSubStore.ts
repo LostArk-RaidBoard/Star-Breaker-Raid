@@ -20,7 +20,7 @@ const initialPageination: paginationStore = {
 
 export const usePageinationSub = create<paginationStore & pageinationAction>((set) => ({
   ...initialPageination,
-  setCurrentPage: (currentPage) => set((state) => ({ currentPage: currentPage })),
-  setItemsPerPage: (itmesPerNumber) => set((state) => ({ itemsPerPage: itmesPerNumber })),
-  setDataLength: (dataLength) => set((state) => ({ dataLength: dataLength })),
+  setCurrentPage: (currentPage) => set(() => ({ currentPage: currentPage })),
+  setItemsPerPage: (itmesPerNumber) => set(() => ({ itemsPerPage: itmesPerNumber })),
+  setDataLength: (dataLength) => set(() => ({ dataLength: dataLength })),
 }))

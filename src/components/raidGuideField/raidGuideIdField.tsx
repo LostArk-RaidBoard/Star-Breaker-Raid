@@ -1,5 +1,6 @@
 import RaidGuideImage from '@/components/raidGuideField/raidGudieImage'
 import RaidGudiePlayer from '@/components/raidGuideField/raidGuideVideo'
+import React from 'react'
 
 interface Props {
   raideGuide: {

@@ -1,6 +1,6 @@
-'use server'
 import Image from 'next/image'
 import Link from 'next/link'
+import React from 'react'
 
 interface RaidGuide {
   guide_id: number

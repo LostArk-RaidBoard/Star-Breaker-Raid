@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { createPostTage } from '@/app/action'
 
 interface Props {

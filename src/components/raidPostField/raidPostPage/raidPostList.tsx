@@ -3,7 +3,7 @@
 import PaginationSub from '@/components/utils/paginationSub'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface RaidPost {
   post_id: number

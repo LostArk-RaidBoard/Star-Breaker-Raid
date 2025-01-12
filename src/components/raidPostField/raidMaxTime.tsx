@@ -1,5 +1,6 @@
 'use client'
 import { useRaidSelect } from '@/store/raidSelectStore'
+import React from 'react'
 
 export default function RaidMaxTime() {
   const { raidMaxTime, setRaidMaxTime } = useRaidSelect()

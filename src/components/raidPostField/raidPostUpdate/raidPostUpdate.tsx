@@ -1,7 +1,7 @@
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
+import { auth } from '@/auth'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import UpdateFieldComponent from '@/components/raidPostField/raidPostUpdate/updateFieldComponents'
+import React from 'react'
 
 interface Post {
   post_id: number
@@ -62,7 +62,7 @@ interface Props {
 
 export default async function RaidPostUpdate({ postId }: Props) {
   const postData: Post = await fetchPostData(postId)
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   let createPostCharacter: CharacterInfo[] = []
   if (session && session.user.id) {
     createPostCharacter = await UtileCharacterDataFetch(session.user.id)

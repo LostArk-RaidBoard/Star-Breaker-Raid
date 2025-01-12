@@ -1,20 +1,17 @@
-'use server'
 import SiteLink from '@/components/MainField/SiteLink'
 import MainRaidGuide from '@/components/MainField/MainRaidGuide'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
+import { auth } from '@/auth'
 import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainMyPostsSchedule from '@/components/MainField/MainMySchedule'
 import MainMyInfo from '@/components/MainField/MainMyInfo'
+import React from 'react'
 
 export default async function MainField() {
   let userId = 'no'
-  let userNickName = ''
 
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   if (session && session.user.id) {
     userId = session.user.id
-    userNickName = session.user.nickName
   }
 
   return (

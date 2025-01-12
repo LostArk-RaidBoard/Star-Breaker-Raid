@@ -32,13 +32,12 @@ const initalRaidSelectState: raidSelectState = {
 
 export const useRaidSelect = create<raidSelectState & raidSelectAction>((set) => ({
   ...initalRaidSelectState,
-  setRaidSelect: (inputSelect) => set((state) => ({ raidSelect: inputSelect })),
-  setRaidLimitPerson: (inputNumber) => set((state) => ({ raidLimitPerson: inputNumber })),
-  setRaidMaxTime: (inputRaidMaxTime) => set((state) => ({ raidMaxTime: inputRaidMaxTime })),
-  setRaidNoti: (inputRaidNoti) => set((state) => ({ raidNoti: inputRaidNoti })),
-  setRaidDate: (inputRaidDate) => set((state) => ({ raidDate: inputRaidDate })),
-  setRaidType: (inputRaidType) => set((state) => ({ raidType: inputRaidType })),
-  setRaidLimitLevel: (inputRaidLimitLevel) =>
-    set((state) => ({ raidLimitLevel: inputRaidLimitLevel })),
+  setRaidSelect: (inputSelect) => set(() => ({ raidSelect: inputSelect })),
+  setRaidLimitPerson: (inputNumber) => set(() => ({ raidLimitPerson: inputNumber })),
+  setRaidMaxTime: (inputRaidMaxTime) => set(() => ({ raidMaxTime: inputRaidMaxTime })),
+  setRaidNoti: (inputRaidNoti) => set(() => ({ raidNoti: inputRaidNoti })),
+  setRaidDate: (inputRaidDate) => set(() => ({ raidDate: inputRaidDate })),
+  setRaidType: (inputRaidType) => set(() => ({ raidType: inputRaidType })),
+  setRaidLimitLevel: (inputRaidLimitLevel) => set(() => ({ raidLimitLevel: inputRaidLimitLevel })),
   setReset: () => set(initalRaidSelectState),
 }))

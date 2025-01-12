@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { hashPassword } from '@/components/utils/bcrypt'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 export default function SignupField() {
   const [userName, setUserName] = useState('')
@@ -53,8 +52,6 @@ export default function SignupField() {
       setSignupResult(2)
       return
     }
-
-    const hashedPassword = await hashPassword(userPassword)
 
     try {
       const res = await fetch('/api/signup', {

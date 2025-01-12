@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import { wePostTage } from '@/app/action'
 import RaidGold from '@/components/utils/raidGold'
+import React from 'react'
 
 /**
  * 모집 글 등록 버튼 입니다.
@@ -44,7 +45,14 @@ export default function RaidPostCreateButton() {
   const raidCreateHandler = async () => {
     setLoading(1)
 
-    if (session?.user.nickName === '') {
+    if (!session || !session.user) {
+      setMessage('세션 정보가 없습니다. 다시 로그인 해주세요.')
+      setPostSave(2)
+      setLoading(0)
+      return
+    }
+
+    if (session && session.user && session.user.nickName === '') {
       setMessage('넥네임이 없습니다.')
       setPostSave(2)
       setLoading(0)
@@ -84,7 +92,7 @@ export default function RaidPostCreateButton() {
     try {
       const raidGold = RaidGold(raidSelect)
       const response = await fetch(
-        `/api/raidPostSave?raid_name=${raidSelect}&raid_time=${raidDate}&limit_level=${raidLimitLevel}&user_id=${session?.user.id}&post_position=${session?.user.role}&noti=${raidNoti}&character_name=${characterInfo[0].character_name}&character_classicon=${characterInfo[0].class_icon_url}&raid_limitperson=${raidLimitPerson}&raid_type=${raidType}&raid_maxtime=${raidMaxTime}&character_image=${characterInfo[0].class_image}&raid_gold=${raidGold}`,
+        `/api/raidPostSave?raid_name=${raidSelect}&raid_time=${raidDate}&limit_level=${raidLimitLevel}&user_id=${session.user.id}&post_position=${session.user.role}&noti=${raidNoti}&character_name=${characterInfo[0].character_name}&character_classicon=${characterInfo[0].class_icon_url}&raid_limitperson=${raidLimitPerson}&raid_type=${raidType}&raid_maxtime=${raidMaxTime}&character_image=${characterInfo[0].class_image}&raid_gold=${raidGold}`,
         {
           method: 'POST',
           headers: {

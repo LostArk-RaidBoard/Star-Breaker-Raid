@@ -1,7 +1,7 @@
-'use client' // 클라이언트 컴포넌트로 설정
-import { signIn } from 'next-auth/react' // next-auth에서 signIn 가져오기
+'use client'
+import { signIn } from 'next-auth/react'
 import Image from 'next/image'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
@@ -14,9 +14,8 @@ export default function GoogleSignIn() {
   }
 
   useEffect(() => {
-    if (status === 'loading') return // 세션 로딩 중이면 아무것도 하지 않음
+    if (status === 'loading') return
 
-    // 세션이 없으면 로그인 페이지로 리다이렉트
     if (session) {
       router.push('/')
     }

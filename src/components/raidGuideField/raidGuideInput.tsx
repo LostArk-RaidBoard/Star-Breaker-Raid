@@ -2,11 +2,7 @@
 
 import InputLayout from '@/components/ui/inputLayout'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-
-interface Props {
-  searchQuery: string
-}
+import React, { useState } from 'react'
 
 export default function RaidGuideInput() {
   const [raidName, setRaidName] = useState('')

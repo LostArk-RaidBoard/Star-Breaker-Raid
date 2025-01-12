@@ -1,6 +1,6 @@
 'use client'
 import InputLayout from '@/components/ui/inputLayout'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -88,7 +88,6 @@ export default function RaidGuideCreateField() {
         body: JSON.stringify(list),
       })
 
-      const data = await response.json()
       if (response.ok) {
         if (response.status === 200) {
           router.push('/')
@@ -120,10 +119,12 @@ export default function RaidGuideCreateField() {
           />
         </div>
       )
-    } catch (error: any) {
-      console.error('Image rendering error:', error.message)
-      setImageError(true) // 이미지 오류 상태 설정
-      return <p className='text-red-500'>이미지 로드 실패</p>
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Image rendering error:', error.message)
+        setImageError(true) // 이미지 오류 상태 설정
+        return <p className='text-red-500'>이미지 로드 실패</p>
+      }
     }
   }
 

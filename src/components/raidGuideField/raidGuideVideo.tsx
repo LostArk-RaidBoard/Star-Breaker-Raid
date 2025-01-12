@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useState, useCallback, useRef, useEffect } from 'react'
+import React, { memo, useState, useCallback, useRef, useEffect } from 'react'
 import Image from 'next/image'
 interface Props {
   raideYoutubeURLsArray: string[]

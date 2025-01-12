@@ -1,4 +1,3 @@
-'use server'
 import { sql } from '@vercel/postgres'
 export async function DELETE(req: Request) {
   const url = new URL(req.url)
@@ -8,7 +7,7 @@ export async function DELETE(req: Request) {
   }
 
   try {
-    const res = await sql`DELETE FROM characters WHERE character_name=${characterName}`
+    await sql`DELETE FROM characters WHERE character_name=${characterName}`
     return new Response(JSON.stringify({ message: '삭제 성공' }), { status: 200 })
   } catch (error) {
     console.error(error)

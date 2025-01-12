@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import styles from './calendar.module.css'
 import { useRaidSelect } from '@/store/raidSelectStore'
 import { setHours, setMinutes, nextDay, addWeeks } from 'date-fns'
+import React from 'react'
 
 export default function CalendarPick() {
   const { raidDate, setRaidDate } = useRaidSelect()
