@@ -1,7 +1,7 @@
 import LogField from '@/components/header/HeadlogField'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import React from 'react'
 import MNaviBar from '@/components/header/MNaviBar'
 
 export default function MHeaderField() {

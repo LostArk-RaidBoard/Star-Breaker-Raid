@@ -3,6 +3,7 @@ import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
 import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
 import Image from 'next/image'
 import { toZonedTime } from 'date-fns-tz'
+import React from 'react'
 
 interface Schedule {
   user_id: string

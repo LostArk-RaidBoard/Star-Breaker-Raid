@@ -1,11 +1,11 @@
 import RaidGuideGrid from '@/components/raidGuideField/raidGuideGrid'
 import RaidGuideInput from '@/components/raidGuideField/raidGuideInput'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
+import { auth } from '@/auth'
 import RadiGuideCreateButton from '@/components/button/raidGuideCreateButton'
+import React from 'react'
 
 export default async function RaidGuideField() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   const role = session?.user.role
   let userId = ''
   if (session && session.user.id) {

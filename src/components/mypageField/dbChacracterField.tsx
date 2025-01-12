@@ -1,8 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Xmark from '@image/icon/xmark.svg'
-import { useEffect, useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import SaveCharacterFetch from '@/components/mypageField/saveFetch'
 import submit from '@/app/action'
@@ -88,7 +87,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
   const [characterList, setCharacterList] = useState<SaveCharacterInfo[]>([])
   const [loading, setLoading] = useState(false)
   const [saveState, setSaveState] = useState(0)
-  const { trigger, setTrigger } = useTrigger()
+  const { trigger } = useTrigger()
   const { data: session } = useSession()
 
   useEffect(() => {
@@ -116,8 +115,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
       submit()
     }
 
-    if (userId.length > 0) {
-      dbCharacter.length === 0
+    if (userId.length > 0 && dbCharacter.length === 0) {
       submit()
     }
   }, [dbCharacter.length, session, userId])

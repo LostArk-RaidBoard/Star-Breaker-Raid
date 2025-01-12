@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default function Footer() {
   return (
     <footer className='flex hidden w-full flex-col items-center justify-center overflow-hidden truncate whitespace-nowrap p-4 text-sm text-black sm:flex'>

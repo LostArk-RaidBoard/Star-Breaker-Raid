@@ -1,4 +1,3 @@
-'use server'
 import { sql } from '@vercel/postgres'
 
 export async function POST(req: Request) {
@@ -38,7 +37,7 @@ export async function POST(req: Request) {
   ).toISOString()
 
   try {
-    const res = await sql`
+    await sql`
       INSERT INTO raid_posts (
         raid_name,
         raid_time,
@@ -67,7 +66,7 @@ export async function POST(req: Request) {
         ${character_image}
       )`
 
-    const response = await sql`
+    await sql`
     INSERT INTO schedule(
          user_id,
          schedule_time,

@@ -1,8 +1,7 @@
 'use client'
 import { myInfoTage } from '@/app/action'
 import InputLayout from '@/components/ui/inputLayout'
-
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 interface Props {
   userId: string

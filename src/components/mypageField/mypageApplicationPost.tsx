@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { usePageination } from '@/store/pageinationStore'
 import { applicationListTage, applicationTage, wePostTage } from '@/app/action'
 

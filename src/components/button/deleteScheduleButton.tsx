@@ -1,6 +1,7 @@
 'use client'
 import { createPostTage } from '@/app/action'
 import Xmark from '@image/icon/xmark.svg'
+import React from 'react'
 
 interface Props {
   characterName: string

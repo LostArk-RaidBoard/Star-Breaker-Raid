@@ -1,6 +1,6 @@
 import RaidPostPageField from '@/components/raidPostField/raidPostPageField'
-
 import Section from '@/components/utils/section'
+import React from 'react'
 
 export default function Home() {
   return (

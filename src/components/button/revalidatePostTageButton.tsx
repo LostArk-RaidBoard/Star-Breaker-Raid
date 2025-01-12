@@ -1,7 +1,7 @@
 'use client'
 
 import { wePostTage } from '@/app/action'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 export default function RevaildatePostTageButton() {
   useEffect(() => {

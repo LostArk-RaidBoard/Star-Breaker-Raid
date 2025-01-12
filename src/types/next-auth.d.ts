@@ -1,6 +1,4 @@
-// next-auth.d.ts 파일을 생성하거나 기존에 있는 파일에 추가합니다.
-import NextAuth from 'next-auth'
-
+import 'next-auth'
 declare module 'next-auth' {
   interface User {
     id: string // 사용자 ID 타입 정의
@@ -16,5 +14,6 @@ declare module 'next-auth' {
     id: string // JWT에 사용자 ID 추가
     role: string // JWT에 역할 추가
     nickName: string
+    accessToken?: string // 외부 서비스 액세스 토큰
   }
 }

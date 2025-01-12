@@ -1,5 +1,9 @@
-'use server'
 import { sql } from '@vercel/postgres'
+
+type Application = {
+  user_id: string
+  character_name: string
+}
 
 export async function GET(req: Request) {
   const url = new URL(req.url)
@@ -28,6 +32,11 @@ export async function GET(req: Request) {
   }
 }
 
+/**
+ * 모집 자가 모집 글을 삭제할때 사용하는 로직
+ * @param req : post_id, character_name, user_id, raid_name을 url로 받아옴
+ * @returns : 모집 글 신청자, 작성자의 schedule에서 삭제, 모집 글 raid_posts에서 삭제
+ */
 export async function DELETE(req: Request) {
   const url = new URL(req.url)
   const post_id = url.searchParams.get('post_id')
@@ -40,9 +49,21 @@ export async function DELETE(req: Request) {
   }
 
   try {
-    const res = await sql`DELETE FROM raid_posts WHERE post_id = ${post_id}`
+    // 지원자 찾는 sql
     const response =
-      await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name}`
+      await sql`SELECT user_id, character_name FROM applicants_list WHERE post_id = ${post_id}`
+
+    const applicationList = response.rows
+    // 지원자의 schedule에서 삭제함
+    for (const item of applicationList as Application[]) {
+      await sql`DELETE FROM schedule WHERE user_id = ${item.user_id} AND raid_name = ${raid_name} AND character_name = ${item.character_name}`
+    }
+
+    // 모집 글 삭제
+    await sql`DELETE FROM raid_posts WHERE post_id = ${post_id}`
+
+    // 자신의 스케줄에서 삭제
+    await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,

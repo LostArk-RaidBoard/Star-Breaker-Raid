@@ -4,6 +4,7 @@ import './globals.css'
 import Footer from '@/components/footer/Footer'
 import Providers from '@/components/Providers'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import React from 'react'
 
 const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] })
 

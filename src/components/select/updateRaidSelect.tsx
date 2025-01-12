@@ -1,7 +1,7 @@
 'use client'
 
 import { useRaidSelect } from '@/store/raidSelectStore'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 interface Props {
   raidSelected: string

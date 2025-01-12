@@ -1,8 +1,3 @@
-// app/api/auth/[...nextauth]/route.ts
-import { authOptions } from '@/auth' // authOptions의 경로가 맞는지 확인
-import NextAuth from 'next-auth'
+import { handlers } from '@/auth' // auth.ts에서 정의한 handlers를 가져옵니다.
 
-const handler = NextAuth(authOptions)
-
-// GET 및 POST 요청을 처리하는 핸들러 내보내기
-export { handler as GET, handler as POST }
+export const { GET, POST } = handlers

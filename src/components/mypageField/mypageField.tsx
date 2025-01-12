@@ -1,6 +1,6 @@
 import CharactorField from '@/components/mypageField/charactorField'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
+import React from 'react'
+import { auth } from '@/auth'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 
 interface CharacterInfo {
@@ -20,7 +20,7 @@ interface CharacterInfo {
 }
 
 export default async function MypageField() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   let userId = ''
   let serverCharacter: CharacterInfo[] = []
 

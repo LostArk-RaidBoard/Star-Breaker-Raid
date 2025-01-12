@@ -1,4 +1,3 @@
-'use sever'
 import { sql } from '@vercel/postgres'
 
 export async function DELETE(req: Request) {
@@ -24,11 +23,9 @@ LEFT JOIN raid_posts ON applicants_list.post_id = raid_posts.post_id
     const raid_name = res1.rows[0].raid_name
     const character_name = res1.rows[0].character_name
 
-    const res =
-      await sql`DELETE FROM applicants_list WHERE user_id = ${userId} AND post_id = ${post_id}`
+    await sql`DELETE FROM applicants_list WHERE user_id = ${userId} AND post_id = ${post_id}`
 
-    const response =
-      await sql`DELETE FROM schedule WHERE user_id = ${userId} AND raid_name = ${raid_name} AND character_name = ${character_name}`
+    await sql`DELETE FROM schedule WHERE user_id = ${userId} AND raid_name = ${raid_name} AND character_name = ${character_name}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,

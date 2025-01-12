@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Under from '@image/icon/under.svg'
 
@@ -83,7 +83,7 @@ export default function UpdateRaidCharacterSelect({
 
   useEffect(() => {
     const raidLevel = limitLevel
-    var maxCharacterLevel = 0
+    let maxCharacterLevel = 0
 
     createPostCharacter.map((char) => {
       const characterLevel = parseFloat(char.character_level.replace(/,/g, ''))

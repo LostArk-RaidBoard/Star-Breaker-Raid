@@ -4,7 +4,7 @@ import Clock from '@image/icon/clock.svg'
 import Fire from '@image/icon/fire.svg'
 import Megaphone from '@image/icon/megaphone.svg'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import PaginationSub from '@/components/utils/paginationSub'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
@@ -12,7 +12,7 @@ import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 interface RaidPost {
   post_id: number
   raid_name: string
-  raid_time: any
+  raid_time: string
   limit_level: number
   user_id: string
   post_position: string

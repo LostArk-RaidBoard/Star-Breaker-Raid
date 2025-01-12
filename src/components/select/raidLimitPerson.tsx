@@ -1,7 +1,7 @@
 'use client'
 
 import { useRaidSelect } from '@/store/raidSelectStore'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function RaidLimitPersonSelect() {
   const { raidSelect, raidLimitPerson, setRaidLimitPerson } = useRaidSelect()

@@ -1,7 +1,7 @@
 'use client'
 import InputLayout from '@/components/ui/inputLayout'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import NewCharacterField from '@/components/mypageField/newChactorField'
 import DBCharacterField from '@/components/mypageField/dbChacracterField'
 import CharacterImage from '@/components/utils/characterImage'
@@ -135,12 +135,17 @@ export default function CharactorField({ dbCharacter }: Props) {
 
         setNewHidden(true)
       }
-    } catch (error: any) {
-      if (error.name === 'AbortError') {
-        setMainMessage('요청이 시간 초과되었습니다.') // 타임아웃 에러 처리
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (error.name === 'AbortError') {
+          setMainMessage('요청이 시간 초과되었습니다.') // 타임아웃 에러 처리
+        } else {
+          console.error(error)
+          setMainMessage('로아 API 패치를 실패했습니다.')
+        }
       } else {
-        console.error(error)
-        setMainMessage('로아 API 패치를 실패했습니다.')
+        console.error('Unknown error:', error)
+        setMainMessage('알 수 없는 에러가 발생했습니다.')
       }
     }
   }
@@ -214,12 +219,17 @@ export default function CharactorField({ dbCharacter }: Props) {
         })
         setNewHidden(true)
       }
-    } catch (error: any) {
-      if (error.name === 'AbortError') {
-        setOneMessage('요청이 시간 초과되었습니다.') // 타임아웃 에러 처리
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (error.name === 'AbortError') {
+          setMainMessage('요청이 시간 초과되었습니다.') // 타임아웃 에러 처리
+        } else {
+          console.error(error)
+          setMainMessage('로아 API 패치를 실패했습니다.')
+        }
       } else {
-        console.error(error)
-        setOneMessage('로아 API 패치를 실패했습니다.')
+        console.error('Unknown error:', error)
+        setMainMessage('알 수 없는 에러가 발생했습니다.')
       }
     }
   }

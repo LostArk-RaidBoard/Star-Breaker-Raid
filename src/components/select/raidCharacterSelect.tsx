@@ -1,7 +1,7 @@
 'use client'
 
 import { useCharacterInfoList } from '@/store/characterStore'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Under from '@image/icon/under.svg'
 import { useRaidSelect } from '@/store/raidSelectStore'
@@ -87,7 +87,7 @@ export default function RaidCharacterSelect({ createPostCharacter }: Props) {
     }
     const raidLevel = RaidLevel(raidSelect)
     setRaidLimitLevel(raidLevel)
-    var maxCharacterLevel = 0
+    let maxCharacterLevel = 0
 
     characterAllList.map((char) => {
       const characterLevel = parseFloat(char.character_level.replace(/,/g, ''))
@@ -109,7 +109,7 @@ export default function RaidCharacterSelect({ createPostCharacter }: Props) {
       setCharacterInfo([characterAllList[0]])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [, raidSelect])
+  }, [raidSelect])
 
   return (
     <div className='flex flex-col'>

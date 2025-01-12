@@ -1,5 +1,6 @@
 import RaidCreateField from '@/components/raidPostField/raidCreateField'
 import Section from '@/components/utils/section'
+import React from 'react'
 
 export default function RaidPostCreate() {
   return (

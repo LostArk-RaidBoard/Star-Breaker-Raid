@@ -4,7 +4,7 @@ import { applicationListTage, wePostTage } from '@/app/action'
 import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
 import RaidGold from '@/components/utils/raidGold'
 import { useCharacterInfoList } from '@/store/characterStore'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface RaidApplicationProps {
   userId: string

@@ -1,4 +1,3 @@
-'use server'
 import { sql } from '@vercel/postgres'
 
 export async function POST(req: Request) {
@@ -28,7 +27,7 @@ export async function POST(req: Request) {
       })
     }
 
-    const res = await sql`
+    await sql`
        INSERT INTO schedule (user_id, schedule_time, raid_gold, character_name, raid_name) 
       VALUES (${userId}, ${formattedScheduleTime}, ${raid_gold}, ${character_name}, ${raid_name})
     `
@@ -52,7 +51,7 @@ export async function DELETE(req: Request) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
   try {
-    const res = await sql`
+    await sql`
       DELETE FROM schedule WHERE user_id =${userId} AND character_name = ${character_name} AND raid_name = ${raid_name}
     `
 

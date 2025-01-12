@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import Like from '@image/icon/like.svg'
 import { raidGuideLike } from '@/app/action'
@@ -71,7 +71,6 @@ export default function RaidGuideGrid({ userId }: Props) {
           'Content-Type': 'application/json',
         },
       })
-      const data = await response.json()
       if (response.ok) {
         await raidGuideLike()
 

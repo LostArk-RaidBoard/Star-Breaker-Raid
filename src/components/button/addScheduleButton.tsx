@@ -7,7 +7,7 @@ import raidGold from '@/components/utils/raidGold'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props {
   userId: string

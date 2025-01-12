@@ -6,9 +6,9 @@ import RaidNoti from '@/components/raidPostField/raidNoti'
 import RaidCharacterSelect from '@/components/select/raidCharacterSelect'
 import RaidLimitPersonSelect from '@/components/select/raidLimitPerson'
 import RaidSelect from '@/components/select/raidSelect'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
+import { auth } from '@/auth'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
+import React from 'react'
 
 interface CharacterInfo {
   character_name: string
@@ -26,7 +26,7 @@ interface CharacterInfo {
   disable: boolean
 }
 export default async function RaidCreateField() {
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   let createPostCharacter: CharacterInfo[] = []
   if (session && session.user.id) {
     createPostCharacter = await UtileCharacterDataFetch(session.user.id)

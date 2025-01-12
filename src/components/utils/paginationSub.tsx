@@ -1,7 +1,7 @@
 'use client'
 import RightArrow from '@image/icon/right.svg'
 import LeftArrow from '@image/icon/left.svg'
-
+import React from 'react'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 
 export default function PaginationSub() {

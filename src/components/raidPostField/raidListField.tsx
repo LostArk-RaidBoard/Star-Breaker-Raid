@@ -1,10 +1,11 @@
 import RaidApplication from '@/components/raidPostField/raidApplication'
 import RaidApplicationList from '@/components/raidPostField/raidApplicationList'
 import RaidPost from '@/components/raidPostField/raidpost'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/auth'
+import { auth } from '@/auth'
 import Link from 'next/link'
 import RaidPostDeleteButton from '@/components/button/raidPostDeleteButton'
+import React from 'react'
+
 interface Props {
   postId: number
 }
@@ -86,7 +87,7 @@ const applicationGet = async (postId: number) => {
 export default async function RaidListField({ postId }: Props) {
   const postData: Post = await fetchPostData(postId)
   const applicationList: ApplicationList[] = await applicationGet(postId)
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   let userId = ''
   if (session && session.user.id) {
     userId = session.user.id

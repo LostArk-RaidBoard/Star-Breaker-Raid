@@ -1,4 +1,3 @@
-'use server'
 import { sql } from '@vercel/postgres'
 import { hashPassword } from '@/components/utils/bcrypt'
 
@@ -38,7 +37,7 @@ export async function POST(req: Request) {
     if (res.rowCount === 0)
       return new Response(JSON.stringify({ message: '가입한 이력이 없습니다.' }), { status: 400 })
 
-    const response = await sql`UPDATE users SET password = ${hashedPassword}`
+    await sql`UPDATE users SET password = ${hashedPassword}`
 
     return new Response(JSON.stringify({ message: '비밀번호 재설정 성공' }), {
       status: 200,

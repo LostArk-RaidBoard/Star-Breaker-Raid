@@ -1,11 +1,11 @@
 import RaidPostUpdate from '@/components/raidPostField/raidPostUpdate/raidPostUpdate'
 import Section from '@/components/utils/section'
+import React from 'react'
 
-interface raidPost {
-  params: { id: number }
-}
+type Params = Promise<{ id: number }>
 
-export default function PostUpdate({ params: { id } }: raidPost) {
+export default async function PostUpdate({ params }: { params: Params }) {
+  const { id } = await params
   return (
     <>
       <Section>

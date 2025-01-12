@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 interface Props {
   updateRaidNoti: string
   setUpdateRaidNoti: (noti: string) => void

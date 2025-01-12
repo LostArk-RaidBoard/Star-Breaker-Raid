@@ -5,9 +5,8 @@ import UpdateCalendarPick from '@/components/raidPostField/raidPostUpdate/update
 import UpdateRaidDetail from '@/components/raidPostField/raidPostUpdate/UpdateRaidDetail'
 import UpdateRaidMaxTime from '@/components/raidPostField/raidPostUpdate/UpdateRaidMaxTime'
 import UpdateRaidNoti from '@/components/raidPostField/raidPostUpdate/UpdateRaidNoti'
-
 import UpdateRaidCharacterSelect from '@/components/select/UpdateRaidCharacterSelect'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Post {
   post_id: number

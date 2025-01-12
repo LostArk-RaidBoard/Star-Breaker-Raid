@@ -1,4 +1,4 @@
-export default async function getUserBirthday(accessToken: any) {
+export default async function getUserBirthday(accessToken: string) {
   const response = await fetch(
     `https://people.googleapis.com/v1/people/me?personFields=birthdays`,
     {

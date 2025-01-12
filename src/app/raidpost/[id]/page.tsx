@@ -1,11 +1,10 @@
 import RaidListField from '@/components/raidPostField/raidListField'
 import Section from '@/components/utils/section'
+import React from 'react'
 
-interface raidPost {
-  params: { id: number }
-}
-
-export default function Raidpost({ params: { id } }: raidPost) {
+type Params = Promise<{ id: number }>
+export default async function Raidpost({ params }: { params: Params }) {
+  const { id } = await params
   return (
     <>
       <Section>

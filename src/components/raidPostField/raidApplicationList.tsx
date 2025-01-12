@@ -3,7 +3,7 @@
 import { applicationListTage, wePostTage } from '@/app/action'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props {
   postId: number
@@ -44,7 +44,7 @@ export default function RaidApplicationList({
           'Content-Type': 'application/json',
         },
       })
-      const data = await response.json()
+
       if (response.ok && response.status === 200) {
         applicationListTage()
         wePostTage()

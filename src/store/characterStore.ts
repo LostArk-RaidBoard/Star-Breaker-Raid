@@ -33,7 +33,7 @@ const initalCharacterInfoList: CharacterListState = {
 
 export const useCharacterInfoList = create<CharacterListState & CharacterListAction>((set) => ({
   ...initalCharacterInfoList,
-  setCharacterInfo: (inputCharacterInfo) => set((state) => ({ characterInfo: inputCharacterInfo })),
+  setCharacterInfo: (inputCharacterInfo) => set(() => ({ characterInfo: inputCharacterInfo })),
   setCharacterAllList: (inputCharacterList) =>
-    set((state) => ({ characterAllList: inputCharacterList })),
+    set(() => ({ characterAllList: inputCharacterList })),
 }))

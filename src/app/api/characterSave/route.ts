@@ -35,16 +35,17 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
   try {
+    // DB에 캐릭터가 존재하는지 SELECT
     const res = await sql`SELECT * FROM characters WHERE character_name=${character_name}`
 
+    // DB에 캐릭터가 존재하면 UPDATE
     if (res.rowCount !== 0) {
-      const response =
-        await sql`UPDATE characters SET character_level=${character_level}, transcendence=${transcendence}, leap=${leap}, evolution=${evolution}, enlightenment=${enlightenment}, elixir=${elixir} WHERE character_name=${character_name}`
+      await sql`UPDATE characters SET character_level=${character_level}, transcendence=${transcendence}, leap=${leap}, evolution=${evolution}, enlightenment=${enlightenment}, elixir=${elixir} WHERE character_name=${character_name}`
 
       return new Response(JSON.stringify({ message: '업데이트가 성공했습니다.' }), { status: 201 })
     } else {
-      const insertRes =
-        await sql`INSERT INTO characters (character_name, user_id, character_level, character_class, server_name, class_image, class_icon_url, transcendence, elixir, leap, enlightenment, evolution) VALUES (${character_name}, ${user_id}, ${character_level}, ${character_class}, ${server_name}, ${class_image}, ${class_icon_url}, ${transcendence}, ${elixir}, ${leap}, ${enlightenment}, ${evolution})`
+      // DB에 캐릭터가 없다면 INSERT
+      await sql`INSERT INTO characters (character_name, user_id, character_level, character_class, server_name, class_image, class_icon_url, transcendence, elixir, leap, enlightenment, evolution) VALUES (${character_name}, ${user_id}, ${character_level}, ${character_class}, ${server_name}, ${class_image}, ${class_icon_url}, ${transcendence}, ${elixir}, ${leap}, ${enlightenment}, ${evolution})`
       return new Response(JSON.stringify({ message: '저장을 성공했습니다.' }), { status: 202 })
     }
   } catch (error) {

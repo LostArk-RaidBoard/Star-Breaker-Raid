@@ -2,7 +2,7 @@
 import Check from '@image/icon/check.svg'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Lay() {
   const [allCheck, setAllCheck] = useState(false)

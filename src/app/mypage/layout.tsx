@@ -1,6 +1,7 @@
 import HeaderField from '@/components/header/headerField'
 import MypageMenu from '@/components/mypageField/mypageMenu'
 import Section from '@/components/utils/section'
+import React from 'react'
 
 export default function MypageLayout({
   children,

@@ -1,4 +1,3 @@
-'use server'
 import { sql } from '@vercel/postgres'
 
 interface RaidPost {
@@ -22,7 +21,7 @@ export async function POST(req: Request) {
 
   const updateTime = new Date(raidPost.raid_time).toISOString()
   try {
-    const res = await sql`
+    await sql`
     UPDATE raid_posts SET 
       raid_time = ${updateTime},
       noti = ${raidPost.noti},

@@ -9,6 +9,30 @@ interface CharacterList {
   CharacterImage: string
 }
 
+// 각 요소의 기본 타입 정의
+interface TooltipContentElement {
+  bPoint: boolean
+  contentStr: string
+}
+
+interface TooltipValueElementContentStrElement {
+  [key: string]: TooltipContentElement
+}
+
+interface TooltipValueElementContentStr {
+  contentStr: TooltipValueElementContentStrElement
+  topStr: string
+}
+
+interface TooltipValueElement {
+  Element_000: TooltipValueElementContentStr
+}
+
+interface Tooltip {
+  type: string // 요소의 타입 (예: "IndentStringGroup")
+  value: TooltipValueElement // 중첩된 객체 또는 배열 형태의 값
+}
+
 interface SaveCharacterInfo {
   character_name: string
   user_id: string
@@ -52,6 +76,7 @@ type Equipment = {
 }
 
 export default async function SaveCharacterFetch(item: CharacterList, userId: string) {
+  console.log('saveCharacterFetch 시작')
   const saveCharacterInfo = {
     character_name: item.CharacterName,
     user_id: userId,
@@ -95,8 +120,10 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
         }
       }
     }
-  } catch (e) {
-    console.error(e)
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error)
+    }
     fetchResult = false
   }
 
@@ -120,11 +147,15 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
         if (response.ok && Array.isArray(data)) {
           if (data.length >= 5) {
             for (let i = 1; i <= 5; i++) {
-              try {
-                const tooltip = JSON.parse(data[i].Tooltip)
-                parseTooltipForElixer(tooltip, saveCharacterInfo)
-              } catch (e) {
-                console.error('Failed to parse Tooltip for data index', i, e)
+              const tooltip = JSON.parse(data[i].Tooltip)
+
+              const elixerToolTip = Object.values(tooltip)
+
+              // 엘릭서 툴팁이 있는지 검증하고 sum 시작
+              if (typeof elixerToolTip === 'object' && elixerToolTip !== null) {
+                parseTooltipForElixer(elixerToolTip as Tooltip[], saveCharacterInfo)
+              } else {
+                console.error('elixerToolTip is not a valid Tooltip')
               }
             }
           } else {
@@ -137,18 +168,32 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
         // 초월 정보  가져오기
         try {
           const tooltip = JSON.parse(data[1].Tooltip)
-          parseTooltipForTranscendence(tooltip, saveCharacterInfo)
-        } catch (e) {
-          console.error('Failed to parse Tooltip for data ', e)
+          const transcendenceTooltip = Object.values(tooltip)
+
+          if (typeof transcendenceTooltip === 'object' && transcendenceTooltip !== null) {
+            parseTooltipForTranscendence(transcendenceTooltip as Tooltip[], saveCharacterInfo)
+          } else {
+            console.error('transcendenceTooltip is not a valid Tooltip')
+          }
+        } catch (error: unknown) {
+          if (error instanceof Error) {
+            console.error('Failed to parse Tooltip for data :' + error)
+          }
         }
       }
     }
-  } catch (e) {
-    console.error(e)
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(error)
+    }
     fetchResult = false
   }
 
-  // 이 캐릭터 네임으로 DB에 존재하는지 체크
+  console.log(saveCharacterInfo)
+
+  /**
+   * 이 캐릭터 네임으로 DB에 존재하는지 체크
+   */
   try {
     const response = await fetch('/api/characterSave', {
       method: 'POST',
@@ -166,8 +211,10 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
         fetchResult = false
       }
     }
-  } catch (e) {
-    console.error(e)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error)
+    }
     fetchResult = false
   }
 
@@ -179,45 +226,33 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
  * @param tooltip : lostark api 투구 정보
  * @param saveCharacterInfo :  DB에 저장하기 위한 캐릭터.json
  */
-function parseTooltipForTranscendence(tooltip: any, saveCharacterInfo: SaveCharacterInfo) {
-  for (let key in tooltip) {
-    if (tooltip.hasOwnProperty(key)) {
-      const element = tooltip[key]
-
-      if (element.type === 'IndentStringGroup' && element.value != null) {
-        for (let subKey in element.value) {
-          const subElement = element.value[subKey]
-
-          if (subElement && subElement.contentStr) {
-            for (let innerKey in subElement.contentStr) {
-              const innerElement = subElement.contentStr[innerKey]
-
-              if (typeof innerElement.contentStr === 'string') {
-                const actualContentStr = innerElement.contentStr
-
-                if (actualContentStr.includes('모든 장비에 적용된 총')) {
-                  const cleanText = actualContentStr.replace(/<[^>]*>/g, '') // HTML 태그 제거
-                  const matched = cleanText.match(/\d+/) // 숫자 추출
-                  if (matched) {
-                    saveCharacterInfo.transcendence = parseInt(matched[0], 10)
-
-                    // 값을 찾으면 모든 루프를 빠져나옴
-                    break
-                  } else {
-                    console.log('No number matched in:', actualContentStr)
-                  }
-                }
-              } else {
-                console.log(`innerElement.contentStr is not a string for key: ${innerKey}`)
-              }
-            }
+function parseTooltipForTranscendence(
+  transcendenceTooltip: Tooltip[],
+  saveCharacterInfo: SaveCharacterInfo,
+) {
+  try {
+    // Tooltip 배열을 순회
+    for (const tooltip of transcendenceTooltip) {
+      if (tooltip.type === 'IndentStringGroup') {
+        const topStr = tooltip.value.Element_000?.topStr
+        if (
+          topStr ===
+          "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
+        ) {
+          const elementContentStr = tooltip.value.Element_000.contentStr.Element_001.contentStr
+          const cleanText = elementContentStr.replace(/<[^>]*>/g, '')
+          const matched = cleanText.match(/(\d+)개/)
+          if (matched && matched[1]) {
+            // 파싱된 숫자를 saveCharacterInfo.transcendence에 저장
+            saveCharacterInfo.transcendence = parseInt(matched[1], 10)
           } else {
-            console.log(`subElement.contentStr is not a valid object for key: ${subKey}`)
+            console.error('No valid "숫자개" format found in the content string.')
           }
         }
       }
     }
-    if (saveCharacterInfo.transcendence != 0) break // 값을 찾으면 외부 루프도 종료
+  } catch (error) {
+    console.error('파싱 중 오류 발생:', error)
   }
 }
 
@@ -226,44 +261,44 @@ function parseTooltipForTranscendence(tooltip: any, saveCharacterInfo: SaveChara
  * @param tooltip : 무기에서 파싱한 데이터
  * @param saveCharacterInfo : DB에 저장하기 위한 캐릭터.json
  */
-function parseTooltipForElixer(tooltip: any, saveCharacterInfo: SaveCharacterInfo) {
+function parseTooltipForElixer(elixerToolTip: Tooltip[], saveCharacterInfo: SaveCharacterInfo) {
   let elixirLevelSum = 0
 
-  for (let key in tooltip) {
-    if (tooltip.hasOwnProperty(key)) {
-      const element = tooltip[key]
+  try {
+    // Tooltip 배열을 순회
+    for (const tooltip of elixerToolTip) {
+      // type이 "IndentStringGroup"인지 확인
+      if (tooltip.type === 'IndentStringGroup') {
+        // Element_000의 topStr이 특정 조건과 일치하는지 확인
+        const topStr = tooltip.value.Element_000?.topStr
+        if (
+          topStr ===
+          "<FONT COLOR='#FFE65A'>[엘릭서]</FONT><br><font color='#91fe02'><FONT size='12'>지혜의 엘릭서</FONT></font>"
+        ) {
+          const elementContentStr = tooltip.value.Element_000.contentStr
 
-      if (element.type === 'IndentStringGroup' && element.value != null) {
-        for (let subKey in element.value) {
-          const subElement = element.value[subKey]
+          for (const key in elementContentStr) {
+            if (Object.hasOwn(elementContentStr, key)) {
+              const subElement = elementContentStr[key]
 
-          if (subElement && subElement.contentStr) {
-            for (let innerKey in subElement.contentStr) {
-              const innerElement = subElement.contentStr[innerKey]
-
-              if (typeof innerElement.contentStr === 'string') {
-                const actualBPoint = innerElement.bPoint
-                const actualContentStr = innerElement.contentStr
-
-                if (actualBPoint) {
-                  const matches = actualContentStr.match(/Lv\.(\d+)/)
-                  if (matches && matches[1]) {
-                    const level = parseInt(matches[1], 10)
-                    elixirLevelSum += level
-                  }
+              // bPoint가 true이고 contentStr에 "Lv."가 포함된 경우
+              if (subElement.bPoint && subElement.contentStr.includes('Lv.')) {
+                // "Lv." 뒤에 있는 숫자를 추출
+                const matches = subElement.contentStr.match(/Lv\.(\d+)/)
+                if (matches && matches[1]) {
+                  const level = parseInt(matches[1], 10) // 숫자로 변환
+                  elixirLevelSum += level // 합산
                 }
-              } else {
-                console.log(`innerElement.contentStr is not a string for key: ${innerKey}`)
               }
             }
-          } else {
-            console.log(`subElement.contentStr is not a valid object for key: ${subKey}`)
           }
         }
       }
     }
-  }
 
-  // saveCharacterInfo에 elixir 합산 저장
-  saveCharacterInfo.elixir += elixirLevelSum
+    // saveCharacterInfo에 elixirLevelSum을 추가
+    saveCharacterInfo.elixir += elixirLevelSum
+  } catch (error) {
+    console.error('파싱 중 오류 발생:', error)
+  }
 }

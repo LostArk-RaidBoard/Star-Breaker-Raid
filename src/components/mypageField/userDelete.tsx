@@ -1,7 +1,7 @@
 'use client'
 import InputLayout from '@/components/ui/inputLayout'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { signOut } from 'next-auth/react'
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 export default function UserDelete({ userId }: Props) {
   const [inputDelete, setInputDelete] = useState('')
   const [message, setMessage] = useState('')
+
   const handlerDelete = async () => {
     if (userId === '') {
       setMessage('로그인 해주세요')
@@ -37,8 +38,10 @@ export default function UserDelete({ userId }: Props) {
           setMessage(data.message)
         }
       }
-    } catch (e) {
-      setMessage('탈퇴하기 실패')
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setMessage('탈퇴하기 실패')
+      }
     }
   }
   return (

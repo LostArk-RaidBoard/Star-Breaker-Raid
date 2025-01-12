@@ -1,5 +1,5 @@
 'use client'
-
+import React from 'react'
 import MypageApplicationPost from '@/components/mypageField/mypageApplicationPost'
 import MypageCreatePost from '@/components/mypageField/mypageCreatePost'
 
