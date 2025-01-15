@@ -2,8 +2,10 @@
 
 import React, { memo, useState, useCallback, useRef, useEffect } from 'react'
 import Image from 'next/image'
+import { YouTubeEmbed } from '@next/third-parties/google'
+
 interface Props {
-  raideYoutubeURLsArray: string[]
+  raidYoutubeVideoId: string[]
 }
 
 // 최적화를 위해 Memo로 섬네일 컴포넌트 최적화
@@ -11,7 +13,7 @@ const Thumbnail = memo(
   ({ src, onClick, isSelected }: { src: string; onClick: () => void; isSelected: boolean }) => (
     <div
       onClick={onClick}
-      className={`${isSelected ? 'bg-gray-500' : ''} relative rounded-md`}
+      className={`${isSelected ? 'bg-gray-900' : ''} group relative rounded-md`}
       style={{ aspectRatio: '16 / 9', minWidth: '150px' }}
     >
       <Image
@@ -20,7 +22,7 @@ const Thumbnail = memo(
         fill
         loading='lazy'
         sizes='(max-width: 640px) 100px, (max-width: 768px) 150px, (max-width: 1024px) 200px, 100%'
-        className='pointer-events-none rounded-md object-cover p-2 md:p-3' // pointer-events-none 유지
+        className='pointer-events-none object-cover p-2 group-hover:scale-110 md:p-3' // pointer-events-none 유지
       />
     </div>
   ),
@@ -29,16 +31,26 @@ const Thumbnail = memo(
 // displayName 추가
 Thumbnail.displayName = 'Thumbnail'
 
-// 유튜브 nocookie URL에서 비디오 ID 추출 함수
-const extractVideoId = (url: string) => {
-  const regex = /\/embed\/([^?]*)/
-  const match = url.match(regex)
-  return match ? match[1] : null
-}
-export default function RaidGudiePlayer({ raideYoutubeURLsArray }: Props) {
+export default function RaidGudiePlayer({ raidYoutubeVideoId }: Props) {
   const [userChosie, setUserChosie] = useState(0)
   const [videoHeight, setVideoHeight] = useState(0)
   const videoRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768) // 모바일 기준 너비 설정
+    }
+
+    handleResize() // 초기 실행
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const containerStyle = {
+    height: isMobile ? 'auto' : `${videoHeight}px`,
+    width: '100%',
+  }
 
   const handleClick = useCallback((key: number) => {
     setUserChosie(key)
@@ -59,40 +71,47 @@ export default function RaidGudiePlayer({ raideYoutubeURLsArray }: Props) {
   }, [updateVideoHeight])
 
   return (
-    <div className='mt-2 flex w-full flex-col items-center justify-center gap-2 rounded-md bg-black md:flex-row'>
-      <div ref={videoRef} className='relative w-full md:basis-3/4'>
-        <div className='relative w-full' style={{ paddingBottom: '56.25%', height: '0' }}>
-          <iframe
-            id='video'
-            className='absolute left-0 top-0 h-full w-full rounded-md'
-            src={raideYoutubeURLsArray[userChosie]}
-            title='YouTube video player'
-            frameBorder='0'
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-            referrerPolicy='strict-origin-when-cross-origin'
-            sandbox='allow-same-origin allow-scripts allow-presentation'
-            allowFullScreen
-            loading='lazy'
-          ></iframe>
-        </div>
-      </div>
+    <div
+      className={`mt-2 flex max-h-[550px] min-h-[250px] w-full flex-col justify-center gap-2 rounded-md md:flex-row`}
+      style={{ height: '100%', alignItems: 'stretch' }}
+    >
+      {/* 비디오 부분 */}
       <div
-        className='flex h-full w-full flex-row gap-2 overflow-x-auto rounded-md md:basis-1/4 md:flex-col md:overflow-y-auto'
-        style={{ maxHeight: `${videoHeight}px` }} // maxHeight를 100%로 변경
+        ref={videoRef}
+        className='relative h-full w-full bg-green-500 md:basis-3/4'
+        style={{
+          aspectRatio: '16 / 9',
+          width: '100%', // 부모 요소가 가득 차도록 설정
+          maxWidth: 'none',
+        }}
       >
-        {raideYoutubeURLsArray.map((items, key) => {
-          const videoId = extractVideoId(items)
-          const thumbnailSrc = videoId
-            ? `https://img.youtube.com/vi/${videoId}/0.jpg` // 절대 경로로 수정
+        <YouTubeEmbed
+          videoid={raidYoutubeVideoId?.[userChosie] || ''}
+          params='controls=0'
+          style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; max-width: none;'
+        />
+      </div>
+
+      {/* 이미지 선택 부분 */}
+
+      <div
+        className={`flex h-[100px] w-full flex-row gap-2 overflow-y-hidden rounded-md md:h-full md:basis-1/4 md:flex-col md:justify-start md:overflow-y-auto md:overflow-x-hidden`}
+        style={containerStyle}
+      >
+        {raidYoutubeVideoId?.map((items, key) => {
+          const thumbnailSrc = items
+            ? `https://img.youtube.com/vi/${items}/0.jpg` // 절대 경로로 수정
             : '/fallback-thumbnail.jpg'
 
           return (
-            <Thumbnail
-              key={key}
-              src={thumbnailSrc}
-              onClick={() => handleClick(key)}
-              isSelected={userChosie === key}
-            />
+            <div key={key}>
+              <Thumbnail
+                key={key}
+                src={thumbnailSrc}
+                onClick={() => handleClick(key)}
+                isSelected={userChosie === key}
+              />
+            </div>
           )
         })}
       </div>

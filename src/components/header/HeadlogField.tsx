@@ -9,7 +9,7 @@ export default function HeadLogField() {
   const { data: session } = useSession()
 
   return (
-    <div className='flex h-8 items-center justify-center text-base font-medium text-gray-800 sm:text-lg'>
+    <div className='flex h-full items-center justify-center text-base font-medium sm:text-lg'>
       {session && session.user ? (
         <button
           className={`flex flex-row items-center justify-center gap-1 hover:text-blue-500`}

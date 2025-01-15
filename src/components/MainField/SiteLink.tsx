@@ -13,7 +13,7 @@ export default function SiteLink() {
       </Link>
       <Link
         href='https://loatool.taeu.kr/'
-        className='inline-flex h-full min-w-[100px] items-center justify-center rounded-md bg-[#3b3330] text-sm font-bold text-white shadow-lg sm:text-xl'
+        className='inline-flex h-full min-w-[100px] items-center justify-center rounded-md bg-[#3b3333] text-sm font-bold text-white shadow-lg sm:text-xl'
       >
         <div className='hidden h-12 w-12 sm:block'>
           <Image
@@ -28,11 +28,10 @@ export default function SiteLink() {
         로아도구
       </Link>
       <Link
-        href='https://iloa.gg/'
-        className='inline-flex h-full min-w-[100px] flex-col items-center justify-center overflow-hidden rounded-md bg-[#16181d] text-white shadow-lg'
+        href='https://kloa.gg/'
+        className='inline-flex h-full min-w-[100px] flex-col items-center justify-center overflow-hidden rounded-md bg-[#5b64e9] text-white shadow-lg'
       >
-        <span className='text-sm font-bold sm:text-xl'>ILOA.GG</span>
-        <span className='hidden text-sm sm:block'>로스트아크 종합 정보</span>
+        <span className='text-sm font-bold sm:text-xl'>KLOA</span>
       </Link>
       <Link
         href='https://zloa.net/'
