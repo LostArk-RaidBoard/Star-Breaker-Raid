@@ -78,7 +78,7 @@ export default function RaidGudiePlayer({ raidYoutubeVideoId }: Props) {
       {/* 비디오 부분 */}
       <div
         ref={videoRef}
-        className='relative h-full w-full bg-green-500 md:basis-3/4'
+        className='relative h-full w-full md:basis-3/4'
         style={{
           aspectRatio: '16 / 9',
           width: '100%', // 부모 요소가 가득 차도록 설정
