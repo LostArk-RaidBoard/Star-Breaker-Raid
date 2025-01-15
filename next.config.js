@@ -1,22 +1,15 @@
-// next.config.js
-const runtimeCaching = require('next-pwa/cache')
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
-  runtimeCaching,
-  disable: process.env.NODE_ENV === 'development', // 개발 중 비활성화
-})
-
-const nextConfig = withPWA({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // svg 파일 처리 webpack tjfwjd
   webpack: (config) => {
-    // SVG 파일을 처리하는 webpack 설정
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
     return config
   },
+
+  // CORS 문제해결
   async rewrites() {
     return [
       {
@@ -25,6 +18,8 @@ const nextConfig = withPWA({
       },
     ]
   },
+
+  // 이미지 캐시 및 출처 허용
   images: {
     minimumCacheTTL: 3600,
     remotePatterns: [
@@ -54,6 +49,48 @@ const nextConfig = withPWA({
       },
     ],
   },
+
+  // 보안을 위해서 헤더 설정 설정
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+      {
+        source: '/sw.js',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self'",
+          },
+        ],
+      },
+    ]
+  },
+
+  // env 설정
   env: {
     POSTGRES_URL: process.env.POSTGRES_URL,
     POSTGRES_USER: process.env.POSTGRES_USER,
@@ -72,6 +109,6 @@ const nextConfig = withPWA({
     LostArk_Token: process.env.LostArk_Token,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   },
-})
+}
 
 module.exports = nextConfig
