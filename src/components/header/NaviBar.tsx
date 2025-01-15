@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function NaviBar() {
   return (
-    <div className='flex h-8 w-auto items-center justify-center gap-12 text-base sm:text-lg'>
+    <div className='flex h-full w-auto items-center justify-center gap-12 text-base sm:text-lg'>
       <Link href={'/'} scroll={false}>
         <span className='text-xl font-medium antialiased hover:text-blue-500'>메인</span>
       </Link>

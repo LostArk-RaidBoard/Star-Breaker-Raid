@@ -117,7 +117,7 @@ export default function RaidGuideGrid({ userId }: Props) {
             >
               <Like className={`${item.like_count != 0 ? 'fill-red-500' : ''}`} />
             </button>
-            <Link href={`/raidguide/${item.guide_id}`}>
+            <Link href={`/raidguide/${item.guide_id}`} scroll={false}>
               <Image
                 src={item.raid_main_image}
                 alt='레이드 대표 이미지'
