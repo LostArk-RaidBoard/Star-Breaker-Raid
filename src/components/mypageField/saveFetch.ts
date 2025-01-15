@@ -76,7 +76,6 @@ type Equipment = {
 }
 
 export default async function SaveCharacterFetch(item: CharacterList, userId: string) {
-  console.log('saveCharacterFetch 시작')
   const saveCharacterInfo = {
     character_name: item.CharacterName,
     user_id: userId,
@@ -188,8 +187,6 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
     }
     fetchResult = false
   }
-
-  console.log(saveCharacterInfo)
 
   /**
    * 이 캐릭터 네임으로 DB에 존재하는지 체크
