@@ -1,8 +1,9 @@
-import MyPost from '@/components/mypageField/myPost'
 import { auth } from '@/auth'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
-import MypageWeek from '@/components/mypageField/mypageWeek'
+import MypageWeek from '@/components/mypageField/schedulePage/mypageWeek'
 import React from 'react'
+import MypageApplicationPost from '@/components/mypageField/schedulePage/mypageApplicationPost'
+import MypageCreatePost from '@/components/mypageField/schedulePage/mypageCreatePost'
 
 interface RaidPost {
   post_id: number
@@ -133,11 +134,10 @@ export default async function MyPostField() {
 
   return (
     <div className='flex w-full flex-col'>
-      <MyPost
-        userId={userId}
-        applicationPostGet={applicationPostGet}
-        createPostGet={createPostGet}
-      />
+      <div className='flex flex-col gap-4 rounded-md border border-gray-400 p-4 shadow-lg md:h-[400px] md:flex-row'>
+        <MypageApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
+        <MypageCreatePost createPostGet={createPostGet} />
+      </div>
       <MypageWeek weekSchedule={weekSchedule} userId={userId} />
     </div>
   )

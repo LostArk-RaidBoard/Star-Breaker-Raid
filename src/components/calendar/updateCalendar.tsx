@@ -3,7 +3,7 @@
 import { ko } from 'date-fns/locale/ko'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import styles from '../calendar.module.css'
+import styles from './calendar.module.css'
 import React from 'react'
 import { setHours, setMinutes, nextDay, addWeeks } from 'date-fns'
 

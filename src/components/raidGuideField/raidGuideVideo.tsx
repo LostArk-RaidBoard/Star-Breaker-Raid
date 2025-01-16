@@ -72,7 +72,7 @@ export default function RaidGudiePlayer({ raidYoutubeVideoId }: Props) {
 
   return (
     <div
-      className={`mt-2 flex max-h-[550px] min-h-[250px] w-full flex-col justify-center gap-2 rounded-md md:flex-row`}
+      className={`mt-2 flex w-full flex-col justify-center gap-2 rounded-md md:flex-row`}
       style={{ height: '100%', alignItems: 'stretch' }}
     >
       {/* 비디오 부분 */}

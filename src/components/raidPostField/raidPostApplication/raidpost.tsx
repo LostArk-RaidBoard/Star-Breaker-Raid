@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Megaphone from '@image/icon/megaphone.svg'
-import RaidNotiTextArea from '@/components/raidPostField/raidNotiTextArea'
+import RaidNotiTextArea from '@/components/raidPostField/raidPostApplication/raidNotiTextArea'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
 import React from 'react'
 
