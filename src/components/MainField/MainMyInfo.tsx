@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Loading from '@image/icon/loading.svg'
+import GoldImage from '@image/asset/골드.png'
 import { useSession } from 'next-auth/react'
 
 interface Myinfo {
@@ -95,6 +96,7 @@ export default function MainMyInfo() {
               alt='카제로스레이드  이미지'
               width={30}
               height={30}
+              style={{ width: '10%', height: 'auto' }}
               className='p-1'
             />{' '}
             {myInfoState.schedule_count} /{' '}
@@ -104,10 +106,11 @@ export default function MainMyInfo() {
           <span className='flex items-center'>
             이번 주 레이드 골드 수익 :
             <Image
-              src={'/골드.png'}
+              src={GoldImage}
               alt='골드 이미지'
               width={30}
               height={30}
+              style={{ width: '10%', height: 'auto' }}
               className='p-1'
             />{' '}
             {myInfoState.raid_gold}

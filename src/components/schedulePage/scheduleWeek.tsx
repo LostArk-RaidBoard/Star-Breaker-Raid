@@ -4,6 +4,7 @@ import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
 import Image from 'next/image'
 import { toZonedTime } from 'date-fns-tz'
 import React from 'react'
+import GoldImage from '@image/asset/골드.png'
 
 interface Schedule {
   user_id: string
@@ -73,7 +74,13 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
         <span className='text-lg font-semibold'>• 이번 주 레이드 일정</span>
         <div className='flex items-center justify-between gap-4 sm:justify-center'>
           <div className='flex items-center gap-1'>
-            <Image src='/골드.png' alt='골드 이미지' width='25' height='25' />
+            <Image
+              src={GoldImage}
+              alt='골드 이미지'
+              width={25}
+              height={25}
+              style={{ width: '25px', height: 'auto' }}
+            />
             <span className='text-lg text-yellow-700'>{sumGold}</span>
           </div>
           <AddScheduleButton userId={userId} />

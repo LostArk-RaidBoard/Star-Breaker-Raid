@@ -1,3 +1,4 @@
+'use client'
 import useHomeworkStore from '@/store/homeworkCheckStore'
 import Image from 'next/image'
 import React, { useEffect } from 'react'
@@ -61,7 +62,7 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
               className={`table-cell border border-gray-400 p-2 text-center font-bold ${
                 key === 0 ? 'sticky left-0 z-10 bg-gray-200' : ''
               }`}
-              style={key === 0 ? { width: '130px', maxWidth: '130px' } : {}}
+              style={key === 0 ? { width: '185px' } : {}}
             >
               {item || '캐릭터'}
             </div>
@@ -72,14 +73,14 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
           <div key={index} className='table-row'>
             <div
               className='sticky left-0 z-10 table-cell border border-gray-400 bg-gray-200 text-center align-middle'
-              style={{ width: '170px', maxWidth: '170px', height: '60px' }}
+              style={{ width: '185px', height: '60px' }}
             >
               <p className='truncate'>{item.character_name}</p>
             </div>
             {indexNumber.map((number, index1) => (
               <div
                 key={`checkbox-${index}-${number}-${index1}`}
-                className='table-cell border border-gray-400 text-center align-middle'
+                className='table-cell w-[145px] border border-gray-400 text-center align-middle'
               >
                 <div className='grid h-[60px] w-full grid-cols-4'>
                   <div

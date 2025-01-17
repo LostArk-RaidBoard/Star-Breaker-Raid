@@ -1,13 +1,19 @@
 'use client'
 
 import { homework } from '@/app/action'
-import useHomeworkStore from '@/store/homeworkCheckStore'
+import useHomeworkStore, { useHomeworkExpeditionStore } from '@/store/homeworkCheckStore'
 import { useState } from 'react'
 
 export default function HomeworkUpdateButton() {
   const { homeworkList } = useHomeworkStore()
+  const { homeworkExpeditionList } = useHomeworkExpeditionStore()
   const [message, setMessage] = useState('')
   const [state, setState] = useState(0)
+
+  const contentList = {
+    homeworkList: homeworkList,
+    homeworkExpeditionList: homeworkExpeditionList,
+  }
 
   const UpdateHandler = async () => {
     try {
@@ -16,7 +22,7 @@ export default function HomeworkUpdateButton() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(homeworkList),
+        body: JSON.stringify(contentList),
       })
       if (response.ok && response.status === 200) {
         setState(1)

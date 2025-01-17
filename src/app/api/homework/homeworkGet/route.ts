@@ -10,20 +10,30 @@ export async function GET(req: Request) {
 
   try {
     const res = await sql`
-        SELECT 
-    h.*, 
-    c.character_level 
-FROM 
-    homework AS h
-LEFT JOIN 
-    characters AS c
-ON 
-    c.character_name = h.character_name 
-WHERE 
-    h.user_id = ${userId};
+      SELECT 
+        h.*, 
+        c.character_level 
+      FROM 
+        homework AS h
+      LEFT JOIN 
+        characters AS c
+      ON 
+        c.character_name = h.character_name 
+      WHERE 
+        h.user_id = ${userId};
     `
 
-    return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })
+    const response = await sql`
+      SELECT
+        e.*
+      FROM expedition AS e
+      WHERE
+        e.user_id = ${userId};
+    `
+
+    return new Response(JSON.stringify({ postRows: res.rows, expedition: response.rows }), {
+      status: 200,
+    })
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })

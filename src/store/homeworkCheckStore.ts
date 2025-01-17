@@ -20,4 +20,28 @@ const useHomeworkStore = create<HomeworkStore>((set) => ({
   setHomeworkList: (data) => set(() => ({ homeworkList: data })),
 }))
 
+interface HomeworkExpeditionData {
+  user_id: string
+  gathering: boolean[]
+  wisdom: boolean[]
+  daycontent: boolean[]
+}
+
+interface HomeworkExpeditionStore {
+  homeworkExpeditionList: HomeworkExpeditionData
+  setHomeworkExpeditionList: (data: HomeworkExpeditionData) => void
+}
+
+const initialHomeworkExpeditionData: HomeworkExpeditionData = {
+  user_id: '',
+  gathering: [false, false, false, false, false, false, false],
+  wisdom: [false, false, false, false, false, false, false],
+  daycontent: [false, false, false, false, false, false, false],
+}
+
+export const useHomeworkExpeditionStore = create<HomeworkExpeditionStore>((set) => ({
+  homeworkExpeditionList: initialHomeworkExpeditionData,
+  setHomeworkExpeditionList: (data) => set(() => ({ homeworkExpeditionList: data })),
+}))
+
 export default useHomeworkStore
