@@ -122,7 +122,7 @@ export default function MainMyInfo() {
 
           <div className='mt-2 flex w-full items-center justify-center gap-4 text-white md:flex-row xl:mt-4 xl:w-full'>
             <Link
-              href={'/mypage/mypost'}
+              href={'/schedule'}
               className='flex items-center justify-center rounded-md bg-gray-200 p-2 text-black shadow-lg'
             >
               일정 관리

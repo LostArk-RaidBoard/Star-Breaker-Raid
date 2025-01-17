@@ -69,7 +69,9 @@ export default function AddScheduleButton({ userId }: Props) {
     const characterFetch = async (userId: string) => {
       const characterlist = await UtileCharacterDataFetch(userId)
       setCharacterAllList(characterlist)
-      setCharacterName(characterlist[0].character_name)
+      if (characterlist.length > 0) {
+        setCharacterName(characterlist[0].character_name)
+      }
     }
     if (userId) {
       characterFetch(userId)
