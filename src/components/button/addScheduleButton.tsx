@@ -1,7 +1,8 @@
 'use client'
 
 import { createPostTage } from '@/app/action'
-import CalendarSelect from '@/components/raidPostField/calendarSelect'
+import CalendarSelect from '@/components/calendar/calendarSelect'
+
 import RaidSelectSchedule from '@/components/select/raidSelectSchedule'
 import raidGold from '@/components/utils/raidGold'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'

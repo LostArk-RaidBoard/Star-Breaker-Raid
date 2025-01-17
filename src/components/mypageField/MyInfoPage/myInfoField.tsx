@@ -1,9 +1,9 @@
-import PasswordChange from '@/components/mypageField/passwordChange'
-import UserDelete from '@/components/mypageField/userDelete'
+import PasswordChange from '@/components/mypageField/MyInfoPage/passwordChange'
+import UserDelete from '@/components/mypageField/MyInfoPage/userDelete'
 import { auth } from '@/auth'
 import React from 'react'
-import MyInfoComponent from '@/components/mypageField/myInfoComponent'
-import MyInfoNickName from '@/components/mypageField/myInfoNickName'
+import MyInfoComponent from '@/components/mypageField/MyInfoPage/myInfoComponent'
+import MyInfoNickName from '@/components/mypageField/MyInfoPage/myInfoNickName'
 
 interface MyinfoFetch {
   user_id: string

@@ -1,10 +1,11 @@
 import LogField from '@/components/header/HeadlogField'
 import Logo from '@/components/header/Logo'
-import MHeaderField from '@/components/header/mHeaderField'
+
 import NaviBar from '@/components/header/NaviBar'
 import Link from 'next/link'
 import Book from '@image/icon/book.svg'
 import React from 'react'
+import MHeaderField from '@/components/header/mobile/mHeaderField'
 
 export default function HeaderField() {
   return (
