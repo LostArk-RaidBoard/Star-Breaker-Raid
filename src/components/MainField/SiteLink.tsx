@@ -4,12 +4,19 @@ import React from 'react'
 
 export default function SiteLink() {
   return (
-    <div className='flex h-full gap-4 overflow-x-auto whitespace-nowrap md:grid md:grid-cols-4 md:gap-4'>
+    <div className='flex h-full gap-4 overflow-x-auto whitespace-nowrap md:grid md:grid-cols-5 md:gap-4'>
       <Link
         href='https://loa.icepeng.com/refining'
         className='inline-flex h-full min-w-[100px] flex-col flex-nowrap items-center justify-center overflow-hidden rounded-md bg-[#4350af] text-sm font-bold text-white shadow-lg sm:flex-row sm:text-xl'
       >
         <span>Lostark</span> <span>Calculator</span>
+      </Link>
+
+      <Link
+        href='https://loavesting.com/'
+        className='inline-flex h-full min-w-[100px] flex-col flex-nowrap items-center justify-center overflow-hidden rounded-md bg-[#212936] text-sm font-bold text-white shadow-lg sm:flex-row sm:text-xl'
+      >
+        <span>Loavesting</span>
       </Link>
       <Link
         href='https://loatool.taeu.kr/'
