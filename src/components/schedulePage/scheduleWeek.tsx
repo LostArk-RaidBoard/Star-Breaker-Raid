@@ -86,63 +86,81 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
           <AddScheduleButton userId={userId} />
         </div>
       </div>
-      <div className='mt-2 grid w-full grid-cols-2 rounded-sm border-2 border-gray-400 sm:grid-cols-4 lg:grid-cols-7'>
-        {['수요일', '목요일', '금요일', '토요일', '일요일', '월요일', '화요일'].map(
-          (day, index) => (
-            <div key={day} className={`flex min-h-80 flex-col border border-gray-400`}>
-              <span
-                className={`${index === 3 || index === 4 ? 'text-red-700' : ''} flex justify-center bg-gray-300 text-base font-semibold antialiased`}
+
+      {/* Table */}
+      <div className='mt-2 overflow-x-auto'>
+        <div className='table w-full min-w-[1190px] border-collapse border border-gray-400'>
+          {/* Table Header */}
+          <div className='table-row bg-gray-300'>
+            {['수요일', '목요일', '금요일', '토요일', '일요일', '월요일', '화요일'].map(
+              (day, index) => (
+                <div
+                  key={day}
+                  className={`table-cell w-[170px] border border-gray-400 p-2 text-center font-bold ${
+                    index === 3 || index === 4 ? 'text-red-700' : ''
+                  }`}
+                >
+                  {day}
+                </div>
+              ),
+            )}
+          </div>
+
+          {/* Table Rows */}
+          <div className='table-row'>
+            {daysArray.map((dayItems, dayIndex) => (
+              <div
+                key={`day-cell-${dayIndex}`}
+                className='table-cell border border-gray-400 p-2 align-top'
               >
-                {day}
-              </span>
-              {daysArray[index]?.map((item) => {
-                const timeZone = 'Asia/Seoul'
-                let bgColorClass = 'bg-gray-300' // 기본 색상
-                const raidTime = toZonedTime(item.schedule_time, timeZone) // schedlue_time 시간으로 형변환
+                {dayItems?.map((item) => {
+                  const timeZone = 'Asia/Seoul'
+                  let bgColorClass = 'bg-gray-300'
+                  const raidTime = toZonedTime(item.schedule_time, timeZone)
 
-                // 스케줄 시간 년도, 월, 일 가져오기
-                const raidDate = new Date(
-                  raidTime.getFullYear(),
-                  raidTime.getMonth(),
-                  raidTime.getDate(),
-                )
-                // 현재 날짜
-                const today = toZonedTime(new Date(), timeZone)
+                  const raidDate = new Date(
+                    raidTime.getFullYear(),
+                    raidTime.getMonth(),
+                    raidTime.getDate(),
+                  )
+                  const today = toZonedTime(new Date(), timeZone)
 
-                // 날짜에 따른 색상 구분, 오늘 : 초록, 미래 : 빨강
-                if (raidDate.getDate() === today.getDate()) {
-                  bgColorClass = 'bg-green-300'
-                } else if (raidDate.getDate() > today.getDate()) {
-                  bgColorClass = 'bg-red-300' // 미래
-                }
+                  if (raidDate.getDate() === today.getDate()) {
+                    bgColorClass = 'bg-green-300'
+                  } else if (raidDate.getDate() > today.getDate()) {
+                    bgColorClass = 'bg-red-300'
+                  }
 
-                return (
-                  <div
-                    key={`${item.schedule_time}-${index}-${item.raid_name}`}
-                    className={`mt-1 flex flex-col overflow-hidden truncate whitespace-nowrap border-b-2 border-dashed border-gray-700 p-1`}
-                  >
-                    <span className={`${bgColorClass} rounded-md p-1`}>{item.raid_name}</span>
-                    <div className='flex items-center justify-between'>
-                      <span>{raidTime.getHours() + '시 ' + raidTime.getMinutes() + '분'}</span>
-                      <DeleteScheduleButton
+                  return (
+                    <div
+                      key={`${item.schedule_time}-${dayIndex}-${item.raid_name}`}
+                      className={`mb-2 flex flex-col overflow-hidden truncate whitespace-nowrap border-b-2 border-dashed border-gray-700 p-1`}
+                    >
+                      <span className={`${bgColorClass} rounded-md p-1 font-semibold`}>
+                        {item.raid_name}
+                      </span>
+                      <div className='flex items-center justify-between'>
+                        <span>{raidTime.getHours() + '시 ' + raidTime.getMinutes() + '분'}</span>
+                        <DeleteScheduleButton
+                          characterName={item.character_name}
+                          raidName={item.raid_name}
+                          userId={item.user_id}
+                        />
+                      </div>
+                      <span className='font-semibold'>{item.character_name}</span>
+                      <ScheduleGoldCheckBox
+                        goldCheck={item.gold_check}
                         characterName={item.character_name}
                         raidName={item.raid_name}
                         userId={item.user_id}
                       />
                     </div>
-                    <span>{item.character_name}</span>
-                    <ScheduleGoldCheckBox
-                      goldCheck={item.gold_check}
-                      characterName={item.character_name}
-                      raidName={item.raid_name}
-                      userId={item.user_id}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-          ),
-        )}
+                  )
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className='mt-4 sm:ml-4'>
