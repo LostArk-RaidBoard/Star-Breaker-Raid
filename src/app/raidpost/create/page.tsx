@@ -1,4 +1,4 @@
-import RaidCreateField from '@/components/raidPostField/raidCreateField'
+import RaidCreateField from '@/components/raidPostField/raidPostCreate/raidCreateField'
 import Section from '@/components/utils/section'
 import React from 'react'
 

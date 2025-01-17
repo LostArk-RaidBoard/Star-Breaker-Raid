@@ -1,4 +1,4 @@
-import CharactorField from '@/components/mypageField/charactorField'
+import CharactorField from '@/components/mypageField/characterPage/charactorField'
 import React from 'react'
 import { auth } from '@/auth'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'

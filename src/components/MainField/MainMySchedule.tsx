@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Pagination from '@/components/utils/pagination'
 import { usePageination } from '@/store/pageinationStore'
 import { convertToKoreanTime2 } from '@/components/utils/converToKoreanTime'
+import GoldImage from '@image/asset/골드.png'
 
 interface TodaySchedule {
   user_id: string
@@ -84,7 +85,13 @@ export default function MainMyPostsSchedule({ userId }: Props) {
             시간
           </div>
           <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Image src={'/골드.png'} alt='골드 이미지' width={20} height={20} />
+            <Image
+              src={GoldImage}
+              alt='골드 이미지'
+              width={20}
+              height={20}
+              style={{ width: '80%', height: 'auto' }}
+            />
             골드
           </div>
         </div>

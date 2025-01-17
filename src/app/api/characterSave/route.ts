@@ -46,6 +46,7 @@ export async function POST(req: Request) {
     } else {
       // DB에 캐릭터가 없다면 INSERT
       await sql`INSERT INTO characters (character_name, user_id, character_level, character_class, server_name, class_image, class_icon_url, transcendence, elixir, leap, enlightenment, evolution) VALUES (${character_name}, ${user_id}, ${character_level}, ${character_class}, ${server_name}, ${class_image}, ${class_icon_url}, ${transcendence}, ${elixir}, ${leap}, ${enlightenment}, ${evolution})`
+      await sql`INSERT INTO homework (character_name, user_id) VALUES (${character_name}, ${user_id})`
       return new Response(JSON.stringify({ message: '저장을 성공했습니다.' }), { status: 202 })
     }
   } catch (error) {

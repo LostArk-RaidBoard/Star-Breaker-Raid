@@ -1,9 +1,8 @@
 'use client'
 import InputLayout from '@/components/ui/inputLayout'
-import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
-import NewCharacterField from '@/components/mypageField/newChactorField'
-import DBCharacterField from '@/components/mypageField/dbChacracterField'
+import NewCharacterField from '@/components/mypageField/characterPage/newChactorField'
+import DBCharacterField from '@/components/mypageField/characterPage/dbChacracterField'
 import CharacterImage from '@/components/utils/characterImage'
 
 interface CharacterInfo {
@@ -69,8 +68,7 @@ interface Props {
   dbCharacter: CharacterInfo[]
 }
 
-export default function CharactorField({ dbCharacter }: Props) {
-  const { data: session } = useSession()
+export default function CharactorField({ dbCharacter, userId }: Props) {
   const [mainCharacter, setMainCharacter] = useState('')
   const [mainMessage, setMainMessage] = useState('')
   const [oneMessage, setOneMessage] = useState('')
@@ -236,7 +234,7 @@ export default function CharactorField({ dbCharacter }: Props) {
 
   return (
     <>
-      {session && session?.user.id ? (
+      {userId ? (
         <div className='flex h-full w-full flex-col p-4'>
           <div className='mt-2 flex w-full flex-col gap-4 sm:flex-row'>
             <div className='flex w-full flex-col sm:basis-1/2'>
@@ -299,11 +297,11 @@ export default function CharactorField({ dbCharacter }: Props) {
             newHidden={newHidden}
             setNewHidden={setNewHidden}
             setNewCharacterList={setNewCharacterList}
-            userId={session.user.id}
+            userId={userId}
           />
 
           {/* 데이터베이스에서 보이는 장소 */}
-          <DBCharacterField userId={session.user.id} dbCharacter={dbCharacter} />
+          <DBCharacterField userId={userId} dbCharacter={dbCharacter} />
         </div>
       ) : (
         <div className='flex h-20 w-full items-center justify-center text-xl'>로그인 해주세요</div>

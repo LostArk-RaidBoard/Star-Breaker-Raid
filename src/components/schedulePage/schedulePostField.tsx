@@ -1,7 +1,10 @@
-import MyPost from '@/components/mypageField/myPost'
 import { auth } from '@/auth'
+import ScheduleApplicationPost from '@/components/schedulePage/scheduleApplicationPost'
+import ScheduleCreatePost from '@/components/schedulePage/scheduleCreatePost'
+import ScheduleWeek from '@/components/schedulePage/scheduleWeek'
+import CharacterSorted from '@/components/utils/characterSorted'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
-import MypageWeek from '@/components/mypageField/mypageWeek'
+
 import React from 'react'
 
 interface RaidPost {
@@ -46,6 +49,12 @@ interface Schedule {
   character_name: string
   raid_name: string
   gold_check: boolean
+}
+
+interface CharacterName {
+  character_name: string
+  character_level: string
+  server_name: string
 }
 
 const applicationPostGetHandler = async (userId: string) => {
@@ -98,47 +107,64 @@ const createPostGetHandler = async (userId: string) => {
 
 const weekScheduleGetHandler = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/mypageScheduleGet?user_id=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/schedule/scheduleGet?user_id=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['createPostTage'] },
       },
-      next: { tags: ['createPostTage'] },
-    })
+    )
     const data = await response.json()
     if (response.ok && response.status === 200) {
-      return data.postRows
+      return {
+        weekSchedule: data.postRows,
+        characterName: data.characterName,
+      }
     } else {
-      return []
+      return {
+        weekSchedule: [],
+        characterName: [],
+      }
     }
   } catch (error) {
     console.error(error)
-    return []
+    return {
+      weekSchedule: [],
+      characterName: [],
+    }
   }
 }
 
-export default async function MyPostField() {
+export default async function SchedulePostField() {
   const session = await auth()
   let userId = ''
   let applicationPostGet: RaidPost[] = []
   let createPostGet: RaidPostCreate[] = []
   let weekSchedule: Schedule[] = []
+  let characterName: CharacterName[] = []
 
   if (session && session.user.id) {
     applicationPostGet = await applicationPostGetHandler(session.user.id)
     createPostGet = await createPostGetHandler(session.user.id)
-    weekSchedule = await weekScheduleGetHandler(session.user.id)
+    // weekSchedule
+
+    const { weekSchedule: scheduleData, characterName: characterData } =
+      await weekScheduleGetHandler(session.user.id)
+    weekSchedule = scheduleData
+    characterName = CharacterSorted(characterData)
     userId = session.user.id
   }
 
   return (
     <div className='flex w-full flex-col'>
-      <MyPost
-        userId={userId}
-        applicationPostGet={applicationPostGet}
-        createPostGet={createPostGet}
-      />
-      <MypageWeek weekSchedule={weekSchedule} userId={userId} />
+      <ScheduleWeek weekSchedule={weekSchedule} userId={userId} characterName={characterName} />
+      <div className='mt-4 flex flex-col gap-4 rounded-md border border-gray-400 p-4 shadow-lg md:h-[400px] md:flex-row'>
+        <ScheduleApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
+        <ScheduleCreatePost createPostGet={createPostGet} />
+      </div>
     </div>
   )
 }

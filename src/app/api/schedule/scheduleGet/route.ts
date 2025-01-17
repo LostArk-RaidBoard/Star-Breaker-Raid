@@ -14,7 +14,10 @@ export async function GET(req: Request) {
     const res =
       await sql`SELECT * FROM schedule WHERE user_id=${userId} AND schedule_time < ${nextWednesdayDate + ' 06:00'} ORDER BY schedule_time;`
 
-    return new Response(JSON.stringify({ postRows: res.rows }), {
+    const response =
+      await sql`SELECT character_name, character_level, server_name FROM characters WHERE user_id=${userId} ORDER BY character_level;`
+
+    return new Response(JSON.stringify({ postRows: res.rows, characterName: response.rows }), {
       status: 200,
     })
   } catch (error) {

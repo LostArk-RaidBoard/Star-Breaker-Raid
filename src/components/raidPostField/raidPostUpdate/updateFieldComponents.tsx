@@ -1,7 +1,7 @@
 'use client'
 
 import RaidPostUpdateButton from '@/components/button/updateRaidPostButton'
-import UpdateCalendarPick from '@/components/raidPostField/raidPostUpdate/updateCalendar'
+import UpdateCalendarPick from '@/components/calendar/updateCalendar'
 import UpdateRaidDetail from '@/components/raidPostField/raidPostUpdate/UpdateRaidDetail'
 import UpdateRaidMaxTime from '@/components/raidPostField/raidPostUpdate/UpdateRaidMaxTime'
 import UpdateRaidNoti from '@/components/raidPostField/raidPostUpdate/UpdateRaidNoti'
