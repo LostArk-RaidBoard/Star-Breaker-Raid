@@ -69,7 +69,10 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
                 <div
                   className={`${
                     homeworkExpeditionList.gathering[item] ? 'bg-gray-400' : ''
-                  } flex h-full w-full flex-col items-center justify-center gap-2`}
+                  } flex h-full w-full flex-col items-center justify-center gap-2 hover:cursor-pointer`}
+                  onClick={() => {
+                    gatheringHandler(item, homeworkExpeditionList.gathering[item])
+                  }}
                 >
                   <Image
                     src={
@@ -88,16 +91,17 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
                     type='checkbox'
                     aria-label='생활 버튼'
                     checked={homeworkExpeditionList.gathering[item]}
-                    onClick={() => {
-                      gatheringHandler(item, homeworkExpeditionList.gathering[item])
-                    }}
+                    className='hover:cursor-pointer'
                     readOnly
                   />
                 </div>
                 <div
                   className={`${
                     homeworkExpeditionList.wisdom[item] ? 'bg-gray-400' : ''
-                  } flex h-full w-full flex-col items-center justify-center gap-2`}
+                  } flex h-full w-full flex-col items-center justify-center gap-2 hover:cursor-pointer`}
+                  onClick={() => {
+                    wisdomHandler(item, homeworkExpeditionList.wisdom[item])
+                  }}
                 >
                   <Image
                     src={
@@ -116,16 +120,17 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
                     type='checkbox'
                     aria-label='영지 체크 버튼'
                     checked={homeworkExpeditionList.wisdom[item]}
-                    onClick={() => {
-                      wisdomHandler(item, homeworkExpeditionList.wisdom[item])
-                    }}
+                    className='hover:cursor-pointer'
                     readOnly
                   />
                 </div>
                 <div
                   className={`${
                     homeworkExpeditionList.daycontent[item] ? 'bg-gray-400' : ''
-                  } flex h-full w-full flex-col items-center justify-center gap-2`}
+                  } flex h-full w-full flex-col items-center justify-center gap-2 hover:cursor-pointer`}
+                  onClick={() => {
+                    dayContentHandler(item, homeworkExpeditionList.daycontent[item])
+                  }}
                 >
                   <div className='flex w-full flex-row items-center justify-center'>
                     <Image
@@ -160,7 +165,7 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
                   <input
                     type='checkbox'
                     aria-label='길드 체크 버튼'
-                    className={`${item === 0 ? 'hidden' : ''}`}
+                    className={`${item === 0 ? 'hidden' : ''} hover:cursor-pointer`}
                     checked={homeworkExpeditionList.daycontent[item]}
                     onClick={() => {
                       dayContentHandler(item, homeworkExpeditionList.daycontent[item])
