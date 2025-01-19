@@ -232,10 +232,8 @@ function parseTooltipForTranscendence(
     for (const tooltip of transcendenceTooltip) {
       if (tooltip.type === 'IndentStringGroup') {
         const topStr = tooltip.value.Element_000?.topStr
-        if (
-          topStr ===
-          "<FONT SIZE='12' COLOR='#A9D0F5'>슬롯 효과</FONT><BR><FONT COLOR='#FF9632'>[초월]</FONT> <FONT COLOR='#FFD200'>7</FONT>단계 <img src='emoticon_Transcendence_Grade' width='18' height='18' vspace ='-4'></img>21"
-        ) {
+
+        if (topStr.toString().includes('[초월]')) {
           const elementContentStr = tooltip.value.Element_000.contentStr.Element_001.contentStr
           const cleanText = elementContentStr.replace(/<[^>]*>/g, '')
           const matched = cleanText.match(/(\d+)개/)
@@ -268,10 +266,7 @@ function parseTooltipForElixer(elixerToolTip: Tooltip[], saveCharacterInfo: Save
       if (tooltip.type === 'IndentStringGroup') {
         // Element_000의 topStr이 특정 조건과 일치하는지 확인
         const topStr = tooltip.value.Element_000?.topStr
-        if (
-          topStr ===
-          "<FONT COLOR='#FFE65A'>[엘릭서]</FONT><br><font color='#91fe02'><FONT size='12'>지혜의 엘릭서</FONT></font>"
-        ) {
+        if (topStr.toString().includes('[엘릭서')) {
           const elementContentStr = tooltip.value.Element_000.contentStr
 
           for (const key in elementContentStr) {
@@ -282,6 +277,7 @@ function parseTooltipForElixer(elixerToolTip: Tooltip[], saveCharacterInfo: Save
               if (subElement.bPoint && subElement.contentStr.includes('Lv.')) {
                 // "Lv." 뒤에 있는 숫자를 추출
                 const matches = subElement.contentStr.match(/Lv\.(\d+)/)
+
                 if (matches && matches[1]) {
                   const level = parseInt(matches[1], 10) // 숫자로 변환
                   elixirLevelSum += level // 합산
