@@ -41,14 +41,14 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
     setHomeworkExpeditionList(homeworkExpedition)
   }, [homeworkExpedition, setHomeworkExpeditionList])
   return (
-    <div className='w-full overflow-x-auto border border-black'>
-      <div className='table w-full min-w-[1200px] border-collapse border border-gray-400'>
+    <div className='w-full overflow-x-auto rounded-md bg-white'>
+      <div className='table w-full min-w-[1200px] border-collapse'>
         <div className='table-row'>
           {day.map((item, key) => (
             <div
               key={`dayhomework-${key}`}
-              className={`table-cell border border-gray-400 p-2 text-center font-bold ${
-                key === 0 ? 'sticky left-0 z-10 w-[185px] bg-gray-200' : 'w-[145px]'
+              className={`table-cell bg-gray-200 p-2 text-center font-bold ${
+                key === 0 ? 'sticky left-0 z-10 w-[185px]' : 'w-[145px]'
               }`}
               style={key === 0 ? { width: '185px' } : { width: '145px' }}
             >
@@ -56,14 +56,14 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
             </div>
           ))}
         </div>
-        <div className='table-row'>
-          <div className='sticky left-0 z-10 table-cell border border-gray-400 bg-gray-200 p-2 text-center align-middle font-bold'>
+        <div className='table-row border-b border-gray-300'>
+          <div className='sticky left-0 z-10 table-cell border-r border-gray-200 bg-white p-2 text-center align-middle font-bold'>
             콘텐츠
           </div>
           {content.map((item, key) => (
             <div
               key={`dayhomeworkContent-${key}`}
-              className='table-cell w-[145px] border border-gray-400 text-center align-middle'
+              className={`table-cell w-[145px] text-center align-middle ${item === 6 ? '' : 'border-r border-gray-200'}`}
             >
               <div className='grid h-[60px] w-full grid-cols-3'>
                 <div
@@ -164,12 +164,9 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
                   </div>
                   <input
                     type='checkbox'
-                    aria-label='길드 체크 버튼'
+                    aria-label='daycontents 체크 버튼'
                     className={`${item === 0 ? 'hidden' : ''} hover:cursor-pointer`}
                     checked={homeworkExpeditionList.daycontent[item]}
-                    onClick={() => {
-                      dayContentHandler(item, homeworkExpeditionList.daycontent[item])
-                    }}
                     readOnly
                   />
                 </div>

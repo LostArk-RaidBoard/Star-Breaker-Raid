@@ -48,6 +48,7 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
   const daysArray = Array.from({ length: 7 }, () => [] as Schedule[])
   let sumGold = 0
 
+  console.log('startWednesday ', startWednesday)
   weekSchedule.forEach((post) => {
     // 골드 구하기
     if (post.gold_check) {
@@ -56,6 +57,7 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
 
     // 요일 구분하기
     const raidTime = new Date(post.schedule_time)
+    console.log(post.character_name, raidTime)
 
     const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
@@ -66,11 +68,37 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
         daysArray[diffDays].push(post)
       }
     }
+    console.log(daysArray)
   })
 
   return (
     <div className='rounded-md border border-gray-400 p-4 shadow-lg'>
-      <div className='flex w-full flex-col justify-between sm:flex-row'>
+      <span className='text-lg font-semibold'>• 이번 주 간략한 정보</span>
+      <div className='mt-4 sm:ml-4'>
+        {characterName.map((item, key) => {
+          // weekSchedule에서 character_name이 동일한 항목 필터링
+          const relatedRaids = weekSchedule.filter(
+            (post) => post.character_name === item.character_name,
+          )
+
+          return (
+            <div key={key} className='mb-2 flex flex-row flex-col items-start gap-2 sm:flex-row'>
+              <div className='flex items-center'>
+                <span className='w-32 font-semibold'>{item.character_name}</span>
+                <span>{item.character_level}</span>
+              </div>
+              <div className='flex gap-2 font-semibold text-gray-500 sm:ml-2 sm:gap-4'>
+                {/* 관련된 raid_name을 콤마로 구분하여 출력 */}
+                {relatedRaids.map((post, key) => (
+                  <span key={`${item.character_name}-${key}`}>{post.raid_name}</span>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <div className='mt-4 flex w-full flex-col justify-between sm:flex-row'>
         <span className='text-lg font-semibold'>• 이번 주 레이드 일정</span>
         <div className='flex items-center justify-between gap-4 sm:justify-center'>
           <div className='flex items-center gap-1'>
@@ -161,30 +189,6 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
             ))}
           </div>
         </div>
-      </div>
-
-      <div className='mt-4 sm:ml-4'>
-        {characterName.map((item, key) => {
-          // weekSchedule에서 character_name이 동일한 항목 필터링
-          const relatedRaids = weekSchedule.filter(
-            (post) => post.character_name === item.character_name,
-          )
-
-          return (
-            <div key={key} className='mb-2 flex flex-row flex-col items-start sm:flex-row'>
-              <div className='flex items-center'>
-                <span className='w-32 font-semibold'>{item.character_name}</span>
-                <span>{item.character_level} : </span>
-              </div>
-              <div>
-                <span className='text-gray-600 sm:ml-2'>
-                  {/* 관련된 raid_name을 콤마로 구분하여 출력 */}
-                  {relatedRaids.map((post) => post.raid_name).join(', ')}
-                </span>
-              </div>
-            </div>
-          )
-        })}
       </div>
 
       <p className='mt-2 text-sm'>

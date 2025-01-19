@@ -10,9 +10,11 @@ export async function GET(req: Request) {
 
   try {
     const res = await sql`
-      SELECT * FROM schedule 
-      WHERE user_id = ${userId} AND schedule_time::date = (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul')::date
-      ORDER BY schedule_time;
+    SELECT * 
+    FROM schedule
+    WHERE user_id = ${userId} 
+      AND (schedule_time + INTERVAL '9 hours')::date = (CURRENT_TIMESTAMP + INTERVAL '9 hours')::date
+    ORDER BY schedule_time;
     `
 
     return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })
