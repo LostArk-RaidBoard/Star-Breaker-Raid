@@ -48,8 +48,6 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
   const daysArray = Array.from({ length: 7 }, () => [] as Schedule[])
   let sumGold = 0
 
-  // startWednesday 2025-01-15T00:00:00.000Z 이렇게 나옴
-  console.log('startWednesday ', startWednesday)
   weekSchedule.forEach((post) => {
     // 골드 구하기
     if (post.gold_check) {
@@ -61,9 +59,6 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
     const raidTime = new Date(post.schedule_time) // 원본 시간
     const adjustedRaidTime = new Date(raidTime) // 복사본 생성
     adjustedRaidTime.setHours(adjustedRaidTime.getHours() + 9) // 9시간 추가
-
-    console.log('레이드 시간 :', raidTime) // 원본 시간
-    console.log('레이드 시간 + 9 :', adjustedRaidTime) // 9시간 추가된 시간
 
     const diff = (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
@@ -121,15 +116,15 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
       </div>
 
       {/* Table */}
-      <div className='mt-2 overflow-x-auto'>
-        <div className='table w-full min-w-[1190px] border-collapse border border-gray-400'>
+      <div className='mt-2 overflow-x-auto rounded-md'>
+        <div className='table w-full min-w-[1190px] border-collapse'>
           {/* Table Header */}
           <div className='table-row bg-gray-300'>
             {['수요일', '목요일', '금요일', '토요일', '일요일', '월요일', '화요일'].map(
               (day, index) => (
                 <div
                   key={day}
-                  className={`table-cell w-[170px] border border-gray-400 p-2 text-center font-bold ${
+                  className={`table-cell w-[170px] p-2 text-center font-bold ${
                     index === 3 || index === 4 ? 'text-red-700' : ''
                   }`}
                 >
@@ -140,11 +135,11 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
           </div>
 
           {/* Table Rows */}
-          <div className='table-row'>
+          <div className='table-row border-b border-gray-300'>
             {daysArray.map((dayItems, dayIndex) => (
               <div
                 key={`day-cell-${dayIndex}`}
-                className='table-cell border border-gray-400 p-2 align-top'
+                className={`table-cell p-2 align-top ${dayIndex === 6 ? '' : 'border-r border-gray-300'} `}
               >
                 {dayItems?.map((item) => {
                   const timeZone = 'Asia/Seoul'
@@ -173,14 +168,15 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
                         {item.raid_name}
                       </span>
                       <div className='flex items-center justify-between'>
-                        <span>{raidTime.getHours() + '시 ' + raidTime.getMinutes() + '분'}</span>
+                        <span className='font-semibold'>{item.character_name}</span>
+
                         <DeleteScheduleButton
                           characterName={item.character_name}
                           raidName={item.raid_name}
                           userId={item.user_id}
                         />
                       </div>
-                      <span className='font-semibold'>{item.character_name}</span>
+                      <span>{raidTime.getHours() + '시 ' + raidTime.getMinutes() + '분'}</span>
                       <ScheduleGoldCheckBox
                         goldCheck={item.gold_check}
                         characterName={item.character_name}

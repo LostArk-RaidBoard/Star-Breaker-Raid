@@ -21,7 +21,6 @@ interface ExpeditionData {
   wisdom: boolean[]
   daycontent: boolean[]
 }
-
 const homeworkGetHandler = async (userId: string) => {
   try {
     const response = await fetch(
@@ -49,7 +48,14 @@ const homeworkGetHandler = async (userId: string) => {
 export default async function HomeWorkField() {
   const session = await auth()
   let homeworkGet: HomeworkData[] = []
-  let homeworkExpeditonGet: ExpeditionData[] = []
+  let homeworkExpeditonGet: ExpeditionData[] = [
+    {
+      user_id: '',
+      gathering: [false, false, false, false, false, false, false],
+      wisdom: [false, false, false, false, false, false, false],
+      daycontent: [false, false, false, false, false, false, false],
+    },
+  ]
   let userId = ''
   if (session && session.user.id) {
     userId = session.user.id
@@ -59,6 +65,7 @@ export default async function HomeWorkField() {
   }
 
   const homeworkSortedList = homeworkSorted(homeworkGet)
+
   return (
     <div className='flex w-full flex-col rounded-md border border-gray-400 p-4'>
       <div className='mt-2'>

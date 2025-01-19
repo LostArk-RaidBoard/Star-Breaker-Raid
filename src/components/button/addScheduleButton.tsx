@@ -2,12 +2,12 @@
 
 import { createPostTage } from '@/app/action'
 import CalendarSelect from '@/components/calendar/calendarSelect'
-
 import RaidSelectSchedule from '@/components/select/raidSelectSchedule'
 import raidGold from '@/components/utils/raidGold'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
+import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 
 interface Props {
@@ -25,6 +25,7 @@ export default function AddScheduleButton({ userId }: Props) {
   const { setCharacterAllList, characterAllList } = useCharacterInfoList()
   const [characterName, setCharacterName] = useState('')
   const [fetchSuccess, setFetchSuccess] = useState(0)
+  const { data: session } = useSession()
 
   const addScheduleHandler = () => {
     setMoState()
@@ -83,8 +84,12 @@ export default function AddScheduleButton({ userId }: Props) {
       <button
         className='rounded-md bg-gray-900 p-1 px-2 text-white'
         onClick={() => {
-          addScheduleHandler()
-          setFetchSuccess(0)
+          if (!session || !session.user) {
+            alert('로그인 해주세요')
+          } else {
+            addScheduleHandler()
+            setFetchSuccess(0)
+          }
         }}
       >
         일정 추가
