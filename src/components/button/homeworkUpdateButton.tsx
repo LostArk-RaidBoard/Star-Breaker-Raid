@@ -2,6 +2,7 @@
 
 import { homework } from '@/app/action'
 import useHomeworkStore, { useHomeworkExpeditionStore } from '@/store/homeworkCheckStore'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
 export default function HomeworkUpdateButton() {
@@ -9,6 +10,7 @@ export default function HomeworkUpdateButton() {
   const { homeworkExpeditionList } = useHomeworkExpeditionStore()
   const [message, setMessage] = useState('')
   const [state, setState] = useState(0)
+  const { data: session } = useSession()
 
   const contentList = {
     homeworkList: homeworkList,
@@ -16,6 +18,19 @@ export default function HomeworkUpdateButton() {
   }
 
   const UpdateHandler = async () => {
+    if (!session || !session.user) {
+      setMessage('로그인 해주세요.')
+      setState(2)
+
+      return
+    }
+
+    if (session && session.user && session.user.nickName === '') {
+      setMessage('넥네임이 없습니다.')
+      setState(2)
+      return
+    }
+
     try {
       const response = await fetch('/api/homework/homeworkPut', {
         method: 'PUT',

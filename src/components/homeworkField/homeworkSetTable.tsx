@@ -53,14 +53,14 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
   }, [homeworkSortedList, setHomeworkList])
 
   return (
-    <div className='w-full overflow-x-auto border border-black'>
-      <div className='table w-full min-w-[1200px] border-collapse border border-gray-400'>
+    <div className='w-full overflow-x-auto rounded-md bg-white'>
+      <div className='table w-full min-w-[1200px] border-collapse'>
         <div className='table-row'>
           {day.map((item, key) => (
             <div
               key={key}
-              className={`table-cell border border-gray-400 p-2 text-center font-bold ${
-                key === 0 ? 'sticky left-0 z-10 bg-gray-200' : ''
+              className={`table-cell bg-gray-200 p-2 text-center font-bold ${
+                key === 0 ? 'sticky left-0 z-10' : ''
               }`}
               style={key === 0 ? { width: '185px' } : {}}
             >
@@ -70,9 +70,9 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
         </div>
 
         {homeworkList.map((item, index) => (
-          <div key={index} className='table-row'>
+          <div key={index} className='table-row border-b border-gray-300'>
             <div
-              className='sticky left-0 z-10 table-cell border border-gray-400 bg-gray-200 text-center align-middle'
+              className='sticky left-0 z-10 table-cell border-r border-gray-300 bg-white text-center align-middle'
               style={{ width: '185px', height: '60px' }}
             >
               <p className='truncate'>{item.character_name}</p>
@@ -80,13 +80,16 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
             {indexNumber.map((number, index1) => (
               <div
                 key={`checkbox-${index}-${number}-${index1}`}
-                className='table-cell w-[145px] border border-gray-400 text-center align-middle'
+                className={`table-cell w-[145px] text-center align-middle ${number === 6 ? '' : 'border-r border-gray-300'}`}
               >
                 <div className='grid h-[60px] w-full grid-cols-4'>
                   <div
                     className={`${
                       item.guild[number] ? 'bg-gray-400' : ''
-                    } flex h-full w-full flex-col items-center justify-center gap-2`}
+                    } flex h-full w-full flex-col items-center justify-center gap-2 hover:cursor-pointer`}
+                    onClick={() => {
+                      guildHandler(index, number, item.guild[number])
+                    }}
                   >
                     <Image
                       src={GuildImage}
@@ -103,16 +106,17 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
                       type='checkbox'
                       aria-label='길드 체크 버튼'
                       checked={item.guild[number]}
-                      onClick={() => {
-                        guildHandler(index, number, item.guild[number])
-                      }}
+                      className='hover:cursor-pointer'
                       readOnly
                     />
                   </div>
                   <div
                     className={`${
                       item.chaso_dungeon[number] ? 'bg-gray-400' : ''
-                    } flex h-full flex-col items-center justify-center gap-2`}
+                    } flex h-full flex-col items-center justify-center gap-2 hover:cursor-pointer`}
+                    onClick={() => {
+                      chasoDungeonHandler(index, number, item.chaso_dungeon[number])
+                    }}
                   >
                     <Image
                       src={
@@ -126,16 +130,17 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
                       type='checkbox'
                       aria-label='카던 체크 버튼'
                       checked={item.chaso_dungeon[number]}
-                      onClick={() => {
-                        chasoDungeonHandler(index, number, item.chaso_dungeon[number])
-                      }}
+                      className='hover:cursor-pointer'
                       readOnly
                     />
                   </div>
                   <div
                     className={`${
                       item.guardian[number] ? 'bg-gray-400' : ''
-                    } flex h-full flex-col items-center justify-center gap-2`}
+                    } flex h-full flex-col items-center justify-center gap-2 hover:cursor-pointer`}
+                    onClick={() => {
+                      guardianHandler(index, number, item.guardian[number])
+                    }}
                   >
                     <Image
                       src={
@@ -149,16 +154,17 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
                       type='checkbox'
                       aria-label='가토 체크 버튼'
                       checked={item.guardian[number]}
-                      onClick={() => {
-                        guardianHandler(index, number, item.guardian[number])
-                      }}
+                      className='hover:cursor-pointer'
                       readOnly
                     />
                   </div>
                   <div
                     className={`${
                       item.epona[number] ? 'bg-gray-400' : ''
-                    } flex h-full flex-col items-center justify-center gap-2`}
+                    } flex h-full flex-col items-center justify-center gap-2 hover:cursor-pointer`}
+                    onClick={() => {
+                      eponaHandler(index, number, item.epona[number])
+                    }}
                   >
                     <Image
                       src={
@@ -172,9 +178,7 @@ export default function HomeworkSetTable({ homeworkSortedList }: HomeworkSetChec
                       type='checkbox'
                       aria-label='에포 체크 버튼'
                       checked={item.epona[number]}
-                      onClick={() => {
-                        eponaHandler(index, number, item.epona[number])
-                      }}
+                      className='hover:cursor-pointer'
                       readOnly
                     />
                   </div>
