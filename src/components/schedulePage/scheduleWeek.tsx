@@ -68,7 +68,7 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
     const diff = (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
       const diffDays = Math.floor(
-        (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
+        (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
       )
       if (diffDays >= 0 && diffDays < 8) {
         daysArray[diffDays].push(post)
