@@ -46,7 +46,7 @@ export default function RaidPostCreateButton() {
     setLoading(1)
 
     if (!session || !session.user) {
-      setMessage('세션 정보가 없습니다. 다시 로그인 해주세요.')
+      setMessage('로그인 해주세요.')
       setPostSave(2)
       setLoading(0)
       return

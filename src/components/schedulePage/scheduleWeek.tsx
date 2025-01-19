@@ -55,12 +55,15 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
     }
 
     // 요일 구분하기
-    const raidTime = new Date(post.schedule_time)
+    // 요일 구분하기
+    const raidTime = new Date(post.schedule_time) // 원본 시간
+    const adjustedRaidTime = new Date(raidTime) // 복사본 생성
+    adjustedRaidTime.setHours(adjustedRaidTime.getHours() + 9) // 9시간 추가
 
-    const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
+    const diff = (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
       const diffDays = Math.floor(
-        (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
+        (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
       )
       if (diffDays >= 0 && diffDays < 8) {
         daysArray[diffDays].push(post)
@@ -70,7 +73,32 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
 
   return (
     <div className='rounded-md border border-gray-400 p-4 shadow-lg'>
-      <div className='flex w-full flex-col justify-between sm:flex-row'>
+      <span className='text-lg font-semibold'>• 이번 주 간략한 정보</span>
+      <div className='mt-4 sm:ml-4'>
+        {characterName.map((item, key) => {
+          // weekSchedule에서 character_name이 동일한 항목 필터링
+          const relatedRaids = weekSchedule.filter(
+            (post) => post.character_name === item.character_name,
+          )
+
+          return (
+            <div key={key} className='mb-2 flex flex-row flex-col items-start gap-2 sm:flex-row'>
+              <div className='flex items-center'>
+                <span className='w-32 font-semibold'>{item.character_name}</span>
+                <span>{item.character_level}</span>
+              </div>
+              <div className='flex gap-2 font-semibold text-gray-500 sm:ml-2 sm:gap-4'>
+                {/* 관련된 raid_name을 콤마로 구분하여 출력 */}
+                {relatedRaids.map((post, key) => (
+                  <span key={`${item.character_name}-${key}`}>{post.raid_name}</span>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
+      <div className='mt-4 flex w-full flex-col justify-between sm:flex-row'>
         <span className='text-lg font-semibold'>• 이번 주 레이드 일정</span>
         <div className='flex items-center justify-between gap-4 sm:justify-center'>
           <div className='flex items-center gap-1'>
@@ -88,15 +116,15 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
       </div>
 
       {/* Table */}
-      <div className='mt-2 overflow-x-auto'>
-        <div className='table w-full min-w-[1190px] border-collapse border border-gray-400'>
+      <div className='mt-2 overflow-x-auto rounded-md'>
+        <div className='table w-full min-w-[1190px] border-collapse'>
           {/* Table Header */}
           <div className='table-row bg-gray-300'>
             {['수요일', '목요일', '금요일', '토요일', '일요일', '월요일', '화요일'].map(
               (day, index) => (
                 <div
                   key={day}
-                  className={`table-cell w-[170px] border border-gray-400 p-2 text-center font-bold ${
+                  className={`table-cell w-[170px] p-2 text-center font-bold ${
                     index === 3 || index === 4 ? 'text-red-700' : ''
                   }`}
                 >
@@ -107,11 +135,11 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
           </div>
 
           {/* Table Rows */}
-          <div className='table-row'>
+          <div className='table-row border-b border-gray-300'>
             {daysArray.map((dayItems, dayIndex) => (
               <div
                 key={`day-cell-${dayIndex}`}
-                className='table-cell border border-gray-400 p-2 align-top'
+                className={`table-cell p-2 align-top ${dayIndex === 6 ? '' : 'border-r border-gray-300'} `}
               >
                 {dayItems?.map((item) => {
                   const timeZone = 'Asia/Seoul'
@@ -140,14 +168,15 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
                         {item.raid_name}
                       </span>
                       <div className='flex items-center justify-between'>
-                        <span>{raidTime.getHours() + '시 ' + raidTime.getMinutes() + '분'}</span>
+                        <span className='font-semibold'>{item.character_name}</span>
+
                         <DeleteScheduleButton
                           characterName={item.character_name}
                           raidName={item.raid_name}
                           userId={item.user_id}
                         />
                       </div>
-                      <span className='font-semibold'>{item.character_name}</span>
+                      <span>{raidTime.getHours() + '시 ' + raidTime.getMinutes() + '분'}</span>
                       <ScheduleGoldCheckBox
                         goldCheck={item.gold_check}
                         characterName={item.character_name}
@@ -161,30 +190,6 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
             ))}
           </div>
         </div>
-      </div>
-
-      <div className='mt-4 sm:ml-4'>
-        {characterName.map((item, key) => {
-          // weekSchedule에서 character_name이 동일한 항목 필터링
-          const relatedRaids = weekSchedule.filter(
-            (post) => post.character_name === item.character_name,
-          )
-
-          return (
-            <div key={key} className='mb-2 flex flex-row flex-col items-start sm:flex-row'>
-              <div className='flex items-center'>
-                <span className='w-32 font-semibold'>{item.character_name}</span>
-                <span>{item.character_level} : </span>
-              </div>
-              <div>
-                <span className='text-gray-600 sm:ml-2'>
-                  {/* 관련된 raid_name을 콤마로 구분하여 출력 */}
-                  {relatedRaids.map((post) => post.raid_name).join(', ')}
-                </span>
-              </div>
-            </div>
-          )
-        })}
       </div>
 
       <p className='mt-2 text-sm'>
