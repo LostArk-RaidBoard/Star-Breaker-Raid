@@ -48,6 +48,7 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
   const daysArray = Array.from({ length: 7 }, () => [] as Schedule[])
   let sumGold = 0
 
+  // startWednesday 2025-01-15T00:00:00.000Z 이렇게 나옴
   console.log('startWednesday ', startWednesday)
   weekSchedule.forEach((post) => {
     // 골드 구하기
@@ -56,10 +57,15 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
     }
 
     // 요일 구분하기
-    const raidTime = new Date(post.schedule_time)
-    console.log(post.character_name, raidTime)
+    // 요일 구분하기
+    const raidTime = new Date(post.schedule_time) // 원본 시간
+    const adjustedRaidTime = new Date(raidTime) // 복사본 생성
+    adjustedRaidTime.setHours(adjustedRaidTime.getHours() + 9) // 9시간 추가
 
-    const diff = (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
+    console.log('레이드 시간 :', raidTime) // 원본 시간
+    console.log('레이드 시간 + 9 :', adjustedRaidTime) // 9시간 추가된 시간
+
+    const diff = (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
     if (diff >= 0.25 && diff < 7.25) {
       const diffDays = Math.floor(
         (raidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
@@ -68,7 +74,6 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
         daysArray[diffDays].push(post)
       }
     }
-    console.log(daysArray)
   })
 
   return (
