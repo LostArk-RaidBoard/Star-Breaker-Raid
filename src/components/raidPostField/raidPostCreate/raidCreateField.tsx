@@ -45,14 +45,14 @@ export default async function RaidCreateField() {
           <div className='flex w-full flex-col gap-8 sm:flex-row'>
             {/* 왼쪽 : 레이드 선택, 레이드 최대 정원, 날짜 선택, 레이드 숙련도 선택 */}
             <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
+              <RaidCharacterSelect createPostCharacter={createPostCharacter} />
               <RaidSelect />
               <RaidLimitPersonSelect />
               <CalendarPick />
-              <RaidDetail />
             </div>
             {/* 오른쪽 : 캐릭터 선택, 레이드 최대 시간, 공지 사항 선택*/}
             <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
-              <RaidCharacterSelect createPostCharacter={createPostCharacter} />
+              <RaidDetail />
               <RaidMaxTime />
               <RaidNoti />
             </div>

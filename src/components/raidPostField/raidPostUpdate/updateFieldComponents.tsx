@@ -69,22 +69,21 @@ export default function UpdateFieldComponent({ postData, createPostCharacter }: 
       <div className='flex flex-col sm:flex-row'>
         {/* 왼쪽 : 날짜 시간 선택, 레이드 타입, 레이드 최대 시간 */}
         <div className='flex basis-1/2 flex-col gap-4 p-4'>
-          <UpdateCalendarPick updateTime={updateTime} setUpdateTime={setUpdateTime} />
-          <UpdateRaidDetail updateRaidType={updateRaidType} setUpdateRaidType={setUpdateRaidType} />
-          <UpdateRaidMaxTime
-            updateRaidMaxTime={updateRaidMaxTime}
-            setUpdateRaidMaxTime={setUpdateRaidMaxTime}
-          />
-        </div>
-        {/* 오른쪽 : 캐릭터 선택, 공지사항 수정하기 */}
-        <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
           <UpdateRaidCharacterSelect
             createPostCharacter={createPostCharacter}
             limitLevel={postData.limit_level}
             updateCharacterSelect={updateCharacterSelect}
             setUpdateCharacterSelect={setUpdateCharacterSelect}
           />
-
+          <UpdateCalendarPick updateTime={updateTime} setUpdateTime={setUpdateTime} />
+          <UpdateRaidDetail updateRaidType={updateRaidType} setUpdateRaidType={setUpdateRaidType} />
+        </div>
+        {/* 오른쪽 : 캐릭터 선택, 공지사항 수정하기 */}
+        <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
+          <UpdateRaidMaxTime
+            updateRaidMaxTime={updateRaidMaxTime}
+            setUpdateRaidMaxTime={setUpdateRaidMaxTime}
+          />
           <UpdateRaidNoti setUpdateRaidNoti={setUpdateRaidNoti} updateRaidNoti={updateRaidNoti} />
         </div>
       </div>
