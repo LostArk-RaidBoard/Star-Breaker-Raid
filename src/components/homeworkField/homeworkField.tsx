@@ -24,7 +24,7 @@ interface ExpeditionData {
 const homeworkGetHandler = async (userId: string) => {
   try {
     const response = await fetch(
-      `${process.env.API_URL}/api/homework/homeworkGet?userId=${userId}`,
+      `${process.env.API_URL}/api/homeworkAPI/homeworkGet?userId=${userId}`,
       {
         method: 'GET',
         headers: {

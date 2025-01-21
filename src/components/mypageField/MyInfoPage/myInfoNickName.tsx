@@ -26,7 +26,7 @@ export default function MyInfoNickName({ userId }: Props) {
 
     try {
       const response = await fetch(
-        `/api/mypageNickNamePost?user_id=${userId}&nickName=${nickName}`,
+        `/api/mypageAPI/mypageNickNamePost?user_id=${userId}&nickName=${nickName}`,
         {
           method: 'POST',
           headers: {

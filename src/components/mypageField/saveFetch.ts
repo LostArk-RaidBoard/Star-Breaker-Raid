@@ -192,7 +192,7 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
    * 이 캐릭터 네임으로 DB에 존재하는지 체크
    */
   try {
-    const response = await fetch('/api/characterSave', {
+    const response = await fetch('/api/characterAPI/characterSave', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

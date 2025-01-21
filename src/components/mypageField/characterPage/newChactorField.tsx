@@ -71,7 +71,6 @@ export default function NewCharacterField({
     setLoading(true)
     const resultList = []
     for (const item of newCharacterList) {
-      console.log('save 시작 버튼 클릭')
       resultList.push(await SaveCharacterFetch(item, userId)) // 함수로 호출
     }
 

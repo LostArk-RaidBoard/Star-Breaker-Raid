@@ -40,7 +40,7 @@ export default function MainMyPostsSchedule({ userId }: Props) {
   useEffect(() => {
     const fetchMainMyPostsSchedule = async (userId: string) => {
       try {
-        const response = await fetch(`/api/mainMySchedule?user_id=${userId}`, {
+        const response = await fetch(`/api/mainAPI/mainMySchedule?user_id=${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

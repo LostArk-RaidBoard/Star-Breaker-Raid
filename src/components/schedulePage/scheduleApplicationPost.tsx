@@ -49,7 +49,7 @@ export default function ScheduleApplicationPost({ userId, applicationPostGet }: 
   const deleteApplicationHandler = async (post_id: number, raid_name: string) => {
     try {
       const response = await fetch(
-        `/api/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}`,
+        `/api/applicationAPI/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}`,
         {
           method: 'DELETE',
           headers: {

@@ -39,13 +39,16 @@ interface CharacterInfo {
 
 const fetchPostData = async (postId: number) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/postPagePostGet?postId=${postId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/raidPostAPI/postPagePostGet?postId=${postId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['applicationList'] },
       },
-      next: { tags: ['applicationList'] },
-    })
+    )
     const data = await response.json()
     if (response.ok && response.status === 200) {
       return data.postRows[0]

@@ -25,13 +25,16 @@ interface RaidPost {
 
 const fetchPostsAllFetch = async (): Promise<RaidPost[]> => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=all`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/raidPostAPI/raidPostGet?posts_position=all`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['wePost'] },
       },
-      next: { tags: ['wePost'] },
-    })
+    )
 
     const data = await response.json()
     if (response.ok) {

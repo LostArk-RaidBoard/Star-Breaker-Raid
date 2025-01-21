@@ -43,7 +43,7 @@ export default function AddScheduleButton({ userId }: Props) {
     const gold = raidGold(raidSelect)
     try {
       const response = await fetch(
-        `/api/mypageSchedulePost?user_id=${userId}&raid_gold=${gold}&schedule_time=${raidDate}&character_name=${characterName}&raid_name=${raidSelect}`,
+        `/api/scheduleAPI/schedulePost?user_id=${userId}&raid_gold=${gold}&schedule_time=${raidDate}&character_name=${characterName}&raid_name=${raidSelect}`,
         {
           method: 'POST',
           headers: {

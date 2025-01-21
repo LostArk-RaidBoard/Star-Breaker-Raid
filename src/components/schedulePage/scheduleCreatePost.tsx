@@ -55,7 +55,7 @@ export default function ScheduleCreatePost({ createPostGet }: Props) {
   ) => {
     try {
       const response = await fetch(
-        `/api/mypageCreatePost?post_id=${post_id}&character_name=${character_name}&user_id=${user_id}&raid_name=${raid_name}`,
+        `/api/raidPostAPI/createPost?post_id=${post_id}&character_name=${character_name}&user_id=${user_id}&raid_name=${raid_name}`,
         {
           method: 'DELETE',
           headers: {

@@ -32,7 +32,7 @@ export default function HomeworkUpdateButton() {
     }
 
     try {
-      const response = await fetch('/api/homework/homeworkPut', {
+      const response = await fetch('/api/homeworkAPI/homeworkPut', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

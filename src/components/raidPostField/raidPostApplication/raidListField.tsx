@@ -44,13 +44,16 @@ interface ApplicationList {
 
 const fetchPostData = async (postId: number) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/postPagePostGet?postId=${postId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/raidPostAPI/postPagePostGet?postId=${postId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['wePost'] },
       },
-      next: { tags: ['wePost'] },
-    })
+    )
     const data = await response.json()
     if (response.ok && response.status === 200) {
       return data.postRows[0]
@@ -63,13 +66,16 @@ const fetchPostData = async (postId: number) => {
 
 const applicationGet = async (postId: number) => {
   try {
-    const res = await fetch(`${process.env.API_URL}/api/applicationGet?postId=${postId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `${process.env.API_URL}/api/applicationAPI/applicationGet?postId=${postId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['applicationList'] },
       },
-      next: { tags: ['applicationList'] },
-    })
+    )
 
     const data = await res.json()
     if (res.ok && res.status === 200) {

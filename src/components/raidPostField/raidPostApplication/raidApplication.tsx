@@ -65,7 +65,7 @@ export default function RaidApplication({
         schedule: schedule,
       }
       try {
-        const response = await fetch('/api/applicationSave', {
+        const response = await fetch('/api/applicationAPI/applicationSave', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

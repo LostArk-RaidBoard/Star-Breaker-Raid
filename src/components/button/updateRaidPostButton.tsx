@@ -101,7 +101,7 @@ export default function RaidPostUpdateButton({
         raid_maxtime: updateRaidMaxTime,
         character_image: updateCharacterSelect.class_image,
       }
-      const response = await fetch('/api/raidPostUpdate', {
+      const response = await fetch('/api/raidPostAPI/raidPostUpdate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

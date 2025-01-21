@@ -123,12 +123,15 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
   const characterDeleteHandler = async (character_name: string) => {
     setLoading(true)
     try {
-      const response = await fetch(`/api/characterDelete?characterName=${character_name}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/characterAPI/characterDelete?characterName=${character_name}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
 
       if (response.ok) {
         submit()

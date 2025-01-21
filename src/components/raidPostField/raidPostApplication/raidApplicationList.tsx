@@ -38,12 +38,15 @@ export default function RaidApplicationList({
 
   const applicationDelteHandler = async (userId: string) => {
     try {
-      const response = await fetch(`/api/applicationDelete?post_id=${postId}&user_id=${userId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/applicationAPI/applicationDelete?post_id=${postId}&user_id=${userId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
 
       if (response.ok && response.status === 200) {
         applicationListTage()
@@ -62,7 +65,7 @@ export default function RaidApplicationList({
     setLoading(true)
     try {
       const res = await fetch(
-        `/api/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}&raid_name=${raid_name}`,
+        `/api/applicationAPI/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}&raid_name=${raid_name}`,
         {
           method: 'POST',
           headers: {

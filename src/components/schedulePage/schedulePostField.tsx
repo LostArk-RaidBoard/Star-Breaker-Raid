@@ -59,13 +59,16 @@ interface CharacterName {
 
 const applicationPostGetHandler = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/mypagePostGet?user_id=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/scheduleAPI/scheduleAppliactionPostGet?user_id=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['applicationTage'] },
       },
-      next: { tags: ['applicationTage'] },
-    })
+    )
     const data = await response.json()
     if (response.ok && response.status === 200) {
       return data.postRows.map((item: RaidPost) => {
@@ -83,13 +86,16 @@ const applicationPostGetHandler = async (userId: string) => {
 
 const createPostGetHandler = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/mypageCreatePost?user_id=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/raidPostAPI/createPost?user_id=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['createPostTage'] },
       },
-      next: { tags: ['createPostTage'] },
-    })
+    )
     const data = await response.json()
     if (response.ok && response.status === 200) {
       return data.postRows.map((item: RaidPostCreate) => {
@@ -108,7 +114,7 @@ const createPostGetHandler = async (userId: string) => {
 const weekScheduleGetHandler = async (userId: string) => {
   try {
     const response = await fetch(
-      `${process.env.API_URL}/api/schedule/scheduleGet?user_id=${userId}`,
+      `${process.env.API_URL}/api/scheduleAPI/scheduleGet?user_id=${userId}`,
       {
         method: 'GET',
         headers: {

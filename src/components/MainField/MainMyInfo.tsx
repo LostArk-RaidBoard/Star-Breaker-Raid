@@ -38,7 +38,7 @@ export default function MainMyInfo() {
   useEffect(() => {
     const mainFetchHandler = async (userId: string) => {
       try {
-        const response = await fetch(`/api/mainMyInfo?userId=${userId}`, {
+        const response = await fetch(`/api/mainAPI/mainMyInfo?userId=${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
