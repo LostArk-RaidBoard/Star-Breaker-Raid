@@ -1,11 +1,11 @@
-import AddScheduleButton from '@/components/button/addScheduleButton'
+import ScheduleCharacterList from '@/components/schedulePage/scheduleCharacterList'
 import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
 import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
-import Image from 'next/image'
-import { toZonedTime } from 'date-fns-tz'
-import React from 'react'
+import AddScheduleButton from '@/components/button/addScheduleButton'
 import GoldImage from '@image/asset/골드.png'
-import ScheduleCharacterList from '@/components/schedulePage/scheduleCharacterList'
+import { toZonedTime } from 'date-fns-tz'
+import Image from 'next/image'
+import React from 'react'
 
 interface Schedule {
   user_id: string
