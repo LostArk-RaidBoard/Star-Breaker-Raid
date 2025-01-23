@@ -101,7 +101,7 @@ export default async function HomeWorkField() {
               }}
               priority
             />
-            <span>카오스케이드 또는 필드 보스 체크</span>
+            <span>카오스케이드 & 필드 보스 체크</span>
             <Image
               src={
                 'https://cdn-lostark.game.onstove.com/uploadfiles/notice/cc62912424ee4eb7ad5b233c546ff35a.png'

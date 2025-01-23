@@ -9,16 +9,14 @@ interface RaidPost {
   post_id: number
   raid_name: string
   raid_time: string
-  limit_level: number
   user_id: string
   post_position: string
-  noti: string
-  character_level: string
   character_name: string
   raid_limitperson: number
   raid_type: string
-  raid_maxtime: string
   character_classicon: string
+  raid_level: string
+  raid_gateway: string
   approval: number
   rejected_count: number
   nickname: string
@@ -197,7 +195,9 @@ export default function RaidPostList({ raidPost }: Props) {
               <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_type}</span>
             </div>
             <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
+              <span className='overflow-hidden truncate whitespace-nowrap'>
+                {item.raid_name} {item.raid_level} {item.raid_gateway}
+              </span>
             </div>
 
             <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap'>

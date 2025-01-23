@@ -9,13 +9,21 @@ export async function GET(req: Request) {
 
   try {
     const res = await sql`
-SELECT DISTINCT
-        raid_posts.*, 
-        ap.approval AS approval
+      SELECT DISTINCT
+        raid_posts.post_id,
+        raid_posts.raid_name,
+        raid_posts.raid_time,
+        raid_posts.character_name,   
+        raid_posts.character_classicon,
+        raid_posts.raid_level, 
+        ap.approval AS approval,
+        users.nickname
       FROM 
         raid_posts 
       INNER JOIN 
         applicants_list AS ap ON raid_posts.post_id = ap.post_id
+      INNER JOIN
+        users ON users.user_id = raid_posts.user_id
       WHERE 
         ap.user_id = ${userID};
       `

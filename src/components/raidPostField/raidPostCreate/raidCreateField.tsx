@@ -10,6 +10,8 @@ import { auth } from '@/auth'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import React from 'react'
 import CalendarPick from '@/components/calendar/calendar'
+import RaidLevelSelect from '@/components/raidPostField/raidPostCreate/raidLevelSelect'
+import RaidGateway from '@/components/raidPostField/raidPostCreate/raidGateway'
 
 interface CharacterInfo {
   character_name: string
@@ -47,11 +49,13 @@ export default async function RaidCreateField() {
             <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
               <RaidCharacterSelect createPostCharacter={createPostCharacter} />
               <RaidSelect />
+              <RaidLevelSelect />
+              <RaidGateway />
               <RaidLimitPersonSelect />
-              <CalendarPick />
             </div>
             {/* 오른쪽 : 캐릭터 선택, 레이드 최대 시간, 공지 사항 선택*/}
             <div className='flex w-full flex-col gap-5 sm:w-[50%]'>
+              <CalendarPick />
               <RaidDetail />
               <RaidMaxTime />
               <RaidNoti />

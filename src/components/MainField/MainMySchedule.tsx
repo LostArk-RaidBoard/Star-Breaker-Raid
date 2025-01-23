@@ -14,6 +14,7 @@ interface TodaySchedule {
   raid_gold: number
   character_name: string
   raid_name: string
+  raid_level: string
 }
 
 interface Props {
@@ -21,21 +22,21 @@ interface Props {
 }
 
 export default function MainMyPostsSchedule({ userId }: Props) {
-  const [wePostsRows, setWePostsRows] = useState<TodaySchedule[]>([])
+  const [todayPostsRows, setTodayPostsRows] = useState<TodaySchedule[]>([])
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageination()
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = wePostsRows.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = todayPostsRows.slice(indexOfFirstItem, indexOfLastItem)
 
   useEffect(() => {
-    if (wePostsRows) {
-      setDataLength(wePostsRows.length)
+    if (todayPostsRows) {
+      setDataLength(todayPostsRows.length)
       setCurrentPage(1)
       setItemsPerPage(5)
     }
-  }, [wePostsRows, setDataLength, setCurrentPage, setItemsPerPage])
+  }, [todayPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   useEffect(() => {
     const fetchMainMyPostsSchedule = async (userId: string) => {
@@ -54,10 +55,10 @@ export default function MainMyPostsSchedule({ userId }: Props) {
           item.schedule_time = convertToKoreanTime2(item.schedule_time)
           return item
         })
-        setWePostsRows(formatTime)
+        setTodayPostsRows(formatTime)
       } catch (error) {
         console.error('fetchWePosts Error:', error)
-        setWePostsRows([])
+        setTodayPostsRows([])
       }
     }
 
@@ -102,7 +103,9 @@ export default function MainMyPostsSchedule({ userId }: Props) {
               className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
             >
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
+                <span className='overflow-hidden truncate whitespace-nowrap'>
+                  {item.raid_name} {item.raid_level}
+                </span>
               </div>
               <div className='col-span-3 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>

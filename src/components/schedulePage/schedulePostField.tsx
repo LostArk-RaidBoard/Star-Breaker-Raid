@@ -11,17 +11,11 @@ interface RaidPost {
   post_id: number
   raid_name: string
   raid_time: string
-  limit_level: number
-  user_id: string
-  post_position: string
-  noti: string
-  character_level: string
   character_name: string
-  raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
   character_classicon: string
+  raid_level: string
   approval: boolean
+  nickname: string
 }
 
 interface RaidPostCreate {
@@ -30,14 +24,10 @@ interface RaidPostCreate {
   raid_time: string
   limit_level: number
   user_id: string
-  post_position: string
-  noti: string
-  character_level: string
   character_name: string
   raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
   character_classicon: string
+  raid_level: string
   approval: number
   rejected_count: number
 }
@@ -49,6 +39,8 @@ interface Schedule {
   character_name: string
   raid_name: string
   gold_check: boolean
+  raid_level: string
+  raid_gateway: string
 }
 
 interface CharacterName {
@@ -155,7 +147,6 @@ export default async function SchedulePostField() {
   if (session && session.user.id) {
     applicationPostGet = await applicationPostGetHandler(session.user.id)
     createPostGet = await createPostGetHandler(session.user.id)
-    // weekSchedule
 
     const { weekSchedule: scheduleData, characterName: characterData } =
       await weekScheduleGetHandler(session.user.id)

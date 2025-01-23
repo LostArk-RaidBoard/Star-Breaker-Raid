@@ -20,13 +20,15 @@ export default function RaidPostCreateButton() {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(0)
   const {
-    raidType,
-    raidLimitLevel,
+    raidSelect,
+    raidLevel,
+    raidGateway,
     raidLimitPerson,
     raidMaxTime,
     raidNoti,
-    raidSelect,
     raidDate,
+    raidType,
+    raidLimitLevel,
     setReset,
   } = useRaidSelect()
   const searchParams = useSearchParams()
@@ -89,10 +91,13 @@ export default function RaidPostCreateButton() {
         return
       }
     }
+
+    const raidGoldGetName = raidSelect + ' ' + raidLevel + ' ' + raidGateway
+    const raidGold = RaidGold(raidGoldGetName)
+
     try {
-      const raidGold = RaidGold(raidSelect)
       const response = await fetch(
-        `/api/raidPostAPI/raidPostSave?raid_name=${raidSelect}&raid_time=${raidDate}&limit_level=${raidLimitLevel}&user_id=${session.user.id}&post_position=${session.user.role}&noti=${raidNoti}&character_name=${characterInfo[0].character_name}&character_classicon=${characterInfo[0].class_icon_url}&raid_limitperson=${raidLimitPerson}&raid_type=${raidType}&raid_maxtime=${raidMaxTime}&character_image=${characterInfo[0].class_image}&raid_gold=${raidGold}`,
+        `/api/raidPostAPI/raidPostSave?raid_name=${raidSelect}&raid_time=${raidDate}&limit_level=${raidLimitLevel}&user_id=${session.user.id}&post_position=${session.user.role}&noti=${raidNoti}&character_name=${characterInfo[0].character_name}&character_classicon=${characterInfo[0].class_icon_url}&raid_limitperson=${raidLimitPerson}&raid_type=${raidType}&raid_maxtime=${raidMaxTime}&character_image=${characterInfo[0].class_image}&raid_gold=${raidGold}&raid_level=${raidLevel}&raid_gateway=${raidGateway}`,
         {
           method: 'POST',
           headers: {

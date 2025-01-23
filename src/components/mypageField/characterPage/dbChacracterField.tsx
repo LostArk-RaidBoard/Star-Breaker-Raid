@@ -213,7 +213,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
                   <div className='h-16 w-16 flex-none overflow-hidden rounded-full'>
                     <Image
                       src={character.class_image}
-                      alt={'이미지'}
+                      alt={'캐릭터 대표 이미지'}
                       width={90}
                       height={90}
                       className='h-full w-full object-cover'

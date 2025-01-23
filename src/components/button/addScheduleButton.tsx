@@ -2,7 +2,10 @@
 
 import { createPostTage } from '@/app/action'
 import CalendarSelect from '@/components/calendar/calendarSelect'
-import RaidSelectSchedule from '@/components/select/raidSelectSchedule'
+import RaidGateway from '@/components/raidPostField/raidPostCreate/raidGateway'
+import RaidLevelSelect from '@/components/raidPostField/raidPostCreate/raidLevelSelect'
+import RaidSelect from '@/components/select/raidSelect'
+// import RaidSelectSchedule from '@/components/select/raidSelectSchedule'
 import raidGold from '@/components/utils/raidGold'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import { useCharacterInfoList } from '@/store/characterStore'
@@ -21,9 +24,9 @@ interface Props {
  */
 export default function AddScheduleButton({ userId }: Props) {
   const [moOpen, setMoOpen] = useState(false)
-  const { setReset, raidDate, raidSelect } = useRaidSelect()
-  const { setCharacterAllList, characterAllList } = useCharacterInfoList()
-  const [characterName, setCharacterName] = useState('')
+  const { setReset, raidDate, raidSelect, raidGateway, raidLevel } = useRaidSelect()
+  const { setCharacterAllList, characterAllList, setCharacterInfo, characterInfo } =
+    useCharacterInfoList()
   const [fetchSuccess, setFetchSuccess] = useState(0)
   const { data: session } = useSession()
 
@@ -36,14 +39,21 @@ export default function AddScheduleButton({ userId }: Props) {
   }
 
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCharacterName(e.target.value)
+    const characterName = e.target.value
+    const characterSelectInfo = characterAllList.find(
+      (item) => item.character_name === characterName,
+    )
+    if (characterSelectInfo) {
+      setCharacterInfo([characterSelectInfo])
+    }
   }
 
   const scheduleFetchHandler = async () => {
-    const gold = raidGold(raidSelect)
+    const raidGoldGetName = raidSelect + ' ' + raidLevel + ' ' + raidGateway
+    const gold = raidGold(raidGoldGetName)
     try {
       const response = await fetch(
-        `/api/scheduleAPI/schedulePost?user_id=${userId}&raid_gold=${gold}&schedule_time=${raidDate}&character_name=${characterName}&raid_name=${raidSelect}`,
+        `/api/scheduleAPI/schedulePost?user_id=${userId}&raid_gold=${gold}&schedule_time=${raidDate}&character_name=${characterInfo[0].character_name}&raid_name=${raidSelect}&raid_gateway=${raidGateway}&raid_level=${raidLevel}`,
         {
           method: 'POST',
           headers: {
@@ -71,7 +81,7 @@ export default function AddScheduleButton({ userId }: Props) {
       const characterlist = await UtileCharacterDataFetch(userId)
       setCharacterAllList(characterlist)
       if (characterlist.length > 0) {
-        setCharacterName(characterlist[0].character_name)
+        setCharacterInfo([characterlist[0]])
       }
     }
     if (userId) {
@@ -106,7 +116,7 @@ export default function AddScheduleButton({ userId }: Props) {
               name='scheduleCharacterSelect'
               aria-label='스케줄 케릭터 선택'
               className='mt-1 h-12 w-full rounded-md border border-gray-400 px-1 text-lg'
-              value={characterName}
+              value={characterInfo[0].character_name}
               onChange={selectHandler}
             >
               {characterAllList.map((item, index) => (
@@ -116,7 +126,9 @@ export default function AddScheduleButton({ userId }: Props) {
               ))}
             </select>
             {/* 일정 모달 레이드 스케줄 선택 */}
-            <RaidSelectSchedule />
+            <RaidSelect />
+            <RaidLevelSelect />
+            <RaidGateway />
             {/* 일정 모달 날짜 선택 */}
             <CalendarSelect />
 

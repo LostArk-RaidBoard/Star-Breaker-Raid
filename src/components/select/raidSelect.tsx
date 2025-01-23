@@ -10,30 +10,19 @@ export default function RaidSelect() {
   const { characterInfo } = useCharacterInfoList()
 
   const raidOptions = [
-    { value: '2막 아브렐슈드 하드', level: 1690 },
-    { value: '2막 아브렐슈드 노말', level: 1670 },
-    { value: '1막 에기르 하드', level: 1680 },
-    { value: '1막 에기르 노말', level: 1660 },
-    { value: '베히모스 노말', level: 1640 },
-    { value: '서막 에키드나 하드', level: 1640 },
-    { value: '서막 에키드나 노말', level: 1620 },
-    { value: '카멘 하드 1~4관', level: 1630 },
-    { value: '카멘 하드 4관', level: 1630 },
-    { value: '카멘 하드 1~3관', level: 1630 },
-    { value: '카멘 노말', level: 1610 },
-    { value: '상아탑 하드', level: 1620 },
-    { value: '상아탑 노말', level: 1600 },
-    { value: '일리아칸 하드', level: 1600 },
-    { value: '일리아칸 노말', level: 1580 },
-    { value: '카양겔 하드', level: 1580 },
-    { value: '카양겔 노말', level: 1540 },
-    { value: '아브렐슈드 하드', level: 1540 },
-    { value: '아브렐슈드 노말', level: 1490 },
-    { value: '쿠크세이튼 노말', level: 1475 },
-    { value: '비아키스 하드', level: 1460 },
-    { value: '비아키스 노말', level: 1430 },
-    { value: '발탄 하드', level: 1445 },
-    { value: '발탄 노말', level: 1415 },
+    { value: '3막 칠흑, 폭풍의 밤', level: 1680 },
+    { value: '2막 아브렐슈드', level: 1670 },
+    { value: '1막 에기르', level: 1660 },
+    { value: '베히모스', level: 1640 },
+    { value: '서막 에키드나', level: 1620 },
+    { value: '카멘', level: 1610 },
+    { value: '상아탑', level: 1600 },
+    { value: '일리아칸', level: 1580 },
+    { value: '카양겔', level: 1540 },
+    { value: '아브렐슈드', level: 1490 },
+    { value: '쿠크세이튼', level: 1475 },
+    { value: '비아키스', level: 1430 },
+    { value: '발탄', level: 1415 },
     { value: '레이드 없음', level: 0 },
   ]
 
@@ -55,7 +44,7 @@ export default function RaidSelect() {
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex h-20 flex-col'>
       <label className='text-lg font-semibold'>• 레이드 선택</label>
       <select
         name='raidSelect'

@@ -88,7 +88,7 @@ export default function RaidCharacterSelect({ createPostCharacter }: Props) {
   }, [createPostCharacter, setCharacterAllList, characterAllList, setCharacterInfo])
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex h-20 flex-col'>
       <label className='text-lg font-semibold'>• 캐릭터 선택</label>
       {characterAllList.length > 0 && characterInfo.length > 0 ? (
         <div className='relative w-full flex-col rounded-md bg-gray-900'>

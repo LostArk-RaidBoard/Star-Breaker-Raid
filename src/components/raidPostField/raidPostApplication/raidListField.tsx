@@ -26,6 +26,8 @@ interface Post {
   character_classicon: string
   character_image: string
   nickname: string
+  raid_level: string
+  raid_gateway: string
 }
 
 interface ApplicationList {
@@ -36,8 +38,8 @@ interface ApplicationList {
   post_id: number
   character_image: string
   character_icon: string
-  character_elixir: number
-  character_transcendence: number
+  elixir: number
+  transcendence: number
   approval: boolean
   character_level: string
 }
@@ -101,6 +103,8 @@ export default async function RaidListField({ postId }: Props) {
   let raidLimitLevel = 0
   let post_user = ''
   let raid_name = ''
+  let raid_level = ''
+  let raid_gateway = ''
   let character_name = ''
   let schedule = new Date()
 
@@ -108,6 +112,8 @@ export default async function RaidListField({ postId }: Props) {
     raidLimitLevel = postData.limit_level
     post_user = postData.user_id
     raid_name = postData.raid_name
+    raid_level = postData.raid_level
+    raid_gateway = postData.raid_gateway
     character_name = postData.character_name
     schedule = new Date(postData.raid_time)
   }
@@ -146,6 +152,8 @@ export default async function RaidListField({ postId }: Props) {
               postId={postId}
               post_user={post_user}
               raid_name={raid_name}
+              raid_level={raid_level}
+              raid_gateway={raid_gateway}
               schedule={schedule}
             />
           </div>

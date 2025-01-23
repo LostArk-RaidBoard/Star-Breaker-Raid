@@ -19,6 +19,8 @@ interface Post {
   character_classicon: string
   character_image: string
   nickname: string
+  raid_level: string
+  raid_gateway: string
 }
 
 interface CharacterInfo {
@@ -73,7 +75,11 @@ export default async function RaidPostUpdate({ postId }: Props) {
   return (
     <div className='flex h-full w-full flex-col justify-center rounded-md border border-gray-400 p-4'>
       <span className='flex h-14 items-center justify-center rounded-md border border-gray-500 bg-gray-900 p-2 text-xl text-white'>
-        📝 &nbsp; <span className='font-semibold'>{postData.raid_name} 수정 중</span> &nbsp; 📝
+        📝 &nbsp;{' '}
+        <span className='font-semibold'>
+          {postData.raid_name} {postData.raid_level} {postData.raid_gateway} 수정 중
+        </span>{' '}
+        &nbsp; 📝
       </span>
       <UpdateFieldComponent postData={postData} createPostCharacter={createPostCharacter} />
     </div>

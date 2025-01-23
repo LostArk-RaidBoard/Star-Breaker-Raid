@@ -20,8 +20,8 @@ interface ApplicationList {
   post_id: number
   character_image: string
   character_icon: string
-  character_elixir: number
-  character_transcendence: number
+  elixir: number
+  transcendence: number
   approval: boolean
   character_level: string
 }
@@ -65,7 +65,7 @@ export default function RaidApplicationList({
     setLoading(true)
     try {
       const res = await fetch(
-        `/api/applicationAPI/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}&raid_name=${raid_name}`,
+        `/api/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}&raid_name=${raid_name}`,
         {
           method: 'POST',
           headers: {
@@ -119,7 +119,7 @@ export default function RaidApplicationList({
                     width={30}
                     className='hidden sm:block'
                   />
-                  <span className='hidden sm:block'>{char.character_elixir}</span>
+                  <span className='hidden sm:block'>{char.elixir}</span>
                   <Image
                     src={'/초월.png'}
                     alt={'초월'}
@@ -127,7 +127,7 @@ export default function RaidApplicationList({
                     width={30}
                     className='hidden sm:block'
                   />
-                  <span className='hidden sm:block'>{char.character_transcendence}</span>
+                  <span className='hidden sm:block'>{char.transcendence}</span>
                 </div>
 
                 <span>의견 : {char.hope}</span>

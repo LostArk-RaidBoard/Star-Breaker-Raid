@@ -24,6 +24,8 @@ interface Post {
   character_classicon: string
   character_image: string
   nickname: string
+  raid_level: string
+  raid_gateway: string
 }
 
 interface CharacterInfo {

@@ -6,9 +6,9 @@ import React from 'react'
 
 export default function MHeaderField() {
   return (
-    <nav className='flex h-20 w-full flex-col items-center justify-between px-4 sm:hidden'>
+    <nav className='flex h-20 w-full flex-col items-center justify-between px-4 md:hidden'>
       <div className='flex h-full w-full items-center justify-between'>
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-4'>
           <MNaviBar />
           <Link href='/' className='relative h-[30px] w-[30px]' scroll={false}>
             <Image

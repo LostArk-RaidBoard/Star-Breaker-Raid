@@ -8,7 +8,23 @@ export async function GET(req: Request) {
   }
 
   try {
-    const res = await sql`SELECT * FROM applicants_list WHERE post_id=${postId}`
+    const res = await sql`
+      SELECT 
+        al.applicants_id,
+        al.user_id,
+        al.character_name,
+        al.hope,
+        al.post_id,
+        cl.character_level,
+        cl.elixir, 
+        cl.transcendence,
+        al.character_icon,
+        al.character_image,
+        al.approval
+      FROM applicants_list AS al
+      LEFT JOIN characters AS cl ON 
+        al.character_name = cl.character_name
+      WHERE post_id=${postId}`
     return new Response(JSON.stringify({ result: res.rows || [] }), { status: 200 })
   } catch (error) {
     console.error('Server Error application list get : ' + error)

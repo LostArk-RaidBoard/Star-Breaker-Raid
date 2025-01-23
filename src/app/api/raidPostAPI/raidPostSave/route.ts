@@ -15,6 +15,8 @@ export async function POST(req: Request) {
   const raid_maxtime = url.searchParams.get('raid_maxtime')
   const character_image = url.searchParams.get('character_image')
   const raid_gold = url.searchParams.get('raid_gold')
+  const raid_level = url.searchParams.get('raid_level')
+  const raid_gateway = url.searchParams.get('raid_gateway')
 
   if (
     !raid_name ||
@@ -28,7 +30,9 @@ export async function POST(req: Request) {
     !raid_type ||
     !raid_maxtime ||
     !character_image ||
-    !raid_gold
+    !raid_gold ||
+    !raid_level ||
+    !raid_gateway
   ) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
@@ -50,7 +54,9 @@ export async function POST(req: Request) {
         raid_type,
         raid_maxtime,
         character_classicon,
-        character_image
+        character_image,
+        raid_level,
+        raid_gateway
       ) VALUES (
         ${raid_name},
         ${formattedScheduleTime},
@@ -63,7 +69,9 @@ export async function POST(req: Request) {
         ${raid_type},
         ${raid_maxtime},
         ${character_classicon},
-        ${character_image}
+        ${character_image},
+        ${raid_level},
+        ${raid_gateway}
       )`
 
     await sql`
@@ -72,13 +80,17 @@ export async function POST(req: Request) {
          schedule_time,
          raid_gold,
          character_name,
-         raid_name
+         raid_name,
+         raid_level,
+         raid_gateway
         ) VALUES (
          ${user_id},
          ${formattedScheduleTime},
          ${raid_gold},
          ${character_name},
-         ${raid_name}
+         ${raid_name},
+         ${raid_level},
+         ${raid_gateway}
         )
       `
 
