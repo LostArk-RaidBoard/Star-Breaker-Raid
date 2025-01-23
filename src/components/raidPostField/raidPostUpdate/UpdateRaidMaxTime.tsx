@@ -14,7 +14,19 @@ export default function UpdateRaidMaxTime({ updateRaidMaxTime, setUpdateRaidMaxT
   return (
     <div className='flex flex-col'>
       <label className='text-lg font-semibold'>• 레이드 최대 시간 </label>
-      <div className='grid h-12 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'>
+      <div className='grid h-12 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'>
+        <div className='flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap'>
+          <input
+            type='radio'
+            id='클리어까지'
+            name='raidMaxTime'
+            value='클리어까지'
+            checked={updateRaidMaxTime === '클리어까지'}
+            onChange={handleChange}
+            className='h-4 w-4'
+          />
+          <label htmlFor='클리어까지'>클리어까지</label>
+        </div>
         <div className='flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap'>
           <input
             type='radio'
@@ -50,18 +62,6 @@ export default function UpdateRaidMaxTime({ updateRaidMaxTime, setUpdateRaidMaxT
             className='h-4 w-4'
           />
           <label htmlFor='3시간'>3시간</label>
-        </div>
-        <div className='flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap'>
-          <input
-            type='radio'
-            id='클리어까지'
-            name='raidMaxTime'
-            value='클리어까지'
-            checked={updateRaidMaxTime === '클리어까지'}
-            onChange={handleChange}
-            className='h-4 w-4'
-          />
-          <label htmlFor='클리어까지'>클리어까지</label>
         </div>
       </div>
     </div>

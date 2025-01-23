@@ -15,7 +15,7 @@ export default function RaidMaxTime() {
   return (
     <div className='flex h-20 flex-col'>
       <label className='text-lg font-semibold'>• 레이드 최대 시간</label>
-      <div className='grid h-12 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'>
+      <div className='grid h-12 w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'>
         {timeOptions.map((option) => (
           <div
             key={`raidTimeout-${option}`}
