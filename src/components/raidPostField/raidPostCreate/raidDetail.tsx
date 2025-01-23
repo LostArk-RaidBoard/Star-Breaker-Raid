@@ -11,7 +11,7 @@ export default function RaidDetail() {
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex h-20 flex-col'>
       <label className='text-lg font-semibold'>• 레이드 타입</label>
       <div className='grid h-12 w-full grid-cols-2 text-base sm:grid-cols-3 lg:grid-cols-6'>
         {['학원', '트라이', '클경', '반숙', '숙련', '숙제'].map((type) => (

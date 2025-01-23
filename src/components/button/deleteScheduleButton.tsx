@@ -13,7 +13,7 @@ export default function DeleteScheduleButton({ characterName, raidName, userId }
   const deleteHandler = async (characterName: string, raidName: string, userId: string) => {
     try {
       const response = await fetch(
-        `/api/mypageSchedulePost?user_id=${userId}&character_name=${characterName}&raid_name=${raidName}`,
+        `/api/scheduleAPI/schedulePost?user_id=${userId}&character_name=${characterName}&raid_name=${raidName}`,
         {
           method: 'DELETE',
           headers: {

@@ -14,17 +14,11 @@ interface RaidPost {
   post_id: number
   raid_name: string
   raid_time: string
-  limit_level: number
-  user_id: string
-  post_position: string
-  noti: string
-  character_level: string
   character_name: string
-  raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
   character_classicon: string
+  raid_level: string
   approval: boolean
+  nickname: string
 }
 
 type Props = {
@@ -49,7 +43,7 @@ export default function ScheduleApplicationPost({ userId, applicationPostGet }: 
   const deleteApplicationHandler = async (post_id: number, raid_name: string) => {
     try {
       const response = await fetch(
-        `/api/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}`,
+        `/api/applicationAPI/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}`,
         {
           method: 'DELETE',
           headers: {
@@ -101,7 +95,9 @@ export default function ScheduleApplicationPost({ userId, applicationPostGet }: 
               className='col-span-7 grid grid-cols-7'
             >
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
+                <span className='overflow-hidden truncate whitespace-nowrap'>
+                  {item.raid_name} {item.raid_level}
+                </span>
               </div>
               <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <Image
@@ -111,9 +107,7 @@ export default function ScheduleApplicationPost({ userId, applicationPostGet }: 
                   height={100}
                   className='h-6 w-6 fill-yellow-600'
                 />
-                <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.character_name}
-                </span>
+                <span className='overflow-hidden truncate whitespace-nowrap'>{item.nickname}</span>
               </div>
               <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>

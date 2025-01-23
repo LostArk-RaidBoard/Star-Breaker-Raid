@@ -4,8 +4,6 @@ import { useCharacterInfoList } from '@/store/characterStore'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Under from '@image/icon/under.svg'
-import { useRaidSelect } from '@/store/raidSelectStore'
-import RaidLevel from '@/components/utils/raidLevel'
 
 const undetermined = {
   character_name: '캐릭터 미정',
@@ -24,11 +22,11 @@ const undetermined = {
 }
 
 const noCharacters = {
-  character_name: '캐릭터 없음',
-  server_name: '캐릭터 없음',
-  user_id: '캐릭터 없음',
-  character_level: '캐릭터 없음',
-  character_class: '캐릭터 없음',
+  character_name: '캐릭터 미정',
+  server_name: '캐릭터 미정',
+  user_id: '캐릭터 미정',
+  character_level: '1,000,000',
+  character_class: '캐릭터 미정',
   class_image: '/icon/ellipsis.svg',
   class_icon_url: '/icon/ellipsis.svg',
   transcendence: 0,
@@ -61,7 +59,6 @@ interface Props {
 export default function RaidCharacterSelect({ createPostCharacter }: Props) {
   const { characterAllList, setCharacterInfo, characterInfo, setCharacterAllList } =
     useCharacterInfoList()
-  const { raidSelect, setRaidLimitLevel } = useRaidSelect()
   const [hidden, setHidden] = useState(true)
   const handlerHidden = () => {
     setHidden(!hidden)
@@ -81,38 +78,17 @@ export default function RaidCharacterSelect({ createPostCharacter }: Props) {
   }
 
   useEffect(() => {
+    setCharacterAllList(createPostCharacter)
+
     if (characterAllList.length === 0) {
-      setCharacterAllList(createPostCharacter)
-      setCharacterInfo([characterAllList[0]])
-    }
-    const raidLevel = RaidLevel(raidSelect)
-    setRaidLimitLevel(raidLevel)
-    let maxCharacterLevel = 0
-
-    characterAllList.map((char) => {
-      const characterLevel = parseFloat(char.character_level.replace(/,/g, ''))
-
-      if (characterLevel > maxCharacterLevel) {
-        maxCharacterLevel = characterLevel
-      }
-
-      if (raidLevel > characterLevel) {
-        char.disable = true
-      } else {
-        char.disable = false
-      }
-    })
-
-    if (raidLevel > maxCharacterLevel) {
       setCharacterInfo([noCharacters])
     } else {
       setCharacterInfo([characterAllList[0]])
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [raidSelect])
+  }, [createPostCharacter, setCharacterAllList, characterAllList, setCharacterInfo])
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex h-20 flex-col'>
       <label className='text-lg font-semibold'>• 캐릭터 선택</label>
       {characterAllList.length > 0 && characterInfo.length > 0 ? (
         <div className='relative w-full flex-col rounded-md bg-gray-900'>

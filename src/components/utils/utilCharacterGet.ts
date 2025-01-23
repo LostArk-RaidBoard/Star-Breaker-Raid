@@ -5,14 +5,17 @@ export default async function UtileCharacterDataFetch(userId: string) {
     return []
   }
   try {
-    const response = await fetch(`${process.env.API_URL}/api/characterGet?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=3600', // 1시간 캐시
+    const response = await fetch(
+      `${process.env.API_URL}/api/characterAPI/characterGet?userId=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, max-age=3600', // 1시간 캐시
+        },
+        next: { tags: ['posts'] },
       },
-      next: { tags: ['posts'] },
-    })
+    )
 
     const data = await response.json()
 

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { toZonedTime } from 'date-fns-tz'
 import React from 'react'
 import GoldImage from '@image/asset/골드.png'
+import ScheduleCharacterList from '@/components/schedulePage/scheduleCharacterList'
 
 interface Schedule {
   user_id: string
@@ -13,6 +14,8 @@ interface Schedule {
   character_name: string
   raid_name: string
   gold_check: boolean
+  raid_level: string
+  raid_gateway: string
 }
 
 interface CharacterName {
@@ -61,7 +64,8 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
     adjustedRaidTime.setHours(adjustedRaidTime.getHours() + 9) // 9시간 추가
 
     const diff = (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
-    if (diff >= 0.25 && diff < 7.25) {
+
+    if (diff < 7.25) {
       const diffDays = Math.floor(
         (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
       )
@@ -73,33 +77,8 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
 
   return (
     <div className='rounded-md border border-gray-400 p-4 shadow-lg'>
-      <span className='text-lg font-semibold'>• 이번 주 간략한 정보</span>
-      <div className='mt-4 sm:ml-4'>
-        {characterName.map((item, key) => {
-          // weekSchedule에서 character_name이 동일한 항목 필터링
-          const relatedRaids = weekSchedule.filter(
-            (post) => post.character_name === item.character_name,
-          )
-
-          return (
-            <div key={key} className='mb-2 flex flex-row flex-col items-start gap-2 sm:flex-row'>
-              <div className='flex items-center'>
-                <span className='w-32 font-semibold'>{item.character_name}</span>
-                <span>{item.character_level}</span>
-              </div>
-              <div className='flex gap-2 font-semibold text-gray-500 sm:ml-2 sm:gap-4'>
-                {/* 관련된 raid_name을 콤마로 구분하여 출력 */}
-                {relatedRaids.map((post, key) => (
-                  <span key={`${item.character_name}-${key}`}>{post.raid_name}</span>
-                ))}
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
       <div className='mt-4 flex w-full flex-col justify-between sm:flex-row'>
-        <span className='text-lg font-semibold'>• 이번 주 레이드 일정</span>
+        <span className='text-lg font-semibold'>• 주간 레이드 일정</span>
         <div className='flex items-center justify-between gap-4 sm:justify-center'>
           <div className='flex items-center gap-1'>
             <Image
@@ -165,7 +144,7 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
                       className={`mb-2 flex flex-col overflow-hidden truncate whitespace-nowrap border-b-2 border-dashed border-gray-700 p-1`}
                     >
                       <span className={`${bgColorClass} rounded-md p-1 font-semibold`}>
-                        {item.raid_name}
+                        {item.raid_name} {item.raid_level}
                       </span>
                       <div className='flex items-center justify-between'>
                         <span className='font-semibold'>{item.character_name}</span>
@@ -192,6 +171,7 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
         </div>
       </div>
 
+      <ScheduleCharacterList characterList={characterName} weekSchedule={weekSchedule} />
       <p className='mt-2 text-sm'>
         * 이번 주 레이드 일정은 레이드 카운트와 골드 계산의 기준이 됩니다. 골드 체크가 완료되어야만
         골드가 합산되며, 메인 페이지에서 레이드 횟수로 추가됩니다.

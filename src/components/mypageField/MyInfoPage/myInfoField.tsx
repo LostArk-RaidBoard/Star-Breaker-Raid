@@ -19,13 +19,16 @@ interface MyinfoFetch {
 
 const myInfoFetch = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/mypageMyInfoGet?user_id=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/mypageAPI/mypageMyInfoGet?user_id=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['myInfo'] },
       },
-      next: { tags: ['myInfo'] },
-    })
+    )
     const data = await response.json()
     if (response.ok) {
       return data.postRows[0]

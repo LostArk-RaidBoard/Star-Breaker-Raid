@@ -22,7 +22,7 @@ export default function RaidPostDeleteButton({ postId, userId, raidName, charact
   ) => {
     try {
       const response = await fetch(
-        `/api/mypageCreatePost?post_id=${postId}&character_name=${characterName}&user_id=${userId}&raid_name=${raidName}`,
+        `/api/raidPostAPI/createPost?post_id=${postId}&character_name=${characterName}&user_id=${userId}&raid_name=${raidName}`,
         {
           method: 'DELETE',
           headers: {

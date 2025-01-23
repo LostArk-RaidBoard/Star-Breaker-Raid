@@ -20,6 +20,8 @@ interface Post {
   character_classicon: string
   character_image: string
   nickname: string
+  raid_level: string
+  raid_gateway: string
 }
 
 interface RaidPostProps {
@@ -27,16 +29,18 @@ interface RaidPostProps {
 }
 
 export default async function RaidPost({ postData }: RaidPostProps) {
-  console.log('postDateTime : ' + postData.raid_time)
   const formatTime = converToKoranTime1(postData.raid_time)
-  console.log('formatTime : ' + formatTime)
 
   return (
     <div className='flex h-full w-full flex-col justify-center'>
       <div className='flex flex-col sm:flex-row'>
         <div className='flex basis-1/2 flex-col gap-4 p-4'>
           <span className='flex h-14 items-center justify-center rounded-md border border-gray-500 bg-gray-900 p-2 text-xl text-white'>
-            💥 &nbsp; <span className='font-semibold'>{postData.raid_name}</span> &nbsp; 💥
+            💥 &nbsp;{' '}
+            <span className='font-semibold'>
+              {postData.raid_name} {postData.raid_level} {postData.raid_gateway}
+            </span>{' '}
+            &nbsp; 💥
           </span>
           <div className='text-lg'>
             <span className='font-semibold'>• 레이드 시간 : </span>

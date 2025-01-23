@@ -38,7 +38,7 @@ export default function MainMyInfo() {
   useEffect(() => {
     const mainFetchHandler = async (userId: string) => {
       try {
-        const response = await fetch(`/api/mainMyInfo?userId=${userId}`, {
+        const response = await fetch(`/api/mainAPI/mainMyInfo?userId=${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export default function MainMyInfo() {
               alt='카제로스레이드  이미지'
               width={30}
               height={30}
-              style={{ width: '10%', height: 'auto' }}
+              style={{ width: '30px', height: '30px' }}
               className='p-1'
             />{' '}
             {myInfoState.schedule_count} /{' '}
@@ -110,7 +110,7 @@ export default function MainMyInfo() {
               alt='골드 이미지'
               width={30}
               height={30}
-              style={{ width: '10%', height: 'auto' }}
+              style={{ width: '30px', height: '30px' }}
               className='p-1'
             />{' '}
             {myInfoState.raid_gold}

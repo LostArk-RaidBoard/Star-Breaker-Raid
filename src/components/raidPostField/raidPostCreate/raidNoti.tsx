@@ -8,13 +8,13 @@ export default function RaidNoti() {
     setRaidNoti(event.target.value)
   }
   return (
-    <div className='flex flex-col'>
+    <div className='flex h-48 flex-col'>
       <label className='text-lg font-semibold'>• 공지 사항</label>
       <textarea
         id='raidNoti'
         name='raidNoti'
         aria-label='공지 사항 글'
-        rows={5}
+        rows={6}
         placeholder='공지 입력'
         value={raidNoti} // 상태로 관리되는 값
         onChange={handleChange} // 변경 이벤트 핸들러

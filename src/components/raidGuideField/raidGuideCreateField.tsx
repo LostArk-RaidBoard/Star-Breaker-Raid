@@ -80,7 +80,7 @@ export default function RaidGuideCreateField() {
     }
 
     try {
-      const response = await fetch('/api/raidGuidePost', {
+      const response = await fetch('/api/raidGuideAPI/raidGuidePost', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

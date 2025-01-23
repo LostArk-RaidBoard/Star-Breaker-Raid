@@ -16,12 +16,15 @@ interface RaidGuide {
 
 const handleFetch = async (id: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/raidGuidePerGet?raidGuideId=${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/raidGuideAPI/raidGuidePerGet?raidGuideId=${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
     const data = await response.json()
     if (response.ok) {
       return data.guideRows

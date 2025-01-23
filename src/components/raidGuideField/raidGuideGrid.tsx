@@ -27,7 +27,7 @@ const raidGuideFetch = async (raidName: string, userId: string) => {
 
   try {
     const response = await fetch(
-      `${process.env.API_URL}/api/raidGuideGet?raidGuide=${raidName}&userId=${userId}`,
+      `${process.env.API_URL}/api/raidGuideAPI/raidGuideGet?raidGuide=${raidName}&userId=${userId}`,
       {
         method: 'GET',
         headers: {
@@ -65,12 +65,15 @@ export default function RaidGuideGrid({ userId }: Props) {
     }
 
     try {
-      const response = await fetch(`/api/raidGuideLikePost?guide_id=${guide_id}&userId=${userId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/raidGuideAPI/raidGuideLikePost?guide_id=${guide_id}&userId=${userId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
       if (response.ok) {
         await raidGuideLike()
 

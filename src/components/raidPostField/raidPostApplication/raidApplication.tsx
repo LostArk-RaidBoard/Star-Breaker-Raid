@@ -12,6 +12,8 @@ interface RaidApplicationProps {
   postId: number
   post_user: string
   raid_name: string
+  raid_level: string
+  raid_gateway: string
   schedule: Date
 }
 
@@ -21,6 +23,8 @@ export default function RaidApplication({
   postId,
   post_user,
   raid_name,
+  raid_level,
+  raid_gateway,
   schedule,
 }: RaidApplicationProps) {
   const [hope, setHope] = useState('')
@@ -57,15 +61,14 @@ export default function RaidApplication({
         post_id: postId,
         character_image: characterInfo[0].class_image,
         character_icon: characterInfo[0].class_icon_url,
-        character_elixir: characterInfo[0].elixir,
-        character_transcendence: characterInfo[0].transcendence,
-        character_level: characterInfo[0].character_level,
         raid_name: raid_name,
-        raid_gold: RaidGold(raid_name),
+        raid_level: raid_level,
+        raid_gateway: raid_gateway,
+        raid_gold: RaidGold(raid_name + ' ' + raid_level + ' ' + raid_gateway),
         schedule: schedule,
       }
       try {
-        const response = await fetch('/api/applicationSave', {
+        const response = await fetch('/api/applicationAPI/applicationSave', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
