@@ -1,17 +1,16 @@
 'use client'
 
-import { createPostTage } from '@/app/action'
-import CalendarSelect from '@/components/calendar/calendarSelect'
-import RaidGateway from '@/components/raidPostField/raidPostCreate/raidGateway'
 import RaidLevelSelect from '@/components/raidPostField/raidPostCreate/raidLevelSelect'
-import RaidSelect from '@/components/select/raidSelect'
-// import RaidSelectSchedule from '@/components/select/raidSelectSchedule'
-import raidGold from '@/components/utils/raidGold'
+import RaidGateway from '@/components/raidPostField/raidPostCreate/raidGateway'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
+import CalendarSelect from '@/components/calendar/calendarSelect'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
-import { useSession } from 'next-auth/react'
+import RaidSelect from '@/components/select/raidSelect'
 import React, { useEffect, useState } from 'react'
+import raidGold from '@/components/utils/raidGold'
+import { createPostTage } from '@/app/action'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   userId: string
@@ -50,7 +49,9 @@ export default function AddScheduleButton({ userId }: Props) {
 
   const scheduleFetchHandler = async () => {
     const raidGoldGetName = raidSelect + ' ' + raidLevel + ' ' + raidGateway
+    console.log(raidGoldGetName)
     const gold = raidGold(raidGoldGetName)
+
     try {
       const response = await fetch(
         `/api/scheduleAPI/schedulePost?user_id=${userId}&raid_gold=${gold}&schedule_time=${raidDate}&character_name=${characterInfo[0].character_name}&raid_name=${raidSelect}&raid_gateway=${raidGateway}&raid_level=${raidLevel}`,
