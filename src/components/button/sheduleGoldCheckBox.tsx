@@ -36,7 +36,7 @@ export default function ScheduleGoldCheckBox({
   }
   return (
     <label className='flex w-full items-center justify-between'>
-      <span>골드 체크</span>
+      <span className='text-sm text-gray-500'>골드 체크</span>
       <input
         type='checkbox'
         aria-label='골드 체크 버튼'

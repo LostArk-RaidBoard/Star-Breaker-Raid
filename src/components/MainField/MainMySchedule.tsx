@@ -15,6 +15,7 @@ interface TodaySchedule {
   character_name: string
   raid_name: string
   raid_level: string
+  class_icon_url: string
 }
 
 interface Props {
@@ -70,10 +71,10 @@ export default function MainMyPostsSchedule({ userId }: Props) {
   return (
     <div className='flex h-full w-full flex-col md:w-1/2'>
       <div className='bg-[#f9fafb]'>
-        <span className='rounded-t-md bg-blue-950 px-2 pb-1 text-sm text-white'>today 일정</span>
+        <span className='rounded-t-md bg-zinc-700 px-2 pb-1 text-sm text-white'>today 일정</span>
       </div>
-      <div className='h-full rounded-b-md rounded-r-md bg-blue-200'>
-        <div className='grid grid-cols-8 rounded-tr-md bg-blue-950 px-1 text-white'>
+      <div className='h-full rounded-b-md rounded-r-md bg-gray-300'>
+        <div className='grid grid-cols-8 rounded-tr-md bg-zinc-700 px-1 text-white'>
           <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             <Fire className='h-4 w-4' />
             레이드
@@ -91,7 +92,7 @@ export default function MainMyPostsSchedule({ userId }: Props) {
               alt='골드 이미지'
               width={20}
               height={20}
-              style={{ width: '80%', height: 'auto' }}
+              style={{ width: '20px', height: '20px' }}
             />
             골드
           </div>
@@ -108,7 +109,14 @@ export default function MainMyPostsSchedule({ userId }: Props) {
                 </span>
               </div>
               <div className='col-span-3 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>
+                <span className='flex overflow-hidden truncate whitespace-nowrap'>
+                  <Image
+                    src={item.class_icon_url}
+                    alt='아이콘'
+                    width={100}
+                    height={100}
+                    className='h-6 w-6'
+                  />
                   {item.character_name}
                 </span>
               </div>

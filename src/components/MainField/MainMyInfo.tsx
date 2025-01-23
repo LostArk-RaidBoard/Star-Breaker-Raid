@@ -72,7 +72,7 @@ export default function MainMyInfo() {
   return (
     <>
       {loading && (
-        <div className='absolute inset-0 z-30 flex h-full w-full items-center justify-center bg-gray-100 bg-opacity-90'>
+        <div className='absolute inset-0 z-30 flex h-full w-full items-center justify-center rounded-md bg-gray-500 bg-opacity-90'>
           <Loading className='h-12 w-12 animate-spin text-white' />
         </div>
       )}
@@ -80,13 +80,13 @@ export default function MainMyInfo() {
         <div className='flex h-full w-full flex-col text-white xl:gap-4'>
           <div className='flex items-center gap-2'>
             <Image
-              src={'/icon/nickNameIcon.png'}
+              src={`${session.user.role === 'teacher' ? '/asset/금색배찌.png' : '/asset/은색배찌.png'}`}
               alt='닉네임 이미지'
               width={30}
               height={30}
-              className='p-1'
+              className=''
             />
-            <span>{mainNickName}</span>
+            <span className='text-lg'>{mainNickName}</span>
           </div>
           <span>캐릭터 수 : {myInfoState.character_count}</span>
           <span className='flex items-center'>

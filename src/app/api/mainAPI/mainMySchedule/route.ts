@@ -10,9 +10,10 @@ export async function GET(req: Request) {
 
   try {
     const res = await sql`
-    SELECT sd.user_id, sd.schedule_time, sd.raid_gold, sd.raid_name, sd.character_name, sd.raid_level
+      SELECT sd.user_id, sd.schedule_time, sd.raid_gold, sd.raid_name, sd.character_name, sd.raid_level, cl.class_icon_url
     FROM schedule AS sd
-    WHERE user_id = ${userId} 
+    LEFT JOIN characters AS cl ON sd.character_name = cl.character_name
+    WHERE sd.user_id = ${userId} 
       AND (schedule_time + INTERVAL '9 hours')::date = (CURRENT_TIMESTAMP + INTERVAL '9 hours')::date
     ORDER BY schedule_time;
     `
