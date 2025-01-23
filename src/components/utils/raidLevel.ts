@@ -1,5 +1,5 @@
 export default function RaidLevel(raidName: string) {
-  if (raidName === '3막 칠흑, 폭풍의 밤') {
+  if (raidName === '3막 모르둠') {
     return { 노말: 1680, 하드: 1700 }
   }
 

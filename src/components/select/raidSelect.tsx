@@ -10,7 +10,7 @@ export default function RaidSelect() {
   const { characterInfo } = useCharacterInfoList()
 
   const raidOptions = [
-    { value: '3막 칠흑, 폭풍의 밤', level: 1680 },
+    { value: '3막 모르둠', level: 1680 },
     { value: '2막 아브렐슈드', level: 1670 },
     { value: '1막 에기르', level: 1660 },
     { value: '베히모스', level: 1640 },

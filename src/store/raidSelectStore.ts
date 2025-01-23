@@ -25,7 +25,7 @@ type raidSelectAction = {
 }
 
 const initalRaidSelectState: raidSelectState = {
-  raidSelect: '3막 : 칠흑, 폭풍의 밤',
+  raidSelect: '3막 모르둠',
   raidLevel: '노말',
   raidGateway: '1~2관문',
   raidLimitPerson: 8,
