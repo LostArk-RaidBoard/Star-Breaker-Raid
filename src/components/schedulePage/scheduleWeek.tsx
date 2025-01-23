@@ -98,13 +98,15 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
       <div className='mt-2 overflow-x-auto rounded-md'>
         <div className='table w-full min-w-[1190px] border-collapse'>
           {/* Table Header */}
-          <div className='table-row bg-gray-300'>
+          <div className='table-row bg-gray-100'>
             {['수요일', '목요일', '금요일', '토요일', '일요일', '월요일', '화요일'].map(
               (day, index) => (
                 <div
                   key={day}
-                  className={`table-cell w-[170px] p-2 text-center font-bold ${
-                    index === 3 || index === 4 ? 'text-red-700' : ''
+                  className={`table-cell w-[170px] p-3 text-center font-bold ${
+                    index === 3 || index === 4
+                      ? 'bg-red-200 text-red-700'
+                      : 'bg-gray-200 text-gray-700'
                   }`}
                 >
                   {day}
@@ -141,27 +143,54 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
                   return (
                     <div
                       key={`${item.schedule_time}-${dayIndex}-${item.raid_name}`}
-                      className={`mb-2 flex flex-col overflow-hidden truncate whitespace-nowrap border-b-2 border-dashed border-gray-700 p-1`}
+                      className='mb-4 flex flex-col rounded-lg border border-gray-300 bg-white p-4 shadow-md'
                     >
-                      <span className={`${bgColorClass} rounded-md p-1 font-semibold`}>
-                        {item.raid_name} {item.raid_level}
-                      </span>
-                      <div className='flex items-center justify-between'>
-                        <span className='font-semibold'>{item.character_name}</span>
-
+                      {/* 상단 섹션: 레이드 이름과 레벨 */}
+                      <div className='mb-2 flex items-center justify-between'>
+                        <span
+                          className={`rounded-full px-3 py-1 text-sm font-semibold ${
+                            bgColorClass === 'bg-green-300'
+                              ? 'bg-green-200 text-green-800'
+                              : bgColorClass === 'bg-red-300'
+                                ? 'bg-red-200 text-red-800'
+                                : 'bg-gray-200 text-gray-800'
+                          }`}
+                        >
+                          {item.raid_name} {item.raid_level}
+                        </span>
                         <DeleteScheduleButton
                           characterName={item.character_name}
                           raidName={item.raid_name}
                           userId={item.user_id}
                         />
                       </div>
-                      <span>{raidTime.getHours() + '시 ' + raidTime.getMinutes() + '분'}</span>
-                      <ScheduleGoldCheckBox
-                        goldCheck={item.gold_check}
-                        characterName={item.character_name}
-                        raidName={item.raid_name}
-                        userId={item.user_id}
-                      />
+
+                      {/* 캐릭터 이름 */}
+                      <div className='mb-2'>
+                        <span className='text-sm font-medium text-gray-800'>
+                          {item.character_name}
+                        </span>
+                      </div>
+
+                      {/* 시간 표시 */}
+                      <div className='mt-2 flex flex-col text-sm text-gray-700'>
+                        <span className='text-gray-500'>
+                          {raidTime.toLocaleDateString('ko-KR')}
+                        </span>
+                        <span className='flex'>
+                          {raidTime.getHours()}시 {raidTime.getMinutes()}분
+                        </span>
+                      </div>
+
+                      {/* 골드 체크박스 */}
+                      <div className='mt-2 flex items-center'>
+                        <ScheduleGoldCheckBox
+                          goldCheck={item.gold_check}
+                          characterName={item.character_name}
+                          raidName={item.raid_name}
+                          userId={item.user_id}
+                        />
+                      </div>
                     </div>
                   )
                 })}

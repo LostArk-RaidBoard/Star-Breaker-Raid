@@ -9,7 +9,7 @@ import MHeaderField from '@/components/header/mobile/mHeaderField'
 
 export default function HeaderField() {
   return (
-    <div className='sticky top-0 z-50 flex h-8 w-full items-center border-b border-gray-200 bg-white shadow-sm shadow-black sm:h-12 sm:px-12 md:px-16 lg:px-28 xl:px-36 2xl:px-44'>
+    <div className='sticky top-0 z-50 flex h-8 w-full items-center border-b border-gray-200 bg-white shadow-sm shadow-black sm:h-12 sm:px-12'>
       <nav className='flex hidden h-full w-full items-center justify-between md:flex'>
         <div className='flex h-full items-center gap-4'>
           <Logo />

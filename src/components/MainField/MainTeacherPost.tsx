@@ -73,10 +73,10 @@ export default function MainTeacherPosts() {
   return (
     <div className='flex h-full w-full flex-col md:w-1/2'>
       <div className='bg-[#f9fafb]'>
-        <span className='rounded-t-md bg-yellow-900 px-2 pb-1 text-sm text-white'>인증 레이드</span>
+        <span className='rounded-t-md bg-slate-700 px-2 pb-1 text-sm text-white'>인증 레이드</span>
       </div>
       <div className='h-full rounded-b-md rounded-r-md bg-gray-300'>
-        <div className='grid grid-cols-8 rounded-tr-md bg-yellow-900 px-1 text-white'>
+        <div className='grid grid-cols-8 rounded-tr-md bg-slate-700 px-1 text-white'>
           <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
             <Fire className='h-4 w-4' />
             레이드
