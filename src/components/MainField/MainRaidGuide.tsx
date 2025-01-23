@@ -19,13 +19,16 @@ interface Props {
 }
 const raidGuideFetch = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/raidGuideMainGet?userId=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/mainAPI/raidGuideMainGet?userId=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['raidGudieLike'], revalidate: 10 },
       },
-      next: { tags: ['raidGudieLike'], revalidate: 10 },
-    })
+    )
 
     const data = await response.json()
     if (response.ok) {

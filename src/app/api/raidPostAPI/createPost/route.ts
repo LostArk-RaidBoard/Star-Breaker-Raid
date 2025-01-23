@@ -16,12 +16,21 @@ export async function GET(req: Request) {
   try {
     const res = await sql`
       SELECT 
-        DISTINCT rp.*, 
+        DISTINCT 
+        rp.post_id,
+        rp.raid_name,
+        rp.raid_time,
+        rp.limit_level,
+        rp.user_id,
+        rp.raid_limitperson,
+        rp.character_classicon,
+        rp.raid_level,
+        rp.character_name,
         COUNT(DISTINCT CASE WHEN al.approval = true THEN al.user_id END) + 1 AS approval, 
-    COUNT(DISTINCT CASE WHEN al.approval = false THEN al.user_id END) AS rejected_count
+        COUNT(DISTINCT CASE WHEN al.approval = false THEN al.user_id END) AS rejected_count
       FROM raid_posts rp 
       LEFT JOIN applicants_list al 
-      ON rp.post_id = al.post_id 
+        ON rp.post_id = al.post_id 
       WHERE rp.user_id = ${userID} 
       GROUP BY rp.post_id;
     `

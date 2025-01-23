@@ -8,16 +8,14 @@ interface RaidPost {
   post_id: number
   raid_name: string
   raid_time: string
-  limit_level: number
   user_id: string
   post_position: string
-  noti: string
-  character_level: string
   character_name: string
   raid_limitperson: number
   raid_type: string
-  raid_maxtime: string
   character_classicon: string
+  raid_level: string
+  raid_gateway: string
   approval: number
   rejected_count: number
   nickname: string
@@ -25,13 +23,16 @@ interface RaidPost {
 
 const fetchPostsAllFetch = async (): Promise<RaidPost[]> => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/raidPostGet?posts_position=all`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/raidPostAPI/raidPostGet?posts_position=all`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['wePost'] },
       },
-      next: { tags: ['wePost'] },
-    })
+    )
 
     const data = await response.json()
     if (response.ok) {

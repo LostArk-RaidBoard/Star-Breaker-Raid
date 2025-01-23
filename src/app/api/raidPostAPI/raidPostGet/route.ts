@@ -11,7 +11,16 @@ export async function GET(req: Request) {
   try {
     const res = await sql`
       SELECT 
-          rp.*, 
+          rp.post_id,
+          rp.raid_name,
+          rp.post_position,
+          rp.raid_time,
+          rp.raid_type,
+          rp.raid_level,
+          rp.raid_gateway,
+          rp.raid_limitperson,
+          rp.character_name,
+          rp.character_classicon,
           COUNT(DISTINCT CASE WHEN al.approval = true THEN al.user_id END) + 1 AS approval, 
           COUNT(DISTINCT CASE WHEN al.approval = false THEN al.user_id END) AS rejected_count,
           users.nickname 

@@ -5,11 +5,20 @@ export async function POST(req: Request) {
   const userId = url.searchParams.get('user_id')
   const raid_gold = url.searchParams.get('raid_gold')
   const schedule_time = url.searchParams.get('schedule_time')
-
   const character_name = url.searchParams.get('character_name')
   const raid_name = url.searchParams.get('raid_name')
+  const raid_gateway = url.searchParams.get('raid_gateway')
+  const raid_level = url.searchParams.get('raid_level')
 
-  if (!userId || !raid_gold || !schedule_time || !character_name || !raid_name) {
+  if (
+    !userId ||
+    !raid_gold ||
+    !schedule_time ||
+    !character_name ||
+    !raid_name ||
+    !raid_gateway ||
+    !raid_level
+  ) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
 
@@ -28,8 +37,8 @@ export async function POST(req: Request) {
     }
 
     await sql`
-       INSERT INTO schedule (user_id, schedule_time, raid_gold, character_name, raid_name) 
-      VALUES (${userId}, ${formattedScheduleTime}, ${raid_gold}, ${character_name}, ${raid_name})
+       INSERT INTO schedule (user_id, schedule_time, raid_gold, character_name, raid_name, raid_level, raid_gateway) 
+      VALUES (${userId}, ${formattedScheduleTime}, ${raid_gold}, ${character_name}, ${raid_name}, ${raid_level}, ${raid_gateway})
     `
 
     return new Response(JSON.stringify({ message: '성공' }), {

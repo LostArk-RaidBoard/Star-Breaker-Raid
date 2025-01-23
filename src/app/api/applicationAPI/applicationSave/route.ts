@@ -7,10 +7,9 @@ interface Application {
   post_id: number
   character_image: string
   character_icon: string
-  character_elixir: number
-  character_transcendence: number
-  character_level: string
   raid_name: string
+  raid_level: string
+  raid_gateway: string
   raid_gold: number
   schedule: Date | null | string // 문자열이거나 null일 수도 있으므로 추가
 }
@@ -45,20 +44,14 @@ export async function POST(req: Request) {
         post_id,
         character_name,
         character_image,
-        character_icon,
-        character_elixir,
-        character_level,
-        character_transcendence
+        character_icon
       ) VALUES (
         ${application.user_id},
         ${application.hope},
         ${application.post_id},
         ${application.character_name},
         ${application.character_image},
-        ${application.character_icon},
-        ${application.character_elixir},
-        ${application.character_level},
-        ${application.character_transcendence}
+        ${application.character_icon}
       )`
 
       await sql`
@@ -67,13 +60,17 @@ export async function POST(req: Request) {
            schedule_time,
            raid_gold,
            character_name,
-           raid_name
+           raid_name,
+           raid_level,
+           raid_gateway
           ) VALUES (
            ${application.user_id},
            ${raidTime},
            ${application.raid_gold},
            ${application.character_name},
-           ${application.raid_name}
+           ${application.raid_name},
+           ${application.raid_level},
+           ${application.raid_gateway}
           )
         `
 

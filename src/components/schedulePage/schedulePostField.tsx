@@ -11,17 +11,11 @@ interface RaidPost {
   post_id: number
   raid_name: string
   raid_time: string
-  limit_level: number
-  user_id: string
-  post_position: string
-  noti: string
-  character_level: string
   character_name: string
-  raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
   character_classicon: string
+  raid_level: string
   approval: boolean
+  nickname: string
 }
 
 interface RaidPostCreate {
@@ -30,14 +24,10 @@ interface RaidPostCreate {
   raid_time: string
   limit_level: number
   user_id: string
-  post_position: string
-  noti: string
-  character_level: string
   character_name: string
   raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
   character_classicon: string
+  raid_level: string
   approval: number
   rejected_count: number
 }
@@ -49,6 +39,8 @@ interface Schedule {
   character_name: string
   raid_name: string
   gold_check: boolean
+  raid_level: string
+  raid_gateway: string
 }
 
 interface CharacterName {
@@ -59,13 +51,16 @@ interface CharacterName {
 
 const applicationPostGetHandler = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/mypagePostGet?user_id=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/scheduleAPI/scheduleAppliactionPostGet?user_id=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['applicationTage'] },
       },
-      next: { tags: ['applicationTage'] },
-    })
+    )
     const data = await response.json()
     if (response.ok && response.status === 200) {
       return data.postRows.map((item: RaidPost) => {
@@ -83,13 +78,16 @@ const applicationPostGetHandler = async (userId: string) => {
 
 const createPostGetHandler = async (userId: string) => {
   try {
-    const response = await fetch(`${process.env.API_URL}/api/mypageCreatePost?user_id=${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.API_URL}/api/raidPostAPI/createPost?user_id=${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { tags: ['createPostTage'] },
       },
-      next: { tags: ['createPostTage'] },
-    })
+    )
     const data = await response.json()
     if (response.ok && response.status === 200) {
       return data.postRows.map((item: RaidPostCreate) => {
@@ -108,7 +106,7 @@ const createPostGetHandler = async (userId: string) => {
 const weekScheduleGetHandler = async (userId: string) => {
   try {
     const response = await fetch(
-      `${process.env.API_URL}/api/schedule/scheduleGet?user_id=${userId}`,
+      `${process.env.API_URL}/api/scheduleAPI/scheduleGet?user_id=${userId}`,
       {
         method: 'GET',
         headers: {
@@ -149,7 +147,6 @@ export default async function SchedulePostField() {
   if (session && session.user.id) {
     applicationPostGet = await applicationPostGetHandler(session.user.id)
     createPostGet = await createPostGetHandler(session.user.id)
-    // weekSchedule
 
     const { weekSchedule: scheduleData, characterName: characterData } =
       await weekScheduleGetHandler(session.user.id)

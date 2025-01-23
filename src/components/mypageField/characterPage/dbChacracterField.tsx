@@ -123,12 +123,15 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
   const characterDeleteHandler = async (character_name: string) => {
     setLoading(true)
     try {
-      const response = await fetch(`/api/characterDelete?characterName=${character_name}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/characterAPI/characterDelete?characterName=${character_name}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      })
+      )
 
       if (response.ok) {
         submit()
@@ -201,45 +204,50 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
         {characterList.map((character) => (
           <div
             key={character.character_name}
-            className='flex h-36 items-center justify-between gap-4 rounded-md bg-gray-900 px-3 text-white'
+            className='flex h-40 items-center justify-between gap-4 rounded-md bg-gray-900 px-3 text-white'
           >
             <div className='flex flex-col gap-1 overflow-hidden truncate whitespace-nowrap'>
-              <div className='flex items-center gap-4 overflow-hidden truncate whitespace-nowrap'>
-                <div className='h-12 w-12 flex-none overflow-hidden rounded-full'>
-                  <Image
-                    src={character.class_image}
-                    alt={'이미지'}
-                    width={70}
-                    height={70}
-                    className='h-full w-full object-cover'
-                  />
+              <div className='flex items-center gap-5 overflow-hidden truncate whitespace-nowrap'>
+                {/* 캐릭터 이미지 서버 */}
+                <div className='flex w-[70px] flex-col items-center justify-center gap-2'>
+                  <div className='h-16 w-16 flex-none overflow-hidden rounded-full'>
+                    <Image
+                      src={character.class_image}
+                      alt={'캐릭터 대표 이미지'}
+                      width={90}
+                      height={90}
+                      className='h-full w-full object-cover'
+                    />
+                  </div>
+                  <span className='overflow-hidden truncate whitespace-nowrap text-sm'>
+                    {character.server_name}
+                  </span>
                 </div>
 
-                <div className='grow flex-col overflow-hidden'>
+                {/* 캐릭터 정보 */}
+                <div className='w-full grow flex-col gap-2 overflow-hidden'>
                   <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
                     <Image
                       src={character.class_icon_url}
-                      alt={'이미지'}
+                      alt={'캐릭터 아이콘 이미지'}
                       width={30}
                       height={30}
-                      className='p-1'
+                      className=''
                     />
 
                     <span className='overflow-hidden truncate whitespace-nowrap'>
                       {character.character_name}
                     </span>
-                    <span className='ml-1 hidden overflow-hidden truncate whitespace-nowrap sm:block'>
-                      {character.server_name}
-                    </span>
                   </div>
+
                   <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
                     <Image src={'/장비.png'} alt='장비' width={30} height={30} className='p-1' />
                     <span className='overflow-hidden truncate whitespace-nowrap'>
                       {character.character_level}
                     </span>
                   </div>
-                  <div className='flex gap-2 overflow-hidden truncate whitespace-nowrap'>
-                    <div className='flex items-center gap-2 overflow-hidden truncate whitespace-nowrap'>
+                  <div className='flex gap-3 overflow-hidden truncate whitespace-nowrap'>
+                    <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
                       <Image
                         src={'/엘릭서.png'}
                         alt='엘릭서'
@@ -249,7 +257,7 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
                       />
                       <span>{character.elixir}</span>
                     </div>
-                    <div className='flex items-center gap-2 overflow-hidden truncate whitespace-nowrap'>
+                    <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
                       <Image
                         src={'/초월.png'}
                         alt='초파고'
@@ -260,26 +268,27 @@ export default function DBCharacterField({ userId, dbCharacter }: Props) {
                       <span>{character.transcendence}</span>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className='flex w-full items-center justify-between gap-4 overflow-hidden truncate whitespace-nowrap text-sm'>
-                <div className='flex items-center gap-2 overflow-hidden truncate whitespace-nowrap'>
-                  <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#726a54] bg-[#45423a] px-1'>
-                    진화
-                  </span>
-                  <span>{character.evolution}</span>
-                </div>
-                <div className='flex items-center gap-2 overflow-hidden truncate whitespace-nowrap'>
-                  <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#50707c] bg-[#35454d] px-1'>
-                    깨달음
-                  </span>
-                  <span>{character.enlightenment}</span>
-                </div>
-                <div className='flex items-center gap-2 overflow-hidden truncate whitespace-nowrap'>
-                  <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#637241] bg-[#3e4631] px-1'>
-                    도약
-                  </span>
-                  <span>{character.leap}</span>
+
+                  <div className='mt-2 flex w-full items-center justify-between gap-3 overflow-hidden truncate whitespace-nowrap text-sm'>
+                    <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
+                      <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#726a54] bg-[#45423a] px-1'>
+                        진화
+                      </span>
+                      <span>{character.evolution}</span>
+                    </div>
+                    <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
+                      <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#50707c] bg-[#35454d] px-1'>
+                        깨달음
+                      </span>
+                      <span>{character.enlightenment}</span>
+                    </div>
+                    <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
+                      <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#637241] bg-[#3e4631] px-1'>
+                        도약
+                      </span>
+                      <span>{character.leap}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

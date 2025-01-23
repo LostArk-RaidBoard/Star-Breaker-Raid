@@ -10,7 +10,24 @@ export async function GET(req: Request) {
 
   try {
     const res = await sql`
-      SELECT raid_posts.*, users.nickname, characters.character_level
+      SELECT 
+        raid_posts.post_id,
+        raid_posts.raid_name,
+        raid_posts.raid_time,
+        raid_posts.limit_level,
+        raid_posts.user_id,
+        raid_posts.post_position,
+        raid_posts.noti,
+        raid_posts.character_name,
+        raid_posts.raid_limitperson,
+        raid_posts.raid_type,
+        raid_posts.raid_maxtime,
+        raid_posts.character_classicon,
+        raid_posts.character_image,
+        raid_posts.raid_level,
+        raid_posts.raid_gateway,
+        users.nickname, 
+        characters.character_level
       FROM raid_posts 
       INNER JOIN users ON raid_posts.user_id  = users.user_id
       INNER JOIN characters ON raid_posts.character_name = characters.character_name

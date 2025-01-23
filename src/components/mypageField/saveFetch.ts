@@ -192,7 +192,7 @@ export default async function SaveCharacterFetch(item: CharacterList, userId: st
    * 이 캐릭터 네임으로 DB에 존재하는지 체크
    */
   try {
-    const response = await fetch('/api/characterSave', {
+    const response = await fetch('/api/characterAPI/characterSave', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -258,15 +258,12 @@ function parseTooltipForTranscendence(
  */
 function parseTooltipForElixer(elixerToolTip: Tooltip[], saveCharacterInfo: SaveCharacterInfo) {
   let elixirLevelSum = 0
-
   try {
-    // Tooltip 배열을 순회
     for (const tooltip of elixerToolTip) {
       // type이 "IndentStringGroup"인지 확인
-      if (tooltip.type === 'IndentStringGroup') {
-        // Element_000의 topStr이 특정 조건과 일치하는지 확인
-        const topStr = tooltip.value.Element_000?.topStr
-        if (topStr.toString().includes('[엘릭서')) {
+      if (tooltip.type === 'IndentStringGroup' && tooltip.value) {
+        const element000 = tooltip.value.Element_000
+        if (element000 && element000.topStr?.toString().includes('[엘릭서')) {
           const elementContentStr = tooltip.value.Element_000.contentStr
 
           for (const key in elementContentStr) {

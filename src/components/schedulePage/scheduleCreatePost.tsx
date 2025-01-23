@@ -17,14 +17,10 @@ interface RaidPost {
   raid_time: string
   limit_level: number
   user_id: string
-  post_position: string
-  noti: string
-  character_level: string
   character_name: string
   raid_limitperson: number
-  raid_type: string
-  raid_maxtime: string
   character_classicon: string
+  raid_level: string
   approval: number
   rejected_count: number
 }
@@ -55,7 +51,7 @@ export default function ScheduleCreatePost({ createPostGet }: Props) {
   ) => {
     try {
       const response = await fetch(
-        `/api/mypageCreatePost?post_id=${post_id}&character_name=${character_name}&user_id=${user_id}&raid_name=${raid_name}`,
+        `/api/raidPostAPI/createPost?post_id=${post_id}&character_name=${character_name}&user_id=${user_id}&raid_name=${raid_name}`,
         {
           method: 'DELETE',
           headers: {
@@ -107,7 +103,9 @@ export default function ScheduleCreatePost({ createPostGet }: Props) {
               className='col-span-9 grid grid-cols-9'
             >
               <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_name}</span>
+                <span className='overflow-hidden truncate whitespace-nowrap'>
+                  {item.raid_name} {item.raid_level}
+                </span>
               </div>
               <div className='col-span-3 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-300 px-1'>
                 <Image

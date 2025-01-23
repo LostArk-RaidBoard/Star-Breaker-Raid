@@ -24,7 +24,7 @@ export default function UserDelete({ userId }: Props) {
     }
     setMessage('')
     try {
-      const response = await fetch(`/api/userDelete?userId=${userId}`, {
+      const response = await fetch(`/api/mypageAPI/userDelete?userId=${userId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

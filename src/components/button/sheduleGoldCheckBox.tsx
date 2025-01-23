@@ -18,7 +18,7 @@ export default function ScheduleGoldCheckBox({
   const updateFetchHandler = async (goldCheck: boolean) => {
     try {
       const response = await fetch(
-        `/api/mypageScheduleUpdate?user_id=${userId}&character_name=${characterName}&raid_name=${raidName}&gold_check=${!goldCheck}`,
+        `/api/scheduleAPI/scheduleUpdate?user_id=${userId}&character_name=${characterName}&raid_name=${raidName}&gold_check=${!goldCheck}`,
         {
           method: 'PUT',
           headers: {
