@@ -74,40 +74,74 @@ export default function ScheduleCharacterList({
         </button>
       </div>
       {!hidden && (
-        <div className='mt-4 overflow-x-auto rounded-md'>
-          <table className='w-full min-w-[1190px] table-auto border-collapse border border-gray-300'>
-            <thead>
-              <tr className='bg-gray-200'>
-                <th className='w-56 border border-gray-300 px-4 py-2'>캐릭터 이름</th>
-                <th className='w-40 border border-gray-300 px-4 py-2'>캐릭터 레벨</th>
-                <th className='w-40 border border-gray-300 px-4 py-2'>획득 골드</th>
-                <th className='border border-gray-300 px-4 py-2'>레이드 이름</th>
+        <div className='mt-4 overflow-x-auto rounded-md border border-gray-300 shadow-lg'>
+          <table className='w-full min-w-[1190px] table-auto border-collapse'>
+            {/* 테이블 헤더 */}
+            <thead className='bg-gray-100'>
+              <tr className='text-gray-700'>
+                <th className='w-56 border border-gray-300 px-4 py-3 text-left text-sm font-bold'>
+                  캐릭터 이름
+                </th>
+                <th className='w-40 border border-gray-300 px-4 py-3 text-left text-sm font-bold'>
+                  캐릭터 레벨
+                </th>
+                <th className='w-40 border border-gray-300 px-4 py-3 text-left text-sm font-bold'>
+                  획득 골드
+                </th>
+                <th className='border border-gray-300 px-4 py-3 text-left text-sm font-bold'>
+                  레이드 이름
+                </th>
               </tr>
             </thead>
+
+            {/* 테이블 바디 */}
             <tbody>
               {characterRaidData.map((data, index) => (
-                <tr key={index} className='text-center'>
-                  <td className='border border-gray-300 px-4 py-2'>{data.character_name}</td>
-                  <td className='border border-gray-300 px-4 py-2'>
-                    <div className='flex items-center justify-center'>
-                      <Image src={'/장비.png'} alt='장비' width={30} height={30} className='p-1' />
-                      {data.character_level}
+                <tr
+                  key={index}
+                  className={`hover:bg-gray-100 ${
+                    index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                  } transition-colors`}
+                >
+                  {/* 캐릭터 이름 */}
+                  <td className='border border-gray-300 px-4 py-3 text-sm text-gray-800'>
+                    {data.character_name}
+                  </td>
+
+                  {/* 캐릭터 레벨 */}
+                  <td className='border border-gray-300 px-4 py-3'>
+                    <div className='flex items-center gap-2'>
+                      <Image
+                        src={'/장비.png'}
+                        alt='장비'
+                        width={24}
+                        height={24}
+                        className='rounded-md'
+                      />
+                      <span className='text-sm font-medium text-gray-800'>
+                        {data.character_level}
+                      </span>
                     </div>
                   </td>
-                  <td className='border border-gray-300 px-4 py-2 text-yellow-700'>
-                    <div className='flex items-center justify-center'>
+
+                  {/* 획득 골드 */}
+                  <td className='border border-gray-300 px-4 py-3'>
+                    <div className='flex items-center gap-2 text-yellow-700'>
                       <Image
                         src={GoldImage}
                         alt='골드 이미지'
-                        width={30}
-                        height={30}
-                        style={{ width: '30px', height: '30px' }}
-                        className='p-1'
+                        width={24}
+                        height={24}
+                        className='rounded-md'
                       />
-                      {data.raidGoldSum}
+                      <span className='text-sm font-medium'>{data.raidGoldSum}</span>
                     </div>
                   </td>
-                  <td className='border border-gray-300 px-4 py-2'>{data.raidNames.join(', ')}</td>
+
+                  {/* 레이드 이름 */}
+                  <td className='border border-gray-300 px-4 py-3 text-sm text-gray-700'>
+                    {data.raidNames.join(', ')}
+                  </td>
                 </tr>
               ))}
             </tbody>
