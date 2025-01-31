@@ -45,14 +45,15 @@ const raidGuideFetch = async (userId: string) => {
 export default async function MainRaidGuide({ userId }: Props) {
   const raideGuide = await raidGuideFetch(userId)
   return (
-    <div className='grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+    <div className='grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
       {raideGuide.map((item: RaidGuide, key: number) => (
         <div
-          className='h-72 justify-center overflow-ellipsis whitespace-nowrap rounded-md'
           key={key}
+          className='flex flex-col items-center overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-105 hover:shadow-xl'
         >
-          <div className='h-[90%] w-full rounded-md'>
-            <Link href={`/raidguide/${item.guide_id}`}>
+          {/* 이미지 영역 */}
+          <div className='relative h-60 w-full overflow-hidden rounded-t-xl'>
+            <Link href={`/raidguide/${item.guide_id}`} scroll={false}>
               <Image
                 src={item.raid_main_image}
                 alt='레이드 대표 이미지'
@@ -60,13 +61,19 @@ export default async function MainRaidGuide({ userId }: Props) {
                 height={200}
                 sizes='(max-width: 768px) 100vw, (min-width: 769px) 50vw'
                 loading='lazy'
-                className='h-full w-full rounded-md object-cover'
+                className='h-full w-full object-cover'
               />
+              {/* 오버레이 효과 */}
+              <div className='absolute inset-0 bg-gradient-to-t from-black/40 to-transparent'></div>
             </Link>
           </div>
-          <span className='flex w-full justify-center overflow-hidden truncate whitespace-nowrap text-lg font-bold font-medium text-[#222222]'>
-            {item.guide_name} 공략
-          </span>
+
+          {/* 텍스트 영역 */}
+          <div className='flex w-full items-center justify-center bg-gray-800 p-3'>
+            <span className='truncate text-center text-lg font-semibold text-white'>
+              {item.guide_name} 공략
+            </span>
+          </div>
         </div>
       ))}
     </div>

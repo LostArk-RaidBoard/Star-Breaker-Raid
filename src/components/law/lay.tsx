@@ -1,5 +1,5 @@
 'use client'
-import Check from '@image/icon/check.svg'
+import Check from '@image/icon/circlecheck.svg'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'

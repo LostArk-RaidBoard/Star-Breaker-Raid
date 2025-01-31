@@ -54,7 +54,7 @@ export default function HomeworkUpdateButton() {
     }
   }
   return (
-    <div className='mt-4 flex flex-col items-center justify-center'>
+    <div className='flex w-full flex-col items-end'>
       <button
         className='rounded-md bg-gray-900 p-2 px-2 text-white hover:bg-gray-500'
         onClick={() => {
