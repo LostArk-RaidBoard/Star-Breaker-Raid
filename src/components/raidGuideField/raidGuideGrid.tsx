@@ -4,9 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import Loading from '@image/icon/loading.svg'
 import Like from '@image/icon/like.svg'
 import { raidGuideLike } from '@/app/action'
+import RaidGuideSkeleton from '@/components/skeleton/raidGuideSkeleton'
 
 interface RaidGuide {
   guide_id: number
@@ -99,44 +99,41 @@ export default function RaidGuideGrid({ userId }: Props) {
     fetchData()
   }, [raidName, userId])
 
-  if (loading) {
-    return (
-      <div className='flex h-full w-full items-center justify-center'>
-        <Loading className='h-12 w-12' />
-      </div>
-    )
-  }
-
   return (
-    <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
-      {raidGuides.map((item: RaidGuide, key: number) => (
-        <div className='h-72 rounded-md' key={key}>
-          <div className='relative h-[90%] w-full rounded-md'>
-            <button
-              className='hover:-translate-all absolute right-3 top-3 stroke-white stroke-1 hover:scale-110'
-              onClick={() => {
-                likeHandler(item.guide_id)
-              }}
+    <div className='grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+      {loading
+        ? Array.from({ length: 10 }).map((_, index) => <RaidGuideSkeleton key={index} />) // Skeleton 10개 렌더링
+        : raidGuides.map((item: RaidGuide, key: number) => (
+            <div
+              className='flex flex-col items-center overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-105 hover:shadow-xl'
+              key={key}
             >
-              <Like className={`${item.like_count != 0 ? 'fill-red-500' : ''}`} />
-            </button>
-            <Link href={`/raidguide/${item.guide_id}`} scroll={false}>
-              <Image
-                src={item.raid_main_image}
-                alt='레이드 대표 이미지'
-                width={200}
-                height={200}
-                priority
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                className='h-full w-full rounded-md object-cover'
-              />
-            </Link>
-          </div>
-          <span className='flex w-full justify-center text-lg font-bold font-medium text-[#222222]'>
-            {item.guide_name} 공략
-          </span>
-        </div>
-      ))}
+              <div className='relative h-60 w-full rounded-t-xl'>
+                <button
+                  className='hover:-translate-all absolute right-3 top-3 stroke-white stroke-1 hover:scale-110'
+                  onClick={() => likeHandler(item.guide_id)}
+                >
+                  <Like className={`${item.like_count != 0 ? 'fill-red-500' : ''}`} />
+                </button>
+                <Link href={`/raidguide/${item.guide_id}`} scroll={false}>
+                  <Image
+                    src={item.raid_main_image}
+                    alt='레이드 대표 이미지'
+                    width={200}
+                    height={200}
+                    priority
+                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                    className='h-full w-full object-cover'
+                  />
+                </Link>
+              </div>
+              <div className='flex w-full items-center justify-center bg-gray-800 p-3'>
+                <span className='truncate text-center text-lg font-semibold text-white'>
+                  {item.guide_name} 공략
+                </span>
+              </div>
+            </div>
+          ))}
     </div>
   )
 }

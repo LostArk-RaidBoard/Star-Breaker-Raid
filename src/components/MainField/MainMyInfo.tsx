@@ -13,8 +13,6 @@ interface Myinfo {
   role: string
   schedule_count: number
   user_id: string
-  applicant_count: number
-  raid_post_count: number
 }
 
 /**
@@ -31,8 +29,6 @@ export default function MainMyInfo() {
     role: '',
     schedule_count: 0,
     user_id: '',
-    applicant_count: 0,
-    raid_post_count: 0,
   })
 
   useEffect(() => {
@@ -72,72 +68,79 @@ export default function MainMyInfo() {
   return (
     <>
       {loading && (
-        <div className='absolute inset-0 z-30 flex h-full w-full items-center justify-center rounded-md bg-gray-500 bg-opacity-90'>
+        <div className='absolute inset-0 z-30 flex items-center justify-center bg-gray-500 bg-opacity-90'>
           <Loading className='h-12 w-12 animate-spin text-white' />
         </div>
       )}
       {session && session.user.id && myInfoState ? (
-        <div className='flex h-full w-full flex-col text-white xl:gap-4'>
-          <div className='flex items-center gap-2'>
+        <div className='flex h-full w-full flex-col justify-between text-white'>
+          {/* 상단 섹션 */}
+          <div className='flex items-center gap-3'>
             <Image
-              src={`${session.user.role === 'teacher' ? '/asset/금색배찌.png' : '/asset/은색배찌.png'}`}
+              src={session.user.role === 'teacher' ? '/asset/금색배찌.png' : '/asset/은색배찌.png'}
               alt='닉네임 이미지'
-              width={30}
-              height={30}
-              className=''
+              width={35}
+              height={35}
+              className='rounded-full'
             />
-            <span className='text-lg'>{mainNickName}</span>
-          </div>
-          <span>캐릭터 수 : {myInfoState.character_count}</span>
-          <span className='flex items-center'>
-            레이드 횟수 :{' '}
-            <Image
-              src={'/카제로스레이드.png'}
-              alt='카제로스레이드  이미지'
-              width={30}
-              height={30}
-              style={{ width: '30px', height: '30px' }}
-              className='p-1'
-            />{' '}
-            {myInfoState.schedule_count} /{' '}
-            {myInfoState.character_count > 6 ? 18 : myInfoState.character_count * 3}
-          </span>
-
-          <span className='flex items-center'>
-            이번 주 레이드 골드 수익 :
-            <Image
-              src={GoldImage}
-              alt='골드 이미지'
-              width={30}
-              height={30}
-              style={{ width: '30px', height: '30px' }}
-              className='p-1'
-            />{' '}
-            {myInfoState.raid_gold}
-          </span>
-          <div className='flex items-center gap-4'>
-            <span>모집글 개설 : {myInfoState.raid_post_count} </span>
-            <span>모집글 신청 : {myInfoState.applicant_count}</span>
+            <span className='text-xl font-semibold'>{mainNickName}</span>
           </div>
 
-          <div className='mt-2 flex w-full items-center justify-center gap-4 text-white md:flex-row xl:mt-4 xl:w-full'>
+          {/* 정보 섹션 */}
+          <div className='mt-4 grid gap-3 text-sm'>
+            <div className='flex justify-between'>
+              <span>캐릭터 수:</span>
+              <span>{myInfoState.character_count}</span>
+            </div>
+            <div className='flex items-center justify-between'>
+              <span>레이드 횟수:</span>
+              <div className='flex items-center'>
+                <Image
+                  src={'/카제로스레이드.png'}
+                  alt='레이드 이미지'
+                  width={20}
+                  height={20}
+                  className='p-1'
+                />
+                {myInfoState.schedule_count} /{' '}
+                {myInfoState.character_count > 6 ? 18 : myInfoState.character_count * 3}
+              </div>
+            </div>
+            <div className='flex items-center justify-between'>
+              <span>이번 주 레이드 골드 수익:</span>
+              <div className='flex items-center'>
+                <Image src={GoldImage} alt='골드 이미지' width={20} height={20} className='p-1' />
+                {myInfoState.raid_gold}
+              </div>
+            </div>
+            {/* <div className='flex justify-between'>
+              <span>모집글 개설:</span>
+              <span>{myInfoState.raid_post_count}</span>
+            </div>
+            <div className='flex justify-between'>
+              <span>모집글 신청:</span>
+              <span>{myInfoState.applicant_count}</span>
+            </div> */}
+          </div>
+
+          {/* 버튼 섹션 */}
+          <div className='mt-4 flex justify-between'>
             <Link
               href={'/schedule'}
-              className='flex items-center justify-center rounded-md bg-gray-200 p-2 text-black shadow-lg'
+              className='mr-2 flex flex-1 items-center justify-center rounded-md bg-blue-500 p-2 text-sm font-medium text-white shadow-md hover:bg-blue-600'
             >
               일정 관리
             </Link>
-
             <Link
               href={'/raidpost/create?redirect=/'}
-              className='flex items-center justify-center rounded-md bg-gray-200 p-2 text-black shadow-lg'
+              className='ml-2 flex flex-1 items-center justify-center rounded-md bg-green-500 p-2 text-sm font-medium text-white shadow-md hover:bg-green-600'
             >
               모집 글 등록
             </Link>
           </div>
         </div>
       ) : (
-        <div className='flex h-full w-full flex-col items-center justify-center text-white'>
+        <div className='flex h-full w-full items-center justify-center text-white'>
           <span>** 로그인 해주세요 **</span>
         </div>
       )}

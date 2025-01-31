@@ -1,10 +1,7 @@
 'use client'
 import Image from 'next/image'
-import Clock from '@image/icon/clock.svg'
-import Fire from '@image/icon/fire.svg'
+// import Clock from '@image/icon/clock.svg'
 import React, { useEffect, useState } from 'react'
-import Pagination from '@/components/utils/pagination'
-import { usePageination } from '@/store/pageinationStore'
 import { convertToKoreanTime2 } from '@/components/utils/converToKoreanTime'
 import GoldImage from '@image/asset/골드.png'
 
@@ -24,20 +21,6 @@ interface Props {
 
 export default function MainMyPostsSchedule({ userId }: Props) {
   const [todayPostsRows, setTodayPostsRows] = useState<TodaySchedule[]>([])
-  const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
-    usePageination()
-
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = todayPostsRows.slice(indexOfFirstItem, indexOfLastItem)
-
-  useEffect(() => {
-    if (todayPostsRows) {
-      setDataLength(todayPostsRows.length)
-      setCurrentPage(1)
-      setItemsPerPage(5)
-    }
-  }, [todayPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   useEffect(() => {
     const fetchMainMyPostsSchedule = async (userId: string) => {
@@ -69,69 +52,49 @@ export default function MainMyPostsSchedule({ userId }: Props) {
   }, [userId])
 
   return (
-    <div className='flex h-full w-full flex-col md:w-1/2'>
-      <div className='bg-[#f9fafb]'>
-        <span className='rounded-t-md bg-zinc-700 px-2 pb-1 text-sm text-white'>today 일정</span>
-      </div>
-      <div className='h-full rounded-b-md rounded-r-md bg-gray-300'>
-        <div className='grid grid-cols-8 rounded-tr-md bg-zinc-700 px-1 text-white'>
-          <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Fire className='h-4 w-4' />
-            레이드
-          </div>
-          <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            캐릭터
-          </div>
-          <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Clock className='h-4 w-4' />
-            시간
-          </div>
-          <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Image
-              src={GoldImage}
-              alt='골드 이미지'
-              width={20}
-              height={20}
-              style={{ width: '20px', height: '20px' }}
-            />
-            골드
-          </div>
-        </div>
-        <div className='mt-2 flex w-full flex-col gap-3 p-1'>
-          {currentItems.map((item, index) => (
+    <div className='flex h-[350px] w-full flex-col rounded-lg bg-gray-900 p-4 shadow-lg md:h-[330px]'>
+      {/* 상단 헤더 */}
+      <div className='mb-2 text-sm font-bold text-white'>오늘의 일정</div>
+
+      {/* 스크롤 가능한 목록 */}
+      <div className='custom-scrollbar space-y-3 overflow-y-auto overflow-x-hidden p-2'>
+        {todayPostsRows.length === 0 ? (
+          <div className='text-center text-gray-400'>오늘의 일정이 없습니다.</div>
+        ) : (
+          todayPostsRows.map((item, index) => (
             <div
               key={index}
-              className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
+              className='flex flex-col rounded-lg bg-gray-800 p-3 shadow-sm transition-transform hover:scale-[1.02] hover:shadow-md'
             >
-              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.raid_name} {item.raid_level}
-                </span>
+              {/* 레이드 이름과 시간 */}
+              <div className='flex items-center justify-between text-sm'>
+                <div className='font-medium text-white'>
+                  {item.raid_name} <span className='text-gray-400'>({item.raid_level})</span>
+                </div>
+                {/* 골드 정보 */}
+                <div className='mt-2 flex items-center justify-end font-semibold text-yellow-400'>
+                  <Image src={GoldImage} alt='골드 아이콘' width={20} height={20} />
+                  <span className='ml-2'>{item.raid_gold}</span>
+                </div>
               </div>
-              <div className='col-span-3 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <span className='flex overflow-hidden truncate whitespace-nowrap'>
+
+              {/* 캐릭터 정보 */}
+              <div className='mt-1 flex items-center justify-between'>
+                <div className='flex items-center gap-3'>
                   <Image
                     src={item.class_icon_url}
-                    alt='아이콘'
-                    width={100}
-                    height={100}
-                    className='h-6 w-6'
+                    alt='캐릭터 아이콘'
+                    width={24}
+                    height={24}
+                    className='rounded-full border border-gray-700 bg-gray-900 shadow-sm'
                   />
-                  {item.character_name}
-                </span>
-              </div>
-              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.schedule_time}
-                </span>
-              </div>
-              <div className='col-span-1 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_gold}</span>
+                  <div className='text-sm font-medium text-white'>{item.character_name}</div>
+                </div>
+                <span className='text-xs text-gray-400'>{item.schedule_time}</span>
               </div>
             </div>
-          ))}
-          <Pagination />
-        </div>
+          ))
+        )}
       </div>
     </div>
   )
