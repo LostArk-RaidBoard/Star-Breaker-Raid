@@ -1,12 +1,8 @@
 'use client'
 import Image from 'next/image'
 import Clock from '@image/icon/clock.svg'
-import Fire from '@image/icon/fire.svg'
-import Megaphone from '@image/icon/megaphone.svg'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { usePageinationSub } from '@/store/pageinationSubStore'
-import PaginationSub from '@/components/utils/paginationSub'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
 
 interface RaidPost {
@@ -28,21 +24,6 @@ interface RaidPost {
 
 export default function MainTeacherPosts() {
   const [teacherPostsRows, setTeacherPostsRows] = useState<RaidPost[]>([])
-
-  const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
-    usePageinationSub()
-
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = teacherPostsRows.slice(indexOfFirstItem, indexOfLastItem)
-
-  useEffect(() => {
-    if (teacherPostsRows) {
-      setDataLength(teacherPostsRows.length)
-      setCurrentPage(1)
-      setItemsPerPage(5)
-    }
-  }, [teacherPostsRows, setDataLength, setCurrentPage, setItemsPerPage])
 
   useEffect(() => {
     const fetchTeacherPosts = async () => {
@@ -71,61 +52,52 @@ export default function MainTeacherPosts() {
   }, [])
 
   return (
-    <div className='flex h-full w-full flex-col md:w-1/2'>
-      <div className='bg-[#f9fafb]'>
-        <span className='rounded-t-md bg-slate-700 px-2 pb-1 text-sm text-white'>인증 레이드</span>
-      </div>
-      <div className='h-full rounded-b-md rounded-r-md bg-gray-300'>
-        <div className='grid grid-cols-8 rounded-tr-md bg-slate-700 px-1 text-white'>
-          <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Fire className='h-4 w-4' />
-            레이드
-          </div>
-          <div className='col-span-2 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Megaphone className='h-4 w-4' /> 공대장
-          </div>
-          <div className='col-span-3 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            <Clock className='h-4 w-4' />
-            시간
-          </div>
-          <div className='col-span-1 flex items-center justify-center gap-1 overflow-hidden whitespace-nowrap px-1'>
-            인원
-          </div>
-        </div>
-        <div className='mt-2 flex w-full flex-col gap-3 p-1'>
-          {currentItems.map((item, key) => (
-            <Link
-              key={key}
-              href={`/raidpost/${item.post_id}?redirect=/`}
-              className='grid h-9 grid-cols-8 rounded-md border border-gray-900 bg-gray-100 p-1'
-            >
-              <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.raid_name} {item.raid_level}
-                </span>
+    <div className='flex h-[350px] w-full flex-col rounded-lg bg-gray-900 p-4 shadow-lg md:h-[330px]'>
+      {/* 상단 헤더 */}
+      <div className='mb-2 text-sm font-bold text-white'>개설된 레이드</div>
+
+      {/* 레이드 목록 */}
+      <div className='custom-scrollbar space-y-3 overflow-y-auto overflow-x-hidden p-3'>
+        {teacherPostsRows.map((item, key) => (
+          <Link
+            key={key}
+            href={`/raidpost/${item.post_id}?redirect=/`}
+            className='flex flex-col gap-2 rounded-lg bg-gray-800 p-3 shadow-sm transition-transform hover:scale-105 hover:shadow-md'
+          >
+            {/* 레이드 이름 및 레벨 */}
+            <div className='flex items-center justify-between text-sm'>
+              <div className='font-medium text-white'>
+                {item.raid_name} <span className='text-gray-400'>({item.raid_level})</span>
               </div>
-              <div className='col-span-2 flex w-full items-center justify-center gap-1 overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <Image
-                  src={item.character_classicon}
-                  alt='아이콘'
-                  width={100}
-                  height={100}
-                  className='h-6 w-6'
-                />
-                <span className='overflow-hidden truncate whitespace-nowrap'>{item.nickname}</span>
+              <div className='rounded-full bg-blue-500 px-2 py-0.5 text-xs text-white'>
+                {item.raid_type}
               </div>
-              <div className='col-span-3 flex items-center justify-center overflow-hidden whitespace-nowrap border-r border-gray-500 px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
+            </div>
+
+            {/* 캐릭터 정보 */}
+            <div className='flex items-center gap-2 text-sm'>
+              <Image
+                src={item.character_classicon}
+                alt='아이콘'
+                width={24}
+                height={24}
+                className='rounded-full border border-gray-700 bg-gray-900 shadow-sm'
+              />
+              <span className='truncate text-gray-300'>{item.nickname}</span>
+            </div>
+
+            {/* 시간 및 인원 */}
+            <div className='flex justify-between text-xs text-gray-400'>
+              <div className='flex items-center gap-1'>
+                <Clock className='h-4 w-4 text-gray-500' /> {item.raid_time}
               </div>
-              <div className='col-span-1 flex items-center justify-center overflow-ellipsis whitespace-nowrap px-1'>
-                <span className='overflow-hidden truncate whitespace-nowrap'>
-                  {item.approval}/{item.raid_limitperson}
-                </span>
+              <div>
+                <span className='font-medium text-gray-300'>인원:</span> {item.approval}/
+                {item.raid_limitperson}
               </div>
-            </Link>
-          ))}
-          <PaginationSub />
-        </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   )

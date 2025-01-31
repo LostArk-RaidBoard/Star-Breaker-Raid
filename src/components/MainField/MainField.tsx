@@ -16,19 +16,28 @@ export default async function MainField() {
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-center'>
-      <div className='flex h-[880px] w-full flex-col gap-4 md:h-[550px] xl:h-[330px] xl:flex-row'>
-        <div className='relative z-50 flex h-[210px] w-full grow flex-col justify-start rounded-md bg-gray-900 p-2 shadow-lg md:h-[220px] xl:h-full xl:w-[400px] xl:p-4'>
+      <div className='flex w-full flex-col gap-6 xl:h-[330px] xl:flex-row'>
+        {/* 나의 정보 섹션 */}
+        <div className='relative z-50 flex h-[300px] w-full rounded-lg bg-gray-900 p-4 shadow-lg md:h-[280px] xl:h-full xl:w-[400px]'>
           <MainMyInfo />
         </div>
 
-        <div className='flex h-[650px] w-full flex-col gap-4 md:h-[330px] md:flex-row xl:h-full'>
-          <MainTeacherPosts />
+        {/* 오늘의 일정 및 인증 레이드 섹션 */}
+        <div className='flex w-full flex-col gap-6 md:flex-row xl:flex-grow'>
+          {/* 오늘의 일정 */}
           <MainMyPostsSchedule userId={userId} />
+
+          {/* 인증 레이드 */}
+          <MainTeacherPosts />
         </div>
       </div>
+
+      {/* 로아 관련 사이트 */}
       <div className='mt-8 h-24 w-full overflow-hidden'>
         <SiteLink />
       </div>
+
+      {/* 관심 레이드 */}
       <div className='mt-8 w-full'>
         <MainRaidGuide userId={userId} />
       </div>
