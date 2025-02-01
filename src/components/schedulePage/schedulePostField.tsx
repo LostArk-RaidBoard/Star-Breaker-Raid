@@ -158,7 +158,7 @@ export default async function SchedulePostField() {
   return (
     <div className='flex w-full flex-col'>
       <ScheduleWeek weekSchedule={weekSchedule} userId={userId} characterName={characterName} />
-      <div className='mt-4 flex flex-col gap-4 rounded-md border border-gray-400 p-4 shadow-lg md:h-[400px] md:flex-row'>
+      <div className='mt-4 flex flex-col gap-4 md:flex-row'>
         <ScheduleApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
         <ScheduleCreatePost createPostGet={createPostGet} />
       </div>

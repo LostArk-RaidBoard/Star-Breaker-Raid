@@ -34,9 +34,12 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
 
   const dayContentHandler = (index: number, value: boolean) => {
     const updatedList = homeworkExpeditionList
+    if (index === 0) return
+
     updatedList.daycontent[index] = !value
     setHomeworkExpeditionList(updatedList)
   }
+
   useEffect(() => {
     setHomeworkExpeditionList(homeworkExpedition)
   }, [homeworkExpedition, setHomeworkExpeditionList])

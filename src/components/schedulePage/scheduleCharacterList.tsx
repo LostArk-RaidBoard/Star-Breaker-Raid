@@ -65,7 +65,7 @@ export default function ScheduleCharacterList({
   return (
     <div className='mt-4 flex flex-col'>
       <div className='flex items-center justify-between'>
-        <span className='text-lg font-semibold'>• 캐릭별 주간 레이드</span>
+        <span className='text-lg font-extrabold text-gray-900'>캐릭별 주간 레이드</span>
         <button className='flex items-center justify-center gap-2' onClick={hiddenHandler}>
           <span className={`${hidden ? 'hidden' : ''} text-lg`}>접기</span>
           <span className={`${hidden ? '' : 'hidden'} text-lg`}>열기</span>
@@ -140,7 +140,7 @@ export default function ScheduleCharacterList({
 
                   {/* 레이드 이름 */}
                   <td className='border border-gray-300 px-4 py-3 text-sm text-gray-700'>
-                    {data.raidNames.join(', ')}
+                    {data.raidNames.join(' | ')}
                   </td>
                 </tr>
               ))}

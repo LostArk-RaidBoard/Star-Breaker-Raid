@@ -78,7 +78,7 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
   return (
     <div className='rounded-md border border-gray-400 p-4 shadow-lg'>
       <div className='mt-4 flex w-full flex-col justify-between sm:flex-row'>
-        <span className='text-lg font-semibold'>• 주간 레이드 일정</span>
+        <span className='text-lg font-extrabold text-gray-900'>주간 레이드 일정</span>
         <div className='flex items-center justify-between gap-4 sm:justify-center'>
           <div className='flex items-center gap-1'>
             <Image
@@ -105,8 +105,8 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
                   key={day}
                   className={`table-cell w-[170px] p-3 text-center font-bold ${
                     index === 3 || index === 4
-                      ? 'bg-red-200 text-red-700'
-                      : 'bg-gray-200 text-gray-700'
+                      ? 'bg-red-400 text-white' // 주말 강조 색상
+                      : 'bg-slate-800 text-gray-100' // 평일 기본 색상
                   }`}
                 >
                   {day}
