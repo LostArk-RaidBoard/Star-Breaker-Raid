@@ -38,6 +38,9 @@ export default function MyInfoNickName({ userId }: Props) {
       if (response.ok) {
         setMessage(data.message)
         myInfoTage()
+        setTimeout(() => {
+          setMessage('')
+        }, 3000)
         return
       } else {
         setMessage(data.message)
@@ -50,27 +53,39 @@ export default function MyInfoNickName({ userId }: Props) {
     return
   }
   return (
-    <div className='w-full rounded-md border border-gray-400 p-4 shadow-lg'>
-      <span className='text-lg font-semibold'>• 닉네임 설정</span>
-      <form className='mt-2 flex w-full flex-col' onSubmit={nickNameHandler}>
-        <span className='overflow-hidden truncate whitespace-nowrap'>닉네임 입력해 주세요</span>
+    <div className='flex w-full flex-col rounded-lg border border-gray-400 bg-white p-6 shadow-lg'>
+      <h2 className='mb-4 text-xl font-bold text-gray-900'>닉네임 설정</h2>
+
+      <form className='flex flex-col space-y-4' onSubmit={nickNameHandler}>
+        {/* 닉네임 안내 메시지 */}
+        <span className='text-sm text-gray-600'>새 닉네임을 입력해 주세요</span>
+
+        {/* 입력 필드 */}
         <InputLayout
           setType={'text'}
-          setName={'text'}
+          setName={'nickname'}
           setPlaceholder={'닉네임 입력'}
-          setCSS={' mt-2 h-12 rounded-md'}
+          setCSS={'h-12 rounded-md p-3 text-base '}
           setValue={setNickName}
           value={nickName}
         />
+
+        {/* 메시지 출력 */}
         <span
-          className={`${message.length === 0 ? 'hidden' : 'block'} mt-1 flex justify-center overflow-hidden truncate whitespace-nowrap ${message === '설정 완료' ? 'text-black' : 'text-red-500'}`}
+          className={`${
+            message.length === 0 ? 'hidden' : 'block'
+          } text-center text-sm font-medium ${
+            message === '설정 완료' ? 'text-blue-500' : 'text-red-500'
+          }`}
         >
           {message}
         </span>
-        <div className='flex w-full justify-center'>
+
+        {/* 설정 버튼 */}
+        <div className='flex justify-center'>
           <button
-            type='submit' // 버튼을 폼 제출로 설정
-            className='mt-2 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
+            type='submit'
+            className='w-28 rounded-md bg-gray-900 py-2 text-sm font-semibold text-white hover:bg-gray-500'
           >
             설정
           </button>

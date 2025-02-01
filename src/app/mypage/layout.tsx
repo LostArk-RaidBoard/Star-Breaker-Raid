@@ -12,7 +12,7 @@ export default function MypageLayout({
     <>
       <HeaderField />
       <Section>
-        <main className='flex min-h-screen w-full flex-col gap-4 sm:flex-row'>
+        <main className='flex min-h-screen w-full flex-col gap-3 sm:flex-row'>
           <MypageMenu />
           {children}
         </main>

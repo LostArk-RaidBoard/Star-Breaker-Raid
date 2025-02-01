@@ -13,6 +13,7 @@ export default function UserDelete({ userId }: Props) {
   const [message, setMessage] = useState('')
 
   const handlerDelete = async () => {
+    setInputDelete('')
     if (userId === '') {
       setMessage('로그인 해주세요')
       return
@@ -45,17 +46,19 @@ export default function UserDelete({ userId }: Props) {
     }
   }
   return (
-    <div className='flex w-full flex-col rounded-md border border-gray-400 p-4 shadow-lg'>
-      <span className='text-lg font-semibold'>• 회원 탈퇴</span>
-      <div className='mt-2 flex w-full flex-col'>
-        <span className='overflow-hidden whitespace-nowrap'>
+    <div className='flex w-full flex-col rounded-lg border border-gray-400 bg-white p-6 shadow-lg'>
+      <span className='mb-4 text-xl font-bold text-gray-900'>회원 탈퇴</span>
+
+      <div className='flex flex-col space-y-4'>
+        <span className='text-sm text-gray-600'>
           &#39;탈퇴하기&#39; 입력 후 탈퇴 버튼을 눌러주세요
         </span>
+
         <InputLayout
           setType={'text'}
           setName={'text'}
-          setPlaceholder={'입력해 주세요'}
-          setCSS={'w-full mt-2 h-12 rounded-md'}
+          setPlaceholder={'탈퇴하기 입력해 주세요'}
+          setCSS={'h-12 rounded-md  p-3 text-base'}
           setValue={setInputDelete}
           value={inputDelete}
         />
@@ -64,9 +67,9 @@ export default function UserDelete({ userId }: Props) {
         >
           {message}
         </span>
-        <div className='flex w-full justify-center'>
+        <div className='flex justify-center'>
           <button
-            className='mt-2 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
+            className='w-28 rounded-md bg-gray-900 py-2 text-sm font-semibold text-white hover:bg-gray-500'
             onClick={handlerDelete}
           >
             탈퇴

@@ -66,7 +66,7 @@ export default async function MyInfoField() {
     myInfoData = await myInfoFetch(userId)
   }
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center gap-4'>
+    <div className='flex h-full w-full flex-col items-center justify-center gap-4 md:px-8'>
       {/* 내 정보 현황 */}
       <MyInfoComponent myInfoData={myInfoData} />
       {/* 닉네임 변경 */}
