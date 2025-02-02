@@ -47,170 +47,79 @@ export default function RaidPostList({ raidPost }: Props) {
   useEffect(() => {
     if (selectMenu === 'all') {
       setShowRaidPost(raidPost)
-    } else if (
-      selectMenu === '학원' ||
-      selectMenu === '트라이' ||
-      selectMenu === '클경' ||
-      selectMenu === '반숙' ||
-      selectMenu === '숙련'
-    ) {
-      const filteredPosts = raidPost.filter((post) => post.raid_type === selectMenu)
-      setShowRaidPost(filteredPosts)
     } else {
-      const filteredPosts = raidPost.filter((post) => post.post_position === selectMenu)
+      const filteredPosts = raidPost.filter(
+        (post) => post.raid_type === selectMenu || post.post_position === selectMenu,
+      )
       setShowRaidPost(filteredPosts)
     }
   }, [selectMenu, raidPost])
 
   return (
     <div className='flex h-full w-full flex-col'>
-      <div
-        id='Postbar'
-        className='flex h-20 w-full flex-col items-center justify-center border-y-2 border-gray-900 bg-gray-300 sm:h-12 sm:flex-row sm:justify-start sm:px-3'
-      >
-        {/* 모바일 버전 첫 번째줄 메뉴 */}
-        <div className='flex flex-row items-center'>
+      {/* 필터 버튼 메뉴 */}
+      <div className='flex flex-wrap items-center justify-center gap-2 p-4 sm:justify-start'>
+        {['all', 'teacher', 'user', '학원', '트라이', '클경', '반숙', '숙련'].map((menu) => (
           <button
-            aria-label='전체 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'all' ? 'bg-gray-900 text-white' : ''} `}
-            onClick={() => {
-              setSelectMenu('all')
-            }}
+            key={menu}
+            aria-label={`${menu} 선택 버튼`}
+            className={`rounded-lg px-4 py-2 text-sm font-medium ${
+              selectMenu === menu ? 'bg-blue-600 text-white' : 'bg-gray-900 text-white'
+            } transition hover:bg-blue-500 hover:text-white`}
+            onClick={() => setSelectMenu(menu)}
           >
-            전체
+            {menu === 'all' ? '전체' : menu}
           </button>
-          <button
-            aria-label='선생님 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'teacher' ? 'bg-gray-900 text-white' : ''} `}
-            onClick={() => {
-              setSelectMenu('teacher')
-            }}
-          >
-            선생님
-          </button>
-          <button
-            aria-label='유저 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === 'user' ? 'bg-gray-900 text-white' : ''} `}
-            onClick={() => {
-              setSelectMenu('user')
-            }}
-          >
-            유저
-          </button>
-          <button
-            aria-label='학원 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '학원' ? 'bg-gray-900 text-white' : ''} `}
-            onClick={() => {
-              setSelectMenu('학원')
-            }}
-          >
-            학원
-          </button>
-        </div>
-        {/* 모바일 버전에서 두 번째 메뉴  */}
-        <div className='flex flex-row items-center'>
-          <button
-            aria-label='트라이 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '트라이' ? 'bg-gray-900 text-white' : ''} `}
-            onClick={() => {
-              setSelectMenu('트라이')
-            }}
-          >
-            트라이
-          </button>
-          <button
-            aria-label='클경 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '클경' ? 'bg-gray-900 text-white' : ''} `}
-            onClick={() => {
-              setSelectMenu('클경')
-            }}
-          >
-            클경
-          </button>
-          <button
-            aria-label='반숙 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '반숙' ? 'bg-gray-900 text-white' : ''} `}
-            onClick={() => {
-              setSelectMenu('반숙')
-            }}
-          >
-            반숙
-          </button>
-          <button
-            aria-label='숙련 선택 버튼'
-            className={`flex w-20 items-center justify-center rounded-md text-lg ${selectMenu === '숙련' ? 'bg-gray-900 text-white' : ''} `}
-            onClick={() => {
-              setSelectMenu('숙련')
-            }}
-          >
-            숙련
-          </button>
-        </div>
-      </div>
-      <div className='mb-4 flex h-full w-full flex-col items-center'>
-        <div className='grid h-12 w-full grid-cols-6 border-b border-gray-400 font-semibold sm:grid-cols-9'>
-          <div className='flex items-center justify-center'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>칭호</span>
-          </div>
-          <div className='flex items-center justify-center'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>공대장</span>
-          </div>
-          <div className='flex hidden items-center justify-center sm:flex'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>공대장 캐릭터</span>
-          </div>
-          <div className='flex hidden items-center justify-center sm:flex'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>타입</span>
-          </div>
-          <div className='col-span-2 flex items-center justify-center'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>레이드 명칭</span>
-          </div>
-
-          <div className='col-span-2 flex items-center justify-center'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>레이드 시간</span>
-          </div>
-          <div className='flex hidden items-center justify-center sm:flex'>
-            <span className='overflow-hidden truncate whitespace-nowrap'>승인 인원 (대기)</span>
-          </div>
-        </div>
-        {currentItems.map((item: RaidPost) => (
-          <Link
-            href={`/raidpost/${item.post_id}?redirect=/raidpost`}
-            key={item.post_id}
-            className='grid h-12 w-full grid-cols-6 border-b border-gray-400 text-sm hover:bg-gray-200 sm:grid-cols-9 sm:text-base'
-          >
-            <div className='flex items-center justify-center overflow-hidden whitespace-nowrap'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>
-                {item.post_position === 'teacher' ? 'Teacher' : 'User'}
-              </span>
-            </div>
-            <div className='flex items-center justify-center overflow-hidden whitespace-nowrap'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>{item.nickname}</span>
-            </div>
-            <div className='flex hidden items-center justify-center overflow-hidden whitespace-nowrap sm:flex'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>
-                {item.character_name}
-              </span>
-            </div>
-            <div className='flex hidden items-center justify-center overflow-hidden whitespace-nowrap sm:flex'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_type}</span>
-            </div>
-            <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>
-                {item.raid_name} {item.raid_level} {item.raid_gateway}
-              </span>
-            </div>
-
-            <div className='col-span-2 flex items-center justify-center overflow-hidden whitespace-nowrap'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>{item.raid_time}</span>
-            </div>
-            <div className='flex hidden items-center justify-center overflow-hidden whitespace-nowrap sm:flex'>
-              <span className='overflow-hidden truncate whitespace-nowrap'>
-                {item.approval}({item.rejected_count}) / {item.raid_limitperson}
-              </span>
-            </div>
-          </Link>
         ))}
       </div>
+
+      {/* 테이블 */}
+      <div className='mb-4 w-full overflow-hidden rounded-lg shadow-lg'>
+        {/* 테이블 헤더 */}
+        <div className='grid h-12 w-full grid-cols-6 bg-gray-800 text-sm font-semibold text-white sm:grid-cols-9'>
+          <div className='flex items-center justify-center'>칭호</div>
+          <div className='hidden items-center justify-center sm:flex'>공대장</div>
+          <div className='hidden items-center justify-center sm:flex'>캐릭터</div>
+          <div className='flex items-center justify-center'>타입</div>
+          <div className='col-span-2 flex items-center justify-center'>레이드 명칭</div>
+          <div className='col-span-2 flex items-center justify-center'>레이드 시간</div>
+          <div className='hidden items-center justify-center sm:flex'>승인 인원</div>
+        </div>
+
+        {/* 테이블 데이터 */}
+        {currentItems.length > 0 ? (
+          currentItems.map((item: RaidPost, index) => (
+            <Link
+              href={`/raidpost/${item.post_id}?redirect=/raidpost`}
+              key={item.post_id}
+              className={`grid h-12 w-full grid-cols-6 text-sm text-gray-900 transition sm:grid-cols-9 ${
+                index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+              } hover:bg-blue-100`}
+            >
+              <div className='flex items-center justify-center'>{item.post_position}</div>
+              <div className='hidden items-center justify-center sm:flex'>{item.nickname}</div>
+              <div className='hidden items-center justify-center sm:flex'>
+                {item.character_name}
+              </div>
+              <div className='flex items-center justify-center'>{item.raid_type}</div>
+              <div className='col-span-2 flex items-center justify-center gap-2'>
+                {item.raid_name} {item.raid_level}
+                <span className='hidden sm:block'>{item.raid_gateway}</span>
+              </div>
+              <div className='col-span-2 flex items-center justify-center'>{item.raid_time}</div>
+              <div className='hidden items-center justify-center sm:flex'>
+                {item.approval}({item.rejected_count})/{item.raid_limitperson}
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div className='flex items-center justify-center py-4 text-gray-500'>
+            해당 모집 글이 없습니다.
+          </div>
+        )}
+      </div>
+
+      {/* 페이지네이션 */}
       <PaginationSub />
     </div>
   )

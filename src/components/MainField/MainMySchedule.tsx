@@ -64,7 +64,7 @@ export default function MainMyPostsSchedule({ userId }: Props) {
           todayPostsRows.map((item, index) => (
             <div
               key={index}
-              className='flex flex-col rounded-lg bg-gray-800 p-3 shadow-sm transition-transform hover:scale-[1.02] hover:shadow-md'
+              className='flex flex-col rounded-lg bg-gray-800 p-3 shadow-sm transition-transform hover:shadow-md'
             >
               {/* 레이드 이름과 시간 */}
               <div className='flex items-center justify-between text-sm'>

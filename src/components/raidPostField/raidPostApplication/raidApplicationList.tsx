@@ -65,7 +65,7 @@ export default function RaidApplicationList({
     setLoading(true)
     try {
       const res = await fetch(
-        `/api/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}&raid_name=${raid_name}`,
+        `/api/applicationAPI/applicationUpdate?postId=${postId}&userId=${userId}&characterName=${characterName}&characterCheck=${characterCheck}&raid_name=${raid_name}`,
         {
           method: 'POST',
           headers: {

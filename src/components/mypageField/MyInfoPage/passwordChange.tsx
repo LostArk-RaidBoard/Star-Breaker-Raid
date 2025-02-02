@@ -11,6 +11,7 @@ export default function PasswordChange({ userId }: Props) {
   const [message, setMessage] = useState('')
 
   const handlerChange = async (event: React.FormEvent<HTMLFormElement>) => {
+    setUserPassword('')
     event.preventDefault() // 폼 제출 기본 동작 방지
 
     if (userId === '') {
@@ -46,6 +47,10 @@ export default function PasswordChange({ userId }: Props) {
           setMessage(data.message)
           return
         }
+
+        setTimeout(() => {
+          setMessage('')
+        }, 3000)
       } else {
         setMessage(data.message)
       }
@@ -55,30 +60,33 @@ export default function PasswordChange({ userId }: Props) {
   }
 
   return (
-    <div className='w-full rounded-md border border-gray-400 p-4 shadow-lg'>
-      <span className='text-lg font-semibold'>• 비밀번호 변경</span>
+    <div className='flex w-full flex-col rounded-lg border border-gray-400 bg-white p-6 shadow-lg'>
+      <h2 className='mb-4 text-xl font-bold text-gray-900'>비밀번호 변경</h2>
 
-      <form className='mt-2 flex w-full flex-col' onSubmit={handlerChange}>
-        <span className='overflow-hidden truncate whitespace-nowrap'>
-          새 비밀번호를 입력해 주세요
-        </span>
+      <form className='flex flex-col space-y-4' onSubmit={handlerChange}>
+        <span className='text-sm text-gray-600'>새 비밀번호를 입력해 주세요</span>
+
         <InputLayout
           setType={'password'}
           setName={'password'}
           setPlaceholder={'비밀번호 최소 8 ~ 최대 32'}
-          setCSS={' mt-2 h-12 rounded-md'}
+          setCSS={'h-12 rounded-md  p-3 text-base'}
           setValue={setUserPassword}
           value={userPassword}
         />
+
         <span
-          className={`${message.length === 0 ? 'hidden' : 'block'} mt-1 flex justify-center overflow-hidden truncate whitespace-nowrap text-red-500`}
+          className={`${message.length === 0 ? 'hidden' : 'block'} text-center text-sm font-medium ${
+            message === '비밀번호 재설정 성공' ? 'text-blue-500' : 'text-red-500'
+          }`}
         >
           {message}
         </span>
-        <div className='flex w-full justify-center'>
+
+        <div className='flex justify-center'>
           <button
-            type='submit' // 버튼을 폼 제출로 설정
-            className='mt-2 w-24 rounded-md border bg-gray-900 p-1 px-2 text-white hover:bg-gray-500'
+            type='submit'
+            className='w-28 rounded-md bg-gray-900 py-2 text-sm font-semibold text-white hover:bg-gray-500'
           >
             변경
           </button>

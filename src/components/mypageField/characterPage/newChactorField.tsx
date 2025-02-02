@@ -101,9 +101,7 @@ export default function NewCharacterField({
   return (
     <div className={`mt-4 ${newHidden ? '' : 'hidden'} flex flex-col gap-4`}>
       <div className='flex flex-col items-center justify-start sm:flex-row'>
-        <span className='flex w-full items-center justify-start text-lg font-semibold sm:w-auto'>
-          • 추가 캐릭터
-        </span>
+        <h2 className='text-lg font-extrabold text-gray-900'>추가 캐릭터</h2>
       </div>
 
       {/* 새로운 캐릭터 그리드로 넣기 */}
