@@ -1,7 +1,7 @@
-import HeaderField from '@/components/header/headerField'
-import SchedulePostField from '@/components/schedulePage/schedulePostField'
-import Section from '@/components/utils/section'
 import React from 'react'
+import Section from '@/components/utils/section'
+import HeaderField from '@/components/header/headerField'
+import SchedulePageField from '@/components/schedulePage/SchedulePage'
 
 export default function SchedulePage() {
   return (
@@ -9,7 +9,7 @@ export default function SchedulePage() {
       <HeaderField />
       <Section>
         <main className='flex min-h-screen w-full flex-col items-center'>
-          <SchedulePostField />
+          <SchedulePageField />
         </main>
       </Section>
     </>

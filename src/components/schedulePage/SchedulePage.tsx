@@ -1,9 +1,9 @@
 import { auth } from '@/auth'
-import ScheduleApplicationPost from '@/components/schedulePage/scheduleApplicationPost'
-import ScheduleCreatePost from '@/components/schedulePage/scheduleCreatePost'
-import ScheduleWeek from '@/components/schedulePage/scheduleWeek'
 import CharacterSorted from '@/components/utils/characterSorted'
+import MyApplications from '@/components/schedulePage/MyApplications'
+import RaidWeekPlanner from '@/components/schedulePage/RaidWeekPlanner.'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
+import ManageCreatedPosts from '@/components/schedulePage/ManageCreatedPosts'
 
 import React from 'react'
 
@@ -136,7 +136,7 @@ const weekScheduleGetHandler = async (userId: string) => {
   }
 }
 
-export default async function SchedulePostField() {
+export default async function SchedulePageField() {
   const session = await auth()
   let userId = ''
   let applicationPostGet: RaidPost[] = []
@@ -157,10 +157,10 @@ export default async function SchedulePostField() {
 
   return (
     <div className='flex w-full flex-col'>
-      <ScheduleWeek weekSchedule={weekSchedule} userId={userId} characterName={characterName} />
+      <RaidWeekPlanner weekSchedule={weekSchedule} userId={userId} characterName={characterName} />
       <div className='mt-4 flex flex-col gap-4 md:flex-row'>
-        <ScheduleApplicationPost userId={userId} applicationPostGet={applicationPostGet} />
-        <ScheduleCreatePost createPostGet={createPostGet} />
+        <MyApplications userId={userId} applicationPostGet={applicationPostGet} />
+        <ManageCreatedPosts createPostGet={createPostGet} />
       </div>
     </div>
   )

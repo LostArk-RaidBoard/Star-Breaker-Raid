@@ -1,11 +1,9 @@
-import ScheduleCharacterList from '@/components/schedulePage/scheduleCharacterList'
-import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
-import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
-import AddScheduleButton from '@/components/button/addScheduleButton'
-import GoldImage from '@image/asset/골드.png'
-import { toZonedTime } from 'date-fns-tz'
-import Image from 'next/image'
 import React from 'react'
+import Image from 'next/image'
+import GoldImage from '@image/asset/골드.png'
+import ScheduleItems from '@/components/schedulePage/ScheduleItems'
+import AddScheduleButton from '@/components/button/addScheduleButton'
+import CharacterRaidSummary from '@/components/schedulePage/CharacterRaidSummary'
 
 interface Schedule {
   user_id: string
@@ -45,7 +43,7 @@ function getThisWeekWednesday6AM() {
   return thisWednesday
 }
 
-export default function ScheduleWeek({ weekSchedule, userId, characterName }: Props) {
+export default function RaidWeekPlanner({ weekSchedule, userId, characterName }: Props) {
   const startWednesday = getThisWeekWednesday6AM()
   // 요일별로 데이터를 분류
   const daysArray = Array.from({ length: 7 }, () => [] as Schedule[])
@@ -120,87 +118,25 @@ export default function ScheduleWeek({ weekSchedule, userId, characterName }: Pr
             {daysArray.map((dayItems, dayIndex) => (
               <div
                 key={`day-cell-${dayIndex}`}
-                className={`table-cell p-2 align-top ${dayIndex === 6 ? '' : 'border-r border-gray-300'} `}
+                className={`table-cell p-2 align-top ${dayIndex === 6 ? '' : 'border-r border-gray-300'}`}
               >
-                {dayItems?.map((item) => {
-                  const timeZone = 'Asia/Seoul'
-                  let bgColorClass = 'bg-gray-300'
-                  const raidTime = toZonedTime(item.schedule_time, timeZone)
-
-                  const raidDate = new Date(
-                    raidTime.getFullYear(),
-                    raidTime.getMonth(),
-                    raidTime.getDate(),
-                  )
-                  const today = toZonedTime(new Date(), timeZone)
-
-                  if (raidDate.getDate() === today.getDate()) {
-                    bgColorClass = 'bg-green-300'
-                  } else if (raidDate.getDate() > today.getDate()) {
-                    bgColorClass = 'bg-red-300'
-                  }
-
-                  return (
-                    <div
+                {dayItems.length > 0 ? (
+                  dayItems.map((item) => (
+                    <ScheduleItems
                       key={`${item.schedule_time}-${dayIndex}-${item.raid_name}`}
-                      className='mb-4 flex flex-col rounded-lg border border-gray-300 bg-white p-4 shadow-md'
-                    >
-                      {/* 상단 섹션: 레이드 이름과 레벨 */}
-                      <div className='mb-2 flex items-center justify-between'>
-                        <span
-                          className={`rounded-full px-3 py-1 text-sm font-semibold ${
-                            bgColorClass === 'bg-green-300'
-                              ? 'bg-green-200 text-green-800'
-                              : bgColorClass === 'bg-red-300'
-                                ? 'bg-red-200 text-red-800'
-                                : 'bg-gray-200 text-gray-800'
-                          }`}
-                        >
-                          {item.raid_name} {item.raid_level}
-                        </span>
-                        <DeleteScheduleButton
-                          characterName={item.character_name}
-                          raidName={item.raid_name}
-                          userId={item.user_id}
-                        />
-                      </div>
-
-                      {/* 캐릭터 이름 */}
-                      <div className='mb-2'>
-                        <span className='text-sm font-medium text-gray-800'>
-                          {item.character_name}
-                        </span>
-                      </div>
-
-                      {/* 시간 표시 */}
-                      <div className='mt-2 flex flex-col text-sm text-gray-700'>
-                        <span className='text-gray-500'>
-                          {raidTime.toLocaleDateString('ko-KR')}
-                        </span>
-                        <span className='flex'>
-                          {raidTime.getHours()}시 {raidTime.getMinutes()}분
-                        </span>
-                      </div>
-
-                      {/* 골드 체크박스 */}
-                      <div className='mt-2 flex items-center'>
-                        <ScheduleGoldCheckBox
-                          goldCheck={item.gold_check}
-                          characterName={item.character_name}
-                          raidName={item.raid_name}
-                          userId={item.user_id}
-                        />
-                      </div>
-                    </div>
-                  )
-                })}
+                      schedule={item}
+                    />
+                  ))
+                ) : (
+                  <div className='h-24'></div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <ScheduleCharacterList characterList={characterName} weekSchedule={weekSchedule} />
+      <CharacterRaidSummary characterList={characterName} weekSchedule={weekSchedule} />
       <p className='mt-2 text-sm'>
         * 이번 주 레이드 일정은 레이드 카운트와 골드 계산의 기준이 됩니다. 골드 체크가 완료되어야만
         골드가 합산되며, 메인 페이지에서 레이드 횟수로 추가됩니다.

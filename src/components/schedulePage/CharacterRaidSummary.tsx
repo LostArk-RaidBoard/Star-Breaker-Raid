@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useState } from 'react'
 import Image from 'next/image'
-import Under from '@image/icon/under.svg'
 import Up from '@image/icon/up.svg'
+import React, { useState } from 'react'
+import Under from '@image/icon/under.svg'
 import GoldImage from '@image/asset/골드.png'
 
 interface CharacterName {
@@ -23,15 +23,15 @@ interface Schedule {
   raid_gateway: string
 }
 
-interface ScheduleCharacterListProps {
+interface CharacterRaidSummaryProps {
   characterList: CharacterName[]
   weekSchedule: Schedule[]
 }
 
-export default function ScheduleCharacterList({
+export default function CharacterRaidSummary({
   characterList,
   weekSchedule,
-}: ScheduleCharacterListProps) {
+}: CharacterRaidSummaryProps) {
   const [hidden, setHidden] = useState(true)
 
   const hiddenHandler = () => {

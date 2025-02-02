@@ -3,10 +3,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import React, { useEffect } from 'react'
-
-import { usePageinationSub } from '@/store/pageinationSubStore'
-import PaginationSub from '@/components/utils/paginationSub'
 import { createPostTage, wePostTage } from '@/app/action'
+import PaginationSub from '@/components/utils/paginationSub'
+import { usePageinationSub } from '@/store/pageinationSubStore'
 
 interface RaidPost {
   post_id: number
@@ -26,7 +25,7 @@ type Props = {
   createPostGet: RaidPost[]
 }
 
-export default function ScheduleCreatePost({ createPostGet }: Props) {
+export default function ManageCreatedPosts({ createPostGet }: Props) {
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageinationSub()
 
@@ -115,7 +114,7 @@ export default function ScheduleCreatePost({ createPostGet }: Props) {
                       className='rounded-full border border-gray-300'
                     />
                     <span className='truncate text-sm font-medium text-gray-900'>
-                      제로부터다시시작하는창술
+                      {item.character_name}
                     </span>
                   </div>
 
