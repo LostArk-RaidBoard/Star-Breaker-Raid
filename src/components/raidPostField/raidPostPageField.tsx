@@ -53,25 +53,35 @@ export default async function RaidPostPageField() {
   const postAllposts = await fetchPostsAllFetch()
 
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center rounded-md'>
-      <div className='flex h-12 w-full items-center justify-end gap-4 sm:justify-between'>
-        <div className='flex hidden items-center gap-4 text-lg font-semibold sm:flex'>
+    <div className='flex h-full w-full flex-col'>
+      {/* 상단 헤더 */}
+      <div className='mb-6 flex items-center justify-between'>
+        {/* 좌측 팁 링크 */}
+        <div className='hidden items-center gap-2 text-lg font-medium text-gray-800 sm:flex'>
           <span>로아 팁 :</span>
-          <Link className='text-base font-medium' href={'/raidpost/tip/엘릭서'}>
+          <Link
+            href={'/raidpost/tip/엘릭서'}
+            scroll={false}
+            className='text-blue-600 hover:underline'
+          >
             엘릭서 옵션
           </Link>
         </div>
 
-        <div className='flex w-full justify-end gap-4 sm:w-auto'>
+        {/* 우측 버튼 그룹 */}
+        <div className='flex items-center gap-4'>
           <RevaildatePostTageButton />
           <Link
             href={'/raidpost/create?redirect=/raidpost'}
-            className='rounded-md bg-gray-900 p-2 px-4 text-white'
+            scroll={false}
+            className='rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-500'
           >
             모집 글 등록
           </Link>
         </div>
       </div>
+
+      {/* 모집 글 리스트 */}
       <RaidPostList raidPost={postAllposts} />
     </div>
   )

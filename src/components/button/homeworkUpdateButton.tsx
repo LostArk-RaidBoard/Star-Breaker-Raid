@@ -9,7 +9,7 @@ export default function HomeworkUpdateButton() {
   const { homeworkList } = useHomeworkStore()
   const { homeworkExpeditionList } = useHomeworkExpeditionStore()
   const [message, setMessage] = useState('')
-  const [state, setState] = useState(0)
+  const [keep, setKeep] = useState(false)
   const { data: session } = useSession()
 
   const contentList = {
@@ -18,16 +18,16 @@ export default function HomeworkUpdateButton() {
   }
 
   const UpdateHandler = async () => {
+    setKeep(true)
     if (!session || !session.user) {
       setMessage('로그인 해주세요.')
-      setState(2)
 
       return
     }
 
     if (session && session.user && session.user.nickName === '') {
       setMessage('넥네임이 없습니다.')
-      setState(2)
+
       return
     }
 
@@ -39,33 +39,40 @@ export default function HomeworkUpdateButton() {
         },
         body: JSON.stringify(contentList),
       })
+
       if (response.ok && response.status === 200) {
-        setState(1)
         homework()
         setMessage('저장 성공')
       } else {
-        setState(2)
         setMessage('저장 실패')
       }
     } catch (error) {
       console.error(error)
-      setState(2)
+
       setMessage('저장 실패')
     }
+
+    setKeep(false)
+    setTimeout(() => {
+      setMessage('')
+    }, 3000)
   }
   return (
-    <div className='flex w-full flex-col items-end'>
+    <div className='flex w-full flex-row items-center justify-end gap-4'>
+      <span
+        className={`${message.length > 0 ? 'block' : 'hidden'} ${message === '저장 성공' ? 'text-blue-500' : 'text-red-500'}`}
+      >
+        {message}
+      </span>
       <button
         className='rounded-md bg-gray-900 p-2 px-2 text-white hover:bg-gray-500'
+        disabled={keep}
         onClick={() => {
           UpdateHandler()
         }}
       >
         저장하기
       </button>
-
-      <span className={`${state === 1 ? 'block' : 'hidden'} text-blue-500`}>{message}</span>
-      <span className={`${state === 2 ? 'block' : 'hidden'} text-red-500`}>{message}</span>
     </div>
   )
 }

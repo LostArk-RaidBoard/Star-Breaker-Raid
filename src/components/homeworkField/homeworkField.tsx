@@ -71,130 +71,122 @@ export default async function HomeWorkField() {
       <HomeworkUpdateButton />
 
       <div className='flex flex-row items-center justify-between'>
-        <h3 className='text-lg font-semibold'>• 원정대 숙제</h3>
+        <h2 className='text-lg font-extrabold text-gray-900'>원정대 숙제</h2>
         {/* 원정대 체크 설명 */}
 
-        <p className='flex hidden flex-row items-center justify-end gap-2 sm:flex'>
-          <Image
-            src={
-              'https://cdn-lostark.game.onstove.com/uploadfiles/notice/67f271a84b4d488f8dfefc1ed5bbded2.png'
-            }
-            alt='생활 이미지'
-            width={20}
-            height={20}
-            style={{
-              width: '20px',
-              height: '20px',
-            }}
-            priority
-          />
-          <span> 생활,</span>
+        <div className='hidden items-center justify-end gap-4 sm:flex'>
+          <div className='flex items-center gap-2'>
+            <Image
+              src={
+                'https://cdn-lostark.game.onstove.com/uploadfiles/notice/67f271a84b4d488f8dfefc1ed5bbded2.png'
+              }
+              alt='생활 이미지'
+              width={20}
+              height={20}
+              className='h-5 w-5'
+              priority
+            />
+            <span className='text-sm font-medium text-gray-700'>생활</span>
+          </div>
+          <div className='flex items-center gap-2'>
+            <Image
+              src={
+                'https://cdn-lostark.game.onstove.com/uploadfiles/notice/f02b26325c624484a4dd4981561c2ab4.png'
+              }
+              alt='영지 이미지'
+              width={20}
+              height={20}
+              className='h-5 w-5'
+              priority
+            />
+            <span className='text-sm font-medium text-gray-700'>영지</span>
+          </div>
+          <div className='flex items-center gap-2'>
+            <Image
+              src={
+                'https://cdn-lostark.game.onstove.com/uploadfiles/notice/cc62912424ee4eb7ad5b233c546ff35a.png'
+              }
+              alt='day콘텐츠 카게 이미지'
+              width={20}
+              height={20}
+              className='h-5 w-5'
+              priority
+            />
 
-          <Image
-            src={
-              'https://cdn-lostark.game.onstove.com/uploadfiles/notice/f02b26325c624484a4dd4981561c2ab4.png'
-            }
-            alt='영지 이미지'
-            width={20}
-            height={20}
-            style={{
-              width: '20px',
-              height: '20px',
-            }}
-            priority
-          />
-          <span>영지,</span>
-
-          <Image
-            src={
-              'https://cdn-lostark.game.onstove.com/uploadfiles/notice/cc62912424ee4eb7ad5b233c546ff35a.png'
-            }
-            alt='day콘텐츠 카게 이미지'
-            width={20}
-            height={20}
-            style={{
-              width: '20px',
-              height: '20px',
-            }}
-            priority
-          />
-          <Image
-            src={
-              'https://cdn-lostark.game.onstove.com/uploadfiles/notice/f2d851bf847a486a81bb44be5c938de0.png'
-            }
-            alt='day콘텐츠 필보 이미지'
-            width={20}
-            height={20}
-            style={{
-              width: '20px',
-              height: '20px',
-            }}
-            priority
-          />
-          <span>카오스케이드, 필드 보스</span>
-        </p>
+            <span className='text-sm font-medium text-gray-700'>카오스게이드</span>
+          </div>
+          <div className='flex items-center gap-2'>
+            <Image
+              src={
+                'https://cdn-lostark.game.onstove.com/uploadfiles/notice/f2d851bf847a486a81bb44be5c938de0.png'
+              }
+              alt='day콘텐츠 필보 이미지'
+              width={20}
+              height={20}
+              className='h-5 w-5'
+              priority
+            />
+            <span className='text-sm font-medium text-gray-700'>필드 보스</span>
+          </div>
+        </div>
       </div>
       <HomeworkExpedition homeworkExpeditionData={homeworkExpeditonGet} />
 
       <div className='mt-3 flex flex-row items-center justify-between'>
-        <h3 className='text-lg font-semibold'>• 일일 숙제</h3>
+        <h2 className='text-lg font-extrabold text-gray-900'>일일 숙제</h2>
+        <div className='hidden items-center justify-end gap-4 sm:flex'>
+          {/* 길드 */}
+          <div className='flex items-center gap-2'>
+            <Image
+              src={GuildImage}
+              alt='길드 이미지'
+              width={18}
+              height={18}
+              className='h-5 w-5'
+              priority
+            />
+            <span className='text-sm font-medium text-gray-700'>길드</span>
+          </div>
 
-        <p className='flex hidden flex-row items-center justify-end gap-2 sm:flex'>
-          <Image
-            src={GuildImage}
-            alt='길드 이미지'
-            width={20}
-            height={20}
-            style={{
-              width: '18px',
-              height: '18px',
-            }}
-            priority
-          />
-          <span>길드,</span>
-          <Image
-            src={
-              'https://cdn-lostark.game.onstove.com/uploadfiles/notice/2d6d1f84c0d2492e963629a784925092.png'
-            }
-            alt='카던 이미지'
-            width={20}
-            height={20}
-            style={{
-              width: '20px',
-              height: '20px',
-            }}
-            priority
-          />
-          <span>카던,</span>
-          <Image
-            src={
-              'https://cdn-lostark.game.onstove.com/uploadfiles/notice/204f46e984a64c71b5a059d3c9fcea2b.png'
-            }
-            alt='가디언 이미지'
-            width={20}
-            height={20}
-            style={{
-              width: '20px',
-              height: '20px',
-            }}
-            priority
-          />
-          <span>가디언,</span>
-          <Image
-            src={
-              'https://cdn-lostark.game.onstove.com/uploadfiles/notice/de4dd870c84240bb8beebde650ed18d0.png'
-            }
-            alt='에포나 이미지'
-            width={20}
-            height={20}
-            style={{
-              width: '20px',
-              height: '20px',
-            }}
-            priority
-          />
-          <span>에포나</span>
-        </p>
+          {/* 카던 */}
+          <div className='flex items-center gap-2'>
+            <Image
+              src='https://cdn-lostark.game.onstove.com/uploadfiles/notice/2d6d1f84c0d2492e963629a784925092.png'
+              alt='카던 이미지'
+              width={20}
+              height={20}
+              className='h-5 w-5'
+              priority
+            />
+            <span className='text-sm font-medium text-gray-700'>카던</span>
+          </div>
+
+          {/* 가디언 */}
+          <div className='flex items-center gap-2'>
+            <Image
+              src='https://cdn-lostark.game.onstove.com/uploadfiles/notice/204f46e984a64c71b5a059d3c9fcea2b.png'
+              alt='가디언 이미지'
+              width={20}
+              height={20}
+              className='h-5 w-5'
+              priority
+            />
+            <span className='text-sm font-medium text-gray-700'>가디언</span>
+          </div>
+
+          {/* 에포나 */}
+          <div className='flex items-center gap-2'>
+            <Image
+              src='https://cdn-lostark.game.onstove.com/uploadfiles/notice/de4dd870c84240bb8beebde650ed18d0.png'
+              alt='에포나 이미지'
+              width={20}
+              height={20}
+              className='h-5 w-5'
+              priority
+            />
+            <span className='text-sm font-medium text-gray-700'>에포나</span>
+          </div>
+        </div>
       </div>
       <HomeworkSetTable homeworkSortedList={homeworkSortedList} />
     </div>
