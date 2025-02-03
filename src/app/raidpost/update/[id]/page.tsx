@@ -1,4 +1,4 @@
-import RaidPostUpdate from '@/components/raidPostField/raidPostUpdate/raidPostUpdate'
+import UpdatePostPage from '@/components/raidPostField/raidPostUpdate/UpdatePostPage'
 import Section from '@/components/utils/section'
 import React from 'react'
 
@@ -10,7 +10,7 @@ export default async function PostUpdate({ params }: { params: Params }) {
     <>
       <Section>
         <main className='flex min-h-screen w-full flex-col items-center'>
-          <RaidPostUpdate postId={id} />
+          <UpdatePostPage postId={id} />
         </main>
       </Section>
     </>

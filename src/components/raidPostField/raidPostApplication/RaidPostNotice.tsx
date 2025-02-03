@@ -6,7 +6,7 @@ interface Props {
   postNoti: string
 }
 
-export default function RaidNotiTextArea({ postNoti }: Props) {
+export default function RaidPostNotice({ postNoti }: Props) {
   const [noti, setNoti] = useState('')
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Loading from '@image/icon/loading.svg'
 import GoldImage from '@image/asset/골드.png'
+import CircleCheck from '@image/icon/circlecheck.svg'
 import { useSession } from 'next-auth/react'
 
 interface Myinfo {
@@ -13,6 +14,9 @@ interface Myinfo {
   role: string
   schedule_count: number
   user_id: string
+  daycontent: boolean
+  gathering: boolean
+  wisdom: boolean
 }
 
 /**
@@ -29,6 +33,9 @@ export default function MainMyInfo() {
     role: '',
     schedule_count: 0,
     user_id: '',
+    daycontent: false,
+    gathering: false,
+    wisdom: false,
   })
 
   useEffect(() => {
@@ -65,10 +72,12 @@ export default function MainMyInfo() {
     fetchData()
   }, [session, status])
 
+  console.log(myInfoState)
+
   return (
     <>
       {loading && (
-        <div className='absolute inset-0 z-30 flex items-center justify-center bg-gray-500 bg-opacity-90'>
+        <div className='absolute inset-0 z-30 flex items-center justify-center rounded-md bg-gray-500 bg-opacity-90'>
           <Loading className='h-12 w-12 animate-spin text-white' />
         </div>
       )}
@@ -87,7 +96,7 @@ export default function MainMyInfo() {
           </div>
 
           {/* 정보 섹션 */}
-          <div className='mt-4 grid gap-3 text-sm'>
+          <div className='mt-2 grid gap-3 text-sm'>
             <div className='flex justify-between'>
               <span>캐릭터 수:</span>
               <span>{myInfoState.character_count}</span>
@@ -113,14 +122,24 @@ export default function MainMyInfo() {
                 {myInfoState.raid_gold}
               </div>
             </div>
-            {/* <div className='flex justify-between'>
-              <span>모집글 개설:</span>
-              <span>{myInfoState.raid_post_count}</span>
+            <div className='flex justify-between'>
+              <span>생활:</span>
+              <CircleCheck
+                className={`h-4 w-4 ${myInfoState.gathering ? 'text-green-500' : 'text-red-500'}`}
+              />
             </div>
             <div className='flex justify-between'>
-              <span>모집글 신청:</span>
-              <span>{myInfoState.applicant_count}</span>
-            </div> */}
+              <span>길드 체크:</span>
+              <CircleCheck
+                className={`h-4 w-4 ${myInfoState.wisdom ? 'text-green-500' : 'text-red-500'}`}
+              />
+            </div>
+            <div className='flex justify-between'>
+              <span>카오스 게이트 or 필드 보스:</span>
+              <CircleCheck
+                className={`h-4 w-4 ${myInfoState.daycontent ? 'text-green-500' : 'text-red-500'}`}
+              />
+            </div>
           </div>
 
           {/* 버튼 섹션 */}
@@ -133,7 +152,7 @@ export default function MainMyInfo() {
             </Link>
             <Link
               href={'/raidpost/create?redirect=/'}
-              className='ml-2 flex flex-1 items-center justify-center rounded-md bg-green-500 p-2 text-sm font-medium text-white shadow-md hover:bg-green-600'
+              className='ml-2 flex flex-1 items-center justify-center rounded-md bg-gray-500 p-2 text-sm font-medium text-white shadow-md hover:bg-gray-600'
             >
               모집 글 등록
             </Link>

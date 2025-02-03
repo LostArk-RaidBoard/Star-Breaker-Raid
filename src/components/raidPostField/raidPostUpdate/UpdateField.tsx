@@ -1,6 +1,6 @@
 'use client'
 
-import RaidPostUpdateButton from '@/components/button/updateRaidPostButton'
+import UpdateRaidButton from '@/components/button/UpdateRaidButton'
 import UpdateCalendarPick from '@/components/calendar/updateCalendar'
 import UpdateRaidDetail from '@/components/raidPostField/raidPostUpdate/UpdateRaidDetail'
 import UpdateRaidMaxTime from '@/components/raidPostField/raidPostUpdate/UpdateRaidMaxTime'
@@ -49,7 +49,7 @@ interface Props {
   createPostCharacter: CharacterInfo[]
 }
 
-export default function UpdateFieldComponent({ postData, createPostCharacter }: Props) {
+export default function UpdateField({ postData, createPostCharacter }: Props) {
   const [updateTime, setUpdateTime] = useState<Date>(new Date(postData.raid_time))
   const [updateRaidType, setUpdateRaidType] = useState(postData.raid_type)
   const [updateRaidMaxTime, setUpdateRaidMaxTime] = useState(postData.raid_maxtime)
@@ -67,38 +67,56 @@ export default function UpdateFieldComponent({ postData, createPostCharacter }: 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <>
-      <div className='flex flex-col sm:flex-row'>
-        {/* 왼쪽 : 날짜 시간 선택, 레이드 타입, 레이드 최대 시간 */}
-        <div className='flex basis-1/2 flex-col gap-4 p-4'>
-          <UpdateRaidCharacterSelect
-            createPostCharacter={createPostCharacter}
-            limitLevel={postData.limit_level}
-            updateCharacterSelect={updateCharacterSelect}
-            setUpdateCharacterSelect={setUpdateCharacterSelect}
-          />
+    <div className='rounded-xl border border-gray-400 p-6 shadow-lg'>
+      <div className='flex flex-col gap-8 sm:flex-row'>
+        {/* 왼쪽 섹션 */}
+        <div className='flex flex-col gap-6 sm:w-1/2'>
+          {/* 캐릭터 선택 */}
+          <div className='p-4'>
+            <h2 className='mb-2 text-lg font-semibold text-gray-900'>캐릭터 선택</h2>
+            <UpdateRaidCharacterSelect
+              createPostCharacter={createPostCharacter}
+              limitLevel={postData.limit_level}
+              updateCharacterSelect={updateCharacterSelect}
+              setUpdateCharacterSelect={setUpdateCharacterSelect}
+            />
+          </div>
+
+          {/* 날짜 및 시간 선택 */}
+
           <UpdateCalendarPick updateTime={updateTime} setUpdateTime={setUpdateTime} />
+
+          {/* 레이드 타입 */}
           <UpdateRaidDetail updateRaidType={updateRaidType} setUpdateRaidType={setUpdateRaidType} />
         </div>
-        {/* 오른쪽 : 캐릭터 선택, 공지사항 수정하기 */}
-        <div className='flex h-full basis-1/2 flex-col gap-4 p-4'>
+
+        {/* 오른쪽 섹션 */}
+        <div className='flex flex-col gap-6 sm:w-1/2'>
+          {/* 최대 시간 설정 */}
+
           <UpdateRaidMaxTime
             updateRaidMaxTime={updateRaidMaxTime}
             setUpdateRaidMaxTime={setUpdateRaidMaxTime}
           />
+
+          {/* 공지사항 수정 */}
+
           <UpdateRaidNoti setUpdateRaidNoti={setUpdateRaidNoti} updateRaidNoti={updateRaidNoti} />
         </div>
       </div>
 
-      <RaidPostUpdateButton
-        postId={postData.post_id}
-        raidName={postData.raid_name}
-        updateTime={updateTime}
-        updateRaidType={updateRaidType}
-        updateRaidMaxTime={updateRaidMaxTime}
-        updateCharacterSelect={updateCharacterSelect}
-        updateRaidNoti={updateRaidNoti}
-      />
-    </>
+      {/* 업데이트 버튼 */}
+      <div className='mt-8 flex justify-center'>
+        <UpdateRaidButton
+          postId={postData.post_id}
+          raidName={postData.raid_name}
+          updateTime={updateTime}
+          updateRaidType={updateRaidType}
+          updateRaidMaxTime={updateRaidMaxTime}
+          updateCharacterSelect={updateCharacterSelect}
+          updateRaidNoti={updateRaidNoti}
+        />
+      </div>
+    </div>
   )
 }

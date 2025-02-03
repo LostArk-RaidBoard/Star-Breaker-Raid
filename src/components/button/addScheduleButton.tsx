@@ -1,12 +1,12 @@
 'use client'
 
-import RaidLevelSelect from '@/components/raidPostField/raidPostCreate/raidLevelSelect'
-import RaidGateway from '@/components/raidPostField/raidPostCreate/raidGateway'
+import RaidLevelPicker from '@/components/raidPostField/raidPostCreate/RaidLevelPicker'
+import RaidGatewayPicker from '@/components/raidPostField/raidPostCreate/RaidGatewayPicker'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import CalendarSelect from '@/components/calendar/calendarSelect'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
-import RaidSelect from '@/components/select/raidSelect'
+import RaidSelect from '@/components/select/RaidSelector'
 import React, { useEffect, useState } from 'react'
 import raidGold from '@/components/utils/raidGold'
 import { createPostTage } from '@/app/action'
@@ -112,24 +112,26 @@ export default function AddScheduleButton({ userId }: Props) {
           <div className='flex w-[350px] flex-col rounded-lg bg-white p-4 shadow-lg'>
             <h1 className='text-xl font-bold'>일정 추가</h1>
             {/* 일정 모달 캐릭터 선택 */}
-            <span className='mt-2 text-lg font-semibold'>• 캐릭터 선택</span>
-            <select
-              name='scheduleCharacterSelect'
-              aria-label='스케줄 케릭터 선택'
-              className='mt-1 h-12 w-full rounded-md border border-gray-400 px-1 text-lg'
-              value={characterInfo[0].character_name}
-              onChange={selectHandler}
-            >
-              {characterAllList.map((item, index) => (
-                <option key={index} className='text-base' value={item.character_name}>
-                  {item.character_name}
-                </option>
-              ))}
-            </select>
+            <div className='p-4'>
+              <h2 className='mb-3 text-base font-semibold text-gray-900'>캐릭터 선택</h2>
+              <select
+                name='scheduleCharacterSelect'
+                aria-label='스케줄 케릭터 선택'
+                className='mt-1 h-12 w-full rounded-md border border-gray-400 px-1 text-lg'
+                value={characterInfo[0].character_name}
+                onChange={selectHandler}
+              >
+                {characterAllList.map((item, index) => (
+                  <option key={index} className='text-base' value={item.character_name}>
+                    {item.character_name}
+                  </option>
+                ))}
+              </select>
+            </div>
             {/* 일정 모달 레이드 스케줄 선택 */}
             <RaidSelect />
-            <RaidLevelSelect />
-            <RaidGateway />
+            <RaidLevelPicker />
+            <RaidGatewayPicker />
             {/* 일정 모달 날짜 선택 */}
             <CalendarSelect />
 
@@ -147,7 +149,7 @@ export default function AddScheduleButton({ userId }: Props) {
 
             <div className='mt-2 flex w-full items-center justify-center gap-4'>
               <button
-                className='w-24 rounded-md bg-gray-900 p-1 px-2 text-white'
+                className='w-24 rounded-md bg-gray-800 px-3 py-2 text-gray-100 hover:bg-gray-500'
                 onClick={() => {
                   scheduleFetchHandler()
                 }}
@@ -155,7 +157,7 @@ export default function AddScheduleButton({ userId }: Props) {
                 저장
               </button>
               <button
-                className='w-24 rounded-md bg-gray-900 p-1 px-2 text-white'
+                className='w-24 rounded-md bg-gray-800 px-3 py-2 text-gray-100 hover:bg-gray-500'
                 onClick={setMoState}
               >
                 닫기

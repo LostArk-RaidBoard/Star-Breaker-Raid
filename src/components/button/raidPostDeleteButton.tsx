@@ -41,7 +41,7 @@ export default function RaidPostDeleteButton({ postId, userId, raidName, charact
 
   return (
     <button
-      className='rounded-md bg-gray-900 px-3 py-1 text-white'
+      className='rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-gray-600'
       onClick={() => {
         deleteCreatePostHandler(postId, userId, raidName, characterName)
       }}

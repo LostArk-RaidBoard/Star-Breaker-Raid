@@ -1,8 +1,8 @@
-import RevaildatePostTageButton from '@/components/button/revalidatePostTageButton'
-import RaidPostList from '@/components/raidPostField/raidPostPage/raidPostList'
+import React from 'react'
 import Link from 'next/link'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
-import React from 'react'
+import RaidPostList from '@/components/raidPostField/raidPostPage/raidPostList'
+import RevaildatePostTageButton from '@/components/button/revalidatePostTageButton'
 
 interface RaidPost {
   post_id: number
@@ -56,18 +56,6 @@ export default async function RaidPostPageField() {
     <div className='flex h-full w-full flex-col'>
       {/* 상단 헤더 */}
       <div className='mb-6 flex items-center justify-between'>
-        {/* 좌측 팁 링크 */}
-        <div className='hidden items-center gap-2 text-lg font-medium text-gray-800 sm:flex'>
-          <span>로아 팁 :</span>
-          <Link
-            href={'/raidpost/tip/엘릭서'}
-            scroll={false}
-            className='text-blue-600 hover:underline'
-          >
-            엘릭서 옵션
-          </Link>
-        </div>
-
         {/* 우측 버튼 그룹 */}
         <div className='flex items-center gap-4'>
           <RevaildatePostTageButton />

@@ -6,7 +6,7 @@ import { useRaidSelect } from '@/store/raidSelectStore'
 import React, { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
-export default function RaidLevelSelect() {
+export default function RaidLevelPicker() {
   const { raidSelect, setRaidLevel, raidLevel, setRaidLimitLevel } = useRaidSelect()
   const [characterLevel, setCharacterLevel] = useState(10000.0)
   const [raidOptions, setRaidOptions] = useState([
@@ -60,33 +60,41 @@ export default function RaidLevelSelect() {
   }
 
   return (
-    <div className='flex h-20 flex-col'>
-      <label className='text-lg font-semibold'>• 레이드 난이도 선택</label>
+    <div className='p-4'>
+      <h2 className='mb-3 text-base font-semibold text-gray-900'>레이드 난이도 선택</h2>
 
-      <div
-        className={`${pathname === '/schedule' ? 'grid-cols-3' : 'grid-cols-2'} grid h-12 w-full gap-4`}
-      >
-        {raidOptions.map((option, key) => (
-          <div
-            key={`raidLevelChoose-${option.value}`}
-            className={`flex items-center justify-center gap-2 ${pathname === '/raidpost/create' && key === 0 ? 'hidden' : ''}`}
-          >
-            <input
-              type='radio'
-              name='raidLevelChoose'
-              key={`${option.value}-${key}`}
-              className='text-base'
-              value={option.value}
-              checked={raidLevel === option.value}
-              disabled={
-                characterLevel < option.level ||
-                (pathname === '/schedule' && !sigleRiadIn.includes(raidSelect) && key === 0)
-              }
-              onChange={handleChange}
-            />
-            <label htmlFor={option.value}>{option.value}</label>
-          </div>
-        ))}
+      <div className={`grid gap-4 ${pathname === '/schedule' ? 'grid-cols-3' : 'grid-cols-2'}`}>
+        {raidOptions.map((option, key) => {
+          const isDisabled =
+            characterLevel < option.level ||
+            (pathname === '/schedule' && !sigleRiadIn.includes(raidSelect) && key === 0)
+
+          return (
+            <label
+              key={`raidLevelChoose-${option.value}`}
+              htmlFor={option.value}
+              className={`flex cursor-pointer items-center justify-center rounded-lg border p-3 text-sm font-medium transition-all duration-300 ${
+                raidLevel === option.value
+                  ? 'border-blue-500 bg-blue-500 text-white shadow-md'
+                  : isDisabled
+                    ? 'cursor-not-allowed border-gray-700 bg-gray-800 text-gray-500 opacity-50'
+                    : 'border-gray-600 bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+              } ${pathname === '/raidpost/create' && key === 0 ? 'hidden' : ''}`}
+            >
+              <input
+                type='radio'
+                id={option.value}
+                name='raidLevelChoose'
+                value={option.value}
+                checked={raidLevel === option.value}
+                disabled={isDisabled}
+                onChange={handleChange}
+                className='hidden'
+              />
+              {option.value}
+            </label>
+          )
+        })}
       </div>
     </div>
   )

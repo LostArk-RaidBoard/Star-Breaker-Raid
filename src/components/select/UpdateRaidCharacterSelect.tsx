@@ -107,7 +107,6 @@ export default function UpdateRaidCharacterSelect({
 
   return (
     <div className='flex flex-col'>
-      <label className='text-lg font-semibold'>• 캐릭터 선택</label>
       {createPostCharacter.length > 0 && updateCharacterSelect ? (
         <div className='relative w-full flex-col rounded-md bg-gray-900'>
           <button
@@ -133,7 +132,7 @@ export default function UpdateRaidCharacterSelect({
               />
               <span className='text-lg text-white'>{updateCharacterSelect.character_name}</span>
               <span className='hidden text-lg text-black text-white sm:block'>
-                {updateCharacterSelect.character_level}
+                {updateCharacterSelect.character_level} Lv
               </span>
             </div>
             <Under className='h-4 w-4 text-white' strokeWidth={3} />

@@ -1,15 +1,13 @@
 'use client'
 
+import { useRaidSelect } from '@/store/raidSelectStore'
 import React from 'react'
 
-interface Props {
-  updateRaidType: string
-  setUpdateRaidType: (type: string) => void
-}
+export default function RaidTypeSelect() {
+  const { raidType, setRaidType } = useRaidSelect()
 
-export default function UpdateRaidDetail({ updateRaidType, setUpdateRaidType }: Props) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUpdateRaidType(event.target.value)
+    setRaidType(event.target.value)
   }
 
   return (
@@ -21,7 +19,7 @@ export default function UpdateRaidDetail({ updateRaidType, setUpdateRaidType }: 
             key={type}
             htmlFor={type}
             className={`group flex cursor-pointer items-center justify-center gap-1 rounded-md border px-3 py-2 text-sm transition-all duration-300 ${
-              updateRaidType === type
+              raidType === type
                 ? 'border-blue-500 bg-blue-500 text-white shadow-md'
                 : 'border-gray-600 bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
             }`}
@@ -31,7 +29,7 @@ export default function UpdateRaidDetail({ updateRaidType, setUpdateRaidType }: 
               id={type}
               name='raidType'
               value={type}
-              checked={updateRaidType === type}
+              checked={raidType === type}
               onChange={handleChange}
               className='hidden'
             />

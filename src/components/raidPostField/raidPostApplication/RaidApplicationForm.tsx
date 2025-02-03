@@ -1,10 +1,10 @@
 'use client'
 
-import { applicationListTage, wePostTage } from '@/app/action'
-import ApplicationCharacterSelect from '@/components/select/applicationCharacterSelect'
+import React, { useEffect, useState } from 'react'
 import RaidGold from '@/components/utils/raidGold'
 import { useCharacterInfoList } from '@/store/characterStore'
-import React, { useEffect, useState } from 'react'
+import { applicationListTage, wePostTage } from '@/app/action'
+import CharacterSelectDropdown from '@/components/select/CharacterSelectDropdown'
 
 interface RaidApplicationProps {
   userId: string
@@ -17,7 +17,7 @@ interface RaidApplicationProps {
   schedule: Date
 }
 
-export default function RaidApplication({
+export default function RaidApplicationForm({
   userId,
   raidLimitLevel,
   postId,
@@ -28,7 +28,6 @@ export default function RaidApplication({
   schedule,
 }: RaidApplicationProps) {
   const [hope, setHope] = useState('')
-  const [state, setState] = useState(1)
   const [message, setMessage] = useState('')
   const { characterInfo } = useCharacterInfoList()
   const [loading, setLoading] = useState(0)
@@ -38,10 +37,10 @@ export default function RaidApplication({
    * @returns 에러
    */
   const applicationSave = async () => {
+    setMessage('')
     setLoading(1)
     if (characterInfo[0].character_name === '캐릭터 없음') {
       setMessage('지원가능 캐릭터가 없습니다.')
-      setState(2)
       setLoading(0)
       return
     }
@@ -49,7 +48,6 @@ export default function RaidApplication({
     if (userId != '') {
       if (post_user === userId) {
         setMessage('본인이 개설한 모집글입니다.')
-        setState(2)
         setLoading(0)
         return
       }
@@ -78,19 +76,16 @@ export default function RaidApplication({
 
         const data = await response.json()
         if (response && response.status === 200) {
-          setState(1)
           await applicationListTage()
           await wePostTage()
           setLoading(0)
         } else {
           setMessage(data.message)
-          setState(2)
           setLoading(0)
         }
       } catch (error) {
         console.error(error)
         setMessage('서버의 연결 실패')
-        setState(2)
         setLoading(0)
       }
     }
@@ -102,41 +97,79 @@ export default function RaidApplication({
 
   useEffect(() => {
     setMessage('')
-    setState(0)
   }, [userId])
 
-  return (
-    <div className='flex h-full w-full flex-col items-center justify-center gap-4 rounded-md border border-gray-400 p-4 shadow-lg'>
-      <div className='flex w-full flex-col items-center justify-center gap-4 sm:flex-col xl:flex-row'>
-        <ApplicationCharacterSelect raidLimitLevel={raidLimitLevel} userId={userId} />
+  useEffect(() => {
+    if (message.length > 0) {
+      const timer = setTimeout(() => {
+        setMessage('')
+      }, 3000)
 
-        <div className='w-full lg:basis-1/4'>
+      // 타이머 정리(clean-up)
+      return () => clearTimeout(timer)
+    }
+  }, [message])
+
+  return (
+    <div className='flex w-full flex-col items-center justify-center gap-8 rounded-lg border border-gray-400 p-6 shadow-lg'>
+      {/* 캐릭터 선택 및 입력 섹션 */}
+      <div className='flex w-full flex-col items-center justify-between gap-6 sm:flex-row sm:gap-8'>
+        {/* 캐릭터 선택 */}
+        <CharacterSelectDropdown raidLimitLevel={raidLimitLevel} userId={userId} />
+
+        {/* 의견 입력 */}
+        <div className='relative w-full max-w-md'>
           <input
-            className={`h-12 w-full rounded-md border border-gray-400 px-1 xl:min-w-[300px]`}
-            type={'text'}
-            name={'text'}
+            className='h-12 w-full rounded-lg border border-gray-600 bg-gray-700 px-4 text-white placeholder-gray-400 transition-all duration-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500'
+            type='text'
+            name='hope'
             autoComplete='off'
             value={hope}
             maxLength={30}
-            placeholder={'의견'}
+            placeholder='의견을 입력하세요...'
             onChange={handleChange}
-          ></input>
+          />
         </div>
 
+        {/* 지원 버튼 */}
         <button
-          className='flex w-24 items-center justify-center text-nowrap rounded-md border bg-gray-900 p-2 px-4 text-white sm:ml-4'
+          className='flex h-12 w-28 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 font-semibold text-white shadow-md transition-all duration-300 hover:from-blue-500 hover:to-blue-400 disabled:cursor-not-allowed disabled:opacity-50'
           disabled={loading === 1}
-          onClick={() => {
-            applicationSave()
-          }}
+          onClick={applicationSave}
         >
-          <span className={`${loading === 0 ? '' : 'hidden'}`}>지원 신청</span>
-          <span className={`${loading === 1 ? '' : 'hidden'}`}>로딩중...</span>
+          {loading === 0 ? (
+            '지원 신청'
+          ) : (
+            <svg
+              className='h-6 w-6 animate-spin text-white'
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+            >
+              <circle
+                className='opacity-25'
+                cx='12'
+                cy='12'
+                r='10'
+                stroke='currentColor'
+                strokeWidth='4'
+              />
+              <path
+                className='opacity-75'
+                fill='currentColor'
+                d='M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z'
+              />
+            </svg>
+          )}
         </button>
       </div>
-      <div className='flex w-full items-center justify-center'>
-        <span className={`${state === 1 ? '' : 'hidden'} text-blue-500`}>지원 성공</span>
-        <span className={`${state === 2 ? '' : 'hidden'} text-red-500`}>지원 실패 : {message}</span>
+
+      {/* 메시지 출력 */}
+
+      <div
+        className={`${message.length > 0 ? '' : 'hidden'} flex items-center justify-center font-semibold ${message === '지원 성공' ? 'text-blue-400' : 'text-red-500'}`}
+      >
+        {message}
       </div>
     </div>
   )

@@ -88,8 +88,8 @@ export default function RaidCharacterSelect({ createPostCharacter }: Props) {
   }, [createPostCharacter, setCharacterAllList, characterAllList, setCharacterInfo])
 
   return (
-    <div className='flex h-20 flex-col'>
-      <label className='text-lg font-semibold'>• 캐릭터 선택</label>
+    <div className='p-4'>
+      <h2 className='mb-3 text-base font-semibold text-gray-900'>캐릭터 선택</h2>
       {characterAllList.length > 0 && characterInfo.length > 0 ? (
         <div className='relative w-full flex-col rounded-md bg-gray-900'>
           <button
@@ -115,7 +115,7 @@ export default function RaidCharacterSelect({ createPostCharacter }: Props) {
               />
               <span className='text-lg text-white'>{characterInfo[0].character_name}</span>
               <span className='hidden text-lg text-black text-white sm:block'>
-                {characterInfo[0].character_level}
+                {characterInfo[0].character_level} Lv
               </span>
             </div>
             <Under className='h-4 w-4 text-white' strokeWidth={3} />
