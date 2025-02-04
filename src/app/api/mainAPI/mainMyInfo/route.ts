@@ -5,7 +5,6 @@ import { sql } from '@vercel/postgres'
 function getKoreanDayIndex(): number {
   const currentDate = new Date()
   // UTC 기준 9시간을 더해 한국 시간으로 변환
-  currentDate.setHours(currentDate.getHours() + 9)
 
   // 요일 반환 (0: 일요일, 1: 월요일, ..., 6: 토요일)
   const day = currentDate.getDay()

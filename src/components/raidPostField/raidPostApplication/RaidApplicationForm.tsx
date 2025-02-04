@@ -120,7 +120,7 @@ export default function RaidApplicationForm({
         {/* 의견 입력 */}
         <div className='relative w-full max-w-md'>
           <input
-            className='h-12 w-full rounded-lg border border-gray-600 bg-gray-700 px-4 text-white placeholder-gray-400 transition-all duration-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500'
+            className='h-12 w-full rounded-lg border border-gray-600 bg-gray-800 px-4 text-white placeholder-gray-400 transition-all duration-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500'
             type='text'
             name='hope'
             autoComplete='off'

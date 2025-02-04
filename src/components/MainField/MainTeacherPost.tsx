@@ -28,7 +28,7 @@ export default function MainTeacherPosts() {
   useEffect(() => {
     const fetchTeacherPosts = async () => {
       try {
-        const response = await fetch(`/api/raidPostAPI/raidPostGet?posts_position=teacher`, {
+        const response = await fetch(`/api/mainAPI/mainTeacherPostGet?posts_position=teacher`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

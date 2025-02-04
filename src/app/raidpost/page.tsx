@@ -1,4 +1,4 @@
-import RaidPostPageField from '@/components/raidPostField/raidPostPageField'
+import PostPageField from '@/components/raidPostField/PostPageField'
 import Section from '@/components/utils/section'
 import React from 'react'
 
@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Section>
         <main className='z-0 flex min-h-screen w-full flex-col items-center'>
-          <RaidPostPageField />
+          <PostPageField />
         </main>
       </Section>
     </>

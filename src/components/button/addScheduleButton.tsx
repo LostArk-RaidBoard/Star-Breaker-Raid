@@ -93,7 +93,7 @@ export default function AddScheduleButton({ userId }: Props) {
   return (
     <>
       <button
-        className='rounded-md bg-gray-900 p-1 px-2 text-white'
+        className='rounded-md bg-gray-800 px-4 py-2 text-white'
         onClick={() => {
           if (!session || !session.user) {
             alert('로그인 해주세요')

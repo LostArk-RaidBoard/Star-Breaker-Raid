@@ -111,7 +111,7 @@ export default function RaidApplicationPanel({
         {applicationList.length > 0 ? (
           applicationList.map((char, key) => (
             <div
-              className='flex flex-col justify-between gap-4 rounded-lg border border-gray-700 bg-gray-700 p-6 shadow transition-all hover:bg-gray-600 sm:flex-row sm:items-center sm:gap-6'
+              className='flex flex-col justify-between gap-4 rounded-lg border border-gray-700 bg-gray-800 p-6 shadow transition-all hover:bg-gray-600 sm:flex-row sm:items-center sm:gap-6'
               key={key}
             >
               {/* 캐릭터 정보 */}

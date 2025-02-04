@@ -35,7 +35,7 @@ export default async function PostDetails({ postData }: RaidPostProps) {
       <div className='flex flex-col gap-8 p-8 sm:flex-row sm:gap-12'>
         {/* 좌측 정보 섹션 */}
         <div className='flex flex-col gap-6 sm:w-1/2'>
-          <div className='flex items-center justify-center rounded-xl bg-gray-700 p-6 text-3xl font-extrabold text-gray-100 shadow-md'>
+          <div className='flex items-center justify-center rounded-xl bg-gray-800 p-6 text-3xl font-extrabold text-gray-100 shadow-md'>
             <span className='text-blue-400'>⚡</span> {postData.raid_name} {postData.raid_level}{' '}
             {postData.raid_gateway} <span className='text-blue-400'>⚡</span>
           </div>
@@ -48,7 +48,7 @@ export default async function PostDetails({ postData }: RaidPostProps) {
             </span>
           </div>
 
-          <div className='flex items-center gap-6 rounded-lg bg-gray-700 p-4'>
+          <div className='flex items-center gap-6 rounded-lg bg-gray-800 p-4'>
             <Image
               src={postData.character_image}
               alt='공대장'

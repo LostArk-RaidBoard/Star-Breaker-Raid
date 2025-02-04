@@ -3,8 +3,9 @@ import RaidApplicationPanel from '@/components/raidPostField/raidPostApplication
 import PostDetails from '@/components/raidPostField/raidPostApplication/PostDetails'
 import { auth } from '@/auth'
 import Link from 'next/link'
-import RaidPostDeleteButton from '@/components/button/raidPostDeleteButton'
+
 import React from 'react'
+import RaidPostDeleteButton from '@/components/button/RaidPostDelete'
 
 interface Props {
   postId: number
@@ -133,7 +134,7 @@ export default async function RaidDetailView({ postId }: Props) {
               />
               <Link
                 href={`/raidpost/update/${postId}`}
-                className='rounded-md bg-gray-900 px-4 py-2 text-white hover:bg-gray-600'
+                className='rounded-md bg-gray-800 px-4 py-3 text-white hover:bg-gray-600'
               >
                 수정하기
               </Link>

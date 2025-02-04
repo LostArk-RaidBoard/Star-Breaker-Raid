@@ -72,8 +72,6 @@ export default function MainMyInfo() {
     fetchData()
   }, [session, status])
 
-  console.log(myInfoState)
-
   return (
     <>
       {loading && (

@@ -122,7 +122,7 @@ export default function CharacterSelectDropdown({ raidLimitLevel, userId }: Prop
   }, [])
 
   return (
-    <div className='relative w-full flex-col rounded-md bg-gray-700 font-normal xl:w-1/2'>
+    <div className='relative w-full flex-col rounded-md bg-gray-800 font-normal xl:w-1/2'>
       <button
         className='flex h-16 w-full items-center justify-between rounded-md border border-gray-500 px-1 shadow-md'
         onClick={handlerHidden}

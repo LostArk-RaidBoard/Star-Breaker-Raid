@@ -2,7 +2,6 @@ import React from 'react'
 import { auth } from '@/auth'
 import RaidSelector from '@/components/select/RaidSelector'
 import CalendarPick from '@/components/calendar/CalendarPick'
-import RaidPostCreateButton from '@/components/button/raidPostButton'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
 import RaidCharacterSelect from '@/components/select/raidCharacterSelect'
 import RaidPersonLimitSelector from '@/components/select/RaidPersonLimitSelector'
@@ -11,6 +10,7 @@ import RaidLevelPicker from '@/components/raidPostField/raidPostCreate/RaidLevel
 import RaidNoticeField from '@/components/raidPostField/raidPostCreate/RaidNoticeField'
 import RaidGatewayPicker from '@/components/raidPostField/raidPostCreate/RaidGatewayPicker'
 import RaidMaxTimeSelect from '@/components/raidPostField/raidPostCreate/RaidMaxTimeSelect'
+import RaidPostAddButton from '@/components/button/RaidPostAddButton'
 
 interface CharacterInfo {
   character_name: string
@@ -72,7 +72,7 @@ export default async function RaidCreateForm() {
 
           {/* 모집 글 등록 버튼 */}
           <div className='flex justify-center'>
-            <RaidPostCreateButton />
+            <RaidPostAddButton />
           </div>
         </div>
       ) : (

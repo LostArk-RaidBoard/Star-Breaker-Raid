@@ -14,7 +14,7 @@ import React from 'react'
  * 모집 글 등록 버튼 입니다.
  * @returns DB에 모집 글 등록
  */
-export default function RaidPostCreateButton() {
+export default function RaidPostAddButton() {
   const router = useRouter()
   const [postSave, setPostSave] = useState(0)
   const [message, setMessage] = useState('')
@@ -142,7 +142,7 @@ export default function RaidPostCreateButton() {
         레이드 개설 실패 : {message}
       </span>
       <button
-        className='mt-2 flex h-10 w-32 items-center justify-center rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
+        className='mt-2 flex h-10 w-32 items-center justify-center rounded-md border bg-gray-800 px-4 py-3 text-lg text-white hover:bg-gray-500'
         disabled={loading === 1 || postSave === 1}
         onClick={raidCreateHandler}
       >
