@@ -2,14 +2,14 @@
 import { useRaidSelect } from '@/store/raidSelectStore'
 import React from 'react'
 
-export default function RaidNoti() {
+export default function RaidNoticeField() {
   const { raidNoti, setRaidNoti } = useRaidSelect()
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setRaidNoti(event.target.value)
   }
   return (
-    <div className='flex h-48 flex-col'>
-      <label className='text-lg font-semibold'>• 공지 사항</label>
+    <div className='p-4'>
+      <h2 className='mb-3 text-base font-semibold text-gray-900'>공지 사항</h2>
       <textarea
         id='raidNoti'
         name='raidNoti'
@@ -18,7 +18,7 @@ export default function RaidNoti() {
         placeholder='공지 입력'
         value={raidNoti} // 상태로 관리되는 값
         onChange={handleChange} // 변경 이벤트 핸들러
-        className='mt-1 rounded-md border border-gray-400 p-2' // 스타일 추가
+        className='mt-1 w-full rounded-md border border-gray-400 p-2' // 스타일 추가
       ></textarea>
     </div>
   )

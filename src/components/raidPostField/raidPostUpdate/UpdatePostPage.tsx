@@ -1,6 +1,6 @@
 import { auth } from '@/auth'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
-import UpdateFieldComponent from '@/components/raidPostField/raidPostUpdate/updateFieldComponents'
+import UpdateField from '@/components/raidPostField/raidPostUpdate/UpdateField'
 import React from 'react'
 
 interface Post {
@@ -65,7 +65,7 @@ interface Props {
   postId: number
 }
 
-export default async function RaidPostUpdate({ postId }: Props) {
+export default async function UpdatePostPage({ postId }: Props) {
   const postData: Post = await fetchPostData(postId)
   const session = await auth()
   let createPostCharacter: CharacterInfo[] = []
@@ -73,15 +73,13 @@ export default async function RaidPostUpdate({ postId }: Props) {
     createPostCharacter = await UtileCharacterDataFetch(session.user.id)
   }
   return (
-    <div className='flex h-full w-full flex-col justify-center rounded-md border border-gray-400 p-4'>
-      <span className='flex h-14 items-center justify-center rounded-md border border-gray-500 bg-gray-900 p-2 text-xl text-white'>
-        📝 &nbsp;{' '}
-        <span className='font-semibold'>
+    <div className='flex h-full w-full flex-col justify-center sm:px-16'>
+      <div className='mb-4 flex h-16 items-center justify-center rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 shadow-lg'>
+        <span className='flex items-center gap-2 text-xl font-extrabold text-white'>
           {postData.raid_name} {postData.raid_level} {postData.raid_gateway} 수정 중
-        </span>{' '}
-        &nbsp; 📝
-      </span>
-      <UpdateFieldComponent postData={postData} createPostCharacter={createPostCharacter} />
+        </span>
+      </div>
+      <UpdateField postData={postData} createPostCharacter={createPostCharacter} />
     </div>
   )
 }

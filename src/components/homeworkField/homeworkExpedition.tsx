@@ -50,7 +50,7 @@ export default function HomeworkExpedition({ homeworkExpeditionData }: HomeworkE
           {day.map((item, key) => (
             <div
               key={`dayhomework-${key}`}
-              className={`table-cell bg-gray-900 p-2 text-center font-bold text-white ${
+              className={`table-cell bg-gray-800 p-2 text-center font-bold text-white ${
                 key === 0 ? 'sticky left-0 z-10 w-[185px]' : 'w-[145px]'
               }`}
               style={key === 0 ? { width: '185px' } : { width: '145px' }}
