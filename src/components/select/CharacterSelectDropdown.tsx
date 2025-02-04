@@ -44,7 +44,7 @@ const noCharacters = {
   raid: '',
 }
 
-export default function ApplicationCharacterSelect({ raidLimitLevel, userId }: Props) {
+export default function CharacterSelectDropdown({ raidLimitLevel, userId }: Props) {
   const { characterAllList, setCharacterAllList, setCharacterInfo, characterInfo } =
     useCharacterInfoList()
   const { setRaidLimitLevel } = useRaidSelect()
@@ -122,7 +122,7 @@ export default function ApplicationCharacterSelect({ raidLimitLevel, userId }: P
   }, [])
 
   return (
-    <div className='relative w-full flex-col rounded-md bg-gray-900 font-normal xl:w-1/2'>
+    <div className='relative w-full flex-col rounded-md bg-gray-800 font-normal xl:w-1/2'>
       <button
         className='flex h-16 w-full items-center justify-between rounded-md border border-gray-500 px-1 shadow-md'
         onClick={handlerHidden}
@@ -147,7 +147,7 @@ export default function ApplicationCharacterSelect({ raidLimitLevel, userId }: P
             />
             <span className='text-lg text-white'>{characterInfo[0].character_name}</span>
             <span className='hidden text-lg text-black text-white sm:flex'>
-              {characterInfo[0].character_level}
+              {characterInfo[0].character_level} Lv
             </span>
             <div className='flex hidden items-center text-white sm:flex'>
               <Image src={'/엘릭서.png'} alt={'엘릭서'} width={30} height={30} className='p-1' />

@@ -32,7 +32,7 @@ interface Props {
   raidName: string
 }
 
-export default function RaidPostUpdateButton({
+export default function UpdateRaidButton({
   postId,
   updateTime,
   updateRaidType,
@@ -133,22 +133,22 @@ export default function RaidPostUpdateButton({
   }
 
   return (
-    <div className='flex w-full flex-col items-center justify-center'>
-      <span className={`${postSave === 1 ? '' : 'hidden'} text-blue-500`}>
-        레이드 수정 성공 잠시 후 모집글로 이동합니다.
-      </span>
-      <span className={`${postSave === 2 ? '' : 'hidden'} text-red-500`}>
-        레이드 수정 실패 : {message}
-      </span>
+    <div className='flex w-full flex-col items-center justify-center gap-4'>
+      {/* 상태 메시지 출력 */}
+      {postSave === 1 && (
+        <span className='text-blue-500'>레이드 수정 성공! 잠시 후 모집글로 이동합니다.</span>
+      )}
+      {postSave === 2 && <span className='text-red-500'>레이드 수정 실패 : {message}</span>}
+
+      {/* 버튼 */}
       <button
-        className='mt-2 flex h-10 w-32 items-center justify-center rounded-md border bg-gray-900 p-1 px-2 text-lg text-white hover:bg-gray-500'
+        className={`mt-2 flex h-12 w-36 items-center justify-center gap-2 rounded-md bg-gray-800 text-base font-semibold text-gray-100 shadow-md transition-all duration-300 hover:from-blue-500 hover:to-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300 ${
+          loading === 1 || postSave === 1 ? 'cursor-not-allowed opacity-50' : ''
+        }`}
         disabled={loading === 1 || postSave === 1}
         onClick={raidCreateHandler}
       >
-        <span className={`${loading === 0 ? '' : 'hidden'}`}>모집 글 수정</span>
-        <span className={`${loading === 1 ? '' : 'hidden'}`}>
-          <Loading className='h-8 w-8' />
-        </span>
+        {loading === 0 ? '모집 글 수정' : <Loading className='h-6 w-6 animate-spin' />}
       </button>
     </div>
   )

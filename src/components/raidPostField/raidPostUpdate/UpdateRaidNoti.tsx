@@ -11,18 +11,20 @@ export default function UpdateRaidNoti({ updateRaidNoti, setUpdateRaidNoti }: Pr
   }
 
   return (
-    <div className='flex flex-col'>
-      <label className='text-lg font-semibold'>• 공지 사항 수정하기</label>
-      <textarea
-        id='raidNoti'
-        name='raidNoti'
-        aria-label='공지 사항 글'
-        rows={5}
-        placeholder='여기에 입력하세요...'
-        value={updateRaidNoti} // 상태로 관리되는 값
-        onChange={handleChange} // 변경 이벤트 핸들러
-        className='rounded-md border border-gray-400 p-2' // 스타일 추가
-      ></textarea>
+    <div className='p-4'>
+      <h2 className='mb-3 text-base font-semibold text-gray-900'>공지사항 수정</h2>
+      <div className='flex flex-col'>
+        <textarea
+          id='raidNoti'
+          name='raidNoti'
+          aria-label='공지 사항 글'
+          rows={5}
+          placeholder='여기에 입력하세요...'
+          value={updateRaidNoti}
+          onChange={handleChange}
+          className='rounded-lg border border-gray-400 bg-gray-200 p-3 text-sm text-gray-900 placeholder-gray-500 transition-all duration-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500'
+        ></textarea>
+      </div>
     </div>
   )
 }

@@ -1,10 +1,11 @@
-import RaidApplication from '@/components/raidPostField/raidPostApplication/raidApplication'
-import RaidApplicationList from '@/components/raidPostField/raidPostApplication/raidApplicationList'
-import RaidPost from '@/components/raidPostField/raidPostApplication/raidpost'
+import RaidApplicationForm from '@/components/raidPostField/raidPostApplication/RaidApplicationForm'
+import RaidApplicationPanel from '@/components/raidPostField/raidPostApplication/RaidApplicationPanel'
+import PostDetails from '@/components/raidPostField/raidPostApplication/PostDetails'
 import { auth } from '@/auth'
 import Link from 'next/link'
-import RaidPostDeleteButton from '@/components/button/raidPostDeleteButton'
+
 import React from 'react'
+import RaidPostDeleteButton from '@/components/button/RaidPostDelete'
 
 interface Props {
   postId: number
@@ -92,7 +93,7 @@ const applicationGet = async (postId: number) => {
   return []
 }
 
-export default async function RaidListField({ postId }: Props) {
+export default async function RaidDetailView({ postId }: Props) {
   const postData: Post = await fetchPostData(postId)
   const applicationList: ApplicationList[] = await applicationGet(postId)
   const session = await auth()
@@ -119,11 +120,12 @@ export default async function RaidListField({ postId }: Props) {
   }
 
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center'>
+    <div className='flex h-full w-full flex-col items-center justify-center sm:px-16'>
       {postData ? (
         <>
-          {session && session.user.id === postData.user_id ? (
-            <div className={`mb-2 flex w-full items-center justify-end gap-4`}>
+          {/* 수정 버튼 섹션 */}
+          {session && session.user.id === postData.user_id && (
+            <div className='mb-4 flex w-full items-center justify-end gap-4'>
               <RaidPostDeleteButton
                 postId={postId}
                 userId={userId}
@@ -132,21 +134,22 @@ export default async function RaidListField({ postId }: Props) {
               />
               <Link
                 href={`/raidpost/update/${postId}`}
-                className={`${(session.user.id = postData.user_id ? '' : 'hidden')} rounded-md bg-gray-900 px-3 py-1 text-white`}
+                className='rounded-md bg-gray-800 px-4 py-3 text-white hover:bg-gray-600'
               >
                 수정하기
               </Link>
             </div>
-          ) : (
-            <></>
           )}
 
-          <div className='w-full rounded-md border border-gray-400 shadow-lg'>
-            <RaidPost postData={postData} />
-          </div>
-          <label className='mt-4 flex w-full justify-start'>* 지원 신청 작성</label>
-          <div className='w-full'>
-            <RaidApplication
+          {/* 포스트 상세 정보 */}
+
+          <PostDetails postData={postData} />
+
+          {/* 지원 신청 작성 */}
+          <div className='mt-6 w-full'>
+            <label className='mb-2 block text-lg font-semibold text-gray-600'>* 지원 신청</label>
+
+            <RaidApplicationForm
               userId={userId}
               raidLimitLevel={raidLimitLevel}
               postId={postId}
@@ -157,9 +160,12 @@ export default async function RaidListField({ postId }: Props) {
               schedule={schedule}
             />
           </div>
-          <label className='mt-4 flex w-full justify-start'>* 신청자</label>
-          <div className='h-auto w-full'>
-            <RaidApplicationList
+
+          {/* 신청자 목록 */}
+          <div className='mt-6 w-full'>
+            <label className='mb-2 block text-lg font-semibold text-gray-600'>* 신청자</label>
+
+            <RaidApplicationPanel
               postId={postId}
               applicationList={applicationList}
               post_user={post_user}
@@ -168,11 +174,11 @@ export default async function RaidListField({ postId }: Props) {
           </div>
         </>
       ) : (
-        <div className='flex min-h-screen flex-col gap-4'>
-          <span>포스트를 찾을 수 없습니다.</span>
+        <div className='flex min-h-screen flex-col items-center justify-center gap-6 text-center'>
+          <span className='text-lg font-semibold text-gray-400'>포스트를 찾을 수 없습니다.</span>
           <Link
             href={'/raidpost'}
-            className='flex items-center justify-center rounded-md bg-gray-900 p-3 px-2 text-white'
+            className='rounded-lg bg-blue-600 px-6 py-3 text-white hover:bg-blue-500'
           >
             모집글로 돌아가기
           </Link>

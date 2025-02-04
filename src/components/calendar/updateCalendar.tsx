@@ -24,42 +24,42 @@ export default function UpdateCalendarPick({ updateTime, setUpdateTime }: Props)
   const minDefaultTime = setHours(setMinutes(new Date(), 0), 0) // 자정
 
   return (
-    <div className='flex w-full flex-col'>
-      <label htmlFor='raidDate' className='text-lg font-semibold'>
-        • 날짜, 시간 선택
-      </label>{' '}
-      {/* 레이블 추가 */}
-      <div className='mt-1 h-full w-full'>
-        {/* 날짜 선택기의 최대 너비 설정 */}
-        <DatePicker
-          id='raidDate' // label과 연결하기 위한 id 추가
-          selected={updateTime}
-          onChange={(date) => {
-            if (date) {
-              setUpdateTime(date)
+    <div className='p-4'>
+      <h2 className='mb-2 text-lg font-semibold text-gray-900'>날짜 및 시간 선택</h2>
+      <div className='flex w-full flex-col'>
+        {/* 레이블 추가 */}
+        <div className='mt-1 h-full w-full'>
+          {/* 날짜 선택기의 최대 너비 설정 */}
+          <DatePicker
+            id='raidDate' // label과 연결하기 위한 id 추가
+            selected={updateTime}
+            onChange={(date) => {
+              if (date) {
+                setUpdateTime(date)
+              }
+            }}
+            locale={ko}
+            minDate={today}
+            maxDate={fourWeeksLaterWednesday}
+            minTime={
+              updateTime && updateTime.toDateString() === today.toDateString()
+                ? minTimeToday // 오늘이라면 현재 시간 이후로 선택
+                : minDefaultTime // 다른 날이라면 자정부터 선택 가능
             }
-          }}
-          locale={ko}
-          minDate={today}
-          maxDate={fourWeeksLaterWednesday}
-          minTime={
-            updateTime && updateTime.toDateString() === today.toDateString()
-              ? minTimeToday // 오늘이라면 현재 시간 이후로 선택
-              : minDefaultTime // 다른 날이라면 자정부터 선택 가능
-          }
-          maxTime={
-            updateTime && updateTime.toDateString() === fourWeeksLaterWednesday.toDateString()
-              ? maxTime // 다음주 수요일이면 오전 5시까지
-              : setHours(setMinutes(new Date(), 59), 23) // 다른 날은 자정까지
-          }
-          showTimeSelect
-          timeFormat='HH:mm'
-          timeIntervals={15}
-          timeCaption='time'
-          dateFormat='EEEE, HH시 mm분 yyyy. MM.dd'
-          className={styles.datePicker} // CSS 모듈 클래스 적용
-          wrapperClassName={styles.datePickerWrapper} // wrapper 클래스 추가
-        />
+            maxTime={
+              updateTime && updateTime.toDateString() === fourWeeksLaterWednesday.toDateString()
+                ? maxTime // 다음주 수요일이면 오전 5시까지
+                : setHours(setMinutes(new Date(), 59), 23) // 다른 날은 자정까지
+            }
+            showTimeSelect
+            timeFormat='HH:mm'
+            timeIntervals={15}
+            timeCaption='time'
+            dateFormat='EEEE, HH시 mm분 yyyy. MM.dd'
+            className={styles.datePicker} // CSS 모듈 클래스 적용
+            wrapperClassName={styles.datePickerWrapper} // wrapper 클래스 추가
+          />
+        </div>
       </div>
     </div>
   )

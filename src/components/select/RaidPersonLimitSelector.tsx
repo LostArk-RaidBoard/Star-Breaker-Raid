@@ -3,7 +3,7 @@
 import { useRaidSelect } from '@/store/raidSelectStore'
 import React, { useEffect, useState } from 'react'
 
-export default function RaidLimitPersonSelect() {
+export default function RaidPersonLimitSelector() {
   const { raidSelect, raidLimitPerson, setRaidLimitPerson } = useRaidSelect()
   const [maxLimitPerson, setMaxLimitPerson] = useState(16)
 
@@ -26,8 +26,8 @@ export default function RaidLimitPersonSelect() {
   }, [raidSelect, setRaidLimitPerson])
 
   return (
-    <div className='h-20 w-full'>
-      <label className='text-lg font-semibold'>• 최대인원 선택</label>
+    <div className='p-4'>
+      <h2 className='mb-3 text-base font-semibold text-gray-900'>최대인원 선택</h2>
       <select
         name='raidMaxPeopleSelect'
         aria-label='레이드 인원 선택'

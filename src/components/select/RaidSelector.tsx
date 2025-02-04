@@ -4,7 +4,7 @@ import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
 import React, { useEffect, useState } from 'react'
 
-export default function RaidSelect() {
+export default function RaidSelector() {
   const { raidSelect, setRaidSelect } = useRaidSelect()
   const [characterLevel, setCharacterLevel] = useState(10000.0)
   const { characterInfo } = useCharacterInfoList()
@@ -44,8 +44,8 @@ export default function RaidSelect() {
   }
 
   return (
-    <div className='flex h-20 flex-col'>
-      <label className='text-lg font-semibold'>• 레이드 선택</label>
+    <div className='p-4'>
+      <h2 className='mb-3 text-base font-semibold text-gray-900'>레이드 선택</h2>
       <select
         name='raidSelect'
         aria-label='레이드 선택 창'
