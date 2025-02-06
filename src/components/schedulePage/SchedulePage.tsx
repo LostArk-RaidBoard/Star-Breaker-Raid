@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import CharacterSorted from '@/components/utils/characterSorted'
+import ServerLevelCharacterSorter from '@/components/utils/ServerLevelCharacterSorter'
 import MyApplications from '@/components/schedulePage/MyApplications'
 import RaidWeekPlanner from '@/components/schedulePage/RaidWeekPlanner.'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
@@ -151,7 +151,7 @@ export default async function SchedulePageField() {
     const { weekSchedule: scheduleData, characterName: characterData } =
       await weekScheduleGetHandler(session.user.id)
     weekSchedule = scheduleData
-    characterName = CharacterSorted(characterData)
+    characterName = ServerLevelCharacterSorter(characterData)
     userId = session.user.id
   }
 

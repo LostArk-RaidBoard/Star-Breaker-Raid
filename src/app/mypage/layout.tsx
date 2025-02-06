@@ -1,5 +1,5 @@
-import HeaderField from '@/components/header/headerField'
-import MypageMenu from '@/components/mypageField/mypageMenu'
+import HeaderLayout from '@/components/header/HeaderLayout'
+import MypageNavigation from '@/components/mypageField/MypageNavigation'
 import Section from '@/components/utils/section'
 import React from 'react'
 
@@ -10,10 +10,10 @@ export default function MypageLayout({
 }>) {
   return (
     <>
-      <HeaderField />
+      <HeaderLayout />
       <Section>
         <main className='flex min-h-screen w-full flex-col gap-3 sm:flex-row'>
-          <MypageMenu />
+          <MypageNavigation />
           {children}
         </main>
       </Section>

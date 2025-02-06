@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import GoldImage from '@image/asset/골드.png'
 import ScheduleItems from '@/components/schedulePage/ScheduleItems'
-import AddScheduleButton from '@/components/button/addScheduleButton'
+import ScheduleCreateButton from '@/components/button/ScheduleCreateButton'
 import CharacterRaidSummary from '@/components/schedulePage/CharacterRaidSummary'
 
 interface Schedule {
@@ -75,9 +75,9 @@ export default function RaidWeekPlanner({ weekSchedule, userId, characterName }:
 
   return (
     <div className='rounded-md border border-gray-400 p-4 shadow-lg'>
-      <div className='mt-4 flex w-full flex-col items-center justify-between sm:flex-row'>
+      <div className='mt-4 flex w-full flex-col items-start sm:flex-row sm:justify-between'>
         <h2 className='text-lg font-extrabold text-gray-900'>주간 레이드 일정</h2>
-        <div className='flex items-center justify-between gap-4 sm:justify-center'>
+        <div className='flex w-full items-center justify-between gap-4 sm:w-auto sm:justify-center'>
           <div className='flex items-center gap-1'>
             <Image
               src={GoldImage}
@@ -88,7 +88,7 @@ export default function RaidWeekPlanner({ weekSchedule, userId, characterName }:
             />
             <span className='text-lg text-yellow-700'>{sumGold}</span>
           </div>
-          <AddScheduleButton userId={userId} />
+          <ScheduleCreateButton userId={userId} />
         </div>
       </div>
 

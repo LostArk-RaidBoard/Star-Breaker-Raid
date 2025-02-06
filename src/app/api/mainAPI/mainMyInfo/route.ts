@@ -1,4 +1,4 @@
-import nextWednesday from '@/components/utils/nextWednesday'
+import GetNextWednesday from '@/components/utils/GetNextWednesday'
 import { sql } from '@vercel/postgres'
 
 // 요일 인덱스 설정 함수
@@ -27,7 +27,7 @@ function getKoreanDayIndex(): number {
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const userId = url.searchParams.get('userId')
-  const nextWednesdayDate = nextWednesday()
+  const nextWednesdayDate = GetNextWednesday()
 
   if (!userId) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })

@@ -1,4 +1,4 @@
-import CharacterSorted from '@/components/utils/characterSorted'
+import ServerLevelCharacterSorter from '@/components/utils/ServerLevelCharacterSorter'
 
 export default async function UtileCharacterDataFetch(userId: string) {
   if (userId === '') {
@@ -21,7 +21,7 @@ export default async function UtileCharacterDataFetch(userId: string) {
 
     if (response.ok && response.status === 200) {
       const getCharacterList = data.result
-      const charcter = CharacterSorted(getCharacterList)
+      const charcter = ServerLevelCharacterSorter(getCharacterList)
       return charcter
     } else {
       return []

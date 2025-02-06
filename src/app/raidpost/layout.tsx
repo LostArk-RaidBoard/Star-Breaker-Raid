@@ -1,4 +1,4 @@
-import HeaderField from '@/components/header/headerField'
+import HeaderLayout from '@/components/header/HeaderLayout'
 import React from 'react'
 
 export default function RootLayout({
@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <div>
-      <HeaderField />
+      <HeaderLayout />
       {children}
     </div>
   )

@@ -19,7 +19,7 @@ export default function UpdateRaidNoti({ updateRaidNoti, setUpdateRaidNoti }: Pr
           name='raidNoti'
           aria-label='공지 사항 글'
           rows={5}
-          placeholder='여기에 입력하세요...'
+          placeholder='공지 사항 입력(필수X)'
           value={updateRaidNoti}
           onChange={handleChange}
           className='rounded-lg border border-gray-400 bg-gray-200 p-3 text-sm text-gray-900 placeholder-gray-500 transition-all duration-300 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500'

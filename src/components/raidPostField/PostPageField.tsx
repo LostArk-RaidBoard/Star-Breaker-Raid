@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import PaginationSub from '@/components/utils/paginationSub'
+import PageNavigation from '@/components/utils/PageNavigationSub'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
 
@@ -95,7 +95,7 @@ export default function PostPageField() {
     if (showRaidPost) {
       setDataLength(showRaidPost.length)
       setCurrentPage(1)
-      setItemsPerPage(13)
+      setItemsPerPage(15)
     }
   }, [showRaidPost, setDataLength, setCurrentPage, setItemsPerPage])
 
@@ -143,7 +143,7 @@ export default function PostPageField() {
         <Link
           href={'/raidpost/create?redirect=/raidpost'}
           scroll={false}
-          className='rounded-md bg-gray-800 px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-500'
+          className='rounded-md bg-gray-800 px-4 py-3 text-sm font-semibold text-gray-100 transition hover:bg-gray-500'
         >
           모집 글 등록
         </Link>
@@ -202,7 +202,7 @@ export default function PostPageField() {
         </div>
 
         {/* 페이지네이션 */}
-        <PaginationSub />
+        <PageNavigation />
       </div>
     </div>
   )
