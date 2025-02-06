@@ -91,7 +91,7 @@ export default function PrivacyPolicy() {
       <div className='mt-8'>
         <button
           onClick={handleBack}
-          className='w-[100px] rounded bg-gray-900 px-4 py-2 text-white hover:bg-gray-600'
+          className='w-[100px] rounded bg-gray-800 px-4 py-2 text-gray-100 hover:bg-gray-600'
         >
           뒤로가기
         </button>

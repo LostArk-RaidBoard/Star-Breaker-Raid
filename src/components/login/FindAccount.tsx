@@ -140,7 +140,7 @@ export default function FindAccount() {
         </div>
         <button
           type='submit'
-          className='mt-4 h-12 w-[90%] rounded-md bg-gray-900 text-white sm:w-[400px]'
+          className='mt-4 h-12 w-[90%] rounded-md bg-gray-800 text-gray-100 sm:w-[400px]'
         >
           아이디 찾기
         </button>
@@ -176,14 +176,14 @@ export default function FindAccount() {
             아이디, 비밀번호를 꼭 입력해주세요
           </span>
         </div>
-        <button className='mt-4 h-12 w-[90%] rounded-md bg-gray-900 text-white sm:w-[400px]'>
+        <button className='mt-4 h-12 w-[90%] rounded-md bg-gray-800 text-gray-100 sm:w-[400px]'>
           비밀번호 재설정
         </button>
       </form>
 
       <Link
         href='/login'
-        className='mt-4 flex h-12 w-[90%] items-center justify-center rounded-md bg-gray-900 text-white sm:w-[400px]'
+        className='mt-4 flex h-12 w-[90%] items-center justify-center rounded-md bg-gray-800 text-gray-100 sm:w-[400px]'
       >
         로그인 돌아가기
       </Link>

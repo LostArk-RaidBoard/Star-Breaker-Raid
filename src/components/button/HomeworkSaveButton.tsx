@@ -65,7 +65,7 @@ export default function HomeworkSaveButton() {
         {message}
       </span>
       <button
-        className='rounded-md bg-gray-900 p-2 px-2 text-white hover:bg-gray-500'
+        className='rounded-md bg-gray-800 px-4 py-3 text-gray-100 hover:bg-gray-500'
         disabled={keep}
         onClick={() => {
           UpdateHandler()

@@ -26,7 +26,7 @@ export default function RaidGuideInputForm() {
       />
       <button
         type='submit' // 버튼 타입을 submit으로 변경
-        className='h-12 w-24 rounded-md border bg-gray-900 p-2 px-1 text-lg text-white'
+        className='flex h-12 w-24 items-center justify-center rounded-md border bg-gray-800 px-4 py-3 text-lg text-gray-100'
       >
         검색
       </button>

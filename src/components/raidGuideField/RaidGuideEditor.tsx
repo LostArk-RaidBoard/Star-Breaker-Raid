@@ -207,10 +207,10 @@ export default function RaidGuideEditor() {
       <div className='mt-4 flex flex-col items-center justify-between sm:flex-row'>
         <label className='mt-4 text-lg'>* 레이드에 컨닝페이퍼 Image</label>
         <div className='flex gap-4'>
-          <button onClick={addImageUrl} className='rounded-sm bg-gray-900 p-1 px-2 text-white'>
+          <button onClick={addImageUrl} className='rounded-sm bg-gray-800 px-4 py-3 text-white'>
             추가
           </button>
-          <button onClick={removeImageUrl} className='rounded-sm bg-gray-900 p-1 px-2 text-white'>
+          <button onClick={removeImageUrl} className='rounded-sm bg-gray-800 px-4 py-3 text-white'>
             삭제
           </button>
         </div>
@@ -246,7 +246,7 @@ export default function RaidGuideEditor() {
         </div>
       ))}
       <div className='mt-4 flex flex-col items-center justify-center'>
-        <button className='w-24 rounded-sm bg-gray-900 p-1 px-2 text-white' onClick={handleSave}>
+        <button className='w-24 rounded-sm bg-gray-800 px-4 py-3 text-white' onClick={handleSave}>
           추가하기
         </button>
         <span className={`${saveStatues === 1 ? '' : 'hidden'} mt-1 text-blue-500`}>

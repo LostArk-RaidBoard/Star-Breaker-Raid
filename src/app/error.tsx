@@ -30,11 +30,11 @@ export default function Error({
       </Link>
       <h2 className='mt-4 text-xl'>문제가 발생했습니다!</h2>
       <div className='flex flex-row gap-4'>
-        <Link href={'/'} className='mt-4 rounded-md border bg-gray-900 p-2 text-white'>
+        <Link href={'/'} className='mt-4 rounded-md border bg-gray-800 px-4 py-3 text-gray-100'>
           메인으로 돌아가기
         </Link>
         <button
-          className='mt-4 rounded-md border bg-gray-900 p-2 text-white'
+          className='mt-4 rounded-md border bg-gray-800 px-4 py-3 text-gray-100'
           onClick={
             // Attempt to recover by trying to re-render the segment
             () => reset()

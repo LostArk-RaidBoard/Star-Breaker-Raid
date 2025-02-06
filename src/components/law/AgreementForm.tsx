@@ -75,7 +75,7 @@ export default function AgreementForm() {
             전체 보기
           </Link>
         </span>
-        <div className='ml-10 h-24 w-full overflow-scroll rounded-md border text-sm'>
+        <div className='ml-10 h-32 w-full overflow-scroll rounded-md border border-gray-400 text-sm'>
           <h1 className='mb-6 text-base font-bold'>
             서비스 이용약관 (로스트아크 레이드 스케줄링 및 관리 서비스)
           </h1>
@@ -210,7 +210,7 @@ export default function AgreementForm() {
             전체 보기
           </Link>
         </span>
-        <div className='ml-10 h-24 w-full overflow-scroll rounded-md border text-sm'>
+        <div className='ml-10 h-32 w-full overflow-scroll rounded-md border border-gray-400 text-sm'>
           <h1 className='mb-6 text-base font-bold'>개인정보 처리방침</h1>
 
           <div className='space-y-6 text-gray-700'>

@@ -137,7 +137,7 @@ export default function PostPageField() {
           className={`${sorted ? 'bg-blue-500' : 'bg-gray-800'} rounded-md px-4 py-3 text-sm font-semibold text-white transition hover:bg-gray-500`}
           onClick={sortHandler}
         >
-          최신순
+          등록 최신순
         </button>
 
         <Link
