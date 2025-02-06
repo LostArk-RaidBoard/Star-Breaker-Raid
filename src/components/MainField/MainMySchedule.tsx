@@ -1,9 +1,9 @@
 'use client'
 import Image from 'next/image'
-// import Clock from '@image/icon/clock.svg'
+import GoldImage from '@image/asset/골드.png'
 import React, { useEffect, useState } from 'react'
 import { convertToKoreanTime2 } from '@/components/utils/converToKoreanTime'
-import GoldImage from '@image/asset/골드.png'
+import Loading from '@image/icon/loading.svg'
 
 interface TodaySchedule {
   user_id: string
@@ -21,6 +21,7 @@ interface Props {
 
 export default function MainMyPostsSchedule({ userId }: Props) {
   const [todayPostsRows, setTodayPostsRows] = useState<TodaySchedule[]>([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchMainMyPostsSchedule = async (userId: string) => {
@@ -44,9 +45,11 @@ export default function MainMyPostsSchedule({ userId }: Props) {
         console.error('fetchWePosts Error:', error)
         setTodayPostsRows([])
       }
+      setLoading(false)
     }
 
     if (userId != '') {
+      setLoading(true)
       fetchMainMyPostsSchedule(userId)
     }
   }, [userId])
@@ -57,8 +60,12 @@ export default function MainMyPostsSchedule({ userId }: Props) {
       <div className='mb-2 text-sm font-bold text-white'>오늘의 일정</div>
 
       {/* 스크롤 가능한 목록 */}
-      <div className='custom-scrollbar space-y-3 overflow-y-auto overflow-x-hidden p-2'>
-        {todayPostsRows.length === 0 ? (
+      <div className='custom-scrollbar h-full space-y-3 overflow-y-auto overflow-x-hidden p-2'>
+        {loading ? (
+          <div className='flex h-full w-full items-center justify-center'>
+            <Loading className='h-12 w-12' />
+          </div>
+        ) : todayPostsRows.length === 0 ? (
           <div className='text-center text-gray-400'>오늘의 일정이 없습니다.</div>
         ) : (
           todayPostsRows.map((item, index) => (

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import React, { useEffect } from 'react'
-import Pagination from '@/components/utils/pagination'
+import PageNavigation from '@/components/utils/PageNavigation'
 import { usePageination } from '@/store/pageinationStore'
 import { applicationListTage, applicationTage, wePostTage } from '@/app/action'
 
@@ -131,7 +131,7 @@ export default function MyApplications({ userId, applicationPostGet }: Props) {
 
       {/* 페이지네이션 */}
       <div className='mt-6 flex justify-center'>
-        <Pagination />
+        <PageNavigation />
       </div>
 
       {/* 하단 안내 메시지 */}

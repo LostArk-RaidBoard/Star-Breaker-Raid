@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import React, { useEffect } from 'react'
 import { createPostTage, wePostTage } from '@/app/action'
-import PaginationSub from '@/components/utils/paginationSub'
+import PageNavigation from '@/components/utils/PageNavigationSub'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 
 interface RaidPost {
@@ -148,7 +148,7 @@ export default function ManageCreatedPosts({ createPostGet }: Props) {
 
       {/* 페이지네이션 */}
       <div className='mt-6 flex justify-center'>
-        <PaginationSub />
+        <PageNavigation />
       </div>
 
       {/* 하단 안내 메시지 */}

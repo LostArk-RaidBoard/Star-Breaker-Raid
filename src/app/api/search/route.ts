@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres'
-import { hashPassword } from '@/components/utils/bcrypt'
+import { hashPassword } from '@/components/utils/AuthSecurityUtils'
 
 export async function GET(req: Request) {
   const url = new URL(req.url)

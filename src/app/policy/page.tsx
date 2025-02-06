@@ -1,11 +1,11 @@
-import Policy from '@/components/law/policy'
+import ServicePolicy from '@/components/law/ServicePolicy'
 import Section from '@/components/utils/section'
 import React from 'react'
 
 export default function PolicyPage() {
   return (
     <Section>
-      <Policy />
+      <ServicePolicy />
     </Section>
   )
 }

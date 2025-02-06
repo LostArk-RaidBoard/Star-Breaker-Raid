@@ -2,42 +2,49 @@
 
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 export default function RaidSelector() {
   const { raidSelect, setRaidSelect } = useRaidSelect()
   const [characterLevel, setCharacterLevel] = useState(10000.0)
   const { characterInfo } = useCharacterInfoList()
 
-  const raidOptions = [
-    { value: '3막 모르둠', level: 1680 },
-    { value: '2막 아브렐슈드', level: 1670 },
-    { value: '1막 에기르', level: 1660 },
-    { value: '베히모스', level: 1640 },
-    { value: '서막 에키드나', level: 1620 },
-    { value: '카멘', level: 1610 },
-    { value: '상아탑', level: 1600 },
-    { value: '일리아칸', level: 1580 },
-    { value: '카양겔', level: 1540 },
-    { value: '아브렐슈드', level: 1490 },
-    { value: '쿠크세이튼', level: 1475 },
-    { value: '비아키스', level: 1430 },
-    { value: '발탄', level: 1415 },
-    { value: '레이드 없음', level: 0 },
-  ]
+  // Memoized raid options
+  const raidOptions = useMemo(
+    () => [
+      { value: '3막 모르둠', level: 1680 },
+      { value: '2막 아브렐슈드', level: 1670 },
+      { value: '1막 에기르', level: 1660 },
+      { value: '베히모스', level: 1640 },
+      { value: '서막 에키드나', level: 1620 },
+      { value: '카멘', level: 1610 },
+      { value: '상아탑', level: 1600 },
+      { value: '일리아칸', level: 1580 },
+      { value: '카양겔', level: 1540 },
+      { value: '아브렐슈드', level: 1490 },
+      { value: '쿠크세이튼', level: 1475 },
+      { value: '비아키스', level: 1430 },
+      { value: '발탄', level: 1415 },
+      ...(characterLevel < 1415 ? [{ value: '레이드 없음', level: 0 }] : []),
+    ],
+    [characterLevel],
+  )
 
   useEffect(() => {
     if (characterInfo.length > 0) {
       const level = parseFloat(characterInfo[0].character_level.replace(/,/g, ''))
       setCharacterLevel(level)
-      // Find the first enabled option based on character level
+
+      // 캐릭터 레벨에 맞는 첫 번째 레이드 옵션 선택
       const firstAvailableRaid = raidOptions.find((option) => level >= option.level)
       if (firstAvailableRaid) {
         setRaidSelect(firstAvailableRaid.value)
+      } else {
+        const zeroOption = { value: '레이드가 없습니다.', levle: '0' }
+        setRaidSelect(zeroOption.value)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [characterInfo])
+  }, [characterInfo, raidOptions, setRaidSelect])
 
   const selectHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRaidSelect(e.target.value)

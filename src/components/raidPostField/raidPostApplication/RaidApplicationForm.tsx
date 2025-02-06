@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import RaidGold from '@/components/utils/raidGold'
+import GetRaidGold from '@/components/utils/GetRaidGold'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { applicationListTage, wePostTage } from '@/app/action'
 import CharacterSelectDropdown from '@/components/select/CharacterSelectDropdown'
@@ -62,7 +62,7 @@ export default function RaidApplicationForm({
         raid_name: raid_name,
         raid_level: raid_level,
         raid_gateway: raid_gateway,
-        raid_gold: RaidGold(raid_name + ' ' + raid_level + ' ' + raid_gateway),
+        raid_gold: GetRaidGold(raid_name + ' ' + raid_level + ' ' + raid_gateway),
         schedule: schedule,
       }
       try {

@@ -1,5 +1,5 @@
-import HeaderField from '@/components/header/headerField'
-import RaidGuidedIdField from '@/components/raidGuideField/raidGuideIdField'
+import HeaderLayout from '@/components/header/HeaderLayout'
+import RaidGuideDetailView from '@/components/raidGuideField/RaidGuideDetailView'
 import Section from '@/components/utils/section'
 import React from 'react'
 
@@ -42,10 +42,10 @@ export default async function Raidguide({ params }: { params: Params }) {
 
   return (
     <>
-      <HeaderField />
+      <HeaderLayout />
       <Section>
         <main className='flex h-full w-full flex-col items-center gap-4'>
-          <RaidGuidedIdField raideGuide={raideGuide[0]} />
+          <RaidGuideDetailView raideGuide={raideGuide[0]} />
         </main>
       </Section>
     </>

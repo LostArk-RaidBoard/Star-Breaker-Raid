@@ -9,10 +9,10 @@ export default function HeadLogField() {
   const { data: session } = useSession()
 
   return (
-    <div className='flex h-full items-center justify-center text-base font-medium sm:text-lg'>
+    <div className='flex h-full items-center justify-center text-base font-medium font-semibold sm:text-lg'>
       {session && session.user ? (
         <button
-          className={`flex flex-row items-center justify-center gap-1 hover:text-blue-500`}
+          className={`flex flex-row items-center justify-center gap-1 transition-colors hover:text-blue-600`}
           onClick={() => signOut({ callbackUrl: '/' })}
         >
           <span>로그아웃</span>

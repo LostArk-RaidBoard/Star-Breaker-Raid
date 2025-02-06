@@ -1,7 +1,7 @@
 'use client'
 
 import UpdateRaidButton from '@/components/button/UpdateRaidButton'
-import UpdateCalendarPick from '@/components/calendar/updateCalendar'
+import RaidUpdateCalendarPick from '@/components/calendar/RaidUpdateCalendarPick'
 import UpdateRaidDetail from '@/components/raidPostField/raidPostUpdate/UpdateRaidDetail'
 import UpdateRaidMaxTime from '@/components/raidPostField/raidPostUpdate/UpdateRaidMaxTime'
 import UpdateRaidNoti from '@/components/raidPostField/raidPostUpdate/UpdateRaidNoti'
@@ -84,7 +84,7 @@ export default function UpdateField({ postData, createPostCharacter }: Props) {
 
           {/* 날짜 및 시간 선택 */}
 
-          <UpdateCalendarPick updateTime={updateTime} setUpdateTime={setUpdateTime} />
+          <RaidUpdateCalendarPick updateTime={updateTime} setUpdateTime={setUpdateTime} />
 
           {/* 레이드 타입 */}
           <UpdateRaidDetail updateRaidType={updateRaidType} setUpdateRaidType={setUpdateRaidType} />
