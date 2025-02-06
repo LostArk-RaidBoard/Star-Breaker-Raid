@@ -64,7 +64,7 @@ export default function SignInForm() {
         />
         {error && <span className='mt-4 text-red-500'>{error}</span>}
         <button
-          className='mt-8 h-12 w-[90%] rounded-md bg-gray-900 text-white sm:w-[400px]'
+          className='mt-8 h-12 w-[90%] rounded-md bg-gray-800 text-gray-100 sm:w-[400px]'
           type='submit'
         >
           로그인

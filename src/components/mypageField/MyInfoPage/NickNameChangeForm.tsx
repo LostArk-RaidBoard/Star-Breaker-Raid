@@ -85,7 +85,7 @@ export default function NickNameChangeForm({ userId }: Props) {
         <div className='flex justify-center'>
           <button
             type='submit'
-            className='w-28 rounded-md bg-gray-900 py-2 text-sm font-semibold text-white hover:bg-gray-500'
+            className='w-28 rounded-md bg-gray-800 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-500'
           >
             설정
           </button>

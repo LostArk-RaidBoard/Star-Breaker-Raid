@@ -188,7 +188,7 @@ export default function RaidApplicationPanel({
           <div className='flex flex-col items-center gap-4 rounded-lg bg-white p-6 shadow-lg'>
             <h2 className='text-lg font-semibold text-gray-900'>* 최대 승인 인원을 넘었습니다.</h2>
             <button
-              className='mt-4 h-10 w-28 rounded bg-gray-900 text-white hover:bg-gray-700'
+              className='mt-4 h-10 w-28 rounded bg-gray-800 text-gray-100 hover:bg-gray-700'
               onClick={() => setConflict(false)}
             >
               확인

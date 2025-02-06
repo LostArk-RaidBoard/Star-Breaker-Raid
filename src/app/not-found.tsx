@@ -17,7 +17,7 @@ const NotFound = () => {
       <span className='mt-4 text-xl'>
         <span className='text-3xl'>404</span> 요청하신 페이지는 존재하지 않습니다.
       </span>
-      <Link href={'/'} className='mt-4 rounded-md border bg-gray-900 p-2 text-white'>
+      <Link href={'/'} className='mt-4 rounded-md border bg-gray-800 px-4 py-3 text-gray-100'>
         메인으로 돌아가기
       </Link>
     </div>
