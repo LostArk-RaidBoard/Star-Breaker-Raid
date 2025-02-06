@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
-import { verifyPassword } from '@/components/utils/bcrypt'
+import { verifyPassword } from '@/components/utils/AuthSecurityUtils'
 import { getUserFromDb } from '@/lib/getUserFromDB'
 import { signInSchema } from '@/lib/zod'
 import getUserBirthday from '@/lib/getUserBirthday'

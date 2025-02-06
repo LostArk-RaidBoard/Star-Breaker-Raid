@@ -66,6 +66,8 @@ export async function GET(req: Request) {
           OR rp.character_name ILIKE ${'%' + search + '%'}
           OR users.nickname ILIKE ${'%' + search + '%'}
           OR rp.post_position ILIKE ${'%' + search + '%'}
+          OR rp.raid_level ILIKE ${'%' + search + '%'}
+          OR rp.raid_gateway ILIKE ${'%' + search + '%'}
         )
       GROUP BY 
           rp.post_id, users.nickname

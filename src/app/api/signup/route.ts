@@ -1,5 +1,5 @@
 import { sql } from '@vercel/postgres'
-import { hashPassword } from '@/components/utils/bcrypt'
+import { hashPassword } from '@/components/utils/AuthSecurityUtils'
 
 export async function POST(req: Request) {
   const { userName, birthday, userEmail, userPassword } = await req.json()

@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Loading from '@image/icon/loading.svg'
 import { wePostTage } from '@/app/action'
-import RaidGold from '@/components/utils/raidGold'
+import GetRaidGold from '@/components/utils/GetRaidGold'
 import React from 'react'
 
 /**
@@ -93,7 +93,7 @@ export default function RaidPostAddButton() {
     }
 
     const raidGoldGetName = raidSelect + ' ' + raidLevel + ' ' + raidGateway
-    const raidGold = RaidGold(raidGoldGetName)
+    const raidGold = GetRaidGold(raidGoldGetName)
 
     try {
       const response = await fetch(

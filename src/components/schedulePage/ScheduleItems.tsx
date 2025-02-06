@@ -4,8 +4,8 @@ import { useState } from 'react'
 import UP from '@image/icon/up.svg'
 import Under from '@image/icon/under.svg'
 import { toZonedTime } from 'date-fns-tz'
-import ScheduleGoldCheckBox from '@/components/button/sheduleGoldCheckBox'
-import DeleteScheduleButton from '@/components/button/deleteScheduleButton'
+import ScheduleWeekGoldCheckBox from '@/components/button/ScheduleWeekGoldCheckBox'
+import ScheduleDeleteButton from '@/components/button/ScheduleDeleteButton'
 
 interface Schedule {
   user_id: string
@@ -53,7 +53,7 @@ export default function ScheduleItems({ schedule }: Props) {
         >
           {schedule.raid_name} {schedule.raid_level}
         </span>
-        <DeleteScheduleButton
+        <ScheduleDeleteButton
           characterName={schedule.character_name}
           raidName={schedule.raid_name}
           userId={schedule.user_id}
@@ -87,7 +87,7 @@ export default function ScheduleItems({ schedule }: Props) {
 
           {/* 골드 체크박스 */}
           <div className='mt-2 flex items-center'>
-            <ScheduleGoldCheckBox
+            <ScheduleWeekGoldCheckBox
               goldCheck={schedule.gold_check}
               characterName={schedule.character_name}
               raidName={schedule.raid_name}

@@ -3,7 +3,7 @@ import { auth } from '@/auth'
 import RaidSelector from '@/components/select/RaidSelector'
 import CalendarPick from '@/components/calendar/CalendarPick'
 import UtileCharacterDataFetch from '@/components/utils/utilCharacterGet'
-import RaidCharacterSelect from '@/components/select/raidCharacterSelect'
+import RaidCharacterSelector from '@/components/select/RaidCharacterSelector'
 import RaidPersonLimitSelector from '@/components/select/RaidPersonLimitSelector'
 import RaidTypeSelect from '@/components/raidPostField/raidPostCreate/RaidTypeSelect'
 import RaidLevelPicker from '@/components/raidPostField/raidPostCreate/RaidLevelPicker'
@@ -54,7 +54,7 @@ export default async function RaidCreateForm() {
           <div className='flex w-full flex-col gap-3 sm:flex-row'>
             {/* 왼쪽 섹션 */}
             <div className='flex w-full flex-col gap-3 sm:w-[50%]'>
-              <RaidCharacterSelect createPostCharacter={createPostCharacter} />
+              <RaidCharacterSelector createPostCharacter={createPostCharacter} />
               <RaidSelector />
               <RaidLevelPicker />
               <RaidGatewayPicker />

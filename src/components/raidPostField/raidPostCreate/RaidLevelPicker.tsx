@@ -1,6 +1,6 @@
 'use client'
 
-import RaidLevel from '@/components/utils/raidLevel'
+import GetRaidLevel from '@/components/utils/GetRaidLevel'
 import { useCharacterInfoList } from '@/store/characterStore'
 import { useRaidSelect } from '@/store/raidSelectStore'
 import React, { useEffect, useState } from 'react'
@@ -31,7 +31,7 @@ export default function RaidLevelPicker() {
 
   useEffect(() => {
     if (raidSelect) {
-      const raidLimitLevel = RaidLevel(raidSelect)
+      const raidLimitLevel = GetRaidLevel(raidSelect)
 
       // 업데이트된 레벨로 raidOptions 상태를 설정
       setRaidOptions([

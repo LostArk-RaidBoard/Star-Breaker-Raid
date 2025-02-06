@@ -1,6 +1,6 @@
-import MypageField from '@/components/mypageField/mypageField'
+import MypageFieldComponent from '@/components/mypageField/MypageFieldComponent'
 import React from 'react'
 
 export default function Mypage() {
-  return <MypageField />
+  return <MypageFieldComponent />
 }
