@@ -40,7 +40,7 @@ export default function RaidGuideDetailView({ raideGuide }: Props) {
   }
 
   return (
-    <div className='flex h-full w-full flex-col rounded-md border border-gray-400 p-4 shadow-lg'>
+    <div className='flex h-full w-full flex-col rounded-md border border-gray-400 p-4 shadow-lg sm:px-12'>
       <h1 className='text-2xl font-semibold'>{raideGuide.guide_name} 레이드 가이드</h1>
       <h2 className='mt-4 text-xl font-semibold'>• {raideGuide.guide_name} 레이드 공략 추천</h2>
 

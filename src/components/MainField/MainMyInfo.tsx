@@ -127,7 +127,7 @@ export default function MainMyInfo() {
               />
             </div>
             <div className='flex justify-between'>
-              <span>길드 체크:</span>
+              <span>영지:</span>
               <CircleCheck
                 className={`h-4 w-4 ${myInfoState.wisdom ? 'text-green-500' : 'text-red-500'}`}
               />

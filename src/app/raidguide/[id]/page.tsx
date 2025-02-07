@@ -44,7 +44,7 @@ export default async function Raidguide({ params }: { params: Params }) {
     <>
       <HeaderLayout />
       <Section>
-        <main className='flex h-full w-full flex-col items-center gap-4'>
+        <main className='flex h-full w-full flex-col items-center gap-4 sm:px-32'>
           <RaidGuideDetailView raideGuide={raideGuide[0]} />
         </main>
       </Section>

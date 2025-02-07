@@ -18,12 +18,12 @@ export default async function MainField() {
     <div className='flex h-full w-full flex-col items-center justify-center'>
       <div className='flex w-full flex-col gap-6 xl:h-[380px] xl:flex-row'>
         {/* 나의 정보 섹션 */}
-        <div className='relative z-50 flex h-[300px] w-full rounded-lg bg-gray-800 p-4 shadow-lg md:h-[300px] xl:h-full xl:w-[400px]'>
+        <div className='relative z-50 flex h-[300px] w-full rounded-lg bg-gray-800 p-4 shadow-lg xl:h-full xl:w-[400px]'>
           <MainMyInfo />
         </div>
 
         {/* 오늘의 일정 및 인증 레이드 섹션 */}
-        <div className='flex h-full w-full flex-col gap-6 md:flex-row xl:flex-grow'>
+        <div className='flex w-full flex-col gap-6 md:flex-row xl:flex-grow'>
           {/* 오늘의 일정 */}
           <MainMyPostsSchedule userId={userId} />
 

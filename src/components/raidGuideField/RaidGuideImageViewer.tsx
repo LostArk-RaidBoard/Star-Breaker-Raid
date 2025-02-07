@@ -62,7 +62,7 @@ export default function RaidGuideImageViewer({ raideImageArray }: Props) {
       <div className='mt-2 grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2'>
         {raideImageArray.map((imageUrl, key: number) => (
           <div
-            className='relative w-full p-4'
+            className='relative flex w-full items-start justify-center p-4'
             key={key}
             onClick={() => openFullscreen(imageUrl as string)}
           >
@@ -72,7 +72,7 @@ export default function RaidGuideImageViewer({ raideImageArray }: Props) {
               width={800}
               height={1250}
               style={{
-                maxWidth: '100%',
+                maxWidth: '80%',
                 height: 'auto',
                 objectFit: 'contain',
                 border: 0,
@@ -108,8 +108,8 @@ export default function RaidGuideImageViewer({ raideImageArray }: Props) {
               width={800}
               height={1250}
               style={{
-                maxWidth: '80%',
-                height: '100%',
+                maxWidth: '50%',
+                height: 'auto',
                 objectFit: 'contain',
                 border: 0,
               }}

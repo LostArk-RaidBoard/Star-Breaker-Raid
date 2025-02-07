@@ -56,7 +56,7 @@ export default function MainTeacherPosts() {
   }, [])
 
   return (
-    <div className='flex h-[350px] w-full flex-col rounded-lg bg-gray-600 p-4 shadow-lg md:h-full'>
+    <div className='flex h-[350px] w-full flex-col rounded-lg bg-gray-600 p-4 shadow-lg xl:h-full'>
       {/* 상단 헤더 */}
       <div className='mb-2 text-sm font-bold text-white'>Teacher 레이드</div>
 
