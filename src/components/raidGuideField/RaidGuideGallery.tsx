@@ -102,7 +102,7 @@ export default function RaidGuideGallery({ userId }: Props) {
   return (
     <div className='grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
       {loading
-        ? Array.from({ length: 10 }).map((_, index) => <RaidGuideLoadingSkeleton key={index} />) // Skeleton 10개 렌더링
+        ? Array.from({ length: 13 }).map((_, index) => <RaidGuideLoadingSkeleton key={index} />) // Skeleton 10개 렌더링
         : raidGuides.map((item: RaidGuide, key: number) => (
             <div
               className='flex flex-col items-center overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-105 hover:shadow-xl'
@@ -128,7 +128,7 @@ export default function RaidGuideGallery({ userId }: Props) {
                 </Link>
               </div>
               <div className='flex w-full items-center justify-center bg-gray-800 p-3'>
-                <span className='truncate text-center text-lg font-semibold text-white'>
+                <span className='truncate text-center text-lg font-semibold text-gray-100'>
                   {item.guide_name} 공략
                 </span>
               </div>

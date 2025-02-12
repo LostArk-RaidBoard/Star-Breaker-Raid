@@ -59,6 +59,7 @@ export default function RaidGuideImageViewer({ raideImageArray }: Props) {
   }, [isFullscreen])
   return (
     <>
+      <h2 className='mt-4 text-xl font-semibold'>컨닝페이퍼</h2>
       <div className='mt-2 grid h-full w-full grid-cols-1 gap-4 md:grid-cols-2'>
         {raideImageArray.map((imageUrl, key: number) => (
           <div

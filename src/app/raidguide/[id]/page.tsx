@@ -14,6 +14,17 @@ interface RaidGuide {
   role_id: number
 }
 
+interface RaidReward {
+  reward_id: number
+  guide_id: number
+  gate: number
+  difficulty: string
+  item_name: string
+  quantity: string
+  image_url: string
+  is_extra_reward: boolean
+}
+
 const handleFetch = async (id: string) => {
   try {
     const response = await fetch(
@@ -35,17 +46,39 @@ const handleFetch = async (id: string) => {
   }
 }
 
+const rewardHandler = async (id: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.API_URL}/api/raidGuideAPI/raidRewardGet?raidGuideId=${id}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    const data = await response.json()
+    if (response.ok) {
+      return data.guideRows
+    }
+  } catch (error) {
+    console.error(error)
+    return []
+  }
+}
+
 type Params = Promise<{ id: string }>
 export default async function Raidguide({ params }: { params: Params }) {
   const { id } = await params
   const raideGuide: RaidGuide[] = await handleFetch(id)
+  const raideReward: RaidReward[] = await rewardHandler(id)
 
   return (
     <>
       <HeaderLayout />
       <Section>
         <main className='flex h-full w-full flex-col items-center gap-4 sm:px-32'>
-          <RaidGuideDetailView raideGuide={raideGuide[0]} />
+          <RaidGuideDetailView raideGuide={raideGuide[0]} raideReward={raideReward} />
         </main>
       </Section>
     </>
