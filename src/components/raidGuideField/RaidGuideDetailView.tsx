@@ -1,7 +1,18 @@
 import RaidGuideImageViewer from '@/components/raidGuideField/RaidGuideImageViewer'
 import RaidGuideVideoPlayer from '@/components/raidGuideField/RaidGuideVideoPlayer'
+import RaidRewardView from '@/components/raidGuideField/RaidRewardView'
 import React from 'react'
 
+type raidRewardItem = {
+  reward_id: number
+  guide_id: number
+  gate: number
+  difficulty: string
+  item_name: string
+  quantity: string
+  image_url: string
+  is_extra_reward: boolean
+}
 interface Props {
   raideGuide: {
     guide_id: number
@@ -13,6 +24,7 @@ interface Props {
     raid_main_image: string
     role_id: number
   }
+  raideReward: raidRewardItem[]
 }
 
 // 유튜브 nocookie URL에서 비디오 ID 추출 함수
@@ -22,7 +34,7 @@ const extractVideoId = (url: string) => {
   return match ? match[1] : null
 }
 
-export default function RaidGuideDetailView({ raideGuide }: Props) {
+export default function RaidGuideDetailView({ raideGuide, raideReward }: Props) {
   const youtubeURLs = JSON.parse(raideGuide.youtube_url) as string[]
   const raideImage = JSON.parse(raideGuide.image_url) as string[]
   const raideYoutubeURLsArray = Object.values(youtubeURLs)
@@ -40,14 +52,12 @@ export default function RaidGuideDetailView({ raideGuide }: Props) {
   }
 
   return (
-    <div className='flex h-full w-full flex-col rounded-md border border-gray-400 p-4 shadow-lg'>
-      <h1 className='text-2xl font-semibold'>{raideGuide.guide_name} 레이드 가이드</h1>
-      <h2 className='mt-4 text-xl font-semibold'>• {raideGuide.guide_name} 레이드 공략 추천</h2>
-
+    <div className='flex h-full w-full flex-col rounded-md border border-gray-400 p-4 shadow-lg sm:px-12'>
+      <h1 className='text-2xl font-semibold'>{raideGuide.guide_name} 레이드 공략</h1>
+      <h2 className='mt-4 text-xl font-semibold'>{raideGuide.guide_name} 레이드 공략 동영상</h2>
       <RaidGuideVideoPlayer raidYoutubeVideoId={raidYoutubeVideoId} />
-
-      <h2 className='mt-4 text-xl font-semibold'>• 컨닝페이퍼</h2>
       <RaidGuideImageViewer raideImageArray={raideImageArray} />
+      <RaidRewardView raideReward={raideReward} raidName={raideGuide.guide_name} />
     </div>
   )
 }

@@ -4,6 +4,7 @@ import GoldImage from '@image/asset/골드.png'
 import ScheduleItems from '@/components/schedulePage/ScheduleItems'
 import ScheduleCreateButton from '@/components/button/ScheduleCreateButton'
 import CharacterRaidSummary from '@/components/schedulePage/CharacterRaidSummary'
+import formatNumber from '@/components/utils/FormatNumber'
 
 interface Schedule {
   user_id: string
@@ -86,7 +87,7 @@ export default function RaidWeekPlanner({ weekSchedule, userId, characterName }:
               height={25}
               style={{ width: '25px', height: 'auto' }}
             />
-            <span className='text-lg text-yellow-700'>{sumGold}</span>
+            <span className='text-lg text-yellow-700'>{formatNumber(sumGold)}</span>
           </div>
           <ScheduleCreateButton userId={userId} />
         </div>

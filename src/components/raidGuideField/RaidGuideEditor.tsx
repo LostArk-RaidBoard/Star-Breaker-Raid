@@ -104,11 +104,8 @@ export default function RaidGuideEditor() {
 
   const renderImage = (src: string, alt: string) => {
     try {
-      if (!src.startsWith('/') && !src.startsWith('http')) {
-        throw new Error('Invalid image URL') // URL 형식이 유효하지 않으면 예외 발생
-      }
       return (
-        <div className='relative h-[200px] w-[300px]'>
+        <div className='relative mt-4 h-[200px] w-[300px]'>
           <Image
             src={src}
             alt={alt}
@@ -130,10 +127,10 @@ export default function RaidGuideEditor() {
 
   return (
     <div className='flex h-full w-full flex-col rounded-md p-4 shadow-lg'>
-      <h1 className='text-xl'>* 레이드 공략 생성란</h1>
+      <h1 className='text-xl font-semibold'>* 레이드 공략 생성란</h1>
 
       {/* 레이드 명칭 입력 */}
-      <label className='mt-4 text-lg'>* 레이드 명칭</label>
+      <label className='mt-4 text-lg font-semibold'>레이드 명칭</label>
       <InputLayout
         setType={'text'}
         setName={'raidGuideName'}
@@ -144,8 +141,8 @@ export default function RaidGuideEditor() {
       ></InputLayout>
 
       {/* 대표 이미지 입력 */}
-      <label className='mt-4 text-lg'>* 대표 이미지 URL</label>
-      <p className='text-sm'>주소 예시 : /guideImage/레이드 명칭.png</p>
+      <label className='mt-4 text-lg font-semibold'>대표 이미지 URL</label>
+      <p className='text-sm font-semibold'>주소 예시 : /guideImage/레이드 명칭.png</p>
 
       <InputLayout
         setType={'text'}
@@ -159,7 +156,7 @@ export default function RaidGuideEditor() {
 
       {/* Youtube URL 추가/삭제 */}
       <div className='mt-4 flex flex-col items-center justify-between sm:flex-row'>
-        <label className='mt-4 text-lg'>* 레이드에 도움이 되는 YouTube</label>
+        <label className='mt-4 text-lg font-semibold'>레이드에 도움이 되는 YouTube</label>
         <div className='flex gap-4'>
           <button onClick={addYoutubeUrl} className='rounded-sm bg-gray-900 p-1 px-2 text-white'>
             추가
@@ -170,7 +167,7 @@ export default function RaidGuideEditor() {
         </div>
       </div>
 
-      <p className='text-sm'>
+      <p className='text-sm font-semibold'>
         youtube의 URL의 hostName을 www.youtube-nocookie.com으로 해주세요. 원하는 동영상에서
         공유-퍼가기 안에 URL을 복사해서 가져오시면 됩니다.
       </p>
@@ -205,7 +202,7 @@ export default function RaidGuideEditor() {
 
       {/* Image URL 추가/삭제 */}
       <div className='mt-4 flex flex-col items-center justify-between sm:flex-row'>
-        <label className='mt-4 text-lg'>* 레이드에 컨닝페이퍼 Image</label>
+        <label className='mt-4 text-lg font-semibold'>레이드에 컨닝페이퍼 Image</label>
         <div className='flex gap-4'>
           <button onClick={addImageUrl} className='rounded-sm bg-gray-800 px-4 py-3 text-white'>
             추가
@@ -216,7 +213,7 @@ export default function RaidGuideEditor() {
         </div>
       </div>
 
-      <p className='text-sm'>
+      <p className='text-sm font-semibold'>
         로아 인벤에서 공유되고있는 Image의 주소를 가져오시면 됩니다. 꼭 로아 인벤입니다.
       </p>
 
@@ -246,7 +243,7 @@ export default function RaidGuideEditor() {
         </div>
       ))}
       <div className='mt-4 flex flex-col items-center justify-center'>
-        <button className='w-24 rounded-sm bg-gray-800 px-4 py-3 text-white' onClick={handleSave}>
+        <button className='w-24 rounded-md bg-gray-800 px-4 py-3 text-white' onClick={handleSave}>
           추가하기
         </button>
         <span className={`${saveStatues === 1 ? '' : 'hidden'} mt-1 text-blue-500`}>
