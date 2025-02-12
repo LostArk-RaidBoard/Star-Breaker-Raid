@@ -7,6 +7,7 @@ import Loading from '@image/icon/loading.svg'
 import GoldImage from '@image/asset/골드.png'
 import CircleCheck from '@image/icon/circlecheck.svg'
 import { useSession } from 'next-auth/react'
+import formatNumber from '@/components/utils/FormatNumber'
 
 interface Myinfo {
   character_count: number
@@ -117,7 +118,7 @@ export default function MainMyInfo() {
               <span>이번 주 레이드 골드 수익:</span>
               <div className='flex items-center'>
                 <Image src={GoldImage} alt='골드 이미지' width={20} height={20} className='p-1' />
-                {myInfoState.raid_gold}
+                {formatNumber(myInfoState.raid_gold)}
               </div>
             </div>
             <div className='flex justify-between'>
