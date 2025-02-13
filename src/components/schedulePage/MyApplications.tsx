@@ -80,7 +80,7 @@ export default function MyApplications({ userId, applicationPostGet }: Props) {
           {currentItems.length > 0 ? (
             currentItems.map((item, key) => (
               <div
-                key={`scheduleAp-${item.post_id}-${key}`}
+                key={`scheduleAp-${item.post_id}-${item.raid_time}-${item.raid_name}-${key}`}
                 className={`grid grid-cols-8 items-center gap-4 px-2 py-3 transition-transform hover:shadow-sm sm:grid-cols-12 ${item.approval ? 'bg-indigo-100 hover:bg-indigo-200' : 'hover:bg-gray-200'}`}
               >
                 {/* 레이드 이름 */}
