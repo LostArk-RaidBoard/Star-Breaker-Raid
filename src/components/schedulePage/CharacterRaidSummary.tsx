@@ -52,7 +52,9 @@ export default function CharacterRaidSummary({
     )
 
     // raid_name 리스트 생성
-    const raidNames = relatedRaids.map((raid) => raid.raid_name + ' ' + raid.raid_level)
+    const raidNames = relatedRaids.map(
+      (raid) => raid.raid_name + ' ' + raid.raid_level + ' ' + raid.raid_gateway,
+    )
 
     return {
       character_name: character.character_name,
@@ -140,7 +142,13 @@ export default function CharacterRaidSummary({
 
                   {/* 레이드 이름 */}
                   <td className='border border-gray-300 px-4 py-3 text-sm text-gray-700'>
-                    {data.raidNames.join(' | ')}
+                    {data.raidNames.map((name, index) => (
+                      <React.Fragment key={index}>
+                        {index > 0 && <span className='mx-1 font-bold text-yellow-600'>|</span>}{' '}
+                        {/* 색상 변경 가능 */}
+                        {name}
+                      </React.Fragment>
+                    ))}
                   </td>
                 </tr>
               ))}
