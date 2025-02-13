@@ -1,3 +1,5 @@
+import CheckGatewayConflict from '@/components/utils/CheckGatewayConflict'
+import GetNextWednesday from '@/components/utils/GetNextWednesday'
 import { sql } from '@vercel/postgres'
 
 export async function POST(req: Request) {
@@ -9,6 +11,7 @@ export async function POST(req: Request) {
   const raid_name = url.searchParams.get('raid_name')
   const raid_gateway = url.searchParams.get('raid_gateway')
   const raid_level = url.searchParams.get('raid_level')
+  const nextWednesdayDate = GetNextWednesday()
 
   if (
     !userId ||
@@ -29,11 +32,18 @@ export async function POST(req: Request) {
 
   try {
     const response =
-      await sql`SELECT * FROM schedule WHERE user_id = ${userId} AND character_name = ${character_name} AND raid_name = ${raid_name}`
-    if (response.rowCount != 0) {
-      return new Response(JSON.stringify({ message: '중복' }), {
-        status: 409,
-      })
+      await sql`SELECT schedule.raid_gateway FROM schedule WHERE user_id = ${userId} AND character_name = ${character_name} AND raid_name = ${raid_name}  AND schedule_time < ${nextWednesdayDate + ' 06:00'} ;`
+
+    // 기존 raid_gateway 값 리스트
+    const existingGateways = response.rows.map((item) => item.raid_gateway)
+
+    // 중복 확인 로직 (겹치는지 검사)
+    const isDuplicate = existingGateways.some((existingGateway) =>
+      CheckGatewayConflict(existingGateway, raid_gateway),
+    )
+
+    if (isDuplicate) {
+      return new Response(JSON.stringify({ message: '중복' }), { status: 409 })
     }
 
     await sql`
