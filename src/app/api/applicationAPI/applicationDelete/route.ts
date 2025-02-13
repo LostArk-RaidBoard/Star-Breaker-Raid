@@ -1,16 +1,22 @@
+import NormalizeScheduleTime from '@/components/utils/NormalizeScheduleTime'
 import { sql } from '@vercel/postgres'
 
 export async function DELETE(req: Request) {
   const url = new URL(req.url)
   const post_id = url.searchParams.get('post_id')
   const userId = url.searchParams.get('user_id')
-  const schedule = url.searchParams.get('schedule')
-  console.log('=========')
-  console.log(schedule)
-  console.log('=========')
+  const schedule = url.searchParams.get('schedule') || ''
+
   if (!post_id || !userId) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
+
+  const formattedSchedule = NormalizeScheduleTime(schedule)
+  if (!formattedSchedule) {
+    return new Response(JSON.stringify({ message: '날짜 형식 오류' }), { status: 400 })
+  }
+
+  console.log(formattedSchedule)
 
   try {
     const res1 = await sql`
