@@ -52,10 +52,15 @@ export async function DELETE(req: Request) {
   const character_name = url.searchParams.get('character_name')
   const user_id = url.searchParams.get('user_id')
   const raid_name = url.searchParams.get('raid_name')
+  const schedule = url.searchParams.get('schedule')
 
   if (!post_id || !character_name || !user_id || !raid_name) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
+
+  console.log('========')
+  console.log(schedule)
+  console.log('========')
 
   try {
     // 지원자 찾는 sql

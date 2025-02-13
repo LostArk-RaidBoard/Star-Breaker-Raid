@@ -131,6 +131,7 @@ export default async function RaidDetailView({ postId }: Props) {
                 userId={userId}
                 raidName={raid_name}
                 characterName={character_name}
+                schedule={schedule}
               />
               <Link
                 href={`/raidpost/update/${postId}`}

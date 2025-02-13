@@ -44,10 +44,11 @@ export default function ManageCreatedPosts({ createPostGet }: Props) {
     character_name: string,
     user_id: string,
     raid_name: string,
+    schedule: string,
   ) => {
     try {
       const response = await fetch(
-        `/api/raidPostAPI/createPost?post_id=${post_id}&character_name=${character_name}&user_id=${user_id}&raid_name=${raid_name}`,
+        `/api/raidPostAPI/createPost?post_id=${post_id}&character_name=${character_name}&user_id=${user_id}&raid_name=${raid_name}&schedule=${schedule}`,
         {
           method: 'DELETE',
           headers: {
@@ -85,7 +86,7 @@ export default function ManageCreatedPosts({ createPostGet }: Props) {
           {currentItems.length > 0 ? (
             currentItems.map((item, key) => (
               <div
-                key={`createAp-${item.post_id}-${key}`}
+                key={`createAp-${item.post_id}-${item.raid_time}-${item.raid_name}-${key}`}
                 className='grid grid-cols-8 items-center gap-2 py-3 hover:bg-gray-200 hover:shadow-sm sm:grid-cols-12'
               >
                 <Link
@@ -133,6 +134,7 @@ export default function ManageCreatedPosts({ createPostGet }: Props) {
                       item.character_name,
                       item.user_id,
                       item.raid_name,
+                      item.raid_time,
                     )
                   }}
                 >

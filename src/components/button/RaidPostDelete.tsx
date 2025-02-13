@@ -8,8 +8,15 @@ interface Props {
   userId: string
   raidName: string
   characterName: string
+  schedule: Date
 }
-export default function RaidPostDeleteButton({ postId, userId, raidName, characterName }: Props) {
+export default function RaidPostDeleteButton({
+  postId,
+  userId,
+  raidName,
+  characterName,
+  schedule,
+}: Props) {
   const router = useRouter()
   const searchParams = useSearchParams() // searchParams를 통해 쿼리 파라미터에 접근
   const search = searchParams.get('redirect') || ''
@@ -19,10 +26,11 @@ export default function RaidPostDeleteButton({ postId, userId, raidName, charact
     userId: string,
     raidName: string,
     characterName: string,
+    schedule: Date,
   ) => {
     try {
       const response = await fetch(
-        `/api/raidPostAPI/createPost?post_id=${postId}&character_name=${characterName}&user_id=${userId}&raid_name=${raidName}`,
+        `/api/raidPostAPI/createPost?post_id=${postId}&character_name=${characterName}&user_id=${userId}&raid_name=${raidName}&schedule=${schedule}`,
         {
           method: 'DELETE',
           headers: {
@@ -43,7 +51,7 @@ export default function RaidPostDeleteButton({ postId, userId, raidName, charact
     <button
       className='rounded-md bg-gray-800 px-4 py-3 text-white hover:bg-gray-600'
       onClick={() => {
-        deleteCreatePostHandler(postId, userId, raidName, characterName)
+        deleteCreatePostHandler(postId, userId, raidName, characterName, schedule)
       }}
     >
       모집 글 닫기
