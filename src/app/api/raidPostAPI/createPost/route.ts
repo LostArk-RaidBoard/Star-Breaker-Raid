@@ -1,4 +1,3 @@
-import NormalizeScheduleTime from '@/components/utils/NormalizeScheduleTime'
 import { sql } from '@vercel/postgres'
 
 type Application = {
@@ -65,8 +64,6 @@ export async function DELETE(req: Request) {
     const baseTime = responseTime.rows[0].raid_time
     console.log('===========')
     console.log(baseTime)
-    const formatTime = NormalizeScheduleTime(baseTime)
-    console.log(formatTime)
     console.log('===========')
 
     // 지원자 찾는 sql
@@ -79,11 +76,11 @@ export async function DELETE(req: Request) {
       await sql`DELETE FROM schedule WHERE user_id = ${item.user_id} AND raid_name = ${raid_name} AND character_name = ${item.character_name} AND schedule_time = ${baseTime}`
     }
 
-    // 모집 글 삭제
-    await sql`DELETE FROM raid_posts WHERE post_id = ${post_id}`
+    // // 모집 글 삭제
+    // await sql`DELETE FROM raid_posts WHERE post_id = ${post_id}`
 
-    // 자신의 스케줄에서 삭제
-    await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name} AND schedule_time = ${formatTime}`
+    // // 자신의 스케줄에서 삭제
+    // await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name} AND schedule_time = ${formatTime}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
