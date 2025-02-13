@@ -7,6 +7,7 @@ import CharacterRaidSummary from '@/components/schedulePage/CharacterRaidSummary
 import formatNumber from '@/components/utils/FormatNumber'
 
 interface Schedule {
+  schedule_id: number
   user_id: string
   schedule_time: string
   raid_gold: number
@@ -56,7 +57,6 @@ export default function RaidWeekPlanner({ weekSchedule, userId, characterName }:
       sumGold += post.raid_gold
     }
 
-    // 요일 구분하기
     // 요일 구분하기
     const raidTime = new Date(post.schedule_time) // 원본 시간
     const adjustedRaidTime = new Date(raidTime) // 복사본 생성

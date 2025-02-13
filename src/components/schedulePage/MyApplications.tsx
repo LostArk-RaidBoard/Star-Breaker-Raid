@@ -37,10 +37,10 @@ export default function MyApplications({ userId, applicationPostGet }: Props) {
     setItemsPerPage(5)
   }, [applicationPostGet, setDataLength, setCurrentPage, setItemsPerPage])
 
-  const deleteApplicationHandler = async (post_id: number, raid_name: string) => {
+  const deleteApplicationHandler = async (post_id: number, raid_name: string, schedule: string) => {
     try {
       const response = await fetch(
-        `/api/applicationAPI/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}`,
+        `/api/applicationAPI/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}&schedule=${schedule}`,
         {
           method: 'DELETE',
           headers: {
@@ -80,7 +80,7 @@ export default function MyApplications({ userId, applicationPostGet }: Props) {
           {currentItems.length > 0 ? (
             currentItems.map((item, key) => (
               <div
-                key={`scheduleAp-${item.post_id}-${key}`}
+                key={`scheduleAp-${item.post_id}-${item.raid_time}-${item.raid_name}-${key}`}
                 className={`grid grid-cols-8 items-center gap-4 px-2 py-3 transition-transform hover:shadow-sm sm:grid-cols-12 ${item.approval ? 'bg-indigo-100 hover:bg-indigo-200' : 'hover:bg-gray-200'}`}
               >
                 {/* 레이드 이름 */}
@@ -117,7 +117,9 @@ export default function MyApplications({ userId, applicationPostGet }: Props) {
                 {/* 취소 버튼 */}
                 <button
                   className='col-span-2 rounded-md bg-red-500 py-1 text-sm font-bold text-white hover:bg-red-600'
-                  onClick={() => deleteApplicationHandler(item.post_id, item.raid_name)}
+                  onClick={() =>
+                    deleteApplicationHandler(item.post_id, item.raid_name, item.raid_time)
+                  }
                 >
                   취소
                 </button>

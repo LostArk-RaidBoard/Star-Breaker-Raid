@@ -10,6 +10,7 @@ interface Props {
   post_user: string
   applicationList: ApplicationList[]
   raid_name: string
+  schedule: Date
 }
 
 interface ApplicationList {
@@ -43,6 +44,7 @@ export default function RaidApplicationPanel({
   applicationList,
   post_user,
   raid_name,
+  schedule,
 }: Props) {
   const { data: session } = useSession()
   const [loading, setLoading] = useState(false)
@@ -52,7 +54,7 @@ export default function RaidApplicationPanel({
     setLoading(true)
     try {
       const response = await fetch(
-        `/api/applicationAPI/applicationDelete?post_id=${postId}&user_id=${userId}`,
+        `/api/applicationAPI/applicationDelete?post_id=${postId}&user_id=${userId}&schedule=${schedule}`,
         {
           method: 'DELETE',
           headers: {

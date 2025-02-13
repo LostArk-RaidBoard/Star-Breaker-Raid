@@ -33,6 +33,7 @@ interface RaidPostCreate {
 }
 
 interface Schedule {
+  schedule_id: number
   user_id: string
   schedule_time: string
   raid_gold: number
