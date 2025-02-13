@@ -1,4 +1,5 @@
 import { sql } from '@vercel/postgres'
+import { format } from 'date-fns'
 
 type Application = {
   user_id: string
@@ -64,6 +65,8 @@ export async function DELETE(req: Request) {
     const baseTime = responseTime.rows[0].raid_time
     console.log('===========')
     console.log(baseTime)
+    const date = new Date(baseTime)
+    console.log(format(date, 'yyyy-mm-dd HH:mm:ss'))
     console.log('===========')
 
     // 지원자 찾는 sql
