@@ -62,6 +62,9 @@ export async function DELETE(req: Request) {
       await sql`SELECT raid_posts.raid_time FROM raid_posts WHERE post_id = ${post_id}`
 
     const baseTime = responseTime.rows[0].raid_time
+    console.log('===========')
+    console.log(baseTime)
+    console.log('===========')
 
     // 지원자 찾는 sql
     const response =
