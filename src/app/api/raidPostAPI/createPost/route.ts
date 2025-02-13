@@ -60,9 +60,9 @@ export async function DELETE(req: Request) {
   try {
     const responseTime =
       await sql`SELECT raid_posts.raid_time FROM raid_posts WHERE post_id = ${post_id}`
-    console.log('============')
-    console.log(responseTime.rows[0].raid_time)
-    console.log('============')
+
+    const baseTime = responseTime.rows[0].raid_time
+
     // 지원자 찾는 sql
     const response =
       await sql`SELECT user_id, character_name FROM applicants_list WHERE post_id = ${post_id}`
@@ -70,14 +70,14 @@ export async function DELETE(req: Request) {
     const applicationList = response.rows
     // 지원자의 schedule에서 삭제함
     for (const item of applicationList as Application[]) {
-      await sql`DELETE FROM schedule WHERE user_id = ${item.user_id} AND raid_name = ${raid_name} AND character_name = ${item.character_name}`
+      await sql`DELETE FROM schedule WHERE user_id = ${item.user_id} AND raid_name = ${raid_name} AND character_name = ${item.character_name} AND schedule_time = ${baseTime}`
     }
 
     // 모집 글 삭제
     await sql`DELETE FROM raid_posts WHERE post_id = ${post_id}`
 
     // 자신의 스케줄에서 삭제
-    await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name}`
+    await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name} AND schedule_time = ${baseTime}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
