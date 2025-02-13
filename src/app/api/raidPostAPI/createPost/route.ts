@@ -66,7 +66,7 @@ export async function DELETE(req: Request) {
     console.log('===========')
     console.log(baseTime)
     const date = new Date(baseTime)
-    console.log(format(date, 'yyyy-mm-dd HH:mm:ss'))
+    const formatDate = format(date, 'yyyy-mm-dd HH:mm:ss')
     console.log('===========')
 
     // 지원자 찾는 sql
@@ -83,7 +83,7 @@ export async function DELETE(req: Request) {
     await sql`DELETE FROM raid_posts WHERE post_id = ${post_id}`
 
     // 자신의 스케줄에서 삭제
-    await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name} AND schedule_time = ${baseTime}`
+    await sql`DELETE FROM schedule WHERE user_id = ${user_id} AND raid_name = ${raid_name} AND character_name = ${character_name} AND schedule_time = ${formatDate}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
