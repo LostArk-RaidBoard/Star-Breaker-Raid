@@ -15,9 +15,9 @@ export async function DELETE(req: Request) {
   if (!formattedSchedule) {
     return new Response(JSON.stringify({ message: '날짜 형식 오류' }), { status: 400 })
   }
-  console.log('===========')
+
   console.log(formattedSchedule)
-  console.log('===========')
+
   try {
     const res1 = await sql`
     SELECT applicants_list.character_name, raid_posts.raid_name
@@ -30,12 +30,12 @@ export async function DELETE(req: Request) {
       })
     }
 
-    // const raid_name = res1.rows[0].raid_name
-    // const character_name = res1.rows[0].character_name
+    const raid_name = res1.rows[0].raid_name
+    const character_name = res1.rows[0].character_name
 
-    // await sql`DELETE FROM applicants_list WHERE user_id = ${userId} AND post_id = ${post_id}`
+    await sql`DELETE FROM applicants_list WHERE user_id = ${userId} AND post_id = ${post_id}`
 
-    // await sql`DELETE FROM schedule WHERE user_id = ${userId} AND raid_name = ${raid_name} AND character_name = ${character_name}`
+    await sql`DELETE FROM schedule WHERE user_id = ${userId} AND raid_name = ${raid_name} AND character_name = ${character_name} AND schedule_time = ${formattedSchedule}`
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
