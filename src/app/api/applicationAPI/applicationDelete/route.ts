@@ -15,9 +15,9 @@ export async function DELETE(req: Request) {
   if (!formattedSchedule) {
     return new Response(JSON.stringify({ message: '날짜 형식 오류' }), { status: 400 })
   }
-
+  console.log('===========')
   console.log(formattedSchedule)
-
+  console.log('===========')
   try {
     const res1 = await sql`
     SELECT applicants_list.character_name, raid_posts.raid_name
