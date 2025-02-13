@@ -8,6 +8,7 @@ import ScheduleWeekGoldCheckBox from '@/components/button/ScheduleWeekGoldCheckB
 import ScheduleDeleteButton from '@/components/button/ScheduleDeleteButton'
 
 interface Schedule {
+  schedule_id: number
   user_id: string
   schedule_time: string
   raid_gold: number
@@ -54,12 +55,7 @@ export default function ScheduleItems({ schedule }: Props) {
         >
           {schedule.raid_name} {schedule.raid_level}
         </span>
-        <ScheduleDeleteButton
-          characterName={schedule.character_name}
-          raidName={schedule.raid_name}
-          raidGateWay={schedule.raid_gateway}
-          userId={schedule.user_id}
-        />
+        <ScheduleDeleteButton schedule_id={schedule.schedule_id} />
       </div>
       <span className='mb-2 indent-2 text-xs text-gray-500'>{schedule.raid_gateway}</span>
 

@@ -13,8 +13,9 @@ export async function GET(req: Request) {
   try {
     const res = await sql`
       SELECT 
+        sd.schedule_id,
         sd.user_id, 
-        sd.schedule_time, 
+        sd.schedule_time,
         sd.raid_gold,
         sd.character_name,
         sd.raid_name,

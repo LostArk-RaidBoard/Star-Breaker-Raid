@@ -7,6 +7,7 @@ import CharacterRaidSummary from '@/components/schedulePage/CharacterRaidSummary
 import formatNumber from '@/components/utils/FormatNumber'
 
 interface Schedule {
+  schedule_id: number
   user_id: string
   schedule_time: string
   raid_gold: number

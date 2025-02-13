@@ -20,9 +20,9 @@ export async function GET(req: Request) {
         users.nickname
       FROM 
         raid_posts 
-      INNER JOIN 
+      Left JOIN 
         applicants_list AS ap ON raid_posts.post_id = ap.post_id
-      INNER JOIN
+      Left JOIN
         users ON users.user_id = raid_posts.user_id
       WHERE 
         ap.user_id = ${userID};
