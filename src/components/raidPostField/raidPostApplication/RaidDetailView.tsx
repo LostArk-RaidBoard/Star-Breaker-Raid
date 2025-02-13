@@ -170,6 +170,7 @@ export default async function RaidDetailView({ postId }: Props) {
               applicationList={applicationList}
               post_user={post_user}
               raid_name={raid_name}
+              schedule={schedule}
             />
           </div>
         </>

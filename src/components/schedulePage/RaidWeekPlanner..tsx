@@ -57,7 +57,6 @@ export default function RaidWeekPlanner({ weekSchedule, userId, characterName }:
     }
 
     // 요일 구분하기
-    // 요일 구분하기
     const raidTime = new Date(post.schedule_time) // 원본 시간
     const adjustedRaidTime = new Date(raidTime) // 복사본 생성
     adjustedRaidTime.setHours(adjustedRaidTime.getHours() + 9) // 9시간 추가

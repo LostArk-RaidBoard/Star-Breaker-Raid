@@ -7,13 +7,19 @@ interface Props {
   characterName: string
   raidName: string
   userId: string
+  raidGateWay: string
 }
 
-export default function ScheduleDeleteButton({ characterName, raidName, userId }: Props) {
+export default function ScheduleDeleteButton({
+  characterName,
+  raidName,
+  userId,
+  raidGateWay,
+}: Props) {
   const deleteHandler = async (characterName: string, raidName: string, userId: string) => {
     try {
       const response = await fetch(
-        `/api/scheduleAPI/schedulePost?user_id=${userId}&character_name=${characterName}&raid_name=${raidName}`,
+        `/api/scheduleAPI/schedulePost?user_id=${userId}&character_name=${characterName}&raid_name=${raidName}&raid_gateway=${raidGateWay}`,
         {
           method: 'DELETE',
           headers: {

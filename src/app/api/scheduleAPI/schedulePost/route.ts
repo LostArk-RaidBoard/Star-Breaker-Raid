@@ -65,13 +65,14 @@ export async function DELETE(req: Request) {
   const userId = url.searchParams.get('user_id')
   const character_name = url.searchParams.get('character_name')
   const raid_name = url.searchParams.get('raid_name')
+  const raid_gateway = url.searchParams.get('raid_gateway')
 
   if (!userId || !character_name || !raid_name) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
   }
   try {
     await sql`
-      DELETE FROM schedule WHERE user_id =${userId} AND character_name = ${character_name} AND raid_name = ${raid_name}
+      DELETE FROM schedule WHERE user_id =${userId} AND character_name = ${character_name} AND raid_name = ${raid_name} AND raid_gateway = ${raid_gateway}
     `
 
     return new Response(JSON.stringify({ message: '삭제 성공' }), {

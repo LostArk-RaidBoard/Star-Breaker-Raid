@@ -37,10 +37,10 @@ export default function MyApplications({ userId, applicationPostGet }: Props) {
     setItemsPerPage(5)
   }, [applicationPostGet, setDataLength, setCurrentPage, setItemsPerPage])
 
-  const deleteApplicationHandler = async (post_id: number, raid_name: string) => {
+  const deleteApplicationHandler = async (post_id: number, raid_name: string, schedule: string) => {
     try {
       const response = await fetch(
-        `/api/applicationAPI/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}`,
+        `/api/applicationAPI/applicationDelete?post_id=${post_id}&user_id=${userId}&raid_name=${raid_name}&schedule=${schedule}`,
         {
           method: 'DELETE',
           headers: {
@@ -117,7 +117,9 @@ export default function MyApplications({ userId, applicationPostGet }: Props) {
                 {/* 취소 버튼 */}
                 <button
                   className='col-span-2 rounded-md bg-red-500 py-1 text-sm font-bold text-white hover:bg-red-600'
-                  onClick={() => deleteApplicationHandler(item.post_id, item.raid_name)}
+                  onClick={() =>
+                    deleteApplicationHandler(item.post_id, item.raid_name, item.raid_time)
+                  }
                 >
                   취소
                 </button>
