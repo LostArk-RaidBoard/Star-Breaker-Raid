@@ -18,6 +18,9 @@ export async function GET(req: Request) {
         cl.character_level,
         cl.elixir, 
         cl.transcendence,
+        cl.leap,
+        cl.evolution,
+        cl.enlightenment,
         al.character_icon,
         al.character_image,
         al.approval

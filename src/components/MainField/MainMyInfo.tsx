@@ -76,8 +76,8 @@ export default function MainMyInfo() {
   return (
     <>
       {loading && (
-        <div className='absolute inset-0 z-30 flex items-center justify-center rounded-md bg-gray-500 bg-opacity-90'>
-          <Loading className='h-12 w-12 animate-spin text-white' />
+        <div className='absolute inset-0 z-30 flex items-center justify-center rounded-md bg-gray-600 bg-opacity-90'>
+          <Loading className='h-12 w-12 text-gray-100' />
         </div>
       )}
       {session && session.user.id && myInfoState ? (

@@ -1,10 +1,13 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
+import useSWR from 'swr'
 import PageNavigation from '@/components/utils/PageNavigationSub'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
+import { fetcher } from '@/components/utils/fetcher'
+import Loading from '@image/icon/loading.svg'
 
 interface RaidPost {
   post_id: number
@@ -23,52 +26,46 @@ interface RaidPost {
   nickname: string
 }
 
-const fetchPostsAllFetch = async (search: string) => {
-  const searchParam = search.trim() !== '' ? search : 'all'
-  try {
-    const response = await fetch(
-      `/api/raidPostAPI/raidPostGet?search=${encodeURIComponent(searchParam)}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-
-    const data = await response.json()
-    if (response.ok) {
-      return data.postRows.map((item: RaidPost) => {
-        item.raid_time = converToKoranTime1(item.raid_time)
-        return item
-      })
-    } else {
-      return []
-    }
-  } catch (error) {
-    console.error('PostsAll Get Error' + error)
-  }
-  return []
-}
-
 export default function PostPageField() {
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageinationSub()
-  const [showRaidPost, setShowRaidPost] = useState<RaidPost[]>([])
   const [search, setSearch] = useState('')
   const [sorted, setSorted] = useState(false)
-  const [loading, setLoading] = useState(false)
 
+  // ✅ SWR을 사용한 데이터 패칭 (자동 갱신, 포커스 시 갱신, 캐싱)
+  const { data, isLoading } = useSWR(
+    `/api/raidPostAPI/raidPostGet?search=${encodeURIComponent(search.trim() !== '' ? search : 'all')}`,
+    fetcher,
+    {
+      refreshInterval: 5000, // 5초마다 자동 갱신
+      revalidateOnFocus: true, // 포커스 시 자동 갱신
+      revalidateOnReconnect: true, // 네트워크 복구 시 자동 갱신
+    },
+  )
+
+  // ✅ useMemo를 활용하여 showRaidPost 최적화
+  const showRaidPost = useMemo(() => {
+    return (
+      data?.postRows?.map((item: RaidPost) => ({
+        ...item,
+        raid_time: converToKoranTime1(item.raid_time),
+      })) ?? []
+    )
+  }, [data])
+
+  // ✅ 정렬 기능 (최신순)
+  const sortedRaidPost = useMemo(() => {
+    return sorted ? [...showRaidPost].sort((a, b) => b.post_id - a.post_id) : showRaidPost
+  }, [showRaidPost, sorted])
+
+  // ✅ 현재 페이지 아이템 필터링
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = showRaidPost.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = sortedRaidPost.slice(indexOfFirstItem, indexOfLastItem)
 
+  // ✅ 검색 기능
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setLoading(true)
-    const filteredPosts = await fetchPostsAllFetch(search)
-    setShowRaidPost(filteredPosts)
-    setLoading(false)
   }
 
   const sortHandler = () => {
@@ -76,38 +73,10 @@ export default function PostPageField() {
   }
 
   useEffect(() => {
-    if (sorted) {
-      // 내림차순 정렬
-      const sortedPosts = [...showRaidPost].sort((a, b) => b.post_id - a.post_id)
-      setShowRaidPost(sortedPosts)
-    } else {
-      // 원래 데이터 순서 유지 (초기 상태로 다시 fetch)
-      const fetchHandler = async () => {
-        const fetchPost = await fetchPostsAllFetch('')
-        setShowRaidPost(fetchPost)
-      }
-      fetchHandler()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sorted])
-
-  useEffect(() => {
-    if (showRaidPost) {
-      setDataLength(showRaidPost.length)
-      setCurrentPage(1)
-      setItemsPerPage(15)
-    }
+    setDataLength(showRaidPost.length)
+    setCurrentPage(1)
+    setItemsPerPage(15)
   }, [showRaidPost, setDataLength, setCurrentPage, setItemsPerPage])
-
-  useEffect(() => {
-    const fetchHandler = async () => {
-      const fetchPost = await fetchPostsAllFetch('')
-      setShowRaidPost(fetchPost)
-      setLoading(false)
-    }
-    setLoading(true)
-    fetchHandler()
-  }, [])
 
   return (
     <div className='flex h-full w-full flex-col'>
@@ -165,12 +134,12 @@ export default function PostPageField() {
           </div>
 
           {/* 테이블 데이터 */}
-          {loading ? (
-            <div className='flex items-center justify-center py-8 text-lg font-semibold text-gray-500'>
-              로딩중...
+          {isLoading ? (
+            <div className='flex items-center justify-center py-8'>
+              <Loading className='h-12 w-12 text-gray-800' />
             </div>
           ) : currentItems.length > 0 ? (
-            currentItems.map((item: RaidPost, index) => (
+            currentItems.map((item: RaidPost, index: number) => (
               <Link
                 href={`/raidpost/${item.post_id}?redirect=/raidpost`}
                 key={item.post_id}

@@ -142,13 +142,13 @@ export default function RaidPostAddButton() {
         레이드 개설 실패 : {message}
       </span>
       <button
-        className='mt-2 flex h-10 w-32 items-center justify-center rounded-md border bg-gray-800 px-4 py-3 text-lg text-white hover:bg-gray-500'
+        className='mt-2 flex h-12 w-32 items-center justify-center rounded-md border bg-gray-800 px-4 py-3 text-lg text-white hover:bg-gray-500'
         disabled={loading === 1 || postSave === 1}
         onClick={raidCreateHandler}
       >
         <span className={`${loading === 0 ? '' : 'hidden'}`}>모집 글 등록</span>
         <span className={`${loading === 1 ? '' : 'hidden'}`}>
-          <Loading className='h-8 w-8' />
+          <Loading className='h-8 w-8 text-gray-100' />
         </span>
       </button>
     </div>

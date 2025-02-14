@@ -73,7 +73,7 @@ export default async function UpdatePostPage({ postId }: Props) {
     createPostCharacter = await UtileCharacterDataFetch(session.user.id)
   }
   return (
-    <div className='flex h-full w-full flex-col justify-center sm:px-16'>
+    <div className='flex h-full w-full flex-col justify-center md:px-16'>
       <div className='mb-4 flex h-16 items-center justify-center rounded-lg bg-gradient-to-r from-gray-800 to-gray-900 shadow-lg'>
         <span className='flex items-center gap-2 text-xl font-extrabold text-white'>
           {postData.raid_name} {postData.raid_level} {postData.raid_gateway} 수정 중

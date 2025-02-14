@@ -1,9 +1,11 @@
 'use client'
 import Image from 'next/image'
 import GoldImage from '@image/asset/골드.png'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { convertToKoreanTime2 } from '@/components/utils/converToKoreanTime'
 import Loading from '@image/icon/loading.svg'
+import useSWR from 'swr'
+import { fetcher } from '@/components/utils/fetcher'
 
 interface TodaySchedule {
   user_id: string
@@ -20,39 +22,17 @@ interface Props {
 }
 
 export default function MainMyPostsSchedule({ userId }: Props) {
-  const [todayPostsRows, setTodayPostsRows] = useState<TodaySchedule[]>([])
-  const [loading, setLoading] = useState(false)
+  const { data, isLoading } = useSWR(`/api/mainAPI/mainMySchedule?user_id=${userId}`, fetcher, {
+    refreshInterval: 5000,
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+  })
 
-  useEffect(() => {
-    const fetchMainMyPostsSchedule = async (userId: string) => {
-      try {
-        const response = await fetch(`/api/mainAPI/mainMySchedule?user_id=${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-
-        if (!response.ok) throw new Error('Failed to fetch data')
-
-        const data = await response.json()
-        const formatTime = data.postRows.map((item: TodaySchedule) => {
-          item.schedule_time = convertToKoreanTime2(item.schedule_time)
-          return item
-        })
-        setTodayPostsRows(formatTime)
-      } catch (error) {
-        console.error('fetchWePosts Error:', error)
-        setTodayPostsRows([])
-      }
-      setLoading(false)
-    }
-
-    if (userId != '') {
-      setLoading(true)
-      fetchMainMyPostsSchedule(userId)
-    }
-  }, [userId])
+  const todayPostsRows =
+    data?.postRows?.map((item: TodaySchedule) => ({
+      ...item,
+      schedule_time: convertToKoreanTime2(item.schedule_time),
+    })) ?? []
 
   return (
     <div className='flex h-[350px] w-full flex-col rounded-lg bg-gray-600 p-4 shadow-lg xl:h-full'>
@@ -61,16 +41,16 @@ export default function MainMyPostsSchedule({ userId }: Props) {
 
       {/* 스크롤 가능한 목록 */}
       <div className='custom-scrollbar h-full space-y-3 overflow-y-auto overflow-x-hidden p-2'>
-        {loading ? (
+        {isLoading ? (
           <div className='flex h-full w-full items-center justify-center'>
-            <Loading className='h-12 w-12' />
+            <Loading className='w- h-12 text-gray-100' />
           </div>
         ) : todayPostsRows.length === 0 ? (
           <div className='text-center text-gray-400'>오늘의 일정이 없습니다.</div>
         ) : (
-          todayPostsRows.map((item, index) => (
+          todayPostsRows.map((item: TodaySchedule) => (
             <div
-              key={index}
+              key={`${item.character_name}-${item.schedule_time}-${item.raid_name}-${item.user_id}`}
               className='flex flex-col rounded-lg bg-gray-800 p-3 shadow-sm transition-transform hover:shadow-md'
             >
               {/* 레이드 이름과 시간 */}
