@@ -14,6 +14,9 @@ interface Props {
 }
 
 interface ApplicationList {
+  leap: number
+  evolution: number
+  enlightenment: number
   applicants_id: number
   user_id: string
   character_name: string
@@ -113,11 +116,11 @@ export default function RaidApplicationPanel({
         {applicationList.length > 0 ? (
           applicationList.map((char, key) => (
             <div
-              className='flex flex-col justify-between gap-4 rounded-lg border border-gray-700 bg-gray-800 p-6 shadow transition-all hover:bg-gray-600 sm:flex-row sm:items-center sm:gap-6'
+              className='flex flex-col justify-between gap-4 rounded-lg border border-gray-700 bg-gray-800 p-6 shadow transition-all md:flex-row md:items-center md:gap-6'
               key={key}
             >
               {/* 캐릭터 정보 */}
-              <div className='flex items-center gap-4'>
+              <div className='flex flex-none items-center gap-4'>
                 <Image
                   src={char.character_image}
                   alt='캐릭터 이미지'
@@ -125,26 +128,48 @@ export default function RaidApplicationPanel({
                   width={60}
                   className='rounded-full border border-gray-600'
                 />
-                <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4'>
+                <div className='flex w-full flex-col gap-2 md:w-auto md:flex-row md:items-center md:gap-4'>
                   <div className='flex flex-col'>
                     <span className='text-lg font-bold text-white'>{char.character_name}</span>
                     <span className='text-sm text-gray-400'>{char.character_level} Lv</span>
                   </div>
-                  <div className='flex flex-col items-center gap-2'>
-                    <div className='flex items-center gap-2'>
-                      <Image src={'/엘릭서.png'} alt='엘릭서' height={20} width={20} />
-                      <span className='text-sm text-gray-300'>{char.elixir}</span>
+                  <div className='flex flex-row items-center gap-6'>
+                    <div className='flex flex-col items-center gap-2'>
+                      <div className='flex items-center gap-2'>
+                        <Image src={'/엘릭서.png'} alt='엘릭서' height={20} width={20} />
+                        <span className='text-sm text-gray-300'>{char.elixir}</span>
+                      </div>
+                      <div className='flex items-center gap-2'>
+                        <Image src={'/초월.png'} alt='초월' height={20} width={20} />
+                        <span className='text-sm text-gray-300'>{char.transcendence}</span>
+                      </div>
                     </div>
-                    <div className='flex items-center gap-2'>
-                      <Image src={'/초월.png'} alt='초월' height={20} width={20} />
-                      <span className='text-sm text-gray-300'>{char.transcendence}</span>
+                    <div className='flex flex-col items-start gap-2'>
+                      <div className='flex items-center gap-2'>
+                        <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#726a54] bg-[#45423a] px-1 text-xs text-gray-100'>
+                          진화
+                        </span>
+                        <span className='text-sm text-gray-300'>{char.evolution}</span>
+                      </div>
+                      <div className='flex items-center gap-2'>
+                        <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#50707c] bg-[#35454d] px-1 text-xs text-gray-100'>
+                          깨달음
+                        </span>
+                        <span className='text-sm text-gray-300'>{char.enlightenment}</span>
+                      </div>
+                      <div className='flex items-center gap-2'>
+                        <span className='overflow-hidden truncate whitespace-nowrap rounded-md border border-[#637241] bg-[#3e4631] px-1 text-xs text-gray-100'>
+                          도약
+                        </span>
+                        <span className='text-sm text-gray-300'>{char.leap}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
                 {/* 의견 및 상태 */}
-
-                <span className='ml-8 text-sm text-gray-300'>의견: {char.hope || '없음'}</span>
               </div>
+
+              <span className='ml-8 grow text-sm text-gray-300'>{char.hope || '의견 없음'}</span>
 
               <div className='flex items-center justify-center gap-4'>
                 <span

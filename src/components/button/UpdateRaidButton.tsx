@@ -148,7 +148,7 @@ export default function UpdateRaidButton({
         disabled={loading === 1 || postSave === 1}
         onClick={raidCreateHandler}
       >
-        {loading === 0 ? '모집 글 수정' : <Loading className='h-6 w-6 animate-spin' />}
+        {loading === 0 ? '모집 글 수정' : <Loading className='h-8 w-8' />}
       </button>
     </div>
   )

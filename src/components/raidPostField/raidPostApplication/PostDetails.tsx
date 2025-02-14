@@ -32,9 +32,9 @@ export default async function PostDetails({ postData }: RaidPostProps) {
 
   return (
     <div className='w-full rounded-xl border border-gray-700 shadow-lg'>
-      <div className='flex flex-col gap-8 p-8 sm:flex-row sm:gap-12'>
+      <div className='flex flex-col gap-8 p-8 md:flex-row md:gap-12'>
         {/* 좌측 정보 섹션 */}
-        <div className='flex flex-col gap-6 sm:w-1/2'>
+        <div className='flex flex-col gap-6 md:w-1/2'>
           <div className='flex items-center justify-center rounded-xl bg-gray-800 p-6 text-3xl font-extrabold text-gray-100 shadow-md'>
             <span className='text-blue-400'>⚡</span> {postData.raid_name} {postData.raid_level}{' '}
             {postData.raid_gateway} <span className='text-blue-400'>⚡</span>
@@ -73,7 +73,7 @@ export default async function PostDetails({ postData }: RaidPostProps) {
         </div>
 
         {/* 우측 공대장 섹션 */}
-        <div className='flex flex-col gap-6 sm:w-1/2'>
+        <div className='flex flex-col gap-6 md:w-1/2'>
           <div className='space-y-5'>
             <InfoRow label='🗺️ 레이드 타입' value={postData.raid_type} />
             <InfoRow label='📈 최소 레벨' value={`${postData.limit_level} Lv`} />
