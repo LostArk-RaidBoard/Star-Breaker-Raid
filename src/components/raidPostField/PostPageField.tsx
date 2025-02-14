@@ -29,7 +29,8 @@ interface RaidPost {
 export default function PostPageField() {
   const { currentPage, itemsPerPage, setDataLength, setItemsPerPage, setCurrentPage } =
     usePageinationSub()
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('') // 검색어 상태
+  const [searchInput, setSearchInput] = useState('') // 입력 필드 상태
   const [sorted, setSorted] = useState(false)
 
   // ✅ SWR을 사용한 데이터 패칭 (자동 갱신, 포커스 시 갱신, 캐싱)
@@ -63,9 +64,10 @@ export default function PostPageField() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = sortedRaidPost.slice(indexOfFirstItem, indexOfLastItem)
 
-  // ✅ 검색 기능
-  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+  // ✅ 검색 기능 (버튼 클릭 또는 엔터 입력 시 실행)
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setSearch(searchInput) // 현재 입력된 검색어로 업데이트
   }
 
   const sortHandler = () => {
@@ -87,14 +89,14 @@ export default function PostPageField() {
           type='text'
           name='postSearchTest'
           autoComplete='off'
-          value={search}
+          value={searchInput} // 입력 상태 바인딩
           placeholder='검색어를 입력하세요'
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearchInput(e.target.value)} // 입력 필드 업데이트
         />
 
         <button
           type='submit'
-          className='h- ml-2 w-24 rounded-md bg-gray-800 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-500'
+          className='ml-2 w-24 rounded-md bg-gray-800 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-500'
         >
           검색
         </button>
