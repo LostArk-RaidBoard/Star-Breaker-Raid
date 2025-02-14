@@ -68,9 +68,9 @@ export default function UpdateField({ postData, createPostCharacter }: Props) {
   }, [])
   return (
     <div className='rounded-xl border border-gray-400 p-6 shadow-lg'>
-      <div className='flex flex-col gap-8 sm:flex-row'>
+      <div className='flex flex-col gap-8 md:flex-row'>
         {/* 왼쪽 섹션 */}
-        <div className='flex flex-col gap-6 sm:w-1/2'>
+        <div className='flex flex-col gap-6 md:w-1/2'>
           {/* 캐릭터 선택 */}
           <div className='p-4'>
             <h2 className='mb-2 text-lg font-semibold text-gray-900'>캐릭터 선택</h2>
@@ -91,7 +91,7 @@ export default function UpdateField({ postData, createPostCharacter }: Props) {
         </div>
 
         {/* 오른쪽 섹션 */}
-        <div className='flex flex-col gap-6 sm:w-1/2'>
+        <div className='flex flex-col gap-6 md:w-1/2'>
           {/* 최대 시간 설정 */}
 
           <UpdateRaidMaxTime

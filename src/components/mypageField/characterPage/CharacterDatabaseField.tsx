@@ -302,8 +302,8 @@ export default function CharacterDatabaseField({ userId, dbCharacter }: Props) {
         ))}
 
         {loading && (
-          <div className='absolute inset-0 flex items-center justify-center bg-gray-200 bg-opacity-80'>
-            <Loading className='h-12 w-12 animate-spin text-white' />
+          <div className='absolute inset-0 flex items-center justify-center rounded-md bg-gray-500 bg-opacity-90'>
+            <Loading className='h-12 w-12 text-white' />
           </div>
         )}
       </div>

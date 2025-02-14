@@ -113,7 +113,7 @@ export default function RaidApplicationForm({
   return (
     <div className='flex w-full flex-col items-center justify-center gap-8 rounded-lg border border-gray-400 p-6 shadow-lg'>
       {/* 캐릭터 선택 및 입력 섹션 */}
-      <div className='flex w-full flex-col items-center justify-between gap-6 sm:flex-row sm:gap-8'>
+      <div className='flex w-full flex-col items-center justify-between gap-6 md:flex-row md:gap-8'>
         {/* 캐릭터 선택 */}
         <CharacterSelectDropdown raidLimitLevel={raidLimitLevel} userId={userId} />
 

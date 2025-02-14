@@ -1,10 +1,12 @@
 'use client'
+import useSWR from 'swr'
 import Image from 'next/image'
 import Clock from '@image/icon/clock.svg'
 import Link from 'next/link'
 import Loading from '@image/icon/loading.svg'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { convertToKoreanTime } from '@/components/utils/converToKoreanTime'
+import { fetcher } from '@/components/utils/fetcher'
 
 interface RaidPost {
   post_id: number
@@ -24,36 +26,21 @@ interface RaidPost {
 }
 
 export default function MainTeacherPosts() {
-  const [teacherPostsRows, setTeacherPostsRows] = useState<RaidPost[]>([])
-  const [loading, setLoading] = useState(false)
+  const { data, isLoading } = useSWR(
+    '/api/mainAPI/mainTeacherPostGet?posts_position=teacher',
+    fetcher,
+    {
+      refreshInterval: 5000,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+    },
+  )
 
-  useEffect(() => {
-    const fetchTeacherPosts = async () => {
-      try {
-        const response = await fetch(`/api/mainAPI/mainTeacherPostGet?posts_position=teacher`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        if (!response.ok) {
-          throw new Error('Failed to fetch data')
-        }
-        const data = await response.json()
-        const formatTime = data.postRows.map((item: RaidPost) => {
-          item.raid_time = convertToKoreanTime(item.raid_time)
-          return item
-        })
-        setTeacherPostsRows(formatTime) // 데이터를 상태에 저장
-      } catch (error) {
-        console.error('fetchTeacherPost Error:', error)
-      }
-      setLoading(false)
-    }
-
-    setLoading(true)
-    fetchTeacherPosts()
-  }, [])
+  const teacherPostsRows =
+    data?.postRows?.map((item: RaidPost) => ({
+      ...item,
+      raid_time: convertToKoreanTime(item.raid_time),
+    })) ?? []
 
   return (
     <div className='flex h-[350px] w-full flex-col rounded-lg bg-gray-600 p-4 shadow-lg xl:h-full'>
@@ -62,14 +49,14 @@ export default function MainTeacherPosts() {
 
       {/* 레이드 목록 */}
       <div className='custom-scrollbar h-full space-y-3 overflow-y-auto overflow-x-hidden p-3'>
-        {loading ? (
+        {isLoading || !data ? (
           <div className='flex h-full w-full items-center justify-center'>
-            <Loading className='h-12 w-12' />
+            <Loading className='h-12 w-12 text-gray-100' />
           </div>
         ) : teacherPostsRows.length === 0 ? (
           <div className='text-center text-gray-400'>모집 글이 없습니다.</div>
         ) : (
-          teacherPostsRows.map((item, key) => (
+          teacherPostsRows.map((item: RaidPost, key: number) => (
             <Link
               key={key}
               href={`/raidpost/${item.post_id}?redirect=/`}

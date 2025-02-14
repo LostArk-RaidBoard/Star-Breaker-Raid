@@ -32,6 +32,9 @@ interface Post {
 }
 
 interface ApplicationList {
+  leap: number
+  evolution: number
+  enlightenment: number
   applicants_id: number
   user_id: string
   character_name: string
@@ -120,7 +123,7 @@ export default async function RaidDetailView({ postId }: Props) {
   }
 
   return (
-    <div className='flex h-full w-full flex-col items-center justify-center sm:px-16'>
+    <div className='flex h-full w-full flex-col items-center justify-center md:px-16'>
       {postData ? (
         <>
           {/* 수정 버튼 섹션 */}
