@@ -52,11 +52,11 @@ export default function RaidSelector() {
 
   return (
     <div className='p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>레이드 선택</h2>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>레이드 선택</h2>
       <select
         name='raidSelect'
         aria-label='레이드 선택 창'
-        className='mt-1 h-14 w-full rounded-md border border-gray-400 px-1 text-lg'
+        className='h-14 w-full rounded-md border border-gray-400 px-1 text-lg'
         value={raidSelect}
         onChange={selectHandler}
       >

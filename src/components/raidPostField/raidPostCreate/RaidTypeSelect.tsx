@@ -12,7 +12,7 @@ export default function RaidTypeSelect() {
 
   return (
     <div className='p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>레이드 타입</h2>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>레이드 타입</h2>
       <div className='grid w-full grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6'>
         {['학원', '트라이', '클경', '반숙', '숙련', '숙제'].map((type) => (
           <label

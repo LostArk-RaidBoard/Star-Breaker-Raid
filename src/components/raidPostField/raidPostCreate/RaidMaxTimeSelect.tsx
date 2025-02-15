@@ -14,7 +14,7 @@ export default function RaidMaxTimeSelect() {
 
   return (
     <div className='p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>레이드 최대 시간</h2>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>레이드 최대 시간</h2>
       <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'>
         {timeOptions.map((option) => (
           <label
