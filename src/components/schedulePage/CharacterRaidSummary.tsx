@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Up from '@image/icon/up.svg'
 import React, { useState } from 'react'
 import Under from '@image/icon/under.svg'
-import GoldImage from '@image/asset/골드.png'
+import GoldImage from '@image/image/골드.png'
 
 interface CharacterName {
   character_name: string
@@ -114,7 +114,7 @@ export default function CharacterRaidSummary({
                   <td className='border border-gray-300 px-4 py-3'>
                     <div className='flex items-center gap-2'>
                       <Image
-                        src={'/장비.png'}
+                        src={'/image/장비.png'}
                         alt='장비'
                         width={24}
                         height={24}

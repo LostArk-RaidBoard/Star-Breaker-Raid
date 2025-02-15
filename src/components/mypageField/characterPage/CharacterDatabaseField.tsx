@@ -241,7 +241,13 @@ export default function CharacterDatabaseField({ userId, dbCharacter }: Props) {
                   </div>
 
                   <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
-                    <Image src={'/장비.png'} alt='장비' width={30} height={30} className='p-1' />
+                    <Image
+                      src={'/image/장비.png'}
+                      alt='장비'
+                      width={30}
+                      height={30}
+                      className='p-1'
+                    />
                     <span className='overflow-hidden truncate whitespace-nowrap'>
                       {character.character_level}
                     </span>
@@ -249,7 +255,7 @@ export default function CharacterDatabaseField({ userId, dbCharacter }: Props) {
                   <div className='flex gap-3 overflow-hidden truncate whitespace-nowrap'>
                     <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
                       <Image
-                        src={'/엘릭서.png'}
+                        src={'/image/엘릭서.png'}
                         alt='엘릭서'
                         width={30}
                         height={30}
@@ -259,7 +265,7 @@ export default function CharacterDatabaseField({ userId, dbCharacter }: Props) {
                     </div>
                     <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
                       <Image
-                        src={'/초월.png'}
+                        src={'/image/초월.png'}
                         alt='초파고'
                         width={30}
                         height={30}

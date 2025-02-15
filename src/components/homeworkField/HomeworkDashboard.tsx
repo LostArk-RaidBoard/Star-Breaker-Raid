@@ -2,7 +2,7 @@ import { auth } from '@/auth'
 import HomeworkSaveButton from '@/components/button/HomeworkSaveButton'
 import HomeworkExpeditionTable from '@/components/homeworkField/HomeworkExpeditionTable'
 import HomeworkChecklist from '@/components/homeworkField/HomeworkChecklist'
-import GuildImage from '@image/asset/길드.png'
+import GuildImage from '@image/image/길드.png'
 import Image from 'next/image'
 
 interface HomeworkData {

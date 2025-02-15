@@ -136,11 +136,11 @@ export default function RaidApplicationPanel({
                   <div className='flex flex-row items-center gap-6'>
                     <div className='flex flex-col items-center gap-2'>
                       <div className='flex items-center gap-2'>
-                        <Image src={'/엘릭서.png'} alt='엘릭서' height={20} width={20} />
+                        <Image src={'/image/엘릭서.png'} alt='엘릭서' height={20} width={20} />
                         <span className='text-sm text-gray-300'>{char.elixir}</span>
                       </div>
                       <div className='flex items-center gap-2'>
-                        <Image src={'/초월.png'} alt='초월' height={20} width={20} />
+                        <Image src={'/image/초월.png'} alt='초월' height={20} width={20} />
                         <span className='text-sm text-gray-300'>{char.transcendence}</span>
                       </div>
                     </div>

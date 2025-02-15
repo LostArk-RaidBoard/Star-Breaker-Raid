@@ -2,7 +2,7 @@
 import useHomeworkStore from '@/store/homeworkCheckStore'
 import Image from 'next/image'
 import React, { useEffect } from 'react'
-import GuildImage from '@image/asset/길드.png'
+import GuildImage from '@image/image/길드.png'
 
 interface HomeworkData {
   user_id: string

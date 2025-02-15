@@ -150,11 +150,17 @@ export default function CharacterSelectDropdown({ raidLimitLevel, userId }: Prop
               {characterInfo[0].character_level} Lv
             </span>
             <div className='flex hidden items-center text-white sm:flex'>
-              <Image src={'/엘릭서.png'} alt={'엘릭서'} width={30} height={30} className='p-1' />
+              <Image
+                src={'/image/엘릭서.png'}
+                alt={'엘릭서'}
+                width={30}
+                height={30}
+                className='p-1'
+              />
               <span>{characterInfo[0].elixir}</span>
             </div>
             <div className='flex hidden items-center text-white sm:flex'>
-              <Image src={'/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
+              <Image src={'/image/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
               <span>{characterInfo[0].transcendence}</span>
             </div>
           </div>
@@ -189,11 +195,17 @@ export default function CharacterSelectDropdown({ raidLimitLevel, userId }: Prop
             <span className=''>{char.character_name}</span>
             <span className='hidden sm:block'>{char.character_level}</span>
             <div className='flex hidden items-center sm:flex'>
-              <Image src={'/엘릭서.png'} alt={'엘릭서'} width={30} height={30} className='p-1' />
+              <Image
+                src={'/image/엘릭서.png'}
+                alt={'엘릭서'}
+                width={30}
+                height={30}
+                className='p-1'
+              />
               <span>{char.elixir}</span>
             </div>
             <div className='flex hidden items-center sm:flex'>
-              <Image src={'/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
+              <Image src={'/image/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
               <span>{char.transcendence}</span>
             </div>
           </div>
