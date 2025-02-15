@@ -27,9 +27,9 @@ export default function ScheduleCalendarSelect() {
   const maxTime = setHours(setMinutes(nextTuesday, 59), 23) // 기본 maxTime
 
   return (
-    <div className='mt-2 flex w-full flex-col p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>날짜 선정</h2>
-      <div className='mt-1 h-full w-full'>
+    <div className='flex w-full flex-col p-4'>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>날짜 선정</h2>
+      <div className='h-full w-full'>
         <DatePicker
           id='raidDate'
           selected={raidDate}

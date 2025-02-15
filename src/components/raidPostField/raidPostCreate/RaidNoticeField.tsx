@@ -9,7 +9,7 @@ export default function RaidNoticeField() {
   }
   return (
     <div className='p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>공지 사항</h2>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>공지 사항</h2>
       <textarea
         id='raidNoti'
         name='raidNoti'

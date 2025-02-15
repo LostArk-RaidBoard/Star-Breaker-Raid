@@ -27,7 +27,7 @@ export default function RaidPersonLimitSelector() {
 
   return (
     <div className='p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>최대인원 선택</h2>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>최대인원 선택</h2>
       <select
         name='raidMaxPeopleSelect'
         aria-label='레이드 인원 선택'

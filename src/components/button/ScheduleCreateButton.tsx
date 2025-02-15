@@ -113,11 +113,11 @@ export default function ScheduleCreateButton({ userId }: Props) {
             <h1 className='text-xl font-bold'>일정 추가</h1>
             {/* 일정 모달 캐릭터 선택 */}
             <div className='p-4'>
-              <h2 className='mb-3 text-base font-semibold text-gray-900'>캐릭터 선택</h2>
+              <h2 className='mb-1 text-base font-semibold text-gray-900'>캐릭터 선택</h2>
               <select
                 name='scheduleCharacterSelect'
                 aria-label='스케줄 케릭터 선택'
-                className='mt-1 h-12 w-full rounded-md border border-gray-400 px-1 text-lg'
+                className='h-12 w-full rounded-md border border-gray-400 px-1 text-lg'
                 value={characterInfo[0].character_name}
                 onChange={selectHandler}
               >
