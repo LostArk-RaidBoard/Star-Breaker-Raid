@@ -21,7 +21,7 @@ export default function CalendarPick() {
   const minDefaultTime = setHours(setMinutes(new Date(), 0), 0) // 자정
   return (
     <div className='p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>날짜 선정</h2>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>날짜 선정</h2>
 
       {/* 레이블 추가 */}
       <div className='mt-1 h-full w-full'>

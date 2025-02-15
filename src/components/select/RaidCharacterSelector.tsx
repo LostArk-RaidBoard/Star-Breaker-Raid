@@ -89,7 +89,7 @@ export default function RaidCharacterSelector({ createPostCharacter }: Props) {
 
   return (
     <div className='p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>캐릭터 선택</h2>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>캐릭터 선택</h2>
       {characterAllList.length > 0 && characterInfo.length > 0 ? (
         <div className='relative w-full flex-col rounded-md bg-gray-900'>
           <button

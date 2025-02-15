@@ -61,7 +61,7 @@ export default function RaidLevelPicker() {
 
   return (
     <div className='p-4'>
-      <h2 className='mb-3 text-base font-semibold text-gray-900'>레이드 난이도 선택</h2>
+      <h2 className='mb-1 text-base font-semibold text-gray-900'>레이드 난이도 선택</h2>
 
       <div className={`grid gap-4 ${pathname === '/schedule' ? 'grid-cols-3' : 'grid-cols-2'}`}>
         {raidOptions.map((option, key) => {
