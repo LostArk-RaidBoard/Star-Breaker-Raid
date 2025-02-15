@@ -1,6 +1,6 @@
 import GetRaidGold from '@/components/utils/GetRaidGold'
 import Image from 'next/image'
-import GoldImage from '@image/asset/골드.png'
+import GoldImage from '@image/image/골드.png'
 import formatNumber from '@/components/utils/FormatNumber'
 
 type raidRewardItem = {

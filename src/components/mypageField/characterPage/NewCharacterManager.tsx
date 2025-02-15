@@ -139,7 +139,7 @@ export default function NewCharacterManager({
                 </span>
               </div>
               <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
-                <Image src={'/장비.png'} alt='장비' width={30} height={30} className='p-1' />
+                <Image src={'/image/장비.png'} alt='장비' width={30} height={30} className='p-1' />
 
                 <span className='overflow-hidden truncate whitespace-nowrap'>
                   {item.ItemAvgLevel}

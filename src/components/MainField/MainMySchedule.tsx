@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import GoldImage from '@image/asset/골드.png'
+import GoldImage from '@image/image/골드.png'
 import React from 'react'
 import { convertToKoreanTime2 } from '@/components/utils/converToKoreanTime'
 import Loading from '@image/icon/loading.svg'

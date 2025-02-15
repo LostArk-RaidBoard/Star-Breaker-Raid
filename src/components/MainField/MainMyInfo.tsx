@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Loading from '@image/icon/loading.svg'
-import GoldImage from '@image/asset/골드.png'
+import GoldImage from '@image/image/골드.png'
 import CircleCheck from '@image/icon/circlecheck.svg'
 import { useSession } from 'next-auth/react'
 import formatNumber from '@/components/utils/FormatNumber'
@@ -104,7 +104,7 @@ export default function MainMyInfo() {
               <span>레이드 횟수:</span>
               <div className='flex items-center'>
                 <Image
-                  src={'/카제로스레이드.png'}
+                  src={'/image/카제로스레이드.png'}
                   alt='레이드 이미지'
                   width={20}
                   height={20}

@@ -6,6 +6,7 @@ import Under from '@image/icon/under.svg'
 import { toZonedTime } from 'date-fns-tz'
 import ScheduleWeekGoldCheckBox from '@/components/button/ScheduleWeekGoldCheckBox'
 import ScheduleDeleteButton from '@/components/button/ScheduleDeleteButton'
+import { addHours } from 'date-fns'
 
 interface Schedule {
   schedule_id: number
@@ -26,9 +27,10 @@ interface Props {
 export default function ScheduleItems({ schedule }: Props) {
   const [isExpanded, setIsExpanded] = useState(false)
 
+  const timezoneOffset = Number(process.env.TIMEZONE_OFFSET) || 0
   const timeZone = 'Asia/Seoul'
   let bgColorClass = 'bg-gray-300'
-  const raidTime = toZonedTime(schedule.schedule_time, timeZone)
+  const raidTime = addHours(toZonedTime(schedule.schedule_time, timeZone), timezoneOffset)
 
   // 상태에 따른 배경색
   const today = toZonedTime(new Date(), timeZone)

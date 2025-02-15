@@ -108,6 +108,9 @@ const nextConfig = {
     API_URL: process.env.API_URL,
     LostArk_Token: process.env.LostArk_Token,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+
+    // TIMEZONE_OFFSET
+    TIMEZONE_OFFSET: process.env.TIMEZONE_OFFSET,
   },
 }
 
