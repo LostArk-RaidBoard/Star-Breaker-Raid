@@ -30,7 +30,7 @@ export default function GoogleLoginButton() {
       >
         <div style={{ position: 'relative', width: '100%', height: '100%' }}>
           <Image
-            src='/google.png'
+            src='/image/google.png'
             alt='google'
             fill // fill을 사용하여 부모 div에 맞게 조정
             style={{ objectFit: 'contain' }} // 비율 유지

@@ -24,7 +24,7 @@ export default function SiteLink() {
       >
         <div className='hidden h-12 w-12 sm:block'>
           <Image
-            src={'/loatTool.png'}
+            src={'/image/loatTool.png'}
             alt='로아도구 로고'
             width={70}
             height={70}

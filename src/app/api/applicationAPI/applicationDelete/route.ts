@@ -12,6 +12,9 @@ export async function DELETE(req: Request) {
   }
 
   const formattedSchedule = NormalizeScheduleTime(schedule)
+  console.log('========')
+  console.log('schedule 시간 : ' + schedule, 'fromattedSchedule 시간 : ' + formattedSchedule)
+  console.log('========')
   if (!formattedSchedule) {
     return new Response(JSON.stringify({ message: '날짜 형식 오류' }), { status: 400 })
   }

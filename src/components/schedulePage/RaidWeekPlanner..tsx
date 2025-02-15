@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import GoldImage from '@image/asset/골드.png'
+import GoldImage from '@image/image/골드.png'
 import ScheduleItems from '@/components/schedulePage/ScheduleItems'
 import ScheduleCreateButton from '@/components/button/ScheduleCreateButton'
 import CharacterRaidSummary from '@/components/schedulePage/CharacterRaidSummary'
