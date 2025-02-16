@@ -92,7 +92,7 @@ GROUP BY
     return new Response(JSON.stringify({ postRows: res.rows[0] }), {
       status: 200,
       headers: {
-        'Cache-Control': 'public, max-age=30, stale-while-revalidate=15, must-revalidate',
+        'Cache-Control': 'public, max-age=10, stale-while-revalidate=15, must-revalidate',
         ETag: etag,
       },
     })
