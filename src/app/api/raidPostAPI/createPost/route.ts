@@ -55,7 +55,12 @@ export async function DELETE(req: Request) {
   const raid_name = url.searchParams.get('raid_name')
 
   if (!post_id || !character_name || !user_id || !raid_name) {
-    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
+      status: 404,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 
   try {
@@ -64,6 +69,9 @@ export async function DELETE(req: Request) {
     if (responseTime.rows.length === 0) {
       return new Response(JSON.stringify({ message: '해당하는 모집글이 없습니다.' }), {
         status: 404,
+        headers: {
+          'Cache-Control': 'no-store, must-revalidate',
+        },
       })
     }
 
@@ -97,9 +105,19 @@ export async function DELETE(req: Request) {
       AND character_name = ${character_name} 
       AND schedule_time = ${formattedTime}`
 
-    return new Response(JSON.stringify({ message: '성공' }), { status: 200 })
+    return new Response(JSON.stringify({ message: '성공' }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   } catch (error) {
     console.error('DB 오류:', error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }

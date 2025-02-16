@@ -19,7 +19,12 @@ export async function POST(req: Request) {
 
   // 입력 검증
   if (!application.user_id || !application.character_name || !application.post_id) {
-    return new Response(JSON.stringify({ message: '필수 필드가 누락되었습니다.' }), { status: 400 })
+    return new Response(JSON.stringify({ message: '필수 필드가 누락되었습니다.' }), {
+      status: 400,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
   try {
     let raidTime: string | null = null
@@ -74,10 +79,20 @@ export async function POST(req: Request) {
           )
         `
 
-      return new Response(JSON.stringify({ message: '지원 성공' }), { status: 200 })
+      return new Response(JSON.stringify({ message: '지원 성공' }), {
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, must-revalidate',
+        },
+      })
     }
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버와 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버와 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }

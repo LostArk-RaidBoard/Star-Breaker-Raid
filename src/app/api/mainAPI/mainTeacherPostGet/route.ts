@@ -35,6 +35,11 @@ export async function GET() {
     return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }

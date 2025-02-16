@@ -4,7 +4,12 @@ export async function GET(req: Request) {
   const url = new URL(req.url)
   const userId = url.searchParams.get('user_id')
   if (!userId) {
-    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
+      status: 404,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 
   try {
@@ -38,6 +43,11 @@ users.user_id, roles.role;`
     })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }

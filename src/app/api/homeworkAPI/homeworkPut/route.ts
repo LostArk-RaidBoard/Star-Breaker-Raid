@@ -64,9 +64,19 @@ export async function PUT(req: Request) {
       `
       await sql.query(query, [list.character_name, list.user_id])
     }
-    return new Response(JSON.stringify({}), { status: 200 })
+    return new Response(JSON.stringify({}), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }

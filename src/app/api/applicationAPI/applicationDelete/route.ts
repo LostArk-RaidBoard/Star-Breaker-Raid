@@ -8,15 +8,23 @@ export async function DELETE(req: Request) {
   const schedule = url.searchParams.get('schedule') || ''
 
   if (!post_id || !userId) {
-    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
+      status: 404,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 
   const formattedSchedule = NormalizeScheduleTime(schedule)
-  console.log('========')
-  console.log('schedule 시간 : ' + schedule, 'fromattedSchedule 시간 : ' + formattedSchedule)
-  console.log('========')
+
   if (!formattedSchedule) {
-    return new Response(JSON.stringify({ message: '날짜 형식 오류' }), { status: 400 })
+    return new Response(JSON.stringify({ message: '날짜 형식 오류' }), {
+      status: 400,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 
   try {
@@ -28,6 +36,9 @@ export async function DELETE(req: Request) {
     if (res1.rows.length === 0) {
       return new Response(JSON.stringify({ message: '해당하는 데이터가 없습니다.' }), {
         status: 404,
+        headers: {
+          'Cache-Control': 'no-store, must-revalidate',
+        },
       })
     }
 
@@ -43,6 +54,11 @@ export async function DELETE(req: Request) {
     })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }

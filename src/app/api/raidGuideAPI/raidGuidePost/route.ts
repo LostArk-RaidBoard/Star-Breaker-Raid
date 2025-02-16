@@ -11,13 +11,28 @@ export async function POST(req: Request) {
   const raidGuide: Guide = await req.json()
 
   if (!raidGuide) {
-    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
+      status: 404,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
   try {
     await sql`INSERT INTO raid_guide (guide_name, youtube_url, image_url, role_id, raid_main_image) VALUES (${raidGuide.guide_name}, ${JSON.stringify(raidGuide.youtube_url)}, ${JSON.stringify(raidGuide.image_url)}, 1, ${raidGuide.raid_main_image})`
-    return new Response(JSON.stringify({ message: '지원 성공' }), { status: 200 })
+    return new Response(JSON.stringify({ message: '지원 성공' }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }
