@@ -55,7 +55,7 @@
       ]
     },
     {
-      "source": "/raidguide/(.*)",
+      "source": "/api/raidGuideAPI/raidGuidePerGet/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
