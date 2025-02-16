@@ -48,7 +48,7 @@ export async function GET(req: Request) {
     return new Response(JSON.stringify({ postRows: res.rows }), {
       status: 200,
       headers: {
-        'Cache-Control': 'public, max-age=86400, s-maxage=31536000, stale-while-revalidate=3600',
+        'Cache-Control': 'public, max-age=15, stale-while-revalidate=10, must-revalidate',
         ETag: etag,
       },
     })
