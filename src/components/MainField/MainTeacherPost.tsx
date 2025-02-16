@@ -27,8 +27,8 @@ interface RaidPost {
 
 export default function MainTeacherPosts() {
   const { data, isLoading } = useSWR(
-    '/api/mainAPI/mainTeacherPostGet?posts_position=teacher',
-    fetcher,
+    [`/api/mainAPI/mainTeacherPostGet`, '', 'mainTeacherPost'],
+    ([url, userId, keyName]) => fetcher(url, userId, keyName),
     {
       refreshInterval: 5000,
       revalidateOnFocus: true,
@@ -37,7 +37,7 @@ export default function MainTeacherPosts() {
   )
 
   const teacherPostsRows =
-    data?.postRows?.map((item: RaidPost) => ({
+    data?.map((item: RaidPost) => ({
       ...item,
       raid_time: convertToKoreanTime(item.raid_time),
     })) ?? []

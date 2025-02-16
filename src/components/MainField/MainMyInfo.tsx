@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
 import Loading from '@image/icon/loading.svg'
 import GoldImage from '@image/image/골드.png'
 import CircleCheck from '@image/icon/circlecheck.svg'
@@ -42,16 +43,31 @@ export default function MainMyInfo() {
   useEffect(() => {
     const mainFetchHandler = async (userId: string) => {
       try {
+        const cachedEtag = Cookies.get(`mainMyInfoETag-${userId}`)
+
         const response = await fetch(`/api/mainAPI/mainMyInfo?userId=${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            ...(cachedEtag ? { 'If-None-Match': cachedEtag } : {}),
           },
         })
 
+        if (response.status === 304) {
+          setMyInfoState(JSON.parse(Cookies.get(`mainMyInfoData-${userId}`) || 'null'))
+          return
+        }
+
+        const data = await response.json()
         if (response.ok && response.status === 200) {
-          const data = await response.json()
           setMyInfoState(data.postRows)
+
+          const newEtag = response.headers.get('ETag')
+          if (newEtag) {
+            Cookies.set(`mainMyInfoETag-${userId}`, newEtag, { expires: 1 })
+          }
+
+          Cookies.set(`mainMyInfoData-${userId}`, JSON.stringify(data.postRows), { expires: 1 })
         }
       } catch (error) {
         console.error('MainInfo Fetch error : ' + error)

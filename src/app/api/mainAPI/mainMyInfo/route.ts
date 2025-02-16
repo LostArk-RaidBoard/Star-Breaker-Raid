@@ -1,5 +1,7 @@
 import GetNextWednesday from '@/components/utils/GetNextWednesday'
 import { sql } from '@vercel/postgres'
+import { cookies } from 'next/headers'
+import crypto from 'crypto'
 
 // 요일 인덱스 설정 함수
 function getKoreanDayIndex(): number {
@@ -68,7 +70,32 @@ GROUP BY
     users.user_id, roles.role, expedition.user_id;
     `
 
-    return new Response(JSON.stringify({ postRows: res.rows[0] }), { status: 200 })
+    const data = JSON.stringify(res.rows[0] || {})
+    const etag = crypto.createHash('md5').update(data).digest('hex')
+
+    const cookieStore = await cookies()
+    const clientEtag =
+      req.headers.get('if-none-match') || cookieStore.get(`mainMyInfoETag-${userId}`)?.value
+
+    // 데이터 변경이 없음 304 응답
+    if (clientEtag && clientEtag === etag) {
+      return new Response(null, { status: 304 })
+    }
+    // 데이터 변경, 새로운 데이터 쿠키에 저장
+    cookieStore.set(`mainMyInfoETag-${userId}`, etag, {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+      maxAge: 86400, // 1일 유지
+    })
+
+    return new Response(JSON.stringify({ postRows: res.rows[0] }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=31536000, stale-while-revalidate=3600',
+        ETag: etag,
+      },
+    })
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), {

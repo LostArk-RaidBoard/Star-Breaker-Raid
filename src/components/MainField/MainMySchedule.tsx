@@ -22,14 +22,22 @@ interface Props {
 }
 
 export default function MainMyPostsSchedule({ userId }: Props) {
-  const { data, isLoading } = useSWR(`/api/mainAPI/mainMySchedule?user_id=${userId}`, fetcher, {
-    refreshInterval: 5000,
-    revalidateOnFocus: true,
-    revalidateOnReconnect: true,
-  })
+  // 🔹 userId가 "no"이면 fetch를 하지 않음
+  const shouldFetch = userId !== 'no'
+  const { data, isLoading } = useSWR(
+    shouldFetch
+      ? [`/api/mainAPI/mainMySchedule?user_id=${userId}`, userId, 'mainMySchedule']
+      : null,
+    ([url, userId, keyName]) => fetcher(url, userId, keyName),
+    {
+      refreshInterval: 5000,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+    },
+  )
 
   const todayPostsRows =
-    data?.postRows?.map((item: TodaySchedule) => ({
+    data?.map((item: TodaySchedule) => ({
       ...item,
       schedule_time: convertToKoreanTime2(item.schedule_time),
     })) ?? []

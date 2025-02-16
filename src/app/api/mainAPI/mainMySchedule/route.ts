@@ -1,4 +1,6 @@
 import { sql } from '@vercel/postgres'
+import { cookies } from 'next/headers'
+import crypto from 'crypto'
 
 export async function GET(req: Request) {
   const url = new URL(req.url)
@@ -20,10 +22,36 @@ export async function GET(req: Request) {
     LEFT JOIN characters AS cl ON sd.character_name = cl.character_name
     WHERE sd.user_id = ${userId} 
       AND (schedule_time + INTERVAL '9 hours')::date = (CURRENT_TIMESTAMP + INTERVAL '9 hours')::date
-    ORDER BY schedule_time;
+    ORDER BY schedule_time
+    LIMIT 10;
     `
 
-    return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })
+    const data = JSON.stringify(res.rows)
+    const etag = crypto.createHash('md5').update(data).digest('hex')
+
+    const cookieStore = await cookies()
+    const clientEtag =
+      req.headers.get('if-none-match') ||
+      (await cookies()).get(`mainMyScheduleETag-${userId}`)?.value
+
+    if (clientEtag && clientEtag === etag) {
+      return new Response(null, { status: 304 })
+    }
+
+    cookieStore.set(`mainMyScheduleETag-${userId}`, etag, {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+      maxAge: 86400, // 1일 유지
+    })
+
+    return new Response(JSON.stringify({ postRows: res.rows }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, max-age=86400, s-maxage=31536000, stale-while-revalidate=3600',
+        ETag: etag,
+      },
+    })
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), {

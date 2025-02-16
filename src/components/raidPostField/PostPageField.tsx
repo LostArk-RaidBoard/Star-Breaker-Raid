@@ -6,7 +6,6 @@ import useSWR from 'swr'
 import PageNavigation from '@/components/utils/PageNavigationSub'
 import { usePageinationSub } from '@/store/pageinationSubStore'
 import { converToKoranTime1 } from '@/components/utils/converToKoreanTime'
-import { fetcher } from '@/components/utils/fetcher'
 import Loading from '@image/icon/loading.svg'
 
 interface RaidPost {
@@ -24,6 +23,26 @@ interface RaidPost {
   approval: number
   rejected_count: number
   nickname: string
+}
+
+export const fetcher = async (url: string) => {
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    return null // 오류 발생 시 null 반환
+  }
 }
 
 export default function PostPageField() {
