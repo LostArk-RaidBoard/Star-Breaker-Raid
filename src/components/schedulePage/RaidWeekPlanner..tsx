@@ -64,13 +64,13 @@ export default function RaidWeekPlanner({ weekSchedule, userId, characterName }:
 
     const diff = (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24)
 
-    if (diff < 7.25) {
-      const diffDays = Math.floor(
-        (adjustedRaidTime.getTime() - startWednesday.getTime()) / (1000 * 60 * 60 * 24),
-      )
-      if (diffDays >= 0 && diffDays < 8) {
-        daysArray[diffDays].push(post)
-      }
+    let diffDays = Math.floor(diff)
+    if (diffDays >= 7) {
+      diffDays = 6
+    }
+
+    if (diffDays >= 0 && diffDays < 8) {
+      daysArray[diffDays].push(post)
     }
   })
 
