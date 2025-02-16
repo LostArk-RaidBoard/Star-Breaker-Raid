@@ -22,7 +22,12 @@ export async function POST(req: Request) {
     !raid_gateway ||
     !raid_level
   ) {
-    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
+      status: 404,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 
   // schedule_time을 ISO 형식으로 변환
@@ -43,7 +48,12 @@ export async function POST(req: Request) {
     )
 
     if (isDuplicate) {
-      return new Response(JSON.stringify({ message: '중복' }), { status: 409 })
+      return new Response(JSON.stringify({ message: '중복' }), {
+        status: 409,
+        headers: {
+          'Cache-Control': 'no-store, must-revalidate',
+        },
+      })
     }
 
     await sql`
@@ -53,10 +63,18 @@ export async function POST(req: Request) {
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
     })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }
 
@@ -65,7 +83,12 @@ export async function DELETE(req: Request) {
   const schedule_id = url.searchParams.get('schedule_id')
 
   if (!schedule_id) {
-    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
+      status: 404,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
   try {
     await sql`
@@ -74,9 +97,17 @@ export async function DELETE(req: Request) {
 
     return new Response(JSON.stringify({ message: '삭제 성공' }), {
       status: 200,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
     })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }

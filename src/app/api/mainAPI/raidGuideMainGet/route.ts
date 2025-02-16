@@ -42,6 +42,9 @@ export async function GET(req: Request) {
     console.error('서버 오류 발생:', error)
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
       status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
     })
   }
 }

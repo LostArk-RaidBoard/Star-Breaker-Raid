@@ -37,7 +37,12 @@ export async function POST(req: Request) {
     !raid_level ||
     !raid_gateway
   ) {
-    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), { status: 404 })
+    return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
+      status: 404,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
   const formattedScheduleTime = new Date(
     new Date(raid_time).getTime() - 9 * 60 * 60 * 1000,
@@ -71,7 +76,12 @@ export async function POST(req: Request) {
     )
 
     if (isDuplicate) {
-      return new Response(JSON.stringify({ message: '중복된 일정입니다.' }), { status: 409 })
+      return new Response(JSON.stringify({ message: '중복된 일정입니다.' }), {
+        status: 409,
+        headers: {
+          'Cache-Control': 'no-store, must-revalidate',
+        },
+      })
     }
 
     await sql`
@@ -130,6 +140,11 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: '레이드 생성 성공' }), { status: 200 })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버와 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버와 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }

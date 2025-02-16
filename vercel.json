@@ -53,15 +53,6 @@
           "value": "public, max-age=86400, s-maxage=31536000, immutable"
         }
       ]
-    },
-    {
-      "source": "/api/raidGuideAPI/raidGuidePerGet",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=60, s-maxage=31536000, stale-while-revalidate=3600"
-        }
-      ]
     }
   ],
 

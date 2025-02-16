@@ -12,6 +12,9 @@ export async function POST(req: Request) {
     console.log('필수 파라미터가 누락되었습니다.')
     return new Response(JSON.stringify({ message: '필수 파라미터가 누락되었습니다.' }), {
       status: 400,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
     })
   }
 
@@ -27,12 +30,27 @@ export async function POST(req: Request) {
     const approval = parseInt(response2.rows[0].count) + 1
     if (approval < limit || check === 'false') {
       await sql`UPDATE applicants_list SET approval=${check} WHERE post_id=${postId} AND user_id=${userId} AND character_name=${characterName}`
-      return new Response(JSON.stringify({ message: '성공' }), { status: 200 })
+      return new Response(JSON.stringify({ message: '성공' }), {
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, must-revalidate',
+        },
+      })
     } else {
-      return new Response(JSON.stringify({ message: '초과' }), { status: 409 })
+      return new Response(JSON.stringify({ message: '초과' }), {
+        status: 409,
+        headers: {
+          'Cache-Control': 'no-store, must-revalidate',
+        },
+      })
     }
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버와 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버와 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, must-revalidate',
+      },
+    })
   }
 }
