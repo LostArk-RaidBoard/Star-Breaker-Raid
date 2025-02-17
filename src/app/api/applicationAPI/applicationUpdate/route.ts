@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: '필수 파라미터가 누락되었습니다.' }), {
       status: 400,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }
@@ -33,14 +33,14 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify({ message: '성공' }), {
         status: 200,
         headers: {
-          'Cache-Control': 'no-store, must-revalidate',
+          'Cache-Control': 'no-cache, must-revalidate',
         },
       })
     } else {
       return new Response(JSON.stringify({ message: '초과' }), {
         status: 409,
         headers: {
-          'Cache-Control': 'no-store, must-revalidate',
+          'Cache-Control': 'no-cache, must-revalidate',
         },
       })
     }
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: '서버와 연결 실패' }), {
       status: 500,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }
