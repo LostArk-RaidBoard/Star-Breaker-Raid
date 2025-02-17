@@ -1,3 +1,4 @@
+import { addHours } from 'date-fns'
 import GetNextWednesday from '@/components/utils/GetNextWednesday'
 import { sql } from '@vercel/postgres'
 import { cookies } from 'next/headers'
@@ -6,10 +7,10 @@ import crypto from 'crypto'
 // 요일 인덱스 설정 함수
 function getKoreanDayIndex(): number {
   const currentDate = new Date()
-  // UTC 기준 9시간을 더해 한국 시간으로 변환
-
+  // UTC 기준 3시간을 더해 한국시간 6시를 기점으로 하루를 변경함
+  const todayDate = addHours(currentDate, 3)
   // 요일 반환 (0: 일요일, 1: 월요일, ..., 6: 토요일)
-  const day = currentDate.getDay()
+  const day = todayDate.getDay()
 
   // 요일에 따른 인덱스 반환
   // 수요일이 1부터 시작하도록 설정
