@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   return new Response(JSON.stringify({ message: '로그아웃 완료' }), {
     status: 200,
     headers: {
-      'Cache-Control': 'no-store, must-revalidate',
+      'Cache-Control': 'no-cache, must-revalidate',
     },
   })
 }

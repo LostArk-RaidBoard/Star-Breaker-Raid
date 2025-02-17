@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
       status: 404,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify({ message: '업데이트가 성공했습니다.' }), {
         status: 201,
         headers: {
-          'Cache-Control': 'no-store, must-revalidate',
+          'Cache-Control': 'no-cache, must-revalidate',
         },
       })
     } else {
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify({ message: '저장을 성공했습니다.' }), {
         status: 202,
         headers: {
-          'Cache-Control': 'no-store, must-revalidate',
+          'Cache-Control': 'no-cache, must-revalidate',
         },
       })
     }
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: 'DB 연결에 실패했습니다ㅏ.' }), {
       status: 500,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }

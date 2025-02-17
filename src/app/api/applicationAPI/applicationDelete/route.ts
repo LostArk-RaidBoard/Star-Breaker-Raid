@@ -11,7 +11,7 @@ export async function DELETE(req: Request) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
       status: 404,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }
@@ -22,7 +22,7 @@ export async function DELETE(req: Request) {
     return new Response(JSON.stringify({ message: '날짜 형식 오류' }), {
       status: 400,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }
@@ -37,7 +37,7 @@ export async function DELETE(req: Request) {
       return new Response(JSON.stringify({ message: '해당하는 데이터가 없습니다.' }), {
         status: 404,
         headers: {
-          'Cache-Control': 'no-store, must-revalidate',
+          'Cache-Control': 'no-cache, must-revalidate',
         },
       })
     }
@@ -57,7 +57,7 @@ export async function DELETE(req: Request) {
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
       status: 500,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }

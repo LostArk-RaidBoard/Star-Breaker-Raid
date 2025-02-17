@@ -12,7 +12,7 @@ export async function PUT(req: Request) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
       status: 404,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }
@@ -25,7 +25,7 @@ export async function PUT(req: Request) {
     return new Response(JSON.stringify({ postRows: res.rows }), {
       status: 200,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   } catch (error) {
@@ -33,7 +33,7 @@ export async function PUT(req: Request) {
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
       status: 500,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }

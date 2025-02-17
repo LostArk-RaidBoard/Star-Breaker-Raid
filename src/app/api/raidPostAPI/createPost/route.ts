@@ -38,7 +38,12 @@ export async function GET(req: Request) {
     return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })
   } catch (error) {
     console.error(error)
-    return new Response(JSON.stringify({ message: '서버 연결 실패' }), { status: 500 })
+    return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-cache, must-revalidate',
+      },
+    })
   }
 }
 
@@ -58,7 +63,7 @@ export async function DELETE(req: Request) {
     return new Response(JSON.stringify({ message: '잘못된 요청입니다.' }), {
       status: 404,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }
@@ -70,7 +75,7 @@ export async function DELETE(req: Request) {
       return new Response(JSON.stringify({ message: '해당하는 모집글이 없습니다.' }), {
         status: 404,
         headers: {
-          'Cache-Control': 'no-store, must-revalidate',
+          'Cache-Control': 'no-cache, must-revalidate',
         },
       })
     }
@@ -108,7 +113,7 @@ export async function DELETE(req: Request) {
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   } catch (error) {
@@ -116,7 +121,7 @@ export async function DELETE(req: Request) {
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
       status: 500,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }

@@ -67,7 +67,7 @@ export async function PUT(req: Request) {
     return new Response(JSON.stringify({}), {
       status: 200,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   } catch (error) {
@@ -75,7 +75,7 @@ export async function PUT(req: Request) {
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
       status: 500,
       headers: {
-        'Cache-Control': 'no-store, must-revalidate',
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
   }
