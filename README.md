@@ -1,38 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Star Breaker Raid
 
-## Getting Started
+- 개발: 2024.9.5 ~ 2025.2.17
 
-First, run the development server:
+- 개발자: wjd15sheep@gmail.com
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 목적
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Star Breaker Raid는 로스트아크 게임을 즐기는 유저들을 위하여 만들어졌습니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+로스트아크 컨텐츠 중에서 특히 레이드에 대한 기능들을 보조하는 기능들로 만들어졌습니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+`모집글 등록`, `신청 기능`, `일정 관리` , `이번주 레이드 수`
 
-## Learn More
+### ✨ 차별점 : 🥇 인증제도
 
-To learn more about Next.js, take a look at the following resources:
+- `인증 제도`란 레이드에 해박하고 공대장을 많이 해봤으며 레이드 중 기믹에 대해서 잘 설명하고 성공적으로 이끌어간 경험이 많이 있는 분들을 특정해 사이트 이용자들에게 클린한 레이드와 성취를 보장하는 제도 입니다.
+- 인증된 사람은 `Teacher`의 칭호를 드리고 모집글을 등록시 메인 화면에 공고하여 사람들에 모집글이 많이 노출이 됩니다. (이는 클린한 레이드를 위함이며 레이드에 두려운 사람들이 인증된 레이드에서 많이 물어보고 성장하도록 장려하기 위해서 입니다.)
+- 인증 문의는 아래의 문의/피드백 이메일로 레이드 공대장으로 `트라이를 클리어 사진`을 10장을 첨부하여 문의를 넣으시면 문의 내용을 확인 후 칭호를 변경해 드립니다.(무조건 인증 된다는 것은 아닙니다)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 중요 기능
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- 레이드 공고 기능
+- 레이드 신청 기능
+- 레이드 신청자를 확인하는 기능
+- 동적 레이아웃, 모바일과 웹 버전
 
-## Deploy on Vercel
+### 배포된 사이트 주소
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+https://star-breaker-raid.vercel.app/
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 사이트 가이드
 
-lastArk class icon made by 폼폼폼푸린
+https://dot-quesadilla-543.notion.site/Star-Breaker-Raid-edbf6874fadb44d3b60dce202b177d39
+
+### 사용한 라이브러리 및 프레임워크 버전
+
+|     | 명칭                        | version            |                                                  |
+| --- | --------------------------- | ------------------ | ------------------------------------------------ |
+| 1   | next                        | 15.1.4 이상        | 프레임워크                                       |
+| 2   | react & react-dom           | 19.0.0 이상        | 리엑트 라이브러리                                |
+| 3   | vercel                      | 39.3.0 이상        | CI/CD 배포 프로세스                              |
+| 4   | zustand                     | 4.5.5 이상         | 전역 상태관리 라이브러리                         |
+| 5   | @auth/core                  | 0.37.4 이상        | Auth.js 로그인 관련 라이브러리                   |
+| 6   | next-auth                   | 5.0.0-beta.25 이상 | Auth.js 로그인 관련 라이브러리                   |
+| 7   | @next/third-parties         | 15.1.4 이상        | google 서드파티 쿠키 처리 관련 라이브러리        |
+| 8   | @vercel/postgres            | 0.9.0 이상         | vercel 포스트 그래이스 연결 ORM 라이브러리       |
+| 9   | @vercel/speed-insights      | 1.1.0 이상         | vercel speed-insights overview 라이브러리        |
+| 10  | bcryptjs                    | 2.4.3 이상         | 해시코드 암호화 라이브러리                       |
+| 11  | date-fns                    | 4.1.0 이상         | 날짜 관련 함수 라이브러리                        |
+| 12  | date-fns-tz                 | 3.2.0 이상         | 날짜 관련 그리고 region에 따른 시간 포멧         |
+| 13  | js-cookie                   | 3.0.5 이상         | 클라이언측 CSR에서 쿠키 제어 함수 라이브러리     |
+| 14  | react-datepicker            | 7.3.0 이상         | 날짜 선택 라이브러리                             |
+| 15  | swr                         | 2.3.2 이상         | 데이터 fetch 관련 라이브러리                     |
+| 16  | zod                         | 3.23.8 이상        | 스키마 선언 및 유요성 검사 라이브러리            |
+| 17  | prettier                    | 3.3.3 이상         | 프리티 설정 라이브러리                           |
+| 18  | prettier-plugin-tailwindcss | 0.6.6 이상         | tailwindcss 프리티 플러그인                      |
+| 19  | tailwindcss                 | 3.4.1              | tailwindcss css를 쉽게 사용할 수 있는 라이브러리 |
+| 20  | typescript                  | 5 이상             | 타입스크립티 라이브러리                          |
+
+사용한 라이브러리 버전과 간단한 설명, 타입스크립트를 사용중이라 @types로 타입이 설정된 라이브러리는 제외했습니다.
+
+### ERD
+
+링크에서 확인
+
+https://dot-quesadilla-543.notion.site/ERD-19363ce144d98078a746f44c7fca522d?pvs=4
+
+### 저작권
+
+Star-Breaker-Raid 제작에 공략과 다양한 이미지들의 출처를 남깁니다.
+
+- 이미지, 각종 asset은 원저작자는 `Smilegate RPG`
+- 레이드 가이드 동영상 원저작자는 `바보 온달`, `바뀐TV`, `캡틴 잭`, `꿀멩이님은 여왕님`, `로아백`
+- 레이드 가이드 컨닝페이퍼 원저작자 `큐티근육맨`, `빵루쉐`, `홍당근`, `아크라시아인의 노트`, `장짱`, `덕진`,`강아지가두마리나`, `고양이가세마리`
