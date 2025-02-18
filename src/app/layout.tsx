@@ -27,6 +27,10 @@ export default function RootLayout({
     <html lang='ko'>
       <head>
         <meta name='theme-color' content='#121826' />
+        <meta
+          name='google-site-verification'
+          content='pGaZ6Nj8h7YrLjp_DIIRuNaDzmxlzishbwTeE_id9Co'
+        />
       </head>
       <body className={notoSansKr.className}>
         <Providers>{children}</Providers>
