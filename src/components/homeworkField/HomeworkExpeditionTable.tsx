@@ -86,10 +86,6 @@ export default function HomeworkExpeditionTable({
                     alt='생활 이미지'
                     width={20}
                     height={20}
-                    style={{
-                      width: '50%',
-                      height: 'auto',
-                    }}
                     priority
                   />
                   <input
@@ -115,10 +111,6 @@ export default function HomeworkExpeditionTable({
                     alt='영지 이미지'
                     width={20}
                     height={20}
-                    style={{
-                      width: '50%',
-                      height: 'auto',
-                    }}
                     priority
                   />
                   <input
@@ -145,10 +137,6 @@ export default function HomeworkExpeditionTable({
                       alt='day콘텐츠 카게 이미지'
                       width={20}
                       height={20}
-                      style={{
-                        width: '50%',
-                        height: 'auto',
-                      }}
                       className={`${item % 2 !== 0 || item === 4 ? '' : 'hidden'}`}
                       priority
                     />
@@ -159,10 +147,6 @@ export default function HomeworkExpeditionTable({
                       alt='day콘텐츠 필보 이미지'
                       width={20}
                       height={20}
-                      style={{
-                        width: '50%',
-                        height: 'auto',
-                      }}
                       className={`${item % 2 !== 0 || item === 0 ? 'hidden' : ''}`}
                       priority
                     />

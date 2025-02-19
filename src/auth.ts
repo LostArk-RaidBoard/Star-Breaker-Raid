@@ -47,7 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   secret: process.env.AUTH_SECRET,
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, trigger, account, session }) {
       if (user) {
         token.id = user.id
         token.role = user.role
@@ -56,6 +56,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.accessToken = account.access_token
         }
       }
+
+      if (trigger == 'update' && session.user.nickName) {
+        token.nickName = session.user.nickName
+      }
+
       return token
     },
     async session({ session, token }) {
