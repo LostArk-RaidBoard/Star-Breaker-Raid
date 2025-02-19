@@ -2,6 +2,7 @@
 import { myInfoTage } from '@/app/action'
 import InputLayout from '@/components/ui/inputLayout'
 import React, { useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   userId: string
@@ -10,6 +11,7 @@ interface Props {
 export default function NickNameChangeForm({ userId }: Props) {
   const [nickName, setNickName] = useState('')
   const [message, setMessage] = useState('')
+  const { data: session, update } = useSession()
 
   const nickNameHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault() // 폼 제출 기본 동작 방지
@@ -38,6 +40,11 @@ export default function NickNameChangeForm({ userId }: Props) {
       if (response.ok) {
         setMessage(data.message)
         myInfoTage()
+        await update({
+          ...session,
+          user: { ...session?.user, nickName },
+        })
+
         setTimeout(() => {
           setMessage('')
         }, 3000)
@@ -52,6 +59,7 @@ export default function NickNameChangeForm({ userId }: Props) {
     }
     return
   }
+
   return (
     <div className='flex w-full flex-col rounded-lg border border-gray-400 bg-white p-6 shadow-lg'>
       <h2 className='mb-4 text-xl font-bold text-gray-900'>닉네임 설정</h2>
