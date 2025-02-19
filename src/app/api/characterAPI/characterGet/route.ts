@@ -24,6 +24,7 @@ export async function GET(req: Request) {
       status: 200,
       headers: {
         'Content-Type': 'application/json', // JSON 형식으로 설정
+        'Cache-Control': 'no-cache, must-revalidate',
       },
     })
 

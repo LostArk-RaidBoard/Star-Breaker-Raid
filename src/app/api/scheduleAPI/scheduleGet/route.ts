@@ -36,6 +36,9 @@ export async function GET(req: Request) {
 
     return new Response(JSON.stringify({ postRows: res.rows, characterName: response.rows }), {
       status: 200,
+      headers: {
+        'Cache-Control': 'no-cache, must-revalidate',
+      },
     })
   } catch (error) {
     console.error(error)

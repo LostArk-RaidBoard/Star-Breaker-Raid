@@ -40,7 +40,12 @@ export async function POST(req: Request) {
     const response =
       await sql`SELECT * FROM applicants_list WHERE post_id = ${application.post_id} AND user_id = ${application.user_id}`
     if (response.rowCount != 0) {
-      return new Response(JSON.stringify({ message: '중복 레이드 신청입니다.' }), { status: 400 })
+      return new Response(JSON.stringify({ message: '중복 레이드 신청입니다.' }), {
+        status: 400,
+        headers: {
+          'Cache-Control': 'no-cache, must-revalidate',
+        },
+      })
     } else {
       await sql`
       INSERT INTO applicants_list (

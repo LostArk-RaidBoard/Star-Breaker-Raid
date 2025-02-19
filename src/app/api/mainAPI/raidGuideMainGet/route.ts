@@ -37,6 +37,9 @@ export async function GET(req: Request) {
 
     return new Response(JSON.stringify({ guideRows: res.rows }), {
       status: 200,
+      headers: {
+        'Cache-Control': 'no-cache, must-revalidate',
+      },
     })
   } catch (error) {
     console.error('서버 오류 발생:', error)

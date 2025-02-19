@@ -42,6 +42,9 @@ export async function POST(req: Request) {
 
     return new Response(JSON.stringify({ message: responseMessage }), {
       status: 200,
+      headers: {
+        'Cache-Control': 'no-cache, must-revalidate',
+      },
     })
   } catch (error) {
     console.error('서버 오류 발생:', error)

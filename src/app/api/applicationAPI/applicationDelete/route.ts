@@ -51,6 +51,9 @@ export async function DELETE(req: Request) {
 
     return new Response(JSON.stringify({ message: '성공' }), {
       status: 200,
+      headers: {
+        'Cache-Control': 'no-cache, must-revalidate',
+      },
     })
   } catch (error) {
     console.error(error)
