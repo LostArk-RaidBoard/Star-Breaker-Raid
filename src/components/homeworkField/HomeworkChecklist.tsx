@@ -91,17 +91,7 @@ export default function HomeworkChecklist({ homeworkSortedList }: HomeworkSetChe
                       guildHandler(index, number, item.guild[number])
                     }}
                   >
-                    <Image
-                      src={GuildImage}
-                      alt='길드 이미지'
-                      width={20}
-                      height={20}
-                      style={{
-                        width: '50%',
-                        height: 'auto',
-                      }}
-                      priority
-                    />
+                    <Image src={GuildImage} alt='길드 이미지' width={20} height={20} priority />
                     <input
                       type='checkbox'
                       aria-label='길드 체크 버튼'
