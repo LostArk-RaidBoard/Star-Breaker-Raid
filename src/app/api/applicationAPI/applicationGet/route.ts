@@ -33,7 +33,12 @@ export async function GET(req: Request) {
       LEFT JOIN characters AS cl ON 
         al.character_name = cl.character_name
       WHERE post_id=${postId}`
-    return new Response(JSON.stringify({ result: res.rows || [] }), { status: 200 })
+    return new Response(JSON.stringify({ result: res.rows || [] }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-cache, must-revalidate',
+      },
+    })
   } catch (error) {
     console.error('Server Error application list get : ' + error)
     return new Response(JSON.stringify({ message: '서버와 연결 실패' }), {

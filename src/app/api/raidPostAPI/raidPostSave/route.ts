@@ -63,7 +63,6 @@ export async function POST(req: Request) {
   const baseWednesdayDate = baseWednesday.toDateString()
 
   try {
-    console.log(nextWednesdayDate, baseWednesdayDate)
     const response =
       await sql`SELECT schedule.raid_gateway FROM schedule WHERE user_id = ${user_id} AND character_name = ${character_name} AND raid_name = ${raid_name}  AND schedule_time < ${nextWednesdayDate + ' 06:00'} AND schedule_time > ${baseWednesdayDate + ' 06:00'} ;`
 
@@ -137,7 +136,12 @@ export async function POST(req: Request) {
           )
         `
 
-    return new Response(JSON.stringify({ message: '레이드 생성 성공' }), { status: 200 })
+    return new Response(JSON.stringify({ message: '레이드 생성 성공' }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-cache, must-revalidate',
+      },
+    })
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ message: '서버와 연결 실패' }), {

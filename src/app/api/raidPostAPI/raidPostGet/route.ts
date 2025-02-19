@@ -81,7 +81,12 @@ export async function GET(req: Request) {
     `
     }
 
-    return new Response(JSON.stringify({ postRows: res.rows }), { status: 200 })
+    return new Response(JSON.stringify({ postRows: res.rows }), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-cache, must-revalidate',
+      },
+    })
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ message: '서버 연결 실패' }), {
