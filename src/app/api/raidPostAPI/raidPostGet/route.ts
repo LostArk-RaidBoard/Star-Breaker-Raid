@@ -84,7 +84,7 @@ export async function GET(req: Request) {
     return new Response(JSON.stringify({ postRows: res.rows }), {
       status: 200,
       headers: {
-        'Cache-Control': 'no-cache, must-revalidate',
+        'Cache-Control': 'public, max-age=0, s-maxage=5, stale-while-revalidate=3, must-revalidate',
       },
     })
   } catch (error) {
