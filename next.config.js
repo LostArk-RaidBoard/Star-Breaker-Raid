@@ -21,7 +21,7 @@ const nextConfig = {
 
   // 이미지 캐시 및 출처 허용
   images: {
-    minimumCacheTTL: 3600,
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: 'https',
