@@ -3,6 +3,9 @@ import useHomeworkStore from '@/store/homeworkCheckStore'
 import Image from 'next/image'
 import React, { useEffect } from 'react'
 import GuildImage from '@image/image/길드.png'
+import Kulngan from '@image/image/쿠르잔전선.png'
+import Guardian from '@image/image/guardian.png'
+import Epona from '@image/image/에포나.png'
 
 interface HomeworkData {
   user_id: string
@@ -94,6 +97,8 @@ export default function HomeworkChecklist({ homeworkSortedList }: HomeworkSetChe
                     <Image src={GuildImage} alt='길드 이미지' width={20} height={20} priority />
                     <input
                       type='checkbox'
+                      id={`guild-checkbox-${index}-${number}`}
+                      name={`guild-checkbox-${index}-${number}`}
                       aria-label='길드 체크 버튼'
                       checked={item.guild[number]}
                       className='hover:cursor-pointer'
@@ -108,16 +113,11 @@ export default function HomeworkChecklist({ homeworkSortedList }: HomeworkSetChe
                       chasoDungeonHandler(index, number, item.chaso_dungeon[number])
                     }}
                   >
-                    <Image
-                      src={
-                        'https://cdn-lostark.game.onstove.com/uploadfiles/notice/2d6d1f84c0d2492e963629a784925092.png'
-                      }
-                      alt='쿠르잔 전선 이미지'
-                      width={20}
-                      height={20}
-                    />
+                    <Image src={Kulngan} alt='쿠르잔 전선 이미지' width={20} height={20} />
                     <input
                       type='checkbox'
+                      id={`chaso-dungeon-checkbox-${index}-${number}`}
+                      name={`chaso-dungeon-checkbox-${index}-${number}`}
                       aria-label='카던 체크 버튼'
                       checked={item.chaso_dungeon[number]}
                       className='hover:cursor-pointer'
@@ -132,16 +132,11 @@ export default function HomeworkChecklist({ homeworkSortedList }: HomeworkSetChe
                       guardianHandler(index, number, item.guardian[number])
                     }}
                   >
-                    <Image
-                      src={
-                        'https://cdn-lostark.game.onstove.com/uploadfiles/notice/204f46e984a64c71b5a059d3c9fcea2b.png'
-                      }
-                      alt='가디언 토벌 이미지'
-                      width={20}
-                      height={20}
-                    />
+                    <Image src={Guardian} alt='가디언 토벌 이미지' width={20} height={20} />
                     <input
                       type='checkbox'
+                      id={`guardian-checkbox-${index}-${number}`}
+                      name={`guardian-checkbox-${index}-${number}`}
                       aria-label='가토 체크 버튼'
                       checked={item.guardian[number]}
                       className='hover:cursor-pointer'
@@ -156,16 +151,11 @@ export default function HomeworkChecklist({ homeworkSortedList }: HomeworkSetChe
                       eponaHandler(index, number, item.epona[number])
                     }}
                   >
-                    <Image
-                      src={
-                        'https://cdn-lostark.game.onstove.com/uploadfiles/notice/de4dd870c84240bb8beebde650ed18d0.png'
-                      }
-                      alt='에포나 이미지'
-                      width={20}
-                      height={20}
-                    />
+                    <Image src={Epona} alt='에포나 이미지' width={20} height={20} />
                     <input
                       type='checkbox'
+                      id={`epona-checkbox-${index}-${number}`}
+                      name={`epona-checkbox-${index}-${number}`}
                       aria-label='에포 체크 버튼'
                       checked={item.epona[number]}
                       className='hover:cursor-pointer'
