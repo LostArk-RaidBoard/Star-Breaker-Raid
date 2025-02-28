@@ -3,6 +3,10 @@
 import { useHomeworkExpeditionStore } from '@/store/homeworkCheckStore'
 import { useEffect } from 'react'
 import Image from 'next/image'
+import FieldBoss from '@image/image/필드보스.png'
+import CoseGate from '@image/image/카게.png'
+import WisdomImage from '@image/image/영지.png'
+import GatheringImage from '@image/image/생활.png'
 
 interface HomeworkExpeditionData {
   user_id: string
@@ -79,15 +83,7 @@ export default function HomeworkExpeditionTable({
                     gatheringHandler(item, homeworkExpeditionList.gathering[item])
                   }}
                 >
-                  <Image
-                    src={
-                      'https://cdn-lostark.game.onstove.com/uploadfiles/notice/67f271a84b4d488f8dfefc1ed5bbded2.png'
-                    }
-                    alt='생활 이미지'
-                    width={20}
-                    height={20}
-                    priority
-                  />
+                  <Image src={GatheringImage} alt='생활 이미지' width={20} height={20} priority />
                   <input
                     type='checkbox'
                     aria-label='생활 버튼'
@@ -104,15 +100,7 @@ export default function HomeworkExpeditionTable({
                     wisdomHandler(item, homeworkExpeditionList.wisdom[item])
                   }}
                 >
-                  <Image
-                    src={
-                      'https://cdn-lostark.game.onstove.com/uploadfiles/notice/f02b26325c624484a4dd4981561c2ab4.png'
-                    }
-                    alt='영지 이미지'
-                    width={20}
-                    height={20}
-                    priority
-                  />
+                  <Image src={WisdomImage} alt='영지 이미지' width={20} height={20} priority />
                   <input
                     type='checkbox'
                     aria-label='영지 체크 버튼'
@@ -131,9 +119,7 @@ export default function HomeworkExpeditionTable({
                 >
                   <div className='flex w-full flex-row items-center justify-center'>
                     <Image
-                      src={
-                        'https://cdn-lostark.game.onstove.com/uploadfiles/notice/cc62912424ee4eb7ad5b233c546ff35a.png'
-                      }
+                      src={CoseGate}
                       alt='day콘텐츠 카게 이미지'
                       width={20}
                       height={20}
@@ -141,9 +127,7 @@ export default function HomeworkExpeditionTable({
                       priority
                     />
                     <Image
-                      src={
-                        'https://cdn-lostark.game.onstove.com/uploadfiles/notice/f2d851bf847a486a81bb44be5c938de0.png'
-                      }
+                      src={FieldBoss}
                       alt='day콘텐츠 필보 이미지'
                       width={20}
                       height={20}

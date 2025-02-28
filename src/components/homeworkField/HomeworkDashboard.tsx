@@ -4,6 +4,13 @@ import HomeworkExpeditionTable from '@/components/homeworkField/HomeworkExpediti
 import HomeworkChecklist from '@/components/homeworkField/HomeworkChecklist'
 import GuildImage from '@image/image/길드.png'
 import Image from 'next/image'
+import Kulngan from '@image/image/쿠르잔전선.png'
+import Guardian from '@image/image/guardian.png'
+import Epona from '@image/image/에포나.png'
+import FieldBoss from '@image/image/필드보스.png'
+import CoseGate from '@image/image/카게.png'
+import WisdomImage from '@image/image/영지.png'
+import GatheringImage from '@image/image/생활.png'
 
 interface HomeworkData {
   user_id: string
@@ -77,9 +84,7 @@ export default async function HomeworkDashboard() {
         <div className='hidden items-center justify-end gap-4 sm:flex'>
           <div className='flex items-center gap-2'>
             <Image
-              src={
-                'https://cdn-lostark.game.onstove.com/uploadfiles/notice/67f271a84b4d488f8dfefc1ed5bbded2.png'
-              }
+              src={GatheringImage}
               alt='생활 이미지'
               width={20}
               height={20}
@@ -90,9 +95,7 @@ export default async function HomeworkDashboard() {
           </div>
           <div className='flex items-center gap-2'>
             <Image
-              src={
-                'https://cdn-lostark.game.onstove.com/uploadfiles/notice/f02b26325c624484a4dd4981561c2ab4.png'
-              }
+              src={WisdomImage}
               alt='영지 이미지'
               width={20}
               height={20}
@@ -103,9 +106,7 @@ export default async function HomeworkDashboard() {
           </div>
           <div className='flex items-center gap-2'>
             <Image
-              src={
-                'https://cdn-lostark.game.onstove.com/uploadfiles/notice/cc62912424ee4eb7ad5b233c546ff35a.png'
-              }
+              src={CoseGate}
               alt='day콘텐츠 카게 이미지'
               width={20}
               height={20}
@@ -117,9 +118,7 @@ export default async function HomeworkDashboard() {
           </div>
           <div className='flex items-center gap-2'>
             <Image
-              src={
-                'https://cdn-lostark.game.onstove.com/uploadfiles/notice/f2d851bf847a486a81bb44be5c938de0.png'
-              }
+              src={FieldBoss}
               alt='day콘텐츠 필보 이미지'
               width={20}
               height={20}
@@ -151,7 +150,7 @@ export default async function HomeworkDashboard() {
           {/* 카던 */}
           <div className='flex items-center gap-2'>
             <Image
-              src='https://cdn-lostark.game.onstove.com/uploadfiles/notice/2d6d1f84c0d2492e963629a784925092.png'
+              src={Kulngan}
               alt='카던 이미지'
               width={20}
               height={20}
@@ -164,7 +163,7 @@ export default async function HomeworkDashboard() {
           {/* 가디언 */}
           <div className='flex items-center gap-2'>
             <Image
-              src='https://cdn-lostark.game.onstove.com/uploadfiles/notice/204f46e984a64c71b5a059d3c9fcea2b.png'
+              src={Guardian}
               alt='가디언 이미지'
               width={20}
               height={20}
@@ -177,7 +176,7 @@ export default async function HomeworkDashboard() {
           {/* 에포나 */}
           <div className='flex items-center gap-2'>
             <Image
-              src='https://cdn-lostark.game.onstove.com/uploadfiles/notice/de4dd870c84240bb8beebde650ed18d0.png'
+              src={Epona}
               alt='에포나 이미지'
               width={20}
               height={20}
