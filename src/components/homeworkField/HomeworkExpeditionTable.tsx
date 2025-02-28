@@ -86,6 +86,8 @@ export default function HomeworkExpeditionTable({
                   <Image src={GatheringImage} alt='생활 이미지' width={20} height={20} priority />
                   <input
                     type='checkbox'
+                    id={`gathering-checkbox-${item}`}
+                    name={`gathering-checkbox-${item}`}
                     aria-label='생활 버튼'
                     checked={homeworkExpeditionList.gathering[item]}
                     className='hover:cursor-pointer'
@@ -103,6 +105,8 @@ export default function HomeworkExpeditionTable({
                   <Image src={WisdomImage} alt='영지 이미지' width={20} height={20} priority />
                   <input
                     type='checkbox'
+                    id={`wisdom-checkbox-${item}`}
+                    name={`wisdom-checkbox-${item}`}
                     aria-label='영지 체크 버튼'
                     checked={homeworkExpeditionList.wisdom[item]}
                     className='hover:cursor-pointer'
@@ -137,6 +141,8 @@ export default function HomeworkExpeditionTable({
                   </div>
                   <input
                     type='checkbox'
+                    id={`daycontent-checkbox-${item}`}
+                    name={`daycontent-checkbox-${item}`}
                     aria-label='daycontents 체크 버튼'
                     className={`${item === 0 ? 'hidden' : ''} hover:cursor-pointer`}
                     checked={homeworkExpeditionList.daycontent[item]}
