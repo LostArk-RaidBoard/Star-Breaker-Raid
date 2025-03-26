@@ -182,6 +182,11 @@ export default function RaidGatewayPicker() {
         '3막 모르둠',
         '3막 모르둠 노말',
         '3막 모르둠 하드',
+
+        '강습 나르하쉬 노말',
+        '강습 나르하쉬 하드',
+        '강습 타르칼 노말',
+        '강습 타르칼 하드',
       ],
     },
     {
@@ -306,6 +311,9 @@ export default function RaidGatewayPicker() {
 
   useEffect(() => {
     setRaidLevelSelect(raidSelect + ' ' + raidLevel)
+    setRaidGateway('')
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [raidLevel, raidSelect])
 
   return (
