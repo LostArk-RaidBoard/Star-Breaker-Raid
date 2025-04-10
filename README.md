@@ -1,6 +1,7 @@
 # Star Breaker Raid
 
 - 개발: 2024.9.5 ~ 2025.2.17
+- 유지보수: 2025.2.17~
 
 - 개발자: wjd15sheep@gmail.com
 
@@ -61,10 +62,11 @@ https://dot-quesadilla-543.notion.site/Star-Breaker-Raid-edbf6874fadb44d3b60dce2
 사용한 라이브러리 버전과 간단한 설명, 타입스크립트를 사용중이라 @types로 타입이 설정된 라이브러리는 제외했습니다.
 
 ### ERD
+![Image](https://github.com/user-attachments/assets/0d6820ab-5fbc-4750-b85c-27d09f8323b7)
 
-링크에서 확인
+자세한 사항은 [링크](https://dot-quesadilla-543.notion.site/ERD-19363ce144d98078a746f44c7fca522d?pvs=4)에서 확인
 
-https://dot-quesadilla-543.notion.site/ERD-19363ce144d98078a746f44c7fca522d?pvs=4
+
 
 ### 저작권
 
