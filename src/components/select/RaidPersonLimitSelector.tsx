@@ -16,7 +16,12 @@ export default function RaidPersonLimitSelector() {
     if (raidSelect === '베히모스') {
       setMaxLimitPerson(16)
       setRaidLimitPerson(16) // 가장 마지막 숫자로 설정
-    } else if (raidSelect === '상아탑' || raidSelect === '카양겔' || raidSelect === '쿠크세이튼') {
+    } else if (
+      raidSelect === '상아탑' ||
+      raidSelect === '카양겔' ||
+      raidSelect === '쿠크세이튼' ||
+      raidSelect === '강습 나르하쉬'
+    ) {
       setMaxLimitPerson(4)
       setRaidLimitPerson(4) // 가장 마지막 숫자로 설정
     } else {
