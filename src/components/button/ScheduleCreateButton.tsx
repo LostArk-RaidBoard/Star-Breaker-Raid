@@ -12,8 +12,40 @@ import GetRaidGold from '@/components/utils/GetRaidGold'
 import { createPostTage } from '@/app/action'
 import { useSession } from 'next-auth/react'
 
+type CharacterState = {
+  character_name: string
+  user_id: string
+  character_level: string
+  character_class: string
+  server_name: string
+  class_image: string
+  class_icon_url: string
+  transcendence: number
+  elixir: number
+  leap: number
+  enlightenment: number
+  evolution: number
+  disable: boolean
+}
+
 interface Props {
   userId: string
+}
+
+const noCharacters: CharacterState = {
+  character_name: '캐릭터가 없습니다!',
+  user_id: '',
+  character_level: '',
+  character_class: '',
+  server_name: '',
+  class_image: '',
+  class_icon_url: '',
+  transcendence: 0,
+  elixir: 0,
+  leap: 0,
+  enlightenment: 0,
+  evolution: 0,
+  disable: false,
 }
 
 /**
@@ -53,6 +85,10 @@ export default function ScheduleCreateButton({ userId }: Props) {
     const gold = GetRaidGold(raidGoldGetName)
 
     try {
+      if (characterInfo[0].character_name == '캐릭터가 없습니다!') {
+        return setFetchSuccess(4)
+      }
+
       const response = await fetch(
         `/api/scheduleAPI/schedulePost?user_id=${userId}&raid_gold=${gold}&schedule_time=${raidDate}&character_name=${characterInfo[0].character_name}&raid_name=${raidSelect}&raid_gateway=${raidGateway}&raid_level=${raidLevel}`,
         {
@@ -73,6 +109,10 @@ export default function ScheduleCreateButton({ userId }: Props) {
       }
     } catch (error) {
       console.error(error)
+    } finally {
+      setTimeout(() => {
+        setFetchSuccess(0)
+      }, 3000)
     }
   }
 
@@ -80,9 +120,13 @@ export default function ScheduleCreateButton({ userId }: Props) {
     setReset()
     const characterFetch = async (userId: string) => {
       const characterlist = await UtileCharacterDataFetch(userId)
-      setCharacterAllList(characterlist)
+
       if (characterlist.length > 0) {
+        setCharacterAllList(characterlist)
         setCharacterInfo([characterlist[0]])
+      } else {
+        setCharacterAllList([noCharacters])
+        setCharacterInfo([noCharacters])
       }
     }
     if (userId) {
@@ -90,6 +134,7 @@ export default function ScheduleCreateButton({ userId }: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
   return (
     <>
       <button
@@ -144,6 +189,9 @@ export default function ScheduleCreateButton({ userId }: Props) {
               </span>
               <span className={`${fetchSuccess === 3 ? '' : 'hidden'} text-red-500`}>
                 일정 추가 실패 : 서버 연결 실패
+              </span>
+              <span className={`${fetchSuccess === 4 ? '' : 'hidden'} text-red-500`}>
+                일정 추가 실패 : 캐릭터가 없습니다!
               </span>
             </div>
 
