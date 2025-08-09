@@ -39,7 +39,7 @@ https://dot-quesadilla-543.notion.site/Star-Breaker-Raid-edbf6874fadb44d3b60dce2
 ---
 
 
-### Screenshot
+### 이미지
 <img width="1710" height="948" alt="image" src="https://github.com/user-attachments/assets/b8cbc46a-89f2-4ce8-a235-9dc83dcc1543" />
 <img width="1710" height="950" alt="image" src="https://github.com/user-attachments/assets/75a19cf2-78af-4b75-86d5-e4bc2d585d4c" />
 <img width="1702" height="1018" alt="image" src="https://github.com/user-attachments/assets/cfb87227-1758-46f1-b3aa-bb4b1677749b" />
