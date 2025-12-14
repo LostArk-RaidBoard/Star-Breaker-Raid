@@ -27,6 +27,9 @@ export default function RaidLevelPicker() {
     '상아탑',
     '카멘',
     '서막 에키드나',
+    '1막 에기르',
+    '2막 아브렐슈드',
+    '3막 모르둠',
   ]
 
   useEffect(() => {

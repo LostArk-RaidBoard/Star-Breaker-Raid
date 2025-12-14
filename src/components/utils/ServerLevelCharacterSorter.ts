@@ -6,12 +6,11 @@ interface SaveCharacterInfo {
   server_name: string
   class_image: string
   class_icon_url: string
-  transcendence: number
-  elixir: number
   leap: number
   enlightenment: number
   evolution: number
   disable: boolean
+  combat_power: string
 }
 
 export default function ServerLevelCharacterSorter(list: SaveCharacterInfo[]) {

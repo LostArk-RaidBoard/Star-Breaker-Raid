@@ -11,12 +11,11 @@ const undetermined = {
   character_class: '캐릭터 미정',
   class_image: '/icon/ellipsis.svg',
   class_icon_url: '/icon/ellipsis.svg',
-  transcendence: 0,
-  elixir: 0,
   leap: 0,
   enlightenment: 0,
   evolution: 0,
   disable: false,
+  combat_power: '0',
 }
 
 const noCharacters = {
@@ -27,12 +26,11 @@ const noCharacters = {
   character_class: '캐릭터 없음',
   class_image: '/icon/ellipsis.svg',
   class_icon_url: '/icon/ellipsis.svg',
-  transcendence: 0,
-  elixir: 0,
   leap: 0,
   enlightenment: 0,
   evolution: 0,
   disable: false,
+  combat_power: '0',
 }
 
 interface CharacterInfo {
@@ -42,13 +40,12 @@ interface CharacterInfo {
   character_class: string
   server_name: string
   class_image: string
-  transcendence: number
   leap: number
   evolution: number
   enlightenment: number
-  elixir: number
   class_icon_url: string
   disable: boolean
+  combat_power: string
 }
 interface Props {
   createPostCharacter: CharacterInfo[]

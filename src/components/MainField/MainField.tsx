@@ -1,7 +1,6 @@
 import SiteLink from '@/components/MainField/SiteLink'
 import MainRaidGuide from '@/components/MainField/MainRaidGuide'
 import { auth } from '@/auth'
-import MainTeacherPosts from '@/components/MainField/MainTeacherPost'
 import MainMyPostsSchedule from '@/components/MainField/MainMySchedule'
 import MainMyInfo from '@/components/MainField/MainMyInfo'
 import React from 'react'
@@ -26,9 +25,6 @@ export default async function MainField() {
         <div className='flex w-full flex-col gap-6 md:flex-row xl:flex-grow'>
           {/* 오늘의 일정 */}
           <MainMyPostsSchedule userId={userId} />
-
-          {/* 인증 레이드 */}
-          <MainTeacherPosts />
         </div>
       </div>
 
