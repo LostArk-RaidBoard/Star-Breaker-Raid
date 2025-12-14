@@ -8,11 +8,10 @@ interface SaveCharacterInfo {
   server_name: string
   class_image: string
   class_icon_url: string
-  transcendence: number
-  elixir: number
   leap: number
   enlightenment: number
   evolution: number
+  combat_power: string
 }
 export async function POST(req: Request) {
   const saveCharacterInfo: SaveCharacterInfo = await req.json()
@@ -24,11 +23,10 @@ export async function POST(req: Request) {
     server_name,
     class_image,
     class_icon_url,
-    transcendence,
-    elixir,
     leap,
     enlightenment,
     evolution,
+    combat_power,
   } = saveCharacterInfo
 
   if (!saveCharacterInfo) {
@@ -45,7 +43,7 @@ export async function POST(req: Request) {
 
     // DB에 캐릭터가 존재하면 UPDATE
     if (res.rowCount !== 0) {
-      await sql`UPDATE characters SET character_level=${character_level}, transcendence=${transcendence}, leap=${leap}, evolution=${evolution}, enlightenment=${enlightenment}, elixir=${elixir} WHERE character_name=${character_name}`
+      await sql`UPDATE characters SET character_level=${character_level}, leap=${leap}, evolution=${evolution}, enlightenment=${enlightenment}, combat_power=${combat_power} WHERE character_name=${character_name}`
 
       return new Response(JSON.stringify({ message: '업데이트가 성공했습니다.' }), {
         status: 201,
@@ -55,7 +53,7 @@ export async function POST(req: Request) {
       })
     } else {
       // DB에 캐릭터가 없다면 INSERT
-      await sql`INSERT INTO characters (character_name, user_id, character_level, character_class, server_name, class_image, class_icon_url, transcendence, elixir, leap, enlightenment, evolution) VALUES (${character_name}, ${user_id}, ${character_level}, ${character_class}, ${server_name}, ${class_image}, ${class_icon_url}, ${transcendence}, ${elixir}, ${leap}, ${enlightenment}, ${evolution})`
+      await sql`INSERT INTO characters (character_name, user_id, character_level, character_class, server_name, class_image, class_icon_url, leap, enlightenment, evolution, combat_power) VALUES (${character_name}, ${user_id}, ${character_level}, ${character_class}, ${server_name}, ${class_image}, ${class_icon_url}, ${leap}, ${enlightenment}, ${evolution}, ${combat_power})`
       await sql`INSERT INTO homework (character_name, user_id) VALUES (${character_name}, ${user_id})`
       return new Response(JSON.stringify({ message: '저장을 성공했습니다.' }), {
         status: 202,

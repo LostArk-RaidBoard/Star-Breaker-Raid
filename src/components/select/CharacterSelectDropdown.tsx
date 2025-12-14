@@ -14,13 +14,12 @@ interface CharacterInfo {
   character_class: string
   server_name: string
   class_image: string
-  transcendence: number
   leap: number
   evolution: number
   enlightenment: number
-  elixir: number
   class_icon_url: string
   disable: boolean
+  combat_power: string
 }
 interface Props {
   raidLimitLevel: number
@@ -35,13 +34,12 @@ const noCharacters = {
   character_class: '캐릭터 없음',
   class_image: '/icon/ellipsis.svg',
   class_icon_url: '/icon/ellipsis.svg',
-  transcendence: 0,
-  elixir: 0,
   leap: 0,
   enlightenment: 0,
   evolution: 0,
   disable: false,
   raid: '',
+  combat_power: '0',
 }
 
 export default function CharacterSelectDropdown({ raidLimitLevel, userId }: Props) {
@@ -149,20 +147,6 @@ export default function CharacterSelectDropdown({ raidLimitLevel, userId }: Prop
             <span className='hidden text-lg text-black text-white sm:flex'>
               {characterInfo[0].character_level} Lv
             </span>
-            <div className='flex hidden items-center text-white sm:flex'>
-              <Image
-                src={'/image/엘릭서.png'}
-                alt={'엘릭서'}
-                width={30}
-                height={30}
-                className='p-1'
-              />
-              <span>{characterInfo[0].elixir}</span>
-            </div>
-            <div className='flex hidden items-center text-white sm:flex'>
-              <Image src={'/image/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
-              <span>{characterInfo[0].transcendence}</span>
-            </div>
           </div>
         )}
         <Under className='h-4 w-4 text-white' strokeWidth={3} />
@@ -194,20 +178,6 @@ export default function CharacterSelectDropdown({ raidLimitLevel, userId }: Prop
             />
             <span className=''>{char.character_name}</span>
             <span className='hidden sm:block'>{char.character_level}</span>
-            <div className='flex hidden items-center sm:flex'>
-              <Image
-                src={'/image/엘릭서.png'}
-                alt={'엘릭서'}
-                width={30}
-                height={30}
-                className='p-1'
-              />
-              <span>{char.elixir}</span>
-            </div>
-            <div className='flex hidden items-center sm:flex'>
-              <Image src={'/image/초월.png'} alt={'초월'} width={30} height={30} className='p-1' />
-              <span>{char.transcendence}</span>
-            </div>
           </div>
         ))}
       </div>

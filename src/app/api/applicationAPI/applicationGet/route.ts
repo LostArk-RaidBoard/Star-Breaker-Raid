@@ -21,11 +21,10 @@ export async function GET(req: Request) {
         al.hope,
         al.post_id,
         cl.character_level,
-        cl.elixir, 
-        cl.transcendence,
         cl.leap,
         cl.evolution,
         cl.enlightenment,
+        cl.combat_power,
         al.character_icon,
         al.character_image,
         al.approval
