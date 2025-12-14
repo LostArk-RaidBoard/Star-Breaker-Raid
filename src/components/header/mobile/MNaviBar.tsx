@@ -60,13 +60,6 @@ export default function MNaviBar() {
             <span className='py-2 font-semibold transition-colors hover:text-blue-600'>• 메인</span>
           </Link>
 
-          {/* 모집 글 화면 이동 */}
-          <Link href={'/raidpost'} scroll={false}>
-            <span className='py-2 font-semibold transition-colors hover:text-blue-600'>
-              • 모집글
-            </span>
-          </Link>
-
           {/* 공략 화면 이동 */}
           <Link href={'/raidguide'} scroll={false}>
             <span className='py-2 font-semibold transition-colors hover:text-blue-600'>• 공략</span>

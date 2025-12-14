@@ -12,13 +12,12 @@ interface CharacterInfo {
   character_class: string
   server_name: string
   class_image: string
-  transcendence: number
   leap: number
   evolution: number
   enlightenment: number
-  elixir: number
   class_icon_url: string
   disable: boolean
+  combat_power: string
 }
 interface CharacterList {
   CharacterClassName: string

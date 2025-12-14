@@ -10,13 +10,12 @@ interface CharacterInfo {
   character_class: string
   server_name: string
   class_image: string
-  transcendence: number
   leap: number
   evolution: number
   enlightenment: number
-  elixir: number
   class_icon_url: string
   disable: boolean
+  combat_power: string
 }
 
 export default async function MypageFieldComponent() {

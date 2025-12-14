@@ -165,12 +165,6 @@ export default function MainMyInfo() {
             >
               일정 관리
             </Link>
-            <Link
-              href={'/raidpost/create?redirect=/'}
-              className='ml-2 flex flex-1 items-center justify-center rounded-md bg-gray-500 p-2 text-sm font-medium text-white shadow-md hover:bg-gray-600'
-            >
-              모집 글 등록
-            </Link>
           </div>
         </div>
       ) : (

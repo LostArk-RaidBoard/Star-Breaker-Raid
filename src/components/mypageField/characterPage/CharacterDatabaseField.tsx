@@ -16,12 +16,11 @@ interface SaveCharacterInfo {
   server_name: string
   class_image: string
   class_icon_url: string
-  transcendence: number
-  elixir: number
   leap: number
   enlightenment: number
   evolution: number
   disable: boolean
+  combat_power: string
 }
 
 interface CharacterInfo {
@@ -31,13 +30,12 @@ interface CharacterInfo {
   character_class: string
   server_name: string
   class_image: string
-  transcendence: number
   leap: number
   evolution: number
   enlightenment: number
-  elixir: number
   class_icon_url: string
   disable: boolean
+  combat_power: string
 }
 
 interface Props {
@@ -252,27 +250,10 @@ export default function CharacterDatabaseField({ userId, dbCharacter }: Props) {
                       {character.character_level}
                     </span>
                   </div>
-                  <div className='flex gap-3 overflow-hidden truncate whitespace-nowrap'>
-                    <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
-                      <Image
-                        src={'/image/엘릭서.png'}
-                        alt='엘릭서'
-                        width={30}
-                        height={30}
-                        className='p-1'
-                      />
-                      <span>{character.elixir}</span>
-                    </div>
-                    <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
-                      <Image
-                        src={'/image/초월.png'}
-                        alt='초파고'
-                        width={30}
-                        height={30}
-                        className='p-1'
-                      />
-                      <span>{character.transcendence}</span>
-                    </div>
+                  <div className='flex items-center gap-1 overflow-hidden truncate whitespace-nowrap'>
+                    <span className='overflow-hidden truncate whitespace-nowrap'>
+                      {character.combat_power}
+                    </span>
                   </div>
 
                   <div className='mt-2 flex w-full items-center justify-between gap-3 overflow-hidden truncate whitespace-nowrap text-sm'>
