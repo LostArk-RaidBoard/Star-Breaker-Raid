@@ -144,6 +144,12 @@ const classImageMap: Record<string, { icon: string; image: string }> = {
     image: 'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/alchemist.png',
   },
 
+  가디언나이트: {
+    icon: '/classIcon/가디언나이트.svg',
+    image:
+      'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/dragon_knight.png',
+  },
+
   //클래스 기본 이미지
   '전사(남)': {
     icon: 'https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/warrior.png',
